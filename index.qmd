@@ -1,11 +1,5 @@
 ---
-title: "statweb"
+title: "Otázky a odpovědi ze statistiky"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Tento web slouží jako sada Q&A ze statistiky. Neklade si ambici na to, aby byl koherentní učebnicí, ale představuje dílčí otázky, které si studenti mohou klást při učení se na zkoušku. Odpovědi jsou záměrně redundantní, aby se otázky daly číst samostatně,
