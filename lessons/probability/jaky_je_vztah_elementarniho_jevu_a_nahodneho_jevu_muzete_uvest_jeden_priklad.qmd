@@ -1,0 +1,65 @@
+
+---
+title: "Vztah mezi elementárním jevem a náhodným jevem"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do pravděpodobnosti
+
+Když hovoříme o pravděpodobnosti a statistice, často se setkáváme s pojmy jako **elementární jev** a **náhodný jev**. Tyto pojmy jsou základními stavebními kameny porozumění pravděpodobnosti. Rozložme si je tedy na jejich základní komponenty a pojďme se podívat, jak spolu interagují.
+
+## Definice elementárního jevu
+
+**Elementární jev** je jedním z možných výstupů statistického pokusu nebo experimentu, který nelze rozdělit na jednodušší výstupy. Je to co nejjednodušší výsledek, který může nastat, když provedeme pokus.
+
+### Příklad:
+
+Představme si házení mincí. Pokud si vezmeme experiment „hod mincí“, máme dva elementární jevy:
+
+- Mince padne na *panna*.
+- Mince padne na *orel*.
+
+V tomto případě jsou panna a orel elementární jevy, protože jsou to nejmenší možné výsledky daného pokusu.
+
+## Definice náhodného jevu
+
+**Náhodný jev** je jakákoli podmnožina elementárních jevů, která může obsahovat jeden, více nebo i žádné z těchto elementárních jevů. Často se definuje jako množina všech možných výsledků, které odpovídají určité podmínce.
+
+### Příklad:
+
+Naváže-li na předchozí příklad hodu mincí, můžeme definovat následující náhodné jevy:
+
+- Jev "padne panna" = {panna}.
+- Jev "padne orel" = {orel}.
+- Jev "padne panna nebo orel" = {panna, orel}.
+
+Zde je poslední jev **"padne panna nebo orel"** příkladem náhodného jevu, který obsahuje oba elementární jevy.
+
+## Vztah mezi elementárním a náhodným jevem
+
+Náhodné jevy vznikají kombinací elementárních jevů. Každý elementární jev je zároveň náhodným jevem (je to náhodný jev, který obsahuje pouze jednoho člena). Náhodný jev tedy může obsahovat jeden nebo více elementárních jevů dle specifikace pokusu či otázky, kterou se snažíme odpovědět.
+
+### Další příklad z každodenního života:
+
+Představte si kostku se šesti stranami (očíslovanými od 1 do 6). Každé číslo, které může padnout, je elementární jev.
+
+- Jednotlivé elementární jevy jsou: {1}, {2}, {3}, {4}, {5}, {6}.
+- Příklad náhodného jevu může být například "hodíme sudé číslo", což by zahrnovalo elementární jevy {2, 4, 6}.
+
+## Závěr
+
+Elementární jevy a náhodné jevy jsou klíčové koncepty pro pochopení pravděpodobnosti. Elementární jevy představují nejzákladnější možné výsledky, zatímco náhodné jevy umožňují složitější kombinace a interpretace těchto výsledků v rámci daného experimentu. Bez jejich plného pochopení by bylo obtížné analyzovat pravděpodobnost a náhodné události.
+
+

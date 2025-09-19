@@ -1,0 +1,59 @@
+
+---
+title: "Leveneho Test: Interpretace a Použití"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Leveneho Testu
+
+## Co je Leveneho test?
+
+Leveneho test je statistický test, který se používá k ověření předpokladu homoskedasticity, tedy toho, že různé skupiny mají stejnou rozptyl. Tento test je oblíbený pro svou všestrannost a robustnost vůči odchylkám od normálního rozdělení. Pojďme si ho ale vysvětlit trochu podrobněji.
+
+## Proč potřebujeme testovat rovnost rozptylů?
+
+V mnoha statistických analýzách, obzvláště v analýze rozptylu (ANOVA), předpokládáme, že skupiny mají stejný rozptyl. Pokud tento předpoklad není splněn, může to ovlivnit výsledky analýzy, což povede k chybným závěrům.
+
+### Příklad z praxe
+
+Představte si, že pracujete v marketingovém oddělení a chcete srovnat úspěšnost tří různých reklamních kampaní na zvýšení prodeje produktů. Měli byste tři skupiny dat, každou reprezentující výsledky jedné kampaně. Leveneho test pomůže zkontrolovat, zda rozptyly úspěšnosti třech kampaní jsou stejné, což by validovalo následnou ANOVA analýzu.
+
+# Jak Leveneho test funguje?
+
+## Krok za krokem
+
+1. **Výpočet rozptylů:** Leveneho test porovnává meziskupinové a vnitroskupinové rozdíly v rozptylu. Pro každou skupinu se vypočítá medián a odchylky jednotlivých pozorování od této hodnoty.
+
+2. **ANOVA na odchylky:** Provede se analýza rozptylu na těchto absolutních odchylkách od mediánů. 
+
+3. **Hypotézy:**
+   - **Null Hypotéza (H₀):** Rozptyly ve všech skupinách jsou stejné.
+   - **Alternativní Hypotéza (H₁):** Rozptyly ve skupinách se liší.
+
+4. **Výsledek testu:** Pokud p-hodnota Leveneho testu je nižší než významnostní hladina (např. 0,05), zamítáme nulovou hypotézu a tvrdíme, že rozptyly nejsou stejné.
+
+## Interpretace výsledků
+
+Pokud Leveneho test ukáže statisticky významný výsledek (tj. malou p-hodnotu), měli bychom být opatrní při použití technik, které předpokládají rovnost rozptylů. Mohlo by to znamenat, že musíme použít alternativu k obyčejné ANOVA, jako je například Welchova ANOVA.
+
+### Další příklad
+
+Představte si, že jste učitel a chcete porovnat výsledky testů studentů ze tří různých škol. Pokud zjistíte, že rozptyly testových výsledků jsou různé, může to znamenat, že školy mají různé úrovně variability ve výuce nebo že některé školy mohou být specializované na některé vědomosti více než jiné.
+
+# Shrnutí
+
+Leveneho test je klíčovým nástrojem v diagnostice předpokladu rovnosti rozptylů v mnoha statistických analýzách. Jeho správná aplikace a interpretace nám pomáhá s validními a spolehlivými výsledky, což je esenciální pro vědeckou práci i praktické rozhodování v různých oblastech.
+
+

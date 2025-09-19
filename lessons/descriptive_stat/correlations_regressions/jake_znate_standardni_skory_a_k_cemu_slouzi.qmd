@@ -1,0 +1,78 @@
+---
+title: "Standardní skóry ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do standardních skóre
+
+Standardní skóry jsou nástroje ve statistice, které nám pomáhají interpretovat individuální hodnoty v kontextu celkového datasetu. Jsou užitečné zejména pro porovnání hodnot, které jsou měřeny na různých škálách nebo v různých jednotkách.
+
+## Z-skóre
+
+### Co je Z-skóre?
+
+Z-skóre (také nazývané standardní skóre) je ukazatel, který nám říká, kolik směrodatných odchylek je daná hodnota nad nebo pod průměrem. Ve statistice se Z-skóre používá k porovnání individuální hodnoty s průměrem.
+
+### Výpočet Z-skóre
+
+Z-skóre se vypočte podle vzorce:
+\[ Z = \frac{x - \mu}{\sigma} \]
+kde:
+- \( x \) je hodnota, kterou hodnotíme,
+- \( \mu \) je průměr datasetu,
+- \( \sigma \) je směrodatná odchylka datasetu.
+
+### Příklad z běžného života
+
+Představte si, že jste na školním testu z matematiky. Pokud váš výsledek je 85 bodů, průměrná třída má 70 bodů, a směrodatná odchylka je 10 bodů, vaše Z-skóre je:
+\[ Z = \frac{85 - 70}{10} = 1.5 \]
+
+To znamená, že váš výsledek je 1.5 směrodatné odchylky nad průměrem třídy.
+
+## T-skóre
+
+### Co je T-skóre?
+
+T-skóre je upravená verze Z-skóre, která se používá hlavně v psychologii a pedagogice k hodnocení testů a jiných měření, kde chceme snadněji srovnávat výsledky. T-skóre má průměr 50 a směrodatnou odchylku 10.
+
+### Výpočet T-skóre
+
+T-skóre se vypočítá podle vzorce:
+\[ T = 50 + 10 \times Z \]
+
+### Příklad z běžného života
+
+Použijeme předchozí příklad z matematiky. Pokud jste získali Z-skóre 1.5, vaše T-skóre by bylo:
+\[ T = 50 + 10 \times 1.5 = 65 \]
+
+To znamená, že jste stále nad průměrem, a to o 15 bodů na škále T-skóre.
+
+## Percentilové skóre
+
+### Co je percentilové skóre?
+
+Percentilové skóre ukazuje, jaké procento hodnot v datasetu je menší než daná hodnota. Tento typ standardizace je často používán pro umístění jednotlivé hodnoty v kontextu celé distribuce bez ohledu na normální rozdělení.
+
+### Příklad z běžného života
+
+Pokud jste v testu matematiky dosáhli 85. percentilu, znamená to, že 85 % studentů mělo horší výsledek než vy.
+
+---
+
+# Závěr
+
+Standardní skóry, jako jsou Z-skóre, T-skóre a percentilové skóre, jsou užitečné nástroje pro porovnávání individuálních výkonů a hodnot v kontextu skupiny nebo populace. Pomáhají nám pochopit, kde se v rámci celkové skupiny nacházíme, a dávají smysl jednotlivým výsledkům na odlišných měřítcích.
+
+

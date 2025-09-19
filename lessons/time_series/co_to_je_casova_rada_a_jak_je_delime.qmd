@@ -1,0 +1,67 @@
+
+---
+title: "Studijní Materiál: Časové Řady a Jejich Dělení"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do Časových Řad
+
+### Co je to časová řada?
+
+Časová řada je sled hodnot měřených nebo pozorovaných v pravidelných časových intervalech. Časové řady mohou obsahovat libovolné typy dat, ale často představují statistické záznamy jako jsou ceny akcií, teploty, průtoky řek nebo úroveň zaměstnanosti ve firmě.
+
+#### Příklady časových řad
+- **Ekonomické ukazatele:** Například měsíční míra inflace.
+- **Meteorologické údaje:** Denní průměrná teplota za měsíc.
+- **Demografické údaje:** Počty narozených dětí za rok.
+
+### Proč je studovat?
+
+Studium časových řad nám umožňuje porozumět tomu, jak se veličiny mění v čase, předpovídat budoucí hodnoty a identifikovat vlivy sezónnosti, trendů nebo cyklických změn.
+
+## Dělení Časových Řad
+
+Časové řady můžeme dělit podle několika kritérií:
+
+### 1. Podle typu pozorování
+- **Diskrétní časové řady:** Data jsou pozorována nebo měřena v pravidelných časových intervalech (např. denně, měsíčně).
+- **Kontinuální časové řady:** Data jsou pozorována v každém momentu (např. teplota měřená infrateploměrem).
+
+### 2. Podle vzorkovací frekvence
+- **Vysokofrekvenční časové řady:** Údaje jsou dostupné ve velmi krátkých intervalech, např. sekundy nebo minuty.
+- **Nízko-frekvenční časové řady:** Data jsou shromažďována v delších intervalech (denní, týdenní, měsíční, roční).
+
+### 3. Podle složek časové řady
+- **Trendová složka:** Dlouhodobý pohyb v datech, značí růst či pokles (např. růst HDP).
+- **Sezónní složka:** Pravidelné a předvídatelné pohyby (např. prodej zmrzliny, který roste v létě).
+- **Cyklická složka:** Oscilace kolem trendové složky, nezávislá na sezóně (např. hospodářské cykly).
+- **Náhodná složka:** Nepravidelné a nepředvídatelné pohyby (např. vliv přírodních katastrof).
+
+### 4. Podle použitých metod analýzy
+- **Deskriptivní analýza:** Zaměřuje se na základní vlastnosti a popis dat.
+- **Prediktivní analýza:** Vytváří modely pro předpověď budoucích hodnot.
+  
+#### Příklady z běžného života
+- **Trend:** Cena zlata dlouhodobě stoupá.
+- **Sezónnost:** Prodej oblečení roste v zimě před Vánoci.
+- **Cykly:** Ekonomika prochází recesemi a růsty.
+- **Náhodné události:** Nárůst nemocnosti při vypuknutí epidemie.
+
+## Závěr
+
+Časové řady jsou mocným nástrojem v analýze dat, který nám pomáhá lépe porozumět, modelovat a předpovídat dynamiku změn v čase. Správné pochopení dělení časových řad je klíčové pro jakoukoliv hlubší analýzu a aplikaci těchto znalostí v praxi. 
+
+Pokud máte jakékoliv otázky nebo si přejete další příklady, neváhejte se na mě obrátit!
+

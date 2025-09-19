@@ -1,0 +1,43 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "lessons/**/*.qmd"
+
+website:
+  title: "Otázky a odpovědi ze Statistiky"
+  sidebar:
+    style: floating
+    search: true
+    collapse-level: 1
+    contents:
+      - section: "Deskriptivní statistika"
+        contents:
+          - section: "Základní pojmy"
+            contents: lessons/descriptive_stat/stat_intro/*
+          - section: "Základní statistiky"
+            contents: lessons/descriptive_stat/basic_statistics/*
+          - section: "Vizualizace"
+            contents:
+              - lessons/descriptive_stat/visualizations
+          - section: "Korelace a regrese"
+            contents:
+              - lessons/descriptive_stat/correlations_regressions
+          - section: "Kontingenční tabulky"
+            contents:
+              - lessons/descriptive_stat/contingency_tables
+      - section: "Pravděpodobnost"
+        contents:
+          - lessons/probability
+      - section: "Časové řady"
+        contents:
+          - lessons/time_series
+      - section: "Inferenční statistika"
+        contents:
+          - lessons/inferential_statistics
+      
+format:
+  html:
+    theme: cosmo
+    toc: true

@@ -1,0 +1,54 @@
+
+---
+title: "Rozdíl mezi pozorovanými a očekávanými počty"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do pojmů
+
+Ve statistice se často setkáváme s pojmy **pozorované počty** (někdy označované jako skutečné počty) a **očekávané počty**. Tyto pojmy mají klíčový význam při analýzách, jako je například **chi-kvadrát test**, který se používá k určení, zda existuje statisticky významný rozdíl mezi očekávanými a pozorovanými hodnotami.
+
+## Pozorované počty
+
+Pozorované počty jsou data, která získáme přímo z našich výzkumů, experimentů nebo pozorování. Představme si, že máme koš plný barevných kuliček - červené, modré a zelené. Spočítáme, kolik kuliček každé barvy máme, a tyto počty jsou naše **pozorované počty**.
+
+### Příklad z praxe
+
+Představte si, že pracujete v zoologické zahradě a chcete zjistit, kolik různých druhů ptáků navštěvuje krmítko během týdne. Pozorování, kolikrát se každý druh ptáka objeví, představuje vaše pozorované počty.
+
+## Očekávané počty
+
+Očekávané počty jsou teoretické hodnoty, které bychom očekávali za předpokladu, že není žádný zvláštní jev, který by ovlivňoval naše pozorované počty. Tyto počty se obvykle vypočítají na základě nějakého základního modelu nebo předpokladu.
+
+### Výpočet očekávaných počtů
+
+Očekávané počty často vycházejí z hypotézy, že data jsou náhodná nebo rovnoměrně rozdělena. Představme si, že máme zmíněný koš s kuličkami a víme, že koš je rozdělen na třetiny pro každou barvu. Pokud máme 90 kuliček, očekávali bychom 30 červených, 30 modrých a 30 zelených, pokud by byly rovnoměrně rozdělené.
+
+### Příklad z praxe
+
+Vrátíme se k našemu příkladu s ptáky: Pokud hypoteticky víte, že na celém území zoo je poměr ptáků takový, že 50 % jsou vrabci, 30 % sýkorky a 20 % sojky, očekávali bychom, že pokud pozorujeme 100 ptáků, 50 z nich by mělo být vrabců, 30 sýkorek a 20 sojek. 
+
+## Praktické využití
+
+Rozdíl mezi očekávanými a pozorovanými počty se často používá pro testování hypotéz. Například **chi-kvadrát test** se používá k tomu, aby zjistil, zda je rozdíl mezi pozorovanými a očekávanými počty dostatečně velký, aby byl statisticky významný. 
+
+Pokud bychom se vrátili k našemu příkladu s kuličkami, mohli bychom chtít zjistit, zda rozdělení barev v našem koši odpovídá rovnoměrnému rozdělení, které jsme očekávali. Použitím chi-kvadrát testu bychom mohli dojít k závěru, zda se naše pozorované počty významně liší od očekávaných počtů, což by mohla být nápověda o nějakém "nezvyklém" faktoru ovlivňujícím rozdělení barev. 
+
+## Závěr
+
+Porozumění rozdílu mezi pozorovanými a očekávanými počty je klíčové pro interpretaci dat a při provádění statistické analýzy. S těmito znalostmi můžete lépe rozumět výsledkům testů a interpretovat je v kontextu vašich výzkumných otázků či hypotéz. 
+
+Doufám, že tento materiál vám pomohl objasnit rozdíl mezi těmito dvěma pojmy a poskytne vám pevné základy pro jejich aplikaci v praxi.
+

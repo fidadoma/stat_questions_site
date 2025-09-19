@@ -1,0 +1,70 @@
+
+title: Velikost efektu ve statistice
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Velikost efektu ve statistice
+
+## Co je to velikost efektu?
+
+Velikost efektu (z anglického "effect size") je statistické měřítko, které nám pomáhá kvantifikovat rozdíl mezi dvěma skupinami nebo velikost vztahu mezi dvěma proměnnými. Zatímco p-hodnota nám říká, zda je výsledek statisticky významný, velikost efektu nám říká, jak velký nebo důležitý tento rozdíl či vztah je v praktickém smyslu.
+
+### Proč je velikost efektu důležitá?
+
+Velikost efektu je klíčová pro interpretaci praktické významnosti výsledků. Zde jsou některé důvody, proč se velikost efektu používá:
+
+- **Účinnost intervence:** V situacích, kdy testujeme účinnost nějaké intervence (např. nový lék, vzdělávací program), nám velikost efektu umožňuje zjistit, jak moc efektivní tato intervence je.
+  
+- **Zhodnocení praktické významnosti:** Může se stát, že výsledek testu je statisticky významný, ale velikost efektu nám ukáže, že rozdíl je natolik malý, že nemá praktický význam.
+
+- **Srovnání různých studií:** Při metaanalýzách je velikost efektu užitečná pro porovnání výsledků z různých studií.
+
+## Příklady použití velikosti efektu
+
+### Klinická studie
+
+Představte si, že farmaceutická společnost testuje nový lék na snížení krevního tlaku. I když je statisticky prokázáno, že lék snižuje krevní tlak více než placebo, je velikost efektu, která nám řekne, zda je toto snížení klinicky významné, například pokud snižuje krevní tlak jen o 1 mmHg, nemusí to mít velký praktický dopad.
+
+### Vzdělávací program
+
+Ve školství se často testuje efektivita vzdělávacích programů. Například, pokud je implementován nový program pro zlepšení matematické gramotnosti, velikost efektu může ukázat, zda a jak moc se zlepšily výsledky žáků oproti kontrolní skupině.
+
+## Výpočty velikosti efektu
+
+Existuje několik statistik, které nám velikost efektu kvantifikují, mezi nejpoužívanější patří:
+
+- **Cohenovo d:** Používá se pro měření rozdílů mezi dvěma skupinami. Například, jak velký je průměrný rozdíl v testových skórech mezi experimentální a kontrolní skupinou.
+
+- **Eta čtverec (η²):** Často používaný v analýze rozptylu (ANOVA) pro určení síly asociace mezi proměnnými.
+
+- **Pearsonův korelační koeficient (r):** Kvantifikuje sílu a směr lineárního vztahu mezi dvěma proměnnými.
+
+### Příklad výpočtu Cohenova d
+
+Pokud měříte průměrný rozdíl skóre (například v testu) mezi dvěma skupinami, Cohenovo d se počítá jako:
+
+$$ d = \frac{\bar{X}_1 - \bar{X}_2}{s_p} $$
+
+kde $\bar{X}_1$ a $\bar{X}_2$ jsou průměry skupin a $s_p$ je kombinovaný rozptyl (standardní odchylka).
+
+Velikost d lze interpretovat následovně:
+- d ≈ 0.2 je malé,
+- d ≈ 0.5 je střední,
+- d ≈ 0.8 je velké.
+
+## Závěr
+
+Velikost efektu je důležitý nástroj, který nám pomáhá lépe porozumět výsledkům statistických testů a jejich praktickému významu. Pomocí ní jsme schopni nejen posoudit efektivitu intervencí, ale také srovnávat výsledky napříč různými studiemi nebo oblastmi výzkumu. Vždy je důležité pamatovat, že statistická významnost nemusí vždy znamenat praktickou významnost, a proto bychom měli do našich interpretací vždy zahrnout i velikost efektu.
+

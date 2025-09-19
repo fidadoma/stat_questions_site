@@ -1,0 +1,61 @@
+
+---
+title: "Jak zhruba funguje Wilcoxonův/Mann-Whitneyho test?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Wilcoxonův/Mann-Whitneyho test je metoda neparametrické statistiky určená k testování hypotéz o rozdílu mezi dvěma nezávislými skupinami. Obvykle se používá v situacích, kdy nelze předpokládat normální rozdělení ve vzorku dat, což je častý předpoklad v mnoha jiných statistických testech, jako jsou například t-testy.
+
+## K čemu test slouží?
+
+Tento test je užitečný, když chcete porovnat dvě skupiny a zjistit, zda se jejich střední hodnoty (mediány) statisticky významně liší. Představte si, že zkoumáte efekt nového léku na snižování krevního tlaku. Můžete mít dvě skupiny:
+
+1. Skupina A: pacienta, kterým byl podán nový lék
+2. Skupina B: pacienta, kterým bylo podáno placebo
+
+Chcete zjistit, zda existuje významný rozdíl v krevním tlaku mezi těmito dvěma skupinami.
+
+# Jak test funguje?
+
+Wilcoxonův/Mann-Whitneyho test porovnává pořadí hodnot v obou skupinách. Vezme všechna pozorování z obou skupin a seřadí je bez ohledu na to, z které skupiny pocházejí. Poté se pro každou skupinu vypočítá součet pořadí (souhrn pořadí). Pokud jsou rozdíly mezi skupinami významné, bude se výrazně lišit i součet pořadí.
+
+## Krok za krokem:
+
+1. **Seřaďte data**: Dá se dohromady všechna data z obou skupin a seřadí se dle velikosti (u malých čísel od nejmenšího po největší).
+
+2. **Přiřaďte pořadí**: Každému číslu se přiřadí jeho pořadí. Pokud je více stejných hodnot (tzv. shodné hodnoty), přidělí se jim průměr jejich pořadí.
+
+3. **Vypočítejte součet pořadí pro každou skupinu**: Sečtou se pořadí čísel pro data z každé skupiny.
+
+4. **Udělejte statistický test**: Pomocí výpočítané statistiky se rozhodne, zda rozdíl mezi součty pořadí je statisticky významný.
+
+5. **Interpretace výstupů**: Pokud je rozdíl mezi součty pořadí výrazný, můžeme usoudit, že existuje významný rozdíl v hodnotách mezi oběma skupinami.
+
+# Příklady z běžného života
+
+- **Porovnávání dvou variant výrobku**: Řekněme, že společnost vyvinula dva typy žárovek a chce vědět, který z nich má delší životnost. Použití Wilcoxonova/Mann-Whitneyho testu může určit, zda jsou rozdíly v životnosti statisticky významné.
+  
+- **Studie vlivu výživových doplňků na výkon**: Skupina sportovců může být rozdělena do dvou skupin, kde jedna má doplňky stravy a druhá ne. Cílem je zjistit, zda existuje statisticky významný rozdíl v jejich sportovním výkonu.
+
+- **Srovnání účinnosti dvou léčebných postupů**: Ve zdravotnictví může být potřeba zjistit rozdíly ve výsledcích dvou různých typů léčby u pacientů se stejným onemocněním.
+
+# Závěr
+
+Wilcoxonův/Mann-Whitneyho test je mocný nástroj v situacích, kdy data nejsou normálně rozdělena. Vychází z porovnání pořadí, což dovoluje pracovat i s daty, která nevyhovují požadavkům pro jiné testy. Díky tomu je velmi flexibilní a široce využívaný v různých oblastech, od medicíny po psychologii a marketing.
+
+Nezapomínejme, že výhoda tohoto testu spočívá v jeho neparametrické povaze, což jej činí robustním vůči outlierům a různým typům rozdělení. Při jeho použití však vždycky zvažujte velikost vzorku a charakteristiku vašich dat pro správnou interpretaci výsledků.
+

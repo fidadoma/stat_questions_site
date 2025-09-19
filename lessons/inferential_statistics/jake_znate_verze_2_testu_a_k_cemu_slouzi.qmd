@@ -1,0 +1,75 @@
+
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Verze χ² testu a jejich aplikace
+
+V tomto dokumentu se podíváme na různé verze χ² (chi-kvadrát) testů a na to, k čemu jsou v praxi využívány. Jak napovídá název, všechny tyto testy vychází ze základního matematického konceptu rozdělení χ², které je důležité pro pochopení mnoha statistických testů. Vysvětlíme si, jak jednotlivé testy fungují, a uvedeme příklady z běžného života, abychom si lépe představili jejich praktické využití.
+
+## Základy χ² testu 
+
+χ² test (chi-kvadrát test) je statistický test, který se používá k určení, zda je pozorovaná četnost v kategoriích, které máme ze vzorku dat, konzistentní s očekávanou četností, která byla předpokládána za platnosti nějaké hypotézy. Test vychází z χ² rozdělení (chi-kvadrát rozdělení), které je speciálním případem rozdělení pravděpodobnosti používaným hlavně při testování hypotéz o rozptylu.
+
+### K čemu se χ² test používá?
+
+1. **Test dobré shody (Goodness of Fit Test):**
+
+   Tento test se používá, když chceme zjistit, zda naše data pocházejí z určitého rozdělení nebo ne. Například, pokud chceme vědět, zda určitý kostkový hod odpovídá férové kostce (tj. každé číslo má stejnou pravděpodobnost), použijeme test dobré shody.
+
+2. **Test nezávislosti (Test of Independence):**
+
+   Tento test se používá pro testování asociace mezi dvěma kategoriálními proměnnými. Například, zda je volba oblíbeného druhu kávy nezávislá na pohlaví respondenta v dotazníkovém průzkumu.
+
+3. **Test homogenity (Test of Homogeneity):**
+
+   Tento test je podobný testu nezávislosti, ale používá se v situacích, kdy jsou data rozdělena do několika populací, a my chceme zjistit, zda jsou rozdělení ve více skupinách stejná. Například, zda studenti z různých škol dosahují stejných výsledků v matematickém testu.
+
+## Rozdělení χ²
+
+Je důležité pochopit základní vlastnost rozdělení χ²: toto rozdělení je asymetrické a jeho tvar závisí na počtu stupňů volnosti. Čím více stupňů volnosti, tím více se rozdělení blíží normálnímu rozdělení.
+
+### Příklady použití v každodenním životě
+
+- **Test dobré shody:** Představte si, že pracujete ve společnosti, která vyrábí žárovky. Chcete zjistit, zda počet žárovek pokažených během prvního měsíce je stejný pro různé výrobní šarže. Očekávaná frekvence je rovnoměrná po všech šaržích.
+
+- **Test nezávislosti:** Výzkumníci ve zdravotnictví možná chtějí zjistit, zda je výskyt určitých zdravotních onemocnění (například alergií) nezávislý na životním stylu (např. kuřáci versus nekuřáci).
+
+- **Test homogenity:** Firma chce porovnat, zda rozdělení zákaznického hodnocení po zavedení nového software systémů zákaznického servisu je stejné mezi jejich třemi největšími pobočkami (Praha, Brno, Ostrava).
+
+## Jak provést χ² test
+
+### Kroky pro provedení χ² testu
+
+1. **Formulace hypotéz:**
+   - **Nulová hypotéza (H₀):** Tvrzení, které tvrdí, že není žádný rozdíl (např. nezávislost, rovnost rozdělení).
+   - **Alternativní hypotéza (H₁):** Tvrzení, které tvrdí, že existuje rozdíl (např. závislost, nerovnost rozdělení).
+
+2. **Výpočet testovací statistiky:**
+   - určuje se rozdíl mezi očekávanými a pozorovanými hodnotami. 
+
+3. **Stanovení kritické hodnoty a rozhodnutí:**
+   - na základě zvolené hladiny významnosti (např. 0.05) porovnáme naší testovací statistiku s kritickou hodnotou z χ² rozdělení.
+
+4. **Rozhodnutí o zamítnutí či přijetí nulové hypotézy:**
+   - Pokud je hodnota testovací statistiky vyšší než kritická hodnota, zamítáme H₀.
+
+### Shrnutí a důležité poznámky
+
+- **Velikost vzorku:** Je důležité mít vzorek dostatečné velikosti, jinak by výsledky mohly být zkreslené.
+- **Očekávané frekvence:** Pokud jsou očekávané frekvence příliš nízké (např. menší než 5), výsledky testu nemusí být spolehlivé.
+
+Použití χ² testu je široké, a to nejen v akademickém světě, ale i v průmyslových odvětvích, zdravotnictví, marketingu a mnoha dalších oblastech. Pochopení a schopnost aplikace tohoto testu je zásadní pro každého, kdo se chce věnovat datové analýze či statistikám.
+
+

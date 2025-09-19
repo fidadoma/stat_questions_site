@@ -1,0 +1,88 @@
+---
+title: "Rozdíl mezi ordinální a číselnou proměnnou ve statistice"
+order: 60
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Ve statistice potřebujeme rozlišovat, jaký typ proměnné v datech máme. Tento výběr rozhoduje o tom, jaké grafy, souhrny a testy smíme použít. V tomto materiálu srozumitelně vysvětlíme rozdíl mezi ordinální (pořadovou) a číselnou (kvantitativní) proměnnou a ukážeme si příklady z běžného života, typické chyby i správné postupy pro analýzu.
+
+**Stručně:**
+
+- Ordinální proměnná: umíme seřadit kategorie (má pořadí), ale nevíme, zda jsou rozestupy stejné.
+- Číselná proměnná: hodnoty jsou čísla v měřítku se smysluplnými rozdíly; můžeme počítat průměr, rozptyl aj.
+
+
+# Ordinální proměnná
+
+Ordinální proměnná (pořadová) má kategorie, které lze seřadit, ale nelze předpokládat stejné mezery mezi sousedními úrovněmi.
+
+## Příklady z běžného života:
+
+- Hodnocení spokojenosti: velmi nespokojen, nespokojen, neutrální, spokojen, velmi spokojen
+- Velikost oblečení: XS < S < M < L < XL
+- Pořadí v závodě: 1. místo, 2. místo, 3. místo (časové rozestupy mezi místy nemusí být stejné)
+- Pálivost jídla: mírné < střední < ostré
+
+## Co lze s nimi dělat (souhrny a grafy)
+
+- Frekvenční tabulky a procenta jednotlivých úrovní
+- Medián a kvartily (pořadové statistiky)
+- Seřazený sloupcový graf (kategorie v logickém pořadí)
+
+## Na co si dát pozor
+
+- Nepočítejme průměr ze škály 1–5, pokud si nejsme jisti rovnoměrnými rozestupy. Pokud to provedeme, musíme rozumět, co tato statistika znamená
+- Správně seřaďme úrovně (ne podle abecedy).
+- Číselné kódy kategorií nejsou čísla v měřítku (1 ≠ „méně“ než 2 v matematickém smyslu, jde jen o pořadí).
+
+# Číselná proměnná
+
+Číselná (kvantitativní) proměnná má hodnoty vyjádřené čísly v měřítku, kde dávají smysl rozdíly, průměry, násobky apod. Můžeme tedy bezpečně používat aritmetiku a parametrické souhrny.
+
+## Příklady z běžného života
+
+- Věk v letech
+- Výška, hmotnost
+- Počet kroků za den, počet e-mailů
+- Teplota (např. ve °C; rozdíl 20→25 °C znamená +5 °C)
+
+## Co lze s nimi dělat (souhrny a grafy)
+
+- Průměr, směrodatná odchylka, min–max, kvartily
+- Histogram, hustota, boxplot, bodové grafy
+
+## Na co si dát pozor
+
+- Zbytečně nekategorizovat (např. věk → 18–25, 26–35, …) – ztrácíte informaci a sílu testu.
+- U extrémně šikmých rozdělení zvažte robustní souhrny (medián, IQR) a vhodné transformace.
+
+
+# Závěr
+
+## Hlavní rozdíl:
+
+- Ordinální proměnná: má pořadí, ale negarantuje stejné rozestupy mezi úrovněmi → používejte pořadové souhrny (medián, četnosti) a seřazené sloupcové grafy.
+- Číselná proměnná: má měřítko s významnými rozdíly → můžete počítat průměr, směrodatnou odchylku, používat histogramy a boxploty.
+
+::: {.callout-tip}
+## Praktická pomůcka na rozhodnutí
+
+- Lze hodnoty seřadit? Pokud ne → nebude to ani ordinální, ani číselná (spíše nominální).
+- Pokud ano: dávají smysl aritmetické operace a průměry?
+- - Ano → číselná
+- - Ne → ordinální
+:::

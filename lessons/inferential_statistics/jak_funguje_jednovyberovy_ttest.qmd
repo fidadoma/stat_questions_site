@@ -1,0 +1,70 @@
+
+---
+title: "Jak funguje jednovýběrový t-test?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+  
+## Co je jednovýběrový t-test?
+
+Jednovýběrový t-test je statistický test, který se používá, když chceme zjistit, zda střední hodnota v naší jedné vzorkové skupině se statisticky významně odlišuje od známého nebo hypotetického průměru. Tedy zjišťujeme, jestli naše data podporují určité tvrzení o průměrné hodnotě.
+
+Uvádím příklad z běžného života: Představte si, že pracujete jako manažer restaurace a máte novou druhu kávy. Pro novou kávu byste chtěli zkontrolovat, zda se počet prodaných káv za den liší od průměru, který byl pozorován minulý měsíc (řekněme 50 šálků denně). Použitím jednovýběrového t-testu můžete zjistit, jestli průměrný prodej nového vína se liší od původního prodeje.
+
+## Kdy použít jednovýběrový t-test?
+
+Jednovýběrový t-test je použitelný, když máme:
+1. Kontinuální data (tj. data, kde má smysl počítat průměr, např. váha, výška, čas atd.).
+2. Jednu vzorkovou skupinu, která je měřena (např. skupina lidí nebo objektů).
+3. Známe průměr populace, se kterým chceme srovnávat naši vzorkovou skupinu.
+4. Rozložení dat, které je přibližně normální (při malém počtu vzorku by přibližně symetrické).
+
+## Jak funguje jednovýběrový t-test?
+
+**Krok 1: Hypotézy**
+
+Prvním krokem v jednovýběrovém t-testu je formulace hypotéz:
+- **Nulová hypotéza ($H_0$):** Průměr vzorku ($\bar{x}$) se neliší od známého nebo předpokládaného průměru ($\mu$). Matematicky: $H_0: \bar{x} = \mu$.
+- **Alternativní hypotéza ($H_A$):** Průměr vzorku ($\bar{x}$) se liší od známého nebo předpokládaného průměru ($\mu$). Matematicky: $H_A: \bar{x} \neq \mu$.
+
+Příklad: Naše nulová hypotéza by byla, že průměrný prodej kávy je 50 šálků denně. Alternativní hypotéza by byla, že průměrný prodej se liší od 50 šálků denně.
+
+**Krok 2: Výpočet testového statistického t**
+
+Statistika t se vypočítá následovně:
+
+\[
+t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}
+\]
+
+kde:
+- $\bar{x}$ je průměr vzorku,
+- $\mu$ je známý průměr populace,
+- $s$ je směrodatná odchylka vzorku,
+- $n$ je velikost vzorku.
+
+**Krok 3: Rozhodnutí**
+
+Jakmile máte hodnotu t, musíte se rozhodnout o kritické hodnotě (obvykle pomocí tabulky t-distribuce) při určité úrovni významnosti (obvykle $\alpha = 0.05$. Pokud je vypočítaná hodnota t větší (v absolutní hodnotě) než kritická hodnota, zamítnete nulovou hypotézu. Pokud je menší, nemůžete zamítnout nulovou hypotézu.
+
+Příklad: Pokud je hodnota t větší než kritická hodnota z tabulky pro náš vzorek a úroveň významnosti, takže bychom usoudili, že nový prodej kávy se statisticky významně liší od původního průměrného prodeje.
+
+## Příklady použití
+
+1. **Farmacie:** Výzkumníci mohou použít jednovýběrový t-test k porovnání průměrného účinku nového léku proti známé hodnotě průměrného účinku stávajícího léku.
+2. **Ekonomika:** Analytici mohou srovnávat průměrný plat v konkrétní firmě proti průměrné hodnotě platů ve stejném odvětví.
+3. **Školství:** Školní správci mohou použít jednovýběrový t-test pro porovnání průměrných známek studentů v určité třídě s celonárodním průměrem.
+
+Na základě těchto informací teď můžete sami vyzkoušet pochopit, jak se jednovýběrový t-test vztahuje ke skutečným situacím a použít ho ve svých analýzách! Pokud máte další otázky, neváhejte se zeptat svého lektora nebo nahlédnout do kvalitních statistických učebnic a zdrojů.
+

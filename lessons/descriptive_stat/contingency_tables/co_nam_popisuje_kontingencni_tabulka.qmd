@@ -1,0 +1,57 @@
+---
+title: "Studijní materiál: Kontingenční tabulka"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do kontingenčních tabulek
+
+Kontingenční tabulka je mocný nástroj ve statistické analýze, který umožňuje snadno vizualizovat a analyzovat vztahy mezi několika různými kategoriálními proměnnými. Například, pokud chceme zjistit vztah mezi kouřením a pohlavím, můžeme použít kontingenční tabulku, abychom lépe porozuměli rozložení a závislostem mezi těmito dvěma proměnnými.
+
+# Co je kontingenční tabulka?
+
+Kontingenční tabulka, známá také jako křížová tabulka, je dvourozměrná tabulka (matice), která shrnuje frekvence výskytu kombinací kategoriálních proměnných. Umožňuje nám zjistit vztahy a interakce mezi dvěma či více proměnnými, které jsou měřeny na kategoriální úrovni. Každá buňka v tabulce zobrazuje počet (frekvenci) pozorování pro konkrétní kombinaci úrovní těchto proměnných.
+
+# Příklad z běžného života
+
+Představme si, že jsme vedoucí marketingového týmu a chceme zjistit, jaká je preference barev nových modelů telefonů mezi muži a ženami.
+
+- Máme data o preferencích barev (červená, modrá, zelená).
+- Máme informace o pohlaví zákazníků (muži, ženy).
+
+Vytvoříme kontingenční tabulku, abychom zjistili, kolik mužů a žen preferuje jakou barvu. Tato tabulka nám okamžitě ukáže, zda existují nějaké genderové odlišnosti v preferencích barev a pomůže nám personalizovat marketingové strategie.
+
+# Jak vytvořit kontingenční tabulku?
+
+1. **Určete proměnné**: Vyberte dvě (nebo více) kategoriální proměnné, pro které chcete prozkoumat vztahy.
+2. **Spočítejte frekvence**: Pro každou kombinaci úrovní proměnných spočítejte frekvenci výskytů.
+3. **Vytvořte tabulku**: Zapište výsledné hodnoty do strukturované tabulky.
+
+# Interpretace výsledků
+
+Kontingenční tabulka nám dává náhled do rozdělení dat podle kombinací kategorií. Hlavním přínosem této tabulky je, že umožňuje vidět vzory a možné závislosti mezi proměnnými. Pokud např. zjistíme, že určitou barvu preferuje především  v jedné demografické skupině, můžeme se zaměřit na cílenou reklamu pro tuto skupinu.
+
+# Praktické uplatnění
+
+- **Zdravotnictví**: Analýza vztahu mezi kouřením a pohlavím nebo životním stylem a určitými zdravotními problémy.
+- **Marketing**: Zkoumání preferencí produktů v různých demografických segmentech (věk, pohlaví, region).
+- **Vzdělávání**: Studování vztahů mezi metodami výuky a výkonem studentů z různých škol nebo programů.
+
+Kontingenční tabulky jsou často prvním krokem k hlubší analýze dat, včetně výpočtu ukazatelů závislosti, jako je např. chí-kvadrát test.
+
+# Závěr
+
+Kontingenční tabulky jsou základním nástrojem pro analýzu kategoriálních dat a zkoumání vzájemných vztahů mezi proměnnými. Umožňují rychle a efektivně získat přehled o struktuře a vzorcích v datech, což může vést k lepším rozhodnutím ve výzkumu či byznysu. Důležitost spočívá v jejich schopnosti vizualizovat a sumarizovat složité soubory dat do jednoduchého formátu, který může být snadno interpretován a využit v praktických aplikacích.
+
+

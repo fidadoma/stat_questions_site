@@ -1,0 +1,62 @@
+
+---
+title: "Rozdíl mezi korelací a kauzalitou"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do problematiky
+
+V tomto materiálu se budeme věnovat dvěma důležitým pojmům ve statistice a vědeckém výzkumu obecně: **korelaci** a **kauzalitě**. Tyto dva pojmy se často zaměňují, ale ve skutečnosti mají odlišný význam a použití. Porozumění těmto rozdílům je zásadní pro správnou interpretaci dat a rozhodování na základě statistik.
+
+# Korelace
+
+Korelace je statistické měření, které vyjadřuje míru a směr vztahu mezi dvěma proměnnými. Korelace nám může ukázat, zda existuje lineární vztah mezi dvěma proměnnými, a jakým způsobem jsou tyto proměnné spojeny.
+
+Nejběžněji používaným měřítkem korelace je **Pearsonův korelační koeficient**, který nabývá hodnot od -1 do 1.
+
+- **Hodnota 1** indikuje perfektní pozitivní lineární vztah.
+- **Hodnota -1** indikuje perfektní negativní lineární vztah.
+- **Hodnota 0** znamená, že neexistuje žádný lineární vztah.
+
+## Příklad z běžného života
+
+Představte si, že zkoumáte vztah mezi počtem hodin, které studenti stráví učením, a jejich výsledky u zkoušky. Mohli byste zjistit, že s rostoucím počtem hodin věnovaných učení se výsledky u zkoušky zlepšují. V tomto případě by mezi těmito dvěma proměnnými existovala pozitivní korelace.
+
+# Kauzalita
+
+Kauzalita, na druhou stranu, odkazuje na příčinný vztah mezi dvěma proměnnými, kde změna v jedné proměnné způsobí změnu v druhé proměnné. Zjištění kauzality je mnohem komplikovanější než zjištění korelace a vyžaduje mnohem důkladnější analýzu.
+
+## Příklad z běžného života
+
+Pokračujme s příkladem vzdělávání. I když existuje pozitivní korelace mezi počtem hodin studia a výsledky u zkoušek, je třeba určit, zda větší počet hodin strávený studiem **skutečně způsobuje** lepší výkony. Mohly by existovat další faktory, jako je kvalita studijních materiálů nebo předchozí znalosti, které by vedly ke zlepšení výsledků.
+
+# Rozdíl mezi korelací a kauzalitou
+
+- **Korelace** nám říká pouze, že dvě proměnné jsou nějakým způsobem spojeny, nikoliv že jedna proměnná způsobuje změnu v druhé proměnné.
+- **Kauzalita** potvrzuje, že změna v jedné proměnné přímo způsobuje změnu v druhé proměnné.
+
+# Časté chyby při interpretaci
+
+Jednou z nejčastějších chyb je přijímání korelace jako důkazu kauzality. Jen proto, že dvě proměnné jsou korelované, neznamená, že mezi nimi je příčinný vztah. Proto je důležité identifikovat všechny možné proměnné a testovat vztahy mezi nimi důkladně.
+
+## Příklad nesprávné interpretace
+
+Představte si, že zjistíte, že prodej zmrzliny pozitivně koreluje s počtem útoků žraloků. Můžeme dojít k mylnému závěru, že prodej zmrzliny způsobuje útoky žraloků. Ve skutečnosti ale může existovat jiná proměnná, jako je teplota počasí, která ovlivňuje oba faktory. 
+
+# Závěr
+
+Porozumění rozdílu mezi korelací a kauzalitou je klíčové pro správnou interpretaci vědeckých dat. Korelace může být užitečným nástrojem pro identifikaci vztahů, ale pouze pomocí pokročilejších metod můžeme určit kauzalitu. Buďte obezřetní při analýze údajů a věnujte čas důkladné analýze možných příčinných vztahů.
+
+

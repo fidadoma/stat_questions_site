@@ -1,0 +1,85 @@
+
+---
+title: "Základní Neparametrické Testy"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Neparametrických Testů
+
+Neparametrické testy jsou statistické metody, které nevyžadují, aby data splňovala určité předpoklady, jako je normální rozdělení. To je obzvláště užitečné, když pracujeme s malými vzorky nebo s daty, která nejsou normálně rozložena. Neparametrické testy jsou také doporučovány v případech, kdy jsou naše data na ordinální či nominální škále.
+
+V tomto textu se podíváme na několik základních neparametrických testů, jejich použití a příklady z praxe.
+
+# 1. Mann-Whitneyův U test (Wilcoxonův test řad)
+
+## Co je Mann-Whitneyův U test?
+
+Mann-Whitneyův U test je alternativou k Studentovu t-testu pro dva nezávislé výběry, když nemůžeme předpokládat normální rozdělení. Test zkoumá, zda existují rozdíly ve středních hodnotách dvou skupin. 
+
+## Kdy použít?
+
+Použijeme ho, když máme dvě nezávislé skupiny a chceme porovnat jejich rozdíly bez předpokladu o normálním rozdělení.
+
+## Příklad z praxe
+
+Předpokládejme, že máme dvě skupiny účastníků na výzkumu, jedna skupina bere nový lék a druhá skupina bere placebo. Chceme zjistit, zda je průměrné zlepšení zdraví u skupiny s lékem lepší než u skupiny s placebem, ale nemůžeme předpokládat, že zlepšení je normálně rozdělené.
+
+# 2. Wilcoxonův test párových výběrů
+
+## Co je Wilcoxonův test párových výběrů?
+
+Jedná se o alternativu k párovému t-testu a používá se, když máme dvě závislé skupiny. Test zkoumá rozdíly v mediánech mezi dvěma párovanými datovými sadami.
+
+## Kdy použít?
+
+Použijeme ho, pokud máme dvě související měření (např. před a po léčbě) a data nejsou normálně rozdělena.
+
+## Příklad z praxe
+
+Pokud sledujeme váhu jedné skupiny lidí před a po dietním plánu, Wilcoxonův test nám pomůže zjistit, zda se váha po dietě významně změnila bez předpokladu o normálním rozdělení váhy.
+
+# 3. Kruskal-Wallisův test
+
+## Co je Kruskal-Wallisův test?
+
+Kruskal-Wallisův test je neparametrická metoda k porovnání tří nebo více nezávislých skupin. Je to obdobné jako jednocestná ANOVA, ale bez předpokladu normality.
+
+## Kdy použít?
+
+Použijeme ho, když máme více než dvě nezávislé skupiny a chceme zjistit, zda mezi nimi existují rozdíly ve středních hodnotách.
+
+## Příklad z praxe
+
+Představte si, že jsme provedli experiment, kde jsme rozdělili účastníky do tří skupin, které každá zkoušela jiný druh léčby na snížení krevního tlaku. Pomocí Kruskal-Wallisova testu zjistíme, zda je rozdíl v úrovni snížení krevního tlaku mezi těmito skupinami.
+
+# 4. Friedmanův test
+
+## Co je Friedmanův test?
+
+Friedmanův test je neparametrická analogie k opakovaně měřeným ANOVA. Používá se, když máme více než dvě závislé skupiny nebo měření.
+
+## Kdy použít?
+
+Použijeme ho, když sledujeme více měření prováděných na stejných subjektech a nemůžeme předpokládat normalitu.
+
+## Příklad z praxe
+
+Předpokládejme, že organizujeme výzkum, který měří produktivitu zaměstnanců ve třech různých časových obdobích (např. ráno, odpoledne, večer). Friedmanův test nám pomůže zjistit, zda existuje významný rozdíl v produktivitě v těchto různých časech bez předpokládání normality dat.
+
+# Závěr
+
+Neparametrické testy poskytují užitečné alternativy pro analýzu dat, kde parametričtí testy nejsou vhodné. Jsou velice přínosné při práci s nenormálními daty a malými vzorky, což z nich činí nezbytné nástroje pro mnoho oblastí výzkumu a aplikace. Je důležité si vždy pečlivě vybrat správný test v závislosti na typu dat a specifikách daného výzkumu.
+
+

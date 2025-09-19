@@ -1,0 +1,49 @@
+
+title: "Studijní materiál: Předpoklady jednovýběrového t-testu"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do jednovýběrového t-testu
+
+Jednovýběrový t-test je statistická metoda používaná k porovnání průměru jednoho vzorku s průměrem předpokládaným nebo známým z populace. Tento test je velmi populární v mnoha oblastech, protože poskytuje jednoduchou a účinnou metodu, jak zjistit, zda se průměrná hodnota vzorku významně liší od nějaké konkrétní hodnoty.
+
+## Předpoklady jednovýběrového t-testu
+
+Abychom mohli správně interpretovat výsledky jednovýběrového t-testu, je důležité, aby byly splněny určité předpoklady. Pokud tyto předpoklady nejsou splněny, výsledek testu může být zkreslený nebo zavádějící. Přehled jednotlivých předpokladů je následující:
+
+### 1. Nezávislé pozorování
+
+První klíčový předpoklad je, že pozorování v datech jsou nezávislá. To znamená, že výsledek jednoho pozorování nesmí být ovlivněn jiným pozorováním. Například, pokud měříme hmotnost vzorku jednotlivců, každá hmotnost by měla být měřena samostatně a neměla by záviset na hmotnosti ostatních jedinců. 
+
+#### Příklad z běžného života:
+Představte si, že zkoumáte, zda průměrná výška studentů ve třídě se liší od národní průměrné výšky. Každý student by měl být měřen zvlášť, nezávisle na ostatních, aby byly výsledky spolehlivé.
+
+### 2. Normální rozložení
+
+Předpokládá se, že data přibližně sledují normální rozložení. Tento předpoklad je zvláště důležitý, pokud je velikost vzorku malá (typicky méně než 30). U větších vzorků však, díky Centrální limitní větě, t-test funguje dobře, i když data nejsou úplně normálně rozdělena.
+
+#### Příklad z běžného života:
+Pokud sledujete dobu, kterou lidé tráví cvičením každý týden, očekáváte, že většina lidí bude cvičit přibližně kolem průměrné doby, zatímco velmi málo lidí bude cvičit výrazně více nebo méně. Takové rozložení může být považováno za přibližně normální.
+
+### 3. Homogenita rozptylu
+
+Tento předpoklad zejména platí více pro dvouvýběrové t-testy, ale je dobré jej mít na paměti i v kontextu jednovýběrového t-testu. Znamená to, že rozptyl v populačním vzorku by měl být konstantní. I když tento předpoklad není přísně klíčový pro jednovýběrový t-test, stále může ovlivnit přesnost testu.
+
+## Shrnutí
+
+Zajištění, že vaše data splňují výše uvedené předpoklady je klíčem k získání spolehlivých výsledků z jednovýběrového t-testu. Pokud vaše data tyto předpoklady nesplňují, můžete uvažovat o alternativních metodách, jako jsou neparametrické testy, které jsou méně citlivé na porušení těchto předpokladů.
+
+Jednovýběrový t-test je mocný nástroj, který, pokud je použit správně, může poskytnout cenné poznatky o vašich datech a pomoci vám činit informovaná rozhodnutí na základě vašich statistických analýz.
+

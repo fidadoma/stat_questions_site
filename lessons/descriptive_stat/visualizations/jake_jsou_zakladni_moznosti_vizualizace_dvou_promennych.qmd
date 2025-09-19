@@ -1,0 +1,97 @@
+---
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Vizualizace dvou proměnných
+
+Vizualizace statistických dat je klíčovou dovedností při analýze dat. Vizualizace umožňuje snadno pochopit vztahy mezi proměnnými, identifikovat vzorce a odhalit trendy. Když pracujeme s dvěma proměnnými, máme několik základních možností, jak data vizualizovat. V tomto materiálu se podíváme na nejběžnější techniky, vhodnost jejich použití a poskytneme příklady z běžného života.
+
+## 1. Bodový graf (Scatter plot)
+
+### Popis
+
+Bodový graf je nejběžnější vizualizační technikou pro dvě číselné proměnné. Každý bod v grafu odpovídá jedné dvojici hodnot, kde jedna proměnná je na ose x a druhá na ose y.
+
+### Příklad z běžného života
+
+Představte si, že jste majitelem fitness centra a máte data o svých klientech, kde jedna proměnná je počet hodin strávených cvičením za týden a druhá je zhubnutá váha za měsíc. Použitím bodového grafu můžete vidět vztah mezi časem stráveným cvičením a úbytkem na váze.
+
+### Použití
+
+- Identifikace korelace mezi proměnnými.
+- Detekce vzorců a anomálií.
+
+## 2. Tabulka kontingence (Contingency table)
+
+### Popis
+
+Pokud pracujeme s dvěma kategorickými proměnnými, tabulka kontingence je vynikající nástroj. Ukazuje frekvence vzniku kombinací kategorií dvou proměnných.
+
+### Příklad z běžného života
+
+Uvažujme o průzkumu, který se ptá lidí na jejich oblíbenou kuchyni (italská, čínská, indická) a zda dávají přednost jídlu doma nebo v restauraci. Tabulka kontingence může ukázat, jaký je vztah mezi oblíbeným typem kuchyně a preferencí, kde lidé jedí.
+
+### Použití
+
+- Analyzování a porovnávání četností.
+
+## 3. Histogram dvou proměnných (Bivariate histogram)
+
+### Popis
+
+Je to prodloužená verze jednorozměrného histogramu, který ukazuje rozložení dvou proměnných. Je užitečný, když chceme prozkoumat společné rozložení dvou číselných proměnných.
+
+### Příklad z běžného života
+
+Jako majitel zoo vás může zajímat rozložení váhy a délky různých druhů zvířat. Histogram dvou proměnných vám může pomoci zjistit, jestli existují běžné vzorce ve velikosti mezi různými druhy.
+
+### Použití
+
+- Poskytuje vizualizaci hustoty datových bodů.
+
+## 4. Teplotní mapa (Heatmap)
+
+### Popis
+
+Teplotní mapa je skvělá pro vizualizaci dat z tabulky kontingence nebo bodového grafu pro velké množství dat. Využívá barvy k zastoupení hodnot, což usnadňuje identifikaci vzorců a anomálií.
+
+### Příklad z běžného života
+
+Představte si, že jste manažerem hotelu a máte data o návštěvnosti hotelových restaurací v závislosti na denní době a dnu v týdnu. Teplotní mapa může vizualizovat, kdy jsou restaurace nejvytíženější.
+
+### Použití
+
+- Vizualizace hustoty, frekvencí a odhalování vzorců.
+
+## 5. Spojnicový graf (Line plot)
+
+### Popis
+
+Spojnicový graf se nejlépe používá pro dvě proměnné, kdy alespoň jedna z nich je časová. Je ideální pro zobrazování trendů v průběhu času.
+
+### Příklad z běžného života
+
+Pokud jste finanční analytik, můžete používat spojnicový graf k sledování cen akcií v průběhu času, abyste identifikovali trendy nebo body zlomu.
+
+### Použití
+
+- Zobrazení trendů a změn v průběhu času.
+
+## Shrnutí
+
+Volba správné vizualizační techniky závisí na typu vašich proměnných (číslo vs. kategorická) a cíli analýzy (korelace, trend, frekvence). Správná vizualizace vám pomůže snadněji interpretovat data a učinit informovaná rozhodnutí.
+
+
+

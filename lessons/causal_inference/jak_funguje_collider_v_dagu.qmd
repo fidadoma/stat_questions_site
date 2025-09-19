@@ -1,0 +1,59 @@
+---
+title: "Jak funguje Collider v DAGu?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+Ve statistikách a strojovém učení se často setkáváme s pojmem **DAG** (Directed Acyclic Graph neboli směrovaný acyklický graf). Jedná se o grafickou reprezentaci vztahů mezi proměnnými, která je užitečná zejména při analýze příčin a následků. Jedním z klíčových pojmů v tomto kontextu je **collider**. Vysvětlíme si, co collider je a jak funguje, a to včetně jednoduchých příkladů z běžného života.
+
+## Co je to Collider?
+
+V rámci DAGu je collider uzel, který je výsledkem dvou bou více proměnných, které na něj směrují. Představte si jej jako bod, kde se "srazí" dvě či více "šípek", každá vedoucí z jedné proměnné. 
+
+Tento koncept je důležitý, protože má vliv na způsob, jakým interpretujeme kauzální vztahy a závislosti mezi proměnnými ve statistických modelech.
+
+### Příklad Collidru - Příklad z běžného života
+
+Představte si, že máte dvě proměnné: A = Únava a B = Káva. Collider by byl proměnný C = Produktivita.
+
+- Představte si, že máte za úkol vyplnit pracovní úkoly. Vaše produktivita může být ovlivněna tím, jak jste unaveni (A) a kolik jste si dali šálků kávy (B).
+- V tomto případě produktivita (C) je collider, protože je ovlivněna dvěma nezávislými faktory, únavou a množstvím kávy.
+
+V DAGu to vypadá takto:
+- A (Únava) → C (Produktivita)
+- B (Káva) → C (Produktivita)
+
+## Jak Collider Funguje?
+
+Collider má významný vliv na interpretaci závislostí mezi proměnnými:
+
+- **Když nekontrolujeme za collider:** Proměnné A a B jsou nezávislé.
+- **Když kontrolujeme za collider (např. udržujeme konstantní hodnotu Collidru):** Mezi proměnnými A a B může vzniknout zdánlivá závislost.
+
+To znamená, že jen pozorování na úrovni collidru může na první pohled ukazovat na závislost mezi zdánlivě nezávislými proměnnými. To je důvod, proč je důležité správně porozumět tomu, jak collidery fungují.
+
+### Praktické využití
+
+1. **V oblasti zdravotnictví:** Collidery mohou pomoci zjistit, jak určité faktory jako geny a životní styl ovlivňují zdravotní výsledky jako BMI. Hospitalizace může být považována za collidra spojeného s příčinami nemocí, jako jsou kouření a vysoký krevní tlak.
+   
+2. **Ekonomika:** Představte si faktor nezaměstnanosti a ceny nemovitostí jako nezávislé proměnné, které ovlivňují stěhování do měst. Zde může být populace v městech collidrem.
+
+## Závěr
+
+Colliders v DAGech jsou mocným nástrojem pro pochopení, jak různé proměnné mezi sebou interagují. Chápání těchto interakcí nám umožňuje lépe přemýšlet o závislostech a o způsobech, jakými analyzujeme data. Tato znalost může být klíčová nejen v akademickém výzkumu, ale i v praxi - například při rozhodování o zdravotních strategiích nebo při ekonomické analýze.
+
+Pochopení a interpretace DAGů s collidry nám umožňuje vidět širší kontext a složitosti dat, což je nedocenitelné při hledání pravdivých a smysluplných závěrů.
+

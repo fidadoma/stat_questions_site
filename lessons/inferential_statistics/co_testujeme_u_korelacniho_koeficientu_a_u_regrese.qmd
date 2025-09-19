@@ -1,0 +1,60 @@
+
+---
+title: "Korelační koeficient a regrese: Co testujeme?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Ve statistice často narazíme na pojmy jako **korelační koeficient** a **regrese**. Tyto pojmy se používají k analýze vztahů mezi proměnnými. V této studijní příručce si podrobně vysvětlíme, co testujeme u korelačního koeficientu a u regrese, a ukážeme si to na příkladech z reálného života.
+
+# Korelační koeficient
+
+## Co je korelační koeficient?
+
+Korelační koeficient je statistická míra, která vyjadřuje sílu a směr lineárního vztahu mezi dvěma proměnnými. Nejčastěji se používá **Pearsonův korelační koeficient**, který nabývá hodnot od -1 do 1.
+
+- **Hodnoty blízké 1** naznačují silný pozitivní lineární vztah (když jedna proměnná roste, druhá také).
+- **Hodnoty blízké -1** naznačují silný negativní lineární vztah (když jedna proměnná roste, druhá klesá).
+- **Hodnota 0** znamená, že neexistuje žádný lineární vztah mezi proměnnými.
+
+## Co testujeme?
+
+U korelačního koeficientu testujeme, zda existuje lineární vztah mezi dvěma proměnnými. Pomocí statistického testu můžeme ověřit, zda zjištěná korelace je významná. Nejčastěji formulujeme nulovou hypotézu $H_0$: "Neexistuje žádná korelace" (tj. korelační koeficient $\rho = 0$) proti alternativní hypotéze $H_1$: "Existuje korelace" (tj. $\rho \neq 0$).
+
+## Příklady z reálného života
+
+- **Výška a váha osoby**: Často se předpokládá, že výška a váha osoby jsou pozitivně korelovány. To znamená, že vyšší lidé mají tendenci vážit více.
+- **Teplota a prodej zmrzliny**: Pravděpodobně bychom našli pozitivní korelaci mezi teplotou a prodejem zmrzliny – s rostoucí teplotou se zvyšuje zájem o koupi zmrzliny.
+
+# Regrese
+
+## Co je regrese?
+
+Regrese je statistická metoda používaná k modelování vztahu mezi nezávislou proměnnou (predikátorem) a závislou proměnnou (odezvou). **Lineární regrese** je nejjednodušší forma regrese, kde se předpokládá lineární vztah mezi proměnnými.
+
+## Co testujeme?
+
+U lineární regrese testujeme, do jaké míry může nezávislá proměnná předpovídat hodnoty závislé proměnné. Podobně jako u korelace i zde formulujeme nulovou hypotézu $H_0$: "Neexistuje lineární vztah mezi proměnnými" (tj. regresní koeficient $\beta = 0$) proti alternativní hypotéze $H_1$: "Existuje lineární vztah" (tj. $\beta \neq 0$).
+
+## Příklady z reálného života
+
+- **Vzdělání a příjmy**: Výzkumy často ukazují, že vyšší úroveň vzdělaní koreluje s vyššími příjmy. Model lineární regrese by mohl kvantifikovat tento vztah.
+- **Reklamní výdaje a prodej**: Firmy můžou použít regresní analýzu pro odhad vlivu reklamních výdajů na prodej produktů.
+
+# Závěr
+
+Korelační koeficient a regrese jsou klíčové nástroje ve statistice pro analýzu vztahů mezi proměnnými. Korelační koeficient je skvělý pro měření síly a směru vztahů, zatímco regrese nám umožňuje předpovídat hodnoty jedné proměnné na základě jiné. Doufáme, že tento materiál pomůže studentům lépe porozumět těmto důležitým pojmům a jejich uplatnění v praxi.
+

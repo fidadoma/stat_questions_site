@@ -1,0 +1,78 @@
+
+title: "Definice Pravděpodobnosti"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Definice Pravděpodobnosti
+
+Pravděpodobnost je matematický koncept, který měří míru jistoty nebo nejistoty události. Pravděpodobnost nám pomáhá vyjádřit, jak je pravděpodobné, že se něco stane. Tento pojem je ústřední pro oblast statistiky a pravděpodobnosti a je základem pro mnoho dalších statistických konceptů.
+
+## Základní Definice
+
+Formálně lze pravděpodobnost definovat jako číslo mezi 0 a 1, které vyjadřuje, jak pravděpodobné je, že se událost stane. Tyto krajní hodnoty mají následující významy:
+- **0**: Událost je nemožná, nebude se nikdy konat.
+- **1**: Událost je jistá, určitě se stane.
+
+Pravděpodobnost je často označována písmenem 'P'. Pokud máme událost 'A', pravděpodobnost této události se značí jako \( P(A) \).
+
+## Příklady z Běžného Života
+
+Abychom lépe pochopili, co pravděpodobnost znamená, podívejme se na několik příkladů z běžného života:
+
+### 1. Hod kostkou
+
+Představte si, že máte férovou šestistěnnou kostku. Pokud se ptáme, jaká je pravděpodobnost, že při hodu padne číslo 3, použijeme definici pravděpodobnosti. Šestistěnná kostka má šest možných výsledků (1, 2, 3, 4, 5, 6). Pravděpodobnost, že padne trojka, je tedy 1 z 6, což se zapisuje jako:
+\[ P(\text{trojka}) = \frac{1}{6} \approx 0.1667 \]
+
+### 2. Mince
+
+Pro jiný příklad vezměme hod mřížkou (například 1 korunou). Mince má dvě strany, hlavu a orel. Pokud hodíme mincí, pravděpodobnost, že padne hlava, je:
+\[ P(\text{hlava}) = \frac{1}{2} = 0.5 \]
+
+### 3. Počasí
+
+Jeden z běžných příkladů používání pravděpodobnosti je mít předpověď počasí. Například meteorologové mohou říkat, že je 30% pravděpodobnost deště. To znamená, že je málo pravděpodobné (přesto možné), že bude pršet, ale pravděpodobnost je nižší než 50%.
+
+## Vlastnosti Pravděpodobnosti
+
+### 1. Nezápornost
+Pravděpodobnost jakékoliv události 'A' je nezáporné číslo, tedy:
+\[ 0 \leq P(A) \leq 1 \]
+
+### 2. Jistá Událost
+Pravděpodobnost jisté události (událost, která se stane vždy) je 1. Například pravděpodobnost, že v noci bude tma, je:
+\[ P(\text{tma v noci}) = 1 \]
+
+### 3. Nemožná Událost
+Pravděpodobnost nemožné události (událost, která se nestane nikdy) je 0. Například pravděpodobnost, že šestistěnnou kostkou hodíte sedmičku, je:
+\[ P(\text{sedmička}) = 0 \]
+
+## Spojení Událostí
+
+### Sčítací Pravidlo
+Pokud máme dvě neslučitelné události 'A' a 'B', které se nemohou stát současně, pak pravděpodobnost, že nastane alespoň jedna z nich, je dána součtem jejich jednotlivých pravděpodobností:
+\[ P(A \cup B) = P(A) + P(B) \]
+Například pravděpodobnost, že z balíčku karet vytáhneme eso nebo krále, když každá možnost je neslučitelná s druhou, je součet pravděpodobností jednotlivých událostí.
+
+### Vylučovací Pravidlo
+Pokud máme dvě události, které se navzájem vylučují, pravděpodobnost, že nastanou obě, je nulová:
+\[ P(A \cap B) = 0 \]
+
+### Doplněk Události
+Pravděpodobnost, že se událost 'A' nestane, je rovna 1 minus pravděpodobnost, že se stane:
+\[ P(A') = 1 - P(A) \]
+
+Doufáme, že tento materiál vám pomohl lépe pochopit základní koncepty pravděpodobnosti a jejich aplikaci v každodenním životě. Pro hlubší porozumění je však nutná další studie a praxe s konkrétními úlohami a případovými studiemi.
+

@@ -1,0 +1,75 @@
+
+title: "Normalita a testování normality"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+V oblasti statistiky je testování normality důležitým krokem při analýze dat. Normální rozdělení, často označované jako Gaussovo rozdělení, je ideální model pro mnoho přírodních a sociálních jevů. Proto je důležité ověřit, zda naše data následují toto rozdělení, jelikož to může ovlivnit výběr dalších statistických metod, které použijeme.
+
+## Co je normální rozdělení?
+
+Normální rozdělení je symetrické pravděpodobnostní rozdělení s jedním vrcholem, které je definováno svou střední hodnotou (průměrem) a směrodatnou odchylkou. Graf tohoto rozdělení má charakteristický zvonovitý tvar (tzv. "bell curve").
+
+### Příklady normálního rozdělení ve skutečném životě
+
+1. **Výška dospělých lidí**: U většiny populací se výška jednotlivců rozděluje normálně, to znamená, že většina lidí má střední výšku, zatímco velmi vysocí nebo velmi malí jsou vzácní.
+2. **Chyby měření**: Při měření nějaké veličiny, jako je teplota, se chyby často rozdělují normálně.
+3. **Hodnocení IQ skóre**: Intelektuální kvocienty jsou navrženy tak, aby sledovaly normální rozdělení se středem v hodnotě 100.
+
+## Proč testovat normalitu?
+
+Testování normality je nezbytné, pokud plánujete používat statistické metody, které předpokládají normální rozdělení dat, jako jsou různé parametrové testy (např. t-test nebo ANOVA). Pokud data nejsou normálně rozdělená, výsledky těchto testů mohou být nesprávné nebo zavádějící.
+
+## Jak otestovat normalitu?
+
+Existuje několik metod pro testování normality dat. Níže uvedeme několik základních postupů:
+
+### 1. Vizuální metody
+
+- **Histogram**: Vytvoření histogramu nám může poskytnout rychlý vizuální dojem o tom, zda data vypadají jako normálně rozdělená. Pokud histogram dat ukazuje zvonovitý tvar, mohou být data normálně rozdělená.
+
+- **Q-Q Plot (Quantile-Quantile Plot)**: Tento graf porovnává kvantily vzorku s kvantily normálního rozdělení. Pokud data sledují přímku, obvykle to znamená, že data jsou normálně rozdělena.
+
+### 2. Statistiky a testy
+
+- **Shapiro-Wilkův test**: Je jedním z nejpoužívanějších testů pro kontrolu normality. Nízká p-hodnota (obvykle méně než 0.05) znamená, že data nejsou normálně rozdělená.
+
+- **Kolmogorov-Smirnov test**: Tento test porovnává vzorové rozdělení s normálním rozdělením. Podobně jako u Shapiro-Wilkova testu, p-hodnota menší než 0.05 indikuje odchylku od normality.
+
+- **Anderson-Darling test**: Je obvykle citlivější na rozdíly ve "chvostech" rozdělení (extrémní hodnoty) než Shapiro-Wilk nebo Kolmogorov-Smirnovův test.
+
+### Příklad použití v R
+
+r
+# Simulace náhodných dat
+set.seed(123)
+data <- rnorm(100, mean = 5, sd = 2)
+
+# Histogram
+hist(data, main = "Histogram dat", xlab = "Hodnoty", ylab = "Frekvence")
+
+# Q-Q graf
+qqnorm(data)
+qqline(data, col = "red")
+
+# Shapiro-Wilkův test
+shapiro.test(data)
+```
+
+## Závěr
+
+Testování normality je důležitou součástí statistického zpracování dat. Ačkoliv existuje několik metod pro testování normality, je dobré použít kombinaci vizuálních i statistických metod, aby byla hodnocení co nejpřesnější. Vždy berte v úvahu velikost vzorku, protože velmi malé nebo velmi velké vzorky mohou ovlivnit výsledky testů normality. Pamatujte, že zralý a uvážený přístup ke statistické analýze je klíčem k získání platných a spolehlivých výsledků.
+```

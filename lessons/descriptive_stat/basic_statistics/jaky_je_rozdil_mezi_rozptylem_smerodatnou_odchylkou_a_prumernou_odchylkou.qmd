@@ -1,0 +1,87 @@
+---
+author: Filip Děchtěrenko
+order: 50
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+markdown:
+    wrap: 72
+---
+
+# Rozdíl mezi rozptylem, směrodatnou odchylkou a průměrnou odchylkou
+
+Zde si důkladně rozdělíme rozdíly mezi třemi základními pojmy v oblasti statistiky a pravděpodobnosti: **rozptyl**, **směrodatná odchylka** a **průměrná odchylka**. Tyto pojmy jsou klíčové pro porozumění, jak se data rozprostírají kolem centrální hodnoty, tedy aritmetického průměru.
+
+## Rozptyl
+
+Rozptyl je míra rozdělení datového souboru a udává nám, jak moc se jednotlivá data liší od průměru datového souboru.
+
+### Formule pro rozptyl (výběrový):
+
+$$
+\sigma^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \mu)^2
+$$
+
+kde: 
+
+- $\sigma^2$ je rozptyl, 
+- N je počet pozorování v populaci,
+- $x_i$ je každá jednotlivá hodnota, 
+- $\mu$ je průměr datového souboru.
+
+Pokud bychom počítali rozptyl pro celou populaci, použili bychom $N$ místo $N-1$ ve jmenovateli.
+
+### Příklad z běžného života:
+
+Představte si třídu, kde proběhl test. Studenti dostali různé skóre. Pokud vypočítáme rozptyl testových skóre, zjistíme, jak konzistentní nebo různorodé byly výsledky. Malý rozptyl indikuje, že studenti dosáhli na testu podobných výsledků (tedy je-li průměr kolem hodnoty 3, tak velká část studentů bude mít známky 3 a o něco méně 2 nebo 4 a známek 1 a 5 bude minimálně), zatímco velký rozptyl naznačuje velkou variabilitu ve skóre (tedy se známkami ve třídě to bude pestřejší).
+
+## Směrodatná Odchylka
+
+Směrodatná odchylka je druhem rozptylu a ukazuje průměrnou vzdálenost datových bodů od průměru. Je to druhý nejpoužívanější statistický ukazatel po průměru a čtvercová odchylka od rozptylu. Na rozdíl od rozptylu se pohybuje ve stejných jednotkách, jako původní proměnná.
+
+### Formule pro směrodatnou odchylku (výběrová):
+
+$$
+\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (x_i - \mu)^2}
+$$
+
+Pokud bychom počítali směrodatnou odchylku pro celou populaci, použili bychom $N$ místo $N-1$ ve jmenovateli.
+
+### Příklad z běžného života:
+
+Vrátíme se ke škole. Pokud jsou směrodatná odchylka výsledků testu malá, znamená to, že většina studentů dosahuje podobných výsledků. Naopak, pokud je velká, pak některé výsledky výrazně klesají nebo stoupají ve srovnání s průměrem.
+
+## Průměrná Odchylka
+
+Průměrná odchylka je průměr těchto absolutních rozdílů od průměru datového souboru. Není tak běžně používaná jako rozptyl nebo směrodatná odchylka, ale stále poskytuje další pohled na variabilitu dat.
+
+### Formule pro průměrnou odchylku:
+
+$$
+\text{AD} = \frac{1}{N} \sum_{i=1}^{N} |x_i - \mu|
+$$
+
+kde ($\|x_i - \mu\|$) je absolutní hodnota rozdílu mezi datovým bodem a průměrem. Nepoužívá se tak často, neboť směrodatná odchylka má lepší vlastnosti vzhledem k odhadu parametrů populace. Na druhou stranu může být snažší na pochopení pro studenty. Existují i jiné průměrné odchylky (např. od medianu).
+
+### Příklad z běžného života:
+
+Pokud se vrátíme k příkladu s testy ve třídě, průměrná odchylka nám může říci, jak moc se studenti průměrně liší od průměrného výsledku, když nebereme ohled na kladný či záporný rozdíl.
+
+## Shrnutí
+
+Abychom to shrnuli, zde jsou klíčové rozdíly: 
+
+- **Rozptyl** je míra variability, vypočítaná jako průměrování čtverců vzdáleností každého bodu od průměru. 
+- **Směrodatná odchylka** je odmocnina rozptylu, která udává průměrnou míru, jak se hodnoty dat liší od průměru. 
+- **Průměrná odchylka** zohledňuje absolutní rozdíly místo čtverců, což může být pro některé aplikace vhodnější.
+
+Rozumět těmto třem pojmům a vědět, kdy je správně použít, je základ pro efektivní analýzu dat a rozhodování na základě výsledků této analýzy. Tyto nástroje nám pomáhají porozumět, jak se data šíří kolem průměru a jak konzistentní je určitý soubor dat.

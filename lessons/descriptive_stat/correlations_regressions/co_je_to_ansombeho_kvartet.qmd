@@ -1,0 +1,60 @@
+---
+title: "Studijní materiál: Anscombeho kvartet"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Anscombeho kvartet
+
+Anscombeho kvartet je skupina čtyř různých dvourozměrných datových sad, které mají téměř identické základní statistické vlastnosti, přestože se jejich grafy výrazně liší. Tento kvartet demonstruje důležitost vizuální prohlídky dat před tím, než se spolehneme pouze na statistické ukazatele. Anscombeho kvartet byl poprvé představen britským statistikem Francisem Anscombem v roce 1973.
+
+## Proč je Anscombeho kvartet důležitý?
+
+Kvartet nám připomíná, že statistické analýzy by neměly být vykonávány mechanicky, a že je důležité podívat se na data. Všechna čtyři datové sady v Anscombeho kvartetu mají stejný:
+
+- Průměr x hodnot (9)
+- Průměr y hodnot (7.5)
+- Rozptyl x hodnot (11)
+- Rozptyl y hodnot (4.125)
+- Korelační koeficient mezi x a y (0.816)
+
+Nicméně, pokud se podíváme na grafy těchto datových sad, zjistíme, že jsou značně odlišné.
+
+## Jak Anscombeho kvartet vypadá?
+
+Pro lepší pochopení, jak tyto datové sady mohou vypadat odlišně na grafu, si představme následující situace:
+
+- **Datová sada 1:** Data jsou víceméně lineárně závislá se šumem.
+- **Datová sada 2:** Data tvoří parabolu (zakřivenou linii).
+- **Datová sada 3:** Data mají lineární vztah, ale jeden z bodů je výrazný outlier (hodně vyčnívá).
+- **Datová sada 4:** Data, kde většina bodů má stejnou x hodnotu a výrazně se liší jeden extrémní bod.
+
+## Příklady z běžného života
+
+1. **Finanční trhy:**
+   - Přemýšlejte o společnosti analyzující akciové trhy. Čtyři různé akcie mohou mít podobné průměrné výnosy a volatilitou, ale po vyloučení vizualizací se může ukázat, že se jejich cenové vzory velmi liší.
+
+2. **Klinické studie:**
+   - Ve studii účinnosti léku mohou mít různé skupiny pacientů podobné průměrné odpovědi a variace, ale v jedné skupině se může nacházet extrémně vysoká nebo nízká reakce, což by ovlivnilo celkové závěry bez vizuální kontroly.
+
+3. **Výkon strojů:**
+   - Při analýze produktivity výrobních linek, dvě linky mohou vykazovat podobnou průměrnou produktivitu a variabilitu, přestože jeden stroj může často selhávat, což by bylo patrné pouze z časové série.
+
+## Závěr
+
+Anscombeho kvartet je silný argument pro to, proč nikdy nespoléhat pouze na statistické souhrny dat. Vždy bychom měli doplňovat naše analýzy vizualizacemi. To nám umožňuje vidět nuance a struktury dat, které statistické čísla samy o sobě nemusí odhalit.
+
+Pokud máte někdy pochybnosti, zda jsou statistiky, které analyzujete, opravdu důvěryhodné, vzpomeňte si na Anscombeho kvartet a připomeňte si důležitost zobrazení vašich dat.
+
+

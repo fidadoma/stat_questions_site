@@ -1,0 +1,72 @@
+
+---
+title: "Porovnávání regresních modelů s více prediktory"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do porovnávání regresních modelů
+
+Porovnávání regresních modelů je důležitým krokem ve statistické analýze a strojovém učení. Když máme více regresních modelů s různými prediktory, chceme zjistit, který model je nejlepší pro naše data. Ale co přesně znamená "nejlepší"? Nejlepší model by měl být ten, který nejpřesněji předpovídá nový soubor dat a splňuje další kritéria, jako je jednoduchost, interpretovatelnost a výpočetně přijatelné náklady.
+
+## Proč porovnávat modely?
+
+Představte si situaci, kdy jste vědec studující vliv různých faktorů na výšku rostlin. Můžete mít různé modely, které zohledňují různé kombinace proměnných, jako jsou množství vody, množství slunečního záření, teplota a typ půdy. Každý model může poskytovat jiný pohled na to, jak tyto faktory ovlivňují výšku rostlin. Porovnáním těchto modelů můžete zjistit, které faktory jsou skutečně významné a které modely nabízejí nejlepší předpovědi.
+
+# Metody pro porovnávání regresních modelů
+
+Existuje několik metod, jak porovnávat regresní modely. Zde jsou některé z nejčastějších metod, společně s příklady, jak je použít:
+
+## 1. Coeficient determinace (R-squared)
+
+R-squared měří, jak dobře model vysvětluje variabilitu výstupní proměnné. Hodnoty R-squared se pohybují od 0 do 1, kde hodnota bližší k 1 indikuje, že model lépe vysvětluje variabilitu dat.
+
+- **Příklad**: Řekněme, že zkoumáte dopad různých reklamních strategií na prodeje výrobku. Model s vyšším R-squared pravděpodobně lépe vysvětlí, jak různé strategie ovlivňují prodeje.
+
+## 2. Upravený R-squared
+
+Na rozdíl od běžného R-squared bere upravený R-squared v úvahu počet proměnných v modelu. To je důležité, protože přidání dalších proměnných může uměle zvyšovat R-squared bez opravdu přidání hodnoty do modelu.
+
+- **Příklad**: Pokud máte dva modely s různým počtem proměnných a podobným R-squared, upravený R-squared vám pomůže rozhodnout, zda dodatečná složitost složitějšího modelu je legitimní.
+
+## 3. Mean Absolute Error (MAE) a Root Mean Squared Error (RMSE)
+
+MAE a RMSE měří průměrnou velikost chyb v předpovědích - MAE používá absolutní hodnoty, zatímco RMSE klade větší důraz na větší chyby kvůli kvadratické složce.
+
+- **Příklad**: Porovnávání výkonu různých předpovědních modelů pro úrovně znečištění vzduchu, kde přesnost je klíčovou otázkou pro veřejné zdraví.
+
+## 4. Akaike Information Criterion (AIC) a Bayesian Information Criterion (BIC)
+
+AIC a BIC jsou kritéria pro modelování, která trestají za složitost modelu. Nižší hodnoty AIC nebo BIC jsou lepší, protože indikují lepší fit s méně složitostí.
+
+- **Příklad**: Když modelujete spotřebu energie budovy v závislosti na teplotě a dalších faktorech, AIC a BIC vám pomohou zvolit model, který nabízí dobrý kompromis mezi složitostí a přesností.
+
+# Případové studie
+
+## Případová studie: Porovnání modelů pro predikci cen nemovitostí
+
+Představte si, že pracujete jako datový vědec pro realitní kancelář, a navrhujete modely, které předpovídají ceny nemovitostí. Máte různé modely, které zahrnují různý počet proměnných, jako jsou rozloha, počet ložnic, rok postavení, lokalita atd.
+
+1. **Použití R-squared a upraveného R-squared**: Můžete začít tím, že porovnáte R-squared a upravené R-squared pro dosažení základního pochopení, jak dobře modely sedí.
+  
+2. **Vyhodnocení chyb pomocí MAE a RMSE**: Vypočítejte MAE a RMSE pro každý model, abyste přímo porovnali průměrnou velikost chyb.
+  
+3. **Vyhodnocení složitosti pomocí AIC a BIC**: Porovnejte AIC a BIC pro výběr modelu, který nepřesahuje svoji složitost.
+
+Výsledkem těchto analýz bude výběr modelu, který je nejen přesný, ale také efektivní a vysvětlitelný. 
+
+# Závěr
+
+Porovnání regresních modelů je důležitou částí datové analýzy. Rozhodnutím o výběru nejvhodnějšího modelu vám pomůže získat co nejvíce užitečných poznatků z vašich dat, optimalizovat predikci a zlepšit rozhodovací procesy. Nezapomínejte na to, že dobrý model je ten, který nejen dobře padne na vaše dostupná data, ale také se dobře generalizuje na nové datové sady.
+

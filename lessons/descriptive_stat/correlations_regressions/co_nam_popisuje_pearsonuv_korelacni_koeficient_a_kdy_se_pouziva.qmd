@@ -1,0 +1,53 @@
+---
+title: "Studijní materiál: Pearsonův korelační koeficient"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Pearsonova korelačního koeficientu
+
+Pearsonův korelační koeficient, často označovaný jako **r**, je statistická veličina, která měří sílu a směr lineárního vztahu mezi dvěma kvantitativními proměnnými. Tento koeficient je pojmenován po Karlu Pearsonovi, který tento koncept představil.
+
+## Co Pearsonův korelační koeficient popisuje?
+
+Pearsonův korelační koeficient se pohybuje v rozmezí mezi -1 a 1:
+
+- Hodnota **1** indikuje perfektní pozitivní lineární vztah. To znamená, že jak se hodnota jedné proměnné zvyšuje, hodnota druhé proměnné se také zvyšuje v konstantním poměru.
+- Hodnota **-1** znamená perfektní negativní lineární vztah. To znamená, že jak se hodnota jedné proměnné zvyšuje, hodnota druhé proměnné se snižuje v konstantním poměru.
+- Hodnota **0** značí, že mezi proměnnými neexistuje žádný lineární vztah.
+
+Koeficient nedokáže změřit nelineární vztahy a jeho použití je vhodné pouze pro lineární vztahy a kvantitativní proměnné.
+
+## Příklady z běžného života
+
+1. **Vztah mezi výškou a váhou osoby**: Obecně platí, že vyšší lidé bývají také těžší. Pearsonův korelační koeficient by zde mohl ukázat pozitivní vztah blízko k 1, pokud vezmeme v úvahu lineární vztah mezi těmito dvěma proměnnými.
+
+2. **Čas strávený učením a výsledky zkoušek**: Můžeme očekávat, že čím více času student stráví učením, tím lépe si povede u zkoušky. Zde bychom mohli také pozorovat pozitivní korelaci.
+
+3. **Spotřeba benzínu a ujetá vzdálenost**: Obecně platí, že čím více benzínu auto spotřebuje, tím větší vzdálenost ujede, dokud se neobjevují další proměnné jako dopravní zácpy nebo technické problémy. Tento vztah by měl vykázat pozitivní korelaci.
+
+## Kdy se používá Pearsonův korelační koeficient?
+
+Pearsonův korelační koeficient je užitečný v situacích, kdy chceme měřit sílu a směr lineárního vztahu mezi dvěma kvantitativními proměnnými. Jeho aplikace je široká, například:
+
+- **Ekonomika**: Zkoumání vztahu mezi výší příjmů a výdaji domácností.
+- **Sociální vědy**: Analýza vztahu mezi vzděláním a zaměstnaností.
+- **Zdravotnictví**: Výzkum vztahu mezi konzumací tuku a hladinou cholesterolu.
+
+Je však důležité poznamenat, že vysoká hodnota Pearsonova korelačního koeficientu neimplikuje příčinný vztah — tedy to, že jedna proměnná způsobuje změnu v druhé. Korelace neznamená kauzalitu.
+
+---
+
+Tento výukový materiál by měl pomoci studentům pochopit, co Pearsonův korelační koeficient je, co popisuje a kdy je vhodné ho použít. Kdykoliv si nejste jisti vhodností jeho použití, přemýšlejte o povaze vašich dat a vztazích, které zkoumáte.
+

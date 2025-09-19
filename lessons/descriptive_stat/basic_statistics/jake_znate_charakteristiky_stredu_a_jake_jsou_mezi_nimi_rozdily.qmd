@@ -1,0 +1,74 @@
+---
+title: "Charakteristiky středu ve statistice"
+order: 30
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+V oblasti statistiky jsou charakteristiky středu klíčovými prvky, které pomáhají popsat a analyzovat soubor dat. Tyto charakteristiky nám poskytují informace o "typické" hodnotě v datovém souboru. V tomto materiálu si rozebereme hlavní charakteristiky středu: *aritmetický průměr*, *medián* a *modus*. Tyto tři metody mají různé vlastnosti, které je činí vhodné pro různé typy dat a situací.
+
+## Aritmetický průměr
+
+### Definice
+
+Aritmetický průměr je nejpoužívanější míra středu dat. Spočítá se jako součet všech hodnot v souboru dat dělený počtem těchto hodnot. Vzorec pro aritmetický průměr (značen jako $\bar{x}$) je:
+
+$$
+\bar{x} = \frac{x_1 + x_2 + \ldots + x_n}{n}
+$$
+
+kde $x_1, x_2, \ldots, x_n$ jsou jednotlivé hodnoty datového souboru a $n$ je počet hodnot.
+
+### Příklad z běžného života
+
+Představte si, že jste dostali pět testů zpět a vaše známky byly: 1, 2, 2, 3, a 4. Abyste zjistili, jaká je vaše průměrná známka, sečtete všechny známky dohromady (12) a vydělíte 5 (počet testů). Váš průměr je tedy 2,4.
+
+### Výhody a nevýhody
+
+Aritmetický průměr je užitečný, když chceme rychle získat představu o celkovém trendu dat. Je však citlivý na extrémy (outliery). Například, pokud máte známky 1, 1, 1, 1 a 10, průměr bude zkreslený směrem nahoru kvůli jednomu vysokému outlieru.
+
+## Medián
+
+### Definice
+
+Medián je střední hodnota datového souboru, která dělí soubor na dvě stejně velké části. Pro jeho určení je třeba data seřadit od nejmenšího po největší. Pokud je počet hodnot lichý, medián je prostřední hodnota; pokud je počet hodnot sudý, medián je průměr dvou prostředních hodnot.
+
+### Příklad z běžného života
+
+Pokud máte stejnou sadu známek: 1, 2, 2, 3, 4, medián je 2, protože je to prostřední hodnota v setříděném seznamu. Pokud by vaše známky byly: 1, 2, 2, 3, 4, 5, potom medián by byl průměr dvou prostředních hodnot, tedy $(2 + 3)/2 = 2.5$.
+
+### Výhody a nevýhody
+
+Medián je odolný vůči outlierům, protože není závislý na konkrétních hodnotách, ale na pořadí hodnot. Proto je užitečný v situacích, kdy data obsahují extrémní hodnoty, které by mohly zkreslit výsledky.
+
+## Modus
+
+### Definice
+
+Modus je hodnota, která se nejčastěji objevuje v datovém souboru. Datová množina může mít jeden mód (unimodální), více módů (multimodální) nebo žádný mód v případě, že se žádná hodnota neopakuje.
+
+### Příklad z běžného života
+
+Pokud se podíváme na náš příklad s pěti testy: 1, 2, 2, 3, a 4, modus je 2, protože tato hodnota se objevuje nejčastěji.
+
+### Výhody a nevýhody
+
+Modus je užitečný pro kategorie s nepravidelným rozdělením nebo v kvalitativních datech, kde se jiné měry nemusí uplatnit (např. oblíbená barva). Naopak v numerických datech může být nestabilní, zejména pokud je variabilita vysoká nebo počet opakování nízký.
+
+## Závěr
+
+Charakteristiky středu poskytují základní způsob, jak shrnout a analyzovat data. Každá z těchto mír má své využití v různých kontextech. Průměr je vhodný pro obecné trendy, medián pro datové soubory s outliery a modus pro výskyt konkrétních hodnot. Pro analýzu dat je důležité pochopit, jak aplikovat každý z nich a s jakými výhodami a nevýhodami se potýkají.
+

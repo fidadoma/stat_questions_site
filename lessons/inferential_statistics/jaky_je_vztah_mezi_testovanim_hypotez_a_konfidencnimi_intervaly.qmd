@@ -1,0 +1,68 @@
+
+---
+title: "Vztah mezi testováním hypotéz a konfidenčními intervaly"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+V oblasti statistiky existují dvě ústřední techniky pro analýzu dat a tvorbu závěrů - testování hypotéz a konfidenční intervaly. I přesto, že obě metody používáme pro rozhodování na základě dat, mají různé přístupy a cíle. V tomto dokumentu se budeme věnovat vztahu mezi testováním hypotéz a konfidenčními intervaly a ukážeme, jak spolu souvisí v praktických scénářích.
+
+# Testování hypotéz
+
+## Co je testování hypotéz?
+
+Testování hypotéz je statistická metoda, která nám umožňuje rozhodnout, zda jsou naše data v souladu s nějakou hypotézou (obvykle nazývanou "nulová hypotéza"), nebo zda bychom měli tuto hypotézu zamítnout ve prospěch alternativní hypotézy. 
+
+### Příklady z běžného života
+
+1. **Lék na nemoc**: Představte si farmaceutickou společnost, která vyvinula nový lék na snížení krevního tlaku. Nulová hypotéza by mohla být "Lék nemá žádný vliv na krevní tlak." Cílem testování by bylo zjistit, zda data podporují tuto hypotézu, nebo zda máme důvod se domnívat, že lék skutečně funguje.
+
+2. **Kvalita výrobků**: Pokud pracujete ve výrobní společnosti, můžete chtít otestovat, zda průměrná hmotnost vašich produktů opravdu odpovídá požadovaným standardům. Zde by nulová hypotéza mohla být "Průměrná hmotnost produktů je 100 gramů."
+
+## Typy chyb při testování hypotéz
+
+1. **Chyba I. druhu (α chyba)**: Zamítneme-li nulovou hypotézu, když je ve skutečnosti pravdivá. Například si myslíme, že lék funguje, když ve skutečnosti nemá žádný efekt.
+
+2. **Chyba II. druhu (β chyba)**: Nepodaří se zamítnout nulovou hypotézu, když je ve skutečnosti nepravdivá. Například se domníváme, že lék nemá efekt, i když ve skutečnosti funguje.
+
+# Konfidenční intervaly
+
+## Co je konfidenční interval?
+
+Konfidenční interval je rozsah hodnot odvozený z dat, který pravděpodobně obsahuje skutečnou hodnotu parametru populace. Obvykle se prezentuje s určitou úrovní spolehlivosti, například 95 %.
+
+### Příklady z běžného života
+
+1. **Výzkum trhu**: Firma provádí průzkum spokojenosti zákazníků a vypočítá, že 70 % zákazníků je spokojeno s jejich produkty, s konfidenčním intervalem 65 % až 75 %. To znamená, že s 95% jistotou věří, že skutečné procento spokojených zákazníků je mezi 65 % a 75 %.
+
+2. **Zdravotní studie**: Výzkum zjistí, že průměrná délka života v určité oblasti je 75 let, s konfidenčním intervalem 73 až 77 let. To naznačuje, že s 95% spolehlivostí věříme, že střední hodnota délky života se pohybuje v tomto rozmezí.
+
+# Vztah mezi testováním hypotéz a konfidenčními intervaly
+
+## Jak spolu souvisí?
+
+Konfidenční intervaly a testování hypotéz jsou úzce propojené koncepty. Jeden ze způsobů, jak si tuto souvislost představit, je použití konfidenčních intervalů pro testování hypotéz:
+
+- Pokud interval spolehlivosti pro odhad parametru neobsahuje hodnotu udanou nulovou hypotézou, můžeme nulovou hypotézu zamítnout.
+
+## Praktický příklad
+
+Pokud provádíme test na průměrnou výšku studentů a obdržíme hypotézu, že průměrná výška je 170 cm, vypočítáme konfidenční interval 2 cm na každou stranu (168 cm až 172 cm). Pokud naše vypočítaná průměrná výška je mimo tento interval (například 165 cm), zamítneme nulovou hypotézu.
+
+# Závěr
+
+Testování hypotéz a konfidenční intervaly jsou základní statistické nástroje pro analýzu dat a tváření závěrů. Pochopení jejich vzájemného vztahu a přístupů k řešení problémů vám umožní lépe interpretovat výsledky vašich výzkumů a učinit podloženější rozhodnutí. Používání příkladů z běžného života může tyto statistické koncepty přiblížit každodenní realitě a usnadnit jejich pochopení. 
+

@@ -1,0 +1,49 @@
+---
+title: "Co je to šikmost dat?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do šikmosti dat
+
+Šikmost dat je důležitý koncept ve statistice a analýze dat, který nám říká, jak je rozložení dat asymetrické. Jinými slovy, šikmost nám ukazuje, zda jsou v našich datech převážně vysoké nebo nízké hodnoty a jak moc se data odchylují od normálního rozložení. Šikmost je měřena na základě tvaru rozložení pravděpodobnosti našich dat.
+
+## Jak poznáme šikmost
+
+Pokud si představíte histogram vašich dat (graf ukazující frekvenci nebo četnost určité hodnoty), šikmost nám říká, zda tento graf "přepadává" na jednu stranu. Pokud je histogram symetrický, znamená to, že rozložení nemá šikmost a je označováno jako normální nebo Gaussovo.
+
+Šikmost může být pozitivní nebo negativní:
+- **Pozitivní šikmost**: Histogram má dlouhý "ocas" napravo. V praxi to znamená, že většina dat je soustředěna do nižších hodnot, ale existuje několik velmi vysokých hodnot (outliers), které histogram táhnou doprava. Taková data říkáme, že jsou "šikmá doprava."
+- **Negativní šikmost**: Histogram má dlouhý "ocas" nalevo. Tady to znamená, že většina dat je v vyšších hodnotách a několik nízkých extrémních hodnot táhne histogram doleva. Taková data říkáme, že jsou "šikmá doleva."
+
+## Příklady z praktického života
+
+1. **Příjem domácností**: Za rok vzaté příjmy domácností mohou tvořit pozitivně šikmé rozložení, protože většina lidí vydělává něco kolem průměru, zatímco několik jednotlivců s velmi vysokými příjmy táhne průměr směrem k vyšší hodnotě.
+
+2. **Délka života**: Pokud si vezmeme věk dožití u populace určité země, může se jednat o negativně šikmé rozložení. Většina lidí zemře ve vysokém věku, ale existuje i malý počet úmrtí v mladém věku, což histogram táhne doleva.
+
+3. **Prodej vstupenek na koncerty**: Většina koncertů může mít poměrně stabilní počet prodaných vstupenek (pokud nejde o vyprodané koncerty), ale několik vybraných koncertů může mít příliv zájemců, což posune šikmost doprava.
+
+## Proč je šikmost důležitá 
+
+Porozumění šikmosti dat je klíčové při statistické analýze, protože:
+- Pomáhá identifikovat přítomnost outlierů nebo extrémních hodnot.
+- Může ovlivnit výběr vhodných statistických testů. Některé testy předpokládají normální (symetrické) rozložení, a pokud tento předpoklad není splněn, výsledky mohou být zkreslené.
+- Může mít vliv na interpretaci statistických ukazatelů, jako je průměr a medián. Například v šikmých distribučních grafech může být medián lepším reprezentantem centrální tendence než průměr, který bývá často tažen extrémními hodnotami.
+
+## Závěr
+
+Pochopení šikmosti dat nám pomáhá lépe interpretovat a analyzovat data. Při analýze dat bychom měli být vždy vědomi šikmosti našeho datového setu, abychom zajistili přesnost a důvěryhodnost našich závěrů.
+
+

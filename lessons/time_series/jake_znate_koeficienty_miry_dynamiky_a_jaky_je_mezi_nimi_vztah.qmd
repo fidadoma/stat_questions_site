@@ -1,0 +1,101 @@
+
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Míry dynamiky: Přehled a Vztahy
+
+Statistika je disciplína, která se zabývá sběrem, analýzou, interpretací a prezentací dat. Když chceme zjistit, jak se nějaká veličina mění v čase, používáme míry dynamiky. Tyto míry nám umožňují kvantifikovat změnu, kterou pozorujeme v našich datech. Pojďme se na to podívat podrobněji.
+
+## Základní koeficienty míry dynamiky
+
+Existují tři hlavní koeficienty, které se běžně používají k vyjádření dynamiky jevu:
+
+1. **Absolutní přírůstek (nikdy neříkáme přírůstek)**
+2. **Procentní přírůstek**
+3. **Koeficient růstu**
+
+Pojďme si je vysvětlit jeden po druhém a přidat si k nim příklady, které si lze snadno představit.
+
+### Absolutní přírůstek
+
+**Definice:** Absolutní přírůstek nám říká, o kolik se hodnota veličiny změnila v daném časovém období. Je to prostý rozdíl hodnot v různých časových bodech.
+
+**Vzorec:**
+$$
+\Delta_t = x_t - x_{t-1}
+$$
+kde $\Delta_t$ je absolutní přírůstek, $x_t$ je hodnota veličiny v čase $t$, a $x_{t-1}$ je hodnota veličiny v předchozím čase.
+
+**Příklad z reálného světa:**
+Představte si, že měříte počet obyvatel ve městě každý rok. Pokud v roce 2022 mělo město 100 000 obyvatel a v roce 2023 se zvýšil počet obyvatel na 105 000, absolutní přírůstek je 5 000 obyvatel.
+
+### Procentní přírůstek
+
+**Definice:** Procentní přírůstek vyjadřuje relativní změnu hodnoty veličiny v procentech.
+
+**Vzorec:**
+$$
+P_t = \frac{x_t - x_{t-1}}{x_{t-1}} \times 100\%
+$$
+kde $P_t$ je procentní přírůstek.
+
+**Příklad z reálného světa:**
+Pokračujme v našem příkladu s počtem obyvatel. Pokud v roce 2022 mělo město 100 000 obyvatel a v roce 2023 se jejich počet zvýšil na 105 000, procentní přírůstek je:
+$$
+\frac{105\,000 - 100\,000}{100\,000} \times 100\% = 5\%
+$$
+
+### Koeficient růstu
+
+**Definice:** Koeficient růstu vyjadřuje poměr hodnoty veličiny v současném čase k hodnotě v předchozím čase.
+
+**Vzorec:**
+$$
+K_t = \frac{x_t}{x_{t-1}}
+$$
+kde $K_t$ je koeficient růstu.
+
+**Příklad z reálného světa:**
+Zůstaňme u předchozího příkladu. Počet obyvatel v roce 2023 byl 105 000, zatímco v roce 2022 měl město 100 000 obyvatel. Koeficient růstu je pak:
+$$
+\frac{105\,000}{100\,000} = 1.05
+$$
+Pokud koeficient růstu překračuje 1, veličina roste.
+
+## Vztah mezi koeficienty
+
+Koeficienty absolutního a procentního přírůstku a koeficient růstu jsou propojeny.
+
+- Procentní přírůstek a koeficient růstu se navzájem doplňují. Lze říci, že pokud známe procentní přírůstek, můžeme nalézt koeficient růstu a naopak. Vzorec pro tento vztah je:
+  $$
+  K_t = 1 + \frac{P_t}{100}
+  $$
+
+- Z předchozího vyplývá, že:
+  $$
+  P_t = (K_t - 1) \times 100\%
+  $$
+
+Tyto koeficienty nám poskytují různé způsoby, jak nahlížet na změny a dynamiku v datech. Použití správného koeficientu závisí na cílech analýzy a na tom, co chceme s daty demonstrovat nebo zjistit.
+
+### Užitečnost v každodenním životě
+
+Aplikace těchto koeficientů mohou být vidět v mnoha oblastech našeho života. Například:
+- **Ekonomika:** Zkoumání inflace, růstu HDP nebo změn cen.
+- **Demografie:** Analýza porodnosti, úmrtnosti nebo migračních trendů.
+- **Obchod:** Určení růstu prodejů, zisku nebo změn na trhu.
+
+Studium těchto měr dynamiky může poskytnout důležité poznatky pro obchodní a politická rozhodnutí, stejně jako pro osobní plánování. Nejde tedy jen o teoretické koncepty, ale o praktické nástroje pro analýzu vývoje ve všech oblastech lidského konání.
+

@@ -1,0 +1,57 @@
+---
+title: "Úvod do lineární regrese: Rovnice a její složky"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do lineární regrese
+
+Lineární regrese je statistická technika, která nám pomáhá pochopit a modelovat vztah mezi dvěma proměnnými - závislou proměnnou (často označovanou jako `Y`) a nezávislou proměnnou (často označovanou jako `X`). Používáme ji k předpovědi hodnot `Y` na základě daných hodnot `X`.
+
+### Rovnice nejjednodušší lineární regrese
+
+Rovnice pro nejjednodušší lineární regresi vypadá takto:
+
+$$
+Y = b_0 + b_1X + \varepsilon
+$$
+
+Kde:
+
+- $Y$ je závislá proměnná (to, co se snažíme předpovědět).
+- $X$ je nezávislá proměnná (náš prediktor nebo vysvětlující proměnná).
+- $b_0$ je intercept neboli absolutní člen regresní přímky (hodnota $Y$, když $X$ je nula).
+- $b_1$ je koeficient sklonu regresní přímky (jak moc se $Y$ změní, když $X$ vzroste o jednu jednotku).
+- $\varepsilon$ je chybový člen (odchylka skutečných hodnot od odhadovaných).
+
+## Představa v běžném životě
+
+Abychom lépe pochopili, jak tyto složky fungují, pojďme se podívat na příklad z běžného života.
+
+### Příklad: Výdaje na energie
+
+Řekněme, že chceme modelovat vztah mezi plochou vašeho bytu (v metrech čtverečních) a vašimi měsíčními náklady na energie. V tomto případě by vaše nezávislá proměnná $X$ byla plocha bytu a závislá proměnná $Y$ by byly vaše měsíční náklady na energie.
+
+- **$b_0$ (Intercept):** Představuje základní náklady na energie, které byste měli, kdyby váš byt měl nulovou plochu. I když to není realistické, je to matematická hodnota, kterou zachytává intercept. Může odrážet fixní náklady nezávislé na velikosti bytu.
+  
+- **$b_1$ (Koeficient sklonu):** Ukazuje, jak se vaše náklady na energie mění s každým přidaným čtverečním metrem plochy bytu. Pokud by $b_1$ bylo například 15 Kč, znamená to, že každé dodatečné čtvereční metr plochy vašeho bytu by zvyšovalo vaše měsíční náklady na energie o 15 Kč.
+
+- **$\varepsilon$ (Chybový člen):** Odchylka skutečných měsíčních výdajů na energie od hodnot předpovězených modelem. Tato odchylka může být způsobena náhodnými výkyvy v počasí, sezónními změnami a dalšími nepředvídatelnými faktory.
+
+## Závěr
+
+Lineární regrese nám umožňuje pochopit a kvantifikovat vztah mezi dvěma proměnnými. Rovnice lineární regrese s jejími složkami je klíčovým nástrojem statistické analýzy a pomáhá nám dělat informovaná rozhodnutí na základě dat. V našem příkladu s energiemi nám může říct, kolik bychom měli očekávat jako dodatečné náklady s rostoucí velikostí bytu.
+
+Tímto způsobem se lineární regrese používá nejen ve statistice, ale i v ekonomii, psychologii, vědách a mnoha dalších oborech pro modelování a predikci. 
+

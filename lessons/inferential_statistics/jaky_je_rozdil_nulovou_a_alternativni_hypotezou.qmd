@@ -1,0 +1,57 @@
+
+---
+title: "Rozdíl mezi Nulovou a Alternativní Hypotézou"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Hypotéz
+
+V oblasti statistiky a vědeckého výzkumu je důležité porozumět konceptu hypotézy, která nám pomáhá otestovat platnost nějakého tvrzení nebo předpokladu. Nejčastěji se setkáváme s testováním dvou typů hypotéz: nulové a alternativní hypotézy. Tyto dva typy hypotéz představují protikladná tvrzení, která se snažíme ověřit pomocí statistických metod.
+
+## Nulová Hypotéza (H0)
+
+Nulová hypotéza je výchozí předpoklad, že mezi zkoumanými jevy nebo parametry není žádný rozdíl, žádná změna nebo žádný účinek. V podstatě tvrdí, že všechny pozorované rozdíly jsou výsledkem náhody.
+
+### Příklady z Běžného Života
+
+- Představte si, že zkoumáte účinnost nového léku. Nulová hypotéza by tvrdila, že lék nemá žádný vliv na zlepšení zdraví pacientů ve srovnání s placebem.
+- V marketingu by nulová hypotéza mohla říkat, že nová reklamní kampaň nemá žádný dopad na zvýšení prodejů produktu.
+
+## Alternativní Hypotéza (H1)
+
+Alternativní hypotéza je tvrzení, které se snažíme podpořit, pokud je nulová hypotéza zamítnuta. Tvrdí, že mezi zkoumanými jevy nebo parametry existuje skutečný rozdíl nebo efekt. Alternativní hypotéza je často opačná k nulové hypotéze.
+
+### Příklady z Běžného Života
+
+- U lékařského výzkumu by alternativní hypotéza mohla říkat, že nový lék skutečně zlepšuje zdraví pacientů ve srovnání s placebem.
+- V marketingu by alternativní hypotéza tvrdila, že nová reklamní kampaň skutečně zvyšuje prodeje produktu.
+
+## Testování Hypotéz
+
+### Statistický Test
+
+K testování hypotéz se používají statistické testy. Tyto testy nám pomáhají rozhodnout, zda zamítnout nebo nechat nulovou hypotézu na základě dat, která máme k dispozici. Typickým výstupem je p-hodnota, která nám pomáhá stanovit, s jakou pravděpodobností by byl pozorovaný efekt viděn, pokud by nulová hypotéza byla pravdivá.
+
+### Významnost Testu
+
+- **P-hodnota**: Představuje pravděpodobnost pozorování stejného nebo extrémnějšího výsledku za předpokladu, že nulová hypotéza je pravdivá. Nižší p-hodnota znamená silnější důkaz proti nulové hypotéze.
+- **Alfa úroveň (α)**: Předem stanovená úroveň významnosti testu, často 0,05. Pokud je p-hodnota menší než α, zamítáme nulovou hypotézu ve prospěch alternativní hypotézy.
+
+## Shrnutí
+
+Porozumění rozdílu mezi nulovou a alternativní hypotézou je klíčové pro úspěšné provádění a vyhodnocování statistických testů. Je podstatné při rozhodování o tom, zda pozorované efekty v našich datech jsou výsledkem skutečných příčin nebo pouhých náhodných odchylek. 
+
+Praxe v rozpoznávání a aplikaci těchto konceptů vám umožní důkladnější pochopení a interpretaci mnoha statistických analýz, ať už v akademickém výzkumu, nebo v průmyslové praxi. Naučte se klást správné otázky a vybírat vhodné testy, abyste dosáhli spolehlivých a smysluplných závěrů z vašich dat!
+

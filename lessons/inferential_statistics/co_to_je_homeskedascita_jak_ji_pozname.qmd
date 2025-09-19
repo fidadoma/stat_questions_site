@@ -1,0 +1,75 @@
+
+title: "Studijní materiál: Homoskedasticita ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+V tomto materiálu se podíváme na jeden z klíčových pojmů ve statistice a ekonometrice: **homoskedasticita**. Tento pojem často vyvolává zmatek, proto jsme připravili podrobný návod, který vám pomůže tento koncept lépe pochopit. 
+
+## Co je to homoskedasticita?
+
+Homoskedasticita je předpoklad, který se týká **shody rozptylů** zbytků v regresním modelu. Znamená, že rozptyl chybových členů (nebo zbytků) v regresní analýze je konstantní pro všechny hodnoty nezávislé proměnné. Jinými slovy, chyby v předpovědích by měly být stejně velké bez ohledu na to, jaké hodnoty má nezávislá proměnná.
+
+Pokud je tento předpoklad porušen, jedná se o **heteroskedasticitu**, která může způsobit zkreslenost standardních chyb a tím i nesprávné závěry ve statistické analýze.
+
+### Proč je homoskedasticita důležitá?
+
+Homoskedasticita je důležitá, protože zajišťuje platnost některých statistických testů a intervalů spolehlivosti. Pokud je tento předpoklad porušen, výsledky testů mohou být nereprezentativní a způsobit mylná rozhodnutí. Tedy, je to nezbytné pro zajištění spolehlivosti naší statistické analýzy.
+
+# Jak poznáme homoskedasticitu?
+
+Posouzení homoskedasticity může být provedeno vizuálně nebo pomocí statistických testů:
+
+## 1. Grafická diagnostika
+
+- **Scatterplot (rozptylový graf)**: Nejjednodušší cestou, jak posoudit homoskedasticitu, je pomocí grafu reziduí (zbytků) vůči předpovězeným hodnotám. Pokud jsou zbytky rozptýleny náhodně kolem nuly s konstantním rozptylem, můžeme předpokládat homoskedasticitu.
+
+**Příklad z praxe**: Představte si, že máte data o spotřebě paliva auta v závislosti na rychlosti jízdy. Když vynesete zbytky této závislosti do grafu, měly by být rovnoměrně rozprostřeny kolem osy s konstantním rozptylem, pokud je splněna podmínka homoskedasticity.
+
+## 2. Statistické testy
+
+- **Breusch-Pagan test**: Tento test zkoumá vztah mezi zbytky a očekávanou hodnotou závislé proměnné. Nízká p-hodnota naznačuje přítomnost heteroskedasticity.
+
+- **White test**: Podobně jako Breusch-Pagan testuje přítomnost měnící se variabililty, ale je více obecný a méně závislý na normálnosti.
+
+# Kdy se může objevit heteroskedasticita?
+
+Heteroskedasticita může vzniknout z různých důvodů:
+
+- **Měřící chyby**: Například při větších hodnotách nezávislé proměnné mohou být větší měřící chyby.
+
+- **Chyby specifikace modelu**: Když neberete v úvahu důležité proměnné, které ovlivňují závislou proměnnou.
+
+- **Strukturální změny**: Pokud existují různé segmenty populace v datech, které se chovají odlišně, například státy s rozdílnou ekonomikou v globálním obchodě.
+
+# Jak se vypořádat s heteroskedasticitou?
+
+Pokud zjistíme, že naše data jsou heteroskedasticá, existují postupy, jak tento problém řešit:
+
+- **Transformace dat**: Můžeme aplikovat logaritmickou transformaci na závislou proměnnou, což může pomoci stabilizovat rozptyl.
+
+- **Robustní odhady**: Použití robustní metody výpočtu standardních chyb, které jsou méně citlivé na změny v rozptylu.
+
+- **Vážená metoda**: Aplikace vážené regresní analýzy, kde váhy jsou obrácené k rozptylu chyb.
+
+**Příklad z praxe**: Pokud pracujete s daty o příjmech domácností, kde vyšší příjmy mohou mít výrazně rozdílnější rozptyl výdajů, můžete použít logaritmickou transformaci na příjmy, abyste dosáhli konstantního rozptylu.
+
+# Závěr
+
+Homoskedasticita je důležitý předpoklad v regresních modelech, který musíme ověřit, abychom měli jistotu ve výsledcích analýzy. Pokud je tento předpoklad porušen, existuje několik metod, jak tento problém adekvátně řešit. V praxi je důležité pravidelně testovat předpoklady regresních modelů, abychom zajistili spolehlivost a validitu našich závěrů.
+
+Doufám, že tento studijní materiál vám pomohl lépe pochopit pojem homoskedasticity a jak ho identifikovat a řešit.
+

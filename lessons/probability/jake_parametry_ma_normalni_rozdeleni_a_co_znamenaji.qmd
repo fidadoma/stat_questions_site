@@ -1,0 +1,57 @@
+
+title: "Studijní materiál: Parametry normálního rozdělení a jejich význam"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Parametry normálního rozdělení a jejich význam
+
+Normální rozdělení, také známé jako Gaussovské rozdělení, je jedním z nejdůležitějších rozdělení v statistice. Je často používané díky svým jedinečným vlastnostem a je také základním kamenem mnoha statistických teorií a metod.
+
+## Parametry normálního rozdělení
+
+Normální rozdělení je charakterizováno dvěma hlavními parametry:
+
+1. **Střední hodnota (Mean, μ)**:
+   - Označuje se řeckým písmenem "mí" (μ).
+   - Střední hodnota je průměr všech možných hodnot, které náhodná veličina může nabývat.
+   - Představuje střed rozdělení a určuje jeho polohu na číselné ose.
+   - Příklad z běžného života: Pokud bychom měřili výšku všech lidí v určité populaci, střední hodnota by byla průměrná výška všech lidí.
+
+2. **Směrodatná odchylka (Standard deviation, σ)**:
+   - Označuje se řeckým písmenem sigma (σ).
+   - Směrodatná odchylka měří rozptyl nebo rozšíření hodnot kolem střední hodnoty.
+   - Vyjadřuje, jak jsou jednotlivé hodnoty proměnlivé nebo jak moc se liší od průměru.
+   - Příklad: V případě výšky lidí nám směrodatná odchylka říká, jak moc se výšky jednotlivých lidí liší od průměrné výšky.
+
+## Normální rozdělení v reálném světě
+
+### Příklady z běžného života:
+
+- **Lidská výška**: Jak jsme již zmínili, výška lidí v určité populaci tvoří normální rozdělení. Většina lidí je průměrné výšky, s menším počtem velmi vysokých a velmi nízkých jednotlivců.
+
+- **Chyby měření**: Například chyby při měření délky určitého objektu pomocí pravítka mají tendenci se rozdělovat normálně, protože malé chyby jsou běžné, zatímco velké chyby jsou vzácné.
+
+- **Inteligence**: IQ skóre je často modelováno normálním rozdělením. Většina lidí má průměrné IQ s malým počtem lidí s velmi nízkým nebo velmi vysokým IQ.
+
+## Vizuální podoba normálního rozdělení
+
+Normální rozdělení v grafické podobě tvoří charakteristickou křivku, známou jako "zvonková křivka." Tato křivka je symetrická vůči střední hodnotě (μ) a její tvar je určen směrodatnou odchylkou (σ). Čím menší je směrodatná odchylka, tím užší a vyšší je křivka, což značíme jako menší rozptyl dat. Čím větší je směrodatná odchylka, tím širší a plošší je křivka, což znamená větší rozptyl dat.
+
+## Shrnutí
+
+Normální rozdělení je základním konceptem v oblasti statistiky. Porozumění jeho parametrům, střední hodnotě a směrodatné odchylce, je klíčové pro správnou interpretaci a analýzu dat v mnoha oblastech, včetně přírodních věd, ekonomie, psychologie a dalších. Pamatujte, že většina statistických dat je považována za normálně rozdělená, což umožňuje použití široké škály analytických metod pro trenování a validaci hypotéz.
+
+
+

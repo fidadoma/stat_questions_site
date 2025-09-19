@@ -1,0 +1,68 @@
+
+---
+title: "Studijní materiál: Rezidua v časové řadě"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+{.content-visible}
+
+# Úvod do reziduí v časové řadě
+
+Rezidua v časové řadě hrají klíčovou roli při analýze tohoto typu dat. Když mluvíme o časové řadě, mluvíme o řadě datových bodů měřených v pravidelných intervalech. Časové řady můžeme nalézt v mnoha oblastech, jako je ekonomie, meteorologie a dokonce i v sociálních vědách. Představte si například měsíční záznamy prodejů nějaké společnosti nebo denní teploty naměřené ve městě.
+
+Rezidua můžeme chápat jako „chyby“ nebo rozdíly mezi skutečnými hodnotami a hodnotami, které by předpovídal nějaký model. V kontextu časové řady, jsou rezidua rozdíly mezi skutečnou hodnotou v daném čase a prognózou této hodnoty přijatou na základě modelu.
+
+# Proč jsou rezidua důležitá?
+
+Rezidua jsou důležitá z několika důvodů:
+
+1. **Kvalita modelu:** Rezidua nám pomáhají posuzovat, jak dobře náš model opisuje data. Pokud jsou rezidua malá, znamená to, že model dobře predikuje hodnoty časové řady. V případě velkých reziduí máme důvod se domnívat, že model není zcela přesný a možná potřebuje vylepšení.
+
+2. **Detekce vzorců:** Analyzováním reziduí můžeme identifikovat vzorce, které model možná nevzal v úvahu. Například, jestliže rezidua vykazují systematický trend či cykličnost (opakující se vzorce), mohlo by to signalizovat, že v datech je další struktura, kterou by bylo dobré modelovat.
+
+3. **Statistická předpoklady:** Mnoho statistických modelů časových řad se spoléhá na to, že rezidua jsou nezávislá a normálně rozložená. Testování, zda toto skutečně platí, je klíčové pro validaci modelu.
+
+# Jak se vypočítávají rezidua
+
+Matematicky řečeno, reziduum $e_t$ pro čas $t$ je rozdíl mezi skutečnou hodnotou $y_t$ a hodnotou predikovanou modelem $\hat{y}_t$. Je to tedy vyjádřeno vztahem:
+
+\[ e_t = y_t - \hat{y}_t \]
+
+Kde:
+- $e_t$ je reziduum v čase $t$,
+- $y_t$ je skutečná hodnota v čase $t$,
+- $\hat{y}_t$ je předpokládaná hodnota v čase $t$ založená na našem modelu.
+
+# Příklady z běžného života
+
+- **Prodeje oblečení:** Řekněme, že máme model, který předpovídá prodeje oblečení na základě historických dat. Pokud vidíme výrazná rezidua v určitých obdobích roku jako například během Vánoc nebo letních výprodejů, může to indikovat sezónní vzorec, který by měl být do modelu zahrnut.
+
+- **Meteorologie:** Předpovídání počasí je klíčové v mnoha ohledech (například pro zemědělství či letectví). Pokusme se předpovědět teplotu na základě historických dat. Pokud zjistíme, že teplota má tendenci vykazovat systematické chyby například během specifických měsíce, naše modelování by mělo být přehodnoceno.
+
+# Jak interpretovat rezidua?
+
+Správná interpretace reziduí zahrnuje několik základních kroků:
+
+1. **Normalita:** Zkontrolujte, zda jsou rezidua normálně rozdělená. To lze udělat vizuálně pomocí histogramu nebo formálně pomocí statistických testů.
+
+2. **Independence:** Ujistěte se, že nejsou závislá na čase. Můžete např. vykreslit graf autokorelace reziduí, který by neměl vykazovat významné vzory.
+
+3. **Konstantní variabilita:** Rezidua by měla mít konstantní variabilitu. Tento předpoklad můžete vizualizovat pomocí scatter plotu reziduí oproti předpokládaným hodnotám.
+
+# Závěr
+
+Rezidua jsou nezbytným dílem skládačky při analýze časových řad. Správné porozumění a analýza těchto „chybových“ komponent nám pomáhají vytvářet přesnější modely a lépe porozumět dynamice našich dat, což může být klíčové v mnoha oblastích.
+
+```

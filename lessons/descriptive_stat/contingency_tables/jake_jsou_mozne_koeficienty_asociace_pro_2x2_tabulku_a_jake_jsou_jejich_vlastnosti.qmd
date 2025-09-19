@@ -1,0 +1,85 @@
+---
+title: "Možné koeficienty asociace pro 2x2 tabulku a jejich vlastnosti"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do koeficientů asociace
+
+Když pracujeme s kategoriálním datem, často se setkáme se situacemi, kdy potřebujeme měřit sílu a směr vztahu mezi dvěma kategoriálními proměnnými. To se často dělá pomocí kontingenčních tabulek, zejména 2x2 tabulek. V těchto tabulkách hledáme koeficienty asociace, které nám pomohou kvantifikovat tento vztah. Existuje několik koeficientů, z nichž každý má své specifické vlastnosti a aplikační oblasti.
+
+# 2x2 Tabulka a její struktura
+
+Než prozkoumáme jednotlivé koeficienty asociace, pojďme si nejprve ukázat, jak vypadá 2x2 tabulka:
+
+|          | Kategorie B1 | Kategorie B2 | Součet řádku |
+|----------|--------------|--------------|--------------|
+| Kategorie A1 | a            | b            | a + b        |
+| Kategorie A2 | c            | d            | c + d        |
+| Součet sloupce| a + c        | b + d        | n (= a+b+c+d)|
+
+Tato tabulka nám pomáhá zjistit, jak často se jednotlivé kombinace kategorií u dvou proměnných vyskytují.
+
+# Možné koeficienty asociace
+
+## 1. Pearsonův chí-kvadrát test
+
+**Popis:** Pearsonův chí-kvadrát test (χ²) je statistický test, který určuje, zda existuje významná asociace mezi dvěma kategoriálními proměnnými. Čím vyšší je hodnota χ², tím silnější je signál asociace.
+
+**Výpočet:** $\chi² = \frac{(ad - bc)² \cdot n}{(a+b)(a+c)(b+d)(c+d)}$
+
+**Vlastnosti:**
+- Nezávisí na měřítku, ale záleží na velikosti vzorku.
+- Výsledky spadají do χ² rozdělení.
+
+**Příklad:** Pokud bychom chtěli zjistit, zda existuje asociace mezi lidmi, kteří nosí brýle (ano/ne) a tím, zda preferují pravou ruku (jasně pravou/jasně levou).
+
+## 2. Phi koeficient (φ)
+
+**Popis:** Phi koeficient je specializovaný případ Pearsonova korelačního koeficientu pro 2x2 tabulky. Je to míra síly a směru asociace mezi dvěma dichotomickými proměnnými.
+
+**Výpočet:** $\phi = \sqrt{\frac{\chi²}{n}}$
+
+**Vlastnosti:**
+- Rozsah hodnot je od -1 (dokonalá negativní asociace) přes 0 (žádná asociace) až po 1 (dokonalá pozitivní asociace).
+- Lze jej interpretovat podobně jako Pearsonův korelační koeficient pro intervalová data.
+
+**Příklad:** Pokud bychom chtěli analyzovat vztah mezi tím, zda někdo rád poslouchá rockovou hudbu (ano/ne) a zda rád cestuje (ano/ne).
+
+## 3. Cramerovo V
+
+**Popis:** Cramerovo V je rozšíření φ koeficientu, které je vhodné pro tabulky větší než 2x2, ale může být aplikováno i na 2x2 tabulky.
+
+**Výpočet:** $V = \sqrt{\frac{\chi²}{n \times \min (r-1, c-1)}}$, kde r a c jsou počty řádků a sloupců.
+
+**Vlastnosti:**
+- Rozsah od 0 (žádná asociace) až po 1 (silná asociace).
+- Snazší interpretace pro tabulky větších rozměrů, ale méně intuitivní pro 2x2 tabulky.
+
+## 4. Odds ratio (OR)
+
+**Popis:** Odds ratio vyjadřuje poměr šancí výskytu události ve dvou skupinách. Je to jeden z nejčastěji používaných ukazatelů v epidemiologii.
+
+**Výpočet:** $OR = \frac{a/c}{b/d} = \frac{ad}{bc}$
+
+**Vlastnosti:**
+- OR = 1 značí žádnou asociaci, OR > 1 značí větší šanci pro první skupinu a OR < 1 značí menší šanci pro první skupinu ve srovnání s druhou.
+- Významný v kontextu analýzy rizika.
+
+**Příklad:** Zvažme vztah mezi kouřením (kouří/nekouří) a výskytem rakoviny plic (rakovina/ne).
+
+# Závěr
+
+Různé koeficienty asociace poskytují různé pohledy na data a jejich vztahy. Při práci s 2x2 tabulkami je důležité si vybrat správný koeficient podle kontextu a výzkumné otázky, kterou zkoumáte. Studium vztahů mezi kategoriálními proměnnými nám pomáhá lépe porozumět světu kolem nás, ať už se jedná o preferenci určitého typu zábavy či analýzu zdravotních rizik.
+

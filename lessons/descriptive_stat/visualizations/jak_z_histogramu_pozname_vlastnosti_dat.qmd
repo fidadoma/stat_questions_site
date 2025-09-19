@@ -1,0 +1,60 @@
+---
+title: "Jak z histogramu poznáme vlastnosti dat?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do histogramu
+
+Histogram je grafické zobrazení rozložení kvantitativních dat. Pomáhá nám rychle vidět základní vlastnosti dat, jako je tvar rozložení, výskyt extrémních hodnot, symetrii nebo asymetrii a zaměření kolem určité hodnoty. Jedná se o velmi účinný nástroj v průzkumové analýze dat.
+
+## Co je histogram?
+
+Histogram je tvořen sadou obdélníků, kde každý reprezentuje frekvenci hodnot ve specifických intervalech (tzv. binty nebo kategorie). Šířka každého bintu se nazývá "šířka binu" a je jednotná pro všechna binty v histogramu. Výška obdélníku odpovídá počtu pozorování (frekvence), která spadají do příslušné kategorie.
+
+### Příklad z běžného života
+
+Představme si, že pracujeme jako manažer fitness centra a máme data o váze všech členů tělocvičny. Rádi bychom si udělali představu o tom, jaký je obecný trend váhy u našich členů. Histogram nám pomůže vytvořit přehled o tom, kolik členů spadá do specifických váhových intervalů (například 50-60 kg, 60-70 kg atd.).
+
+# Vlastnosti dat z histogramu
+
+## Tvar rozložení
+
+- **Symetrické rozložení:** Pokud je histogram přibližně symetrický, data jsou rovnoměrně rozložena kolem středové hodnoty. V případě perfektní symetrie bude histogram tvořit tvar zvonu (normální rozložení).
+
+- **Asymetrické (šikmé) rozložení:** Když většina dat je nakupena na jedné straně histogramu a "chvost" rozložení směřuje k druhé straně, mluvíme o šikmém rozložení. 
+  - **Šikmá doprava (kladná šikmost):** Chvost je na pravé straně. Například příjmová data často mají kladnou šikmost, protože existuje několik velmi vysokých příjmů, zatímco většina lidí má nižší příjmy.
+  - **Šikmá doleva (záporná šikmost):** Chvost je na levé straně. Příklad může být doba dokončení úkolu, kdy většina lidí dokončuje úkoly rychleji než několik lidí, kteří je dokončují velmi pomalu.
+
+## Střední hodnota a šířka rozložení
+
+- **Střední hodnota (průměr):** Je to hodnota, kolem které se data koncentrují. V histogramu můžete intuitivně odhadnout, kde leží střední hodnota, protože to obvykle bude tam, kde má histogram nejvyšší obdélník.
+  
+- **Variabilita (rozptyl a směrdatná odchylka):** V histogramu se variabilita dat odráží ve šířce a tvaru histogramu. Úzký a vysoký histogram naznačuje, že data mají nízkou variabilitu. Široký a plochý histogram naznačuje vysokou variabilitu.
+
+## Přítomnost extrémních hodnot
+
+Histogram nám také může pomoci identifikovat extrémní hodnoty, což jsou hodnoty, které se významně liší od ostatních v datasetu. Ty se často objevují jako izolované obdélníky v histogramu s malou výškou na jednom z konců rozložení.
+
+### Příklad z běžného života
+
+Možná analyzujeme čas, který studenti potřebují na dokončení testu. Většina studentů rozloží svou dobu dokončení kolem průměru. Nicméně, pokud existuje několik studentů, kteří dokončili test mnohem rychleji nebo pomaleji než všichni ostatní, tyto časy se projeví jako extrémní hodnoty v histogramu.
+
+# Praktická práce s histogramem
+
+Díky histogramu se můžete rychle seznámit s vlastnostmi vašich dat. Při analýze dat doporučujeme vždy začít s vizualizací pomocí histogramu, abyste získali základní intuitivní pochopení o rozložení vašich dat. To vám pomůže rozhodovat, jaké další analýzy bychom měli provést nebo jaké statistické modely použít.
+
+Pamatujte, že posouzení histogramu je často subjektivní a může záviset na nastavení šířky binu. Různé nastavení šířky může vést k odlišným interpretacím, proto je důležité si být vědom toho, jak to může ovlivnit váš pohled na data.
+
+

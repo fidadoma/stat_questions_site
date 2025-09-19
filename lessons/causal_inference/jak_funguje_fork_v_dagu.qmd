@@ -1,0 +1,59 @@
+---
+title: "Jak funguje Fork v DAGu?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do DAGu
+
+**DAG** je zkratka pro Directed Acyclic Graph (orientovaný acyklický graf). Je to struktura používaná v mnoha oblastech informatiky a statistiky, například při plánování úloh, zpracování dat nebo reprezentaci projektů a jejich závislostí. 
+
+Vyprávějme si, že DAG je něco jako návod na přípravu složitého jídla, kde máme několik kroků, které musíme provést v určitém pořadí. Každý krok může být viděn jako "uzel" a cesty mezi nimi jako "hrany". Směr hrany ukazuje, jaký postup je třeba dodržet. Hlavním pravidlem DAGu je, že se nikdy nemůžeš vrátit zpět. Jinými slovy, v DAGu nejsou žádné cykly - proto se nazývá "acyklický". 
+
+Různé uzly v DAGu reprezentují jednotlivé úkoly nebo části procesu, a hrany ukazují, v jakém pořadí by měly být tyto úkoly dokončeny.
+
+# Co je to Fork v DAGu?
+
+Když se zamyslíme nad procesem vaření, Fork v DAGu je chvíle, když se například při přípravě pokrmu musíme věnovat dvěma nebo více různým úkolům najednou. Představte si, že na jeden talíř chystáme přílohu a hlavní chod. Oba musí proběhnout paralelně, ale končí se na jednom bodě - servírování.
+
+Technicky, Fork je místo v DAGu, kde jeden úkol nebo uzel vede k více úkolům, které mohou (a často musí) být zpracovány paralelně. Je to bod, kde se cesta rozděluje do více cest, z nichž každá může být vnímána jako samostatný "podúkol".
+
+# Příklad z reálného světa: Příprava večeře
+
+Představte si, že připravujete večeři, která sestává ze dvou částí: vaření těstovin a přípravy omáčky. 
+
+1. Začínáte s přípravou - nastavíte vodu na vaření těstovin.
+2. Mezitím můžete začít na omáčce - krájíte zeleninu a maso.
+3. Jakmile máte nasazenou vodu na těstoviny, přidáte je do vroucí vody a zároveň pokračujete v přípravě omáčky.
+4. Jakmile jsou těstoviny uvařené a omáčka hotová, obě části spojíte na talíři a večeře je připravena.
+
+V DAGu by tento proces vypadal takto:
+
+- Začátek ~> Nastavení vody na vaření ~> (Fork: Vaření těstovin + Příprava omáčky) ~> Spojení na talíři ~> Konec
+
+# Proč je Fork nepostradatelný?
+
+V moderních počítačových systémech a zpracování dat je paralelizace klíčová pro efektivitu. Rozdělením úkolů přes Fork můžeme současně zpracovávat více věcí, což šetří čas a zdroje. 
+
+Pokud bychom pokračovali v našem příkladu s večeří, nemohli bychom nejprve uvařit těstoviny a teprve poté začít připravovat omáčku. To by nás stálo více času. 
+
+To je přesně důvod, proč jsou Forky v DAGu tak důležité: umožňují zpracovat složité procesy efektivněji a rychleji pomocí paralelního zpracování úkolů. Nejenže ušetříte čas, ale také efektivněji využíváte dostupné zdroje.
+
+# Závěr
+
+Fork v DAGu je tedy jakousi křižovatkou v procesu, která umožňuje rozdělit práci mezi paralelní úkoly. V reálném světě, jako v příkladu s večeří, tento koncept umožňuje provádět více věcí naráz, což vede k větší efektivitě. V moderních systémech jde o základní princip, který stojí za většinou optimalizací výkonu.
+
+Pochopení tohoto konceptu může výrazně pomoci studentům i profesionálům, kteří se zabývají oblastmi, jako je správa projektů, zpracování dat nebo programování paralelních systémů. Umožňuje jim lépe plánovat, organizovat a provádět komplexní úkoly. 
+
+

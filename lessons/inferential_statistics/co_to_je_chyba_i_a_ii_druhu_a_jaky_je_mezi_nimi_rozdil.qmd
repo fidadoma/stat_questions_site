@@ -1,0 +1,53 @@
+
+title: "Chyba I. a II. druhu: Vysvětlení a příklady"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Ve statistickém testování hypotéz často hovoříme o dvou typech chyb: **chyba I. druhu** (též označována jako alfa chyba) a **chyba II. druhu** (též beta chyba). Tyto chyby se týkají procesu rozhodování, kdy rozhodujeme o přijetí či zamítnutí nulové hypotézy ($H_0$). Pojďme se podívat, co tyto chyby přesně znamenají a jaký je mezi nimi rozdíl.
+
+# Chyba I. druhu
+
+Chyba I. druhu nastává, když zamítneme nulovou hypotézu $H_0$, i když je přitom pravdivá. Je to tedy situace, kdy uděláme chybu ve prospěch alternatovní hypotézy $H_a$, ačkoli bychom měli setrvat při nulové hypotéze.
+
+## Příklady z běžného života
+
+* **Soudní proces:** Představte si, že soudní systém funguje na principu presumpce neviny - někdo je považován za nevinného ($H_0$) dokud se neprokáže vina. Chyba I. druhu by nastala, když by byl nevinný člověk (nulová hypotéza $H_0$ je pravdivá) mylně odsouzen za zločin.
+  
+* **Lékařské testy:** Představte si test, který má detekovat určitou nemoc. Chyba I. druhu by byla "false positive" - to znamená, že by test indikoval přítomnost nemoci (zamítnutí $H_0$: že osoba je zdravá), i když je osoba ve skutečnosti zdravá.
+
+# Chyba II. druhu
+
+Chyba II. druhu nastává, když přijmeme nulovou hypotézu $H_0$, ačkoli je ve skutečnosti nepravdivá. To znamená, že nevěřitelně pokračujeme ve víře v něco (nulovou hypotézu), co je nepravdivé.
+
+## Příklady z běžného života
+
+* **Soudní proces:** Vrátíme se k našemu soudnímu příkladu. Chyba II. druhu by znamenala, že někdo, kdo je ve skutečnosti vinný (alternativní hypotéza $H_a$ je pravdivá), by byl mylně osvobozen (ignorování $H_0$).
+  
+* **Lékařské testy:** V našich lékařských testech by chyba II. druhu představovala "false negative" - to znamená, že test by ukázal, že osoba nemá nemoc (přijetí $H_0$: osoba je zdravá), i když nemoc má.
+
+# Rozdíly a důsledky
+
+1. **Který typ omylu je vážnější, závisí na kontextu.** V některých případech může mít větší důsledky chyba I. druhu (např. nesprávné odsouzení nevinné osoby), zatímco v jiných případech může být vážnější chyba II. druhu (např. když se neprojeví nemoc).
+  
+2. **Úroveň významnosti ($\alpha$):** Chyba I. druhu souvisí s úrovní významnosti statistického testu, typicky stanovenou na 0.05 nebo 0.01. Snížení úrovně významnosti může snížit šanci chyby I. druhu, ale může zároveň zvýšit šanci chyby II. druhu.
+
+3. **Síla testu ($1-\beta$):** Schopnost statistického testu odhalit skutečnou účinnost (odmítnout $H_0$, když je $H_a$ pravda) je označována jako síla testu. Čím je větší síla testu, tím je menší pravděpodobnost chyby II. druhu.
+
+# Shrnutí
+
+Chyba I. druhu i chyba II. druhu představují důležité koncepty ve statistickém testování hypotéz. Rozdíly mezi nimi spočívají v tom, jaké rozhodnutí se ukáže jako mylné: zamítnutí pravdivé nulové hypotézy (I. druh) versus přijetí nepravdivé nulové hypotézy (II. druh). Důsledky těchto chyb jsou závislé na kontextu, ve kterém jsou posuzovány, a porozumění těmto chybám pomáhá optimalizovat rozhodovací procesy v praxi.
+

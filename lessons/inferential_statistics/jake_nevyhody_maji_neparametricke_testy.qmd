@@ -1,0 +1,53 @@
+
+---
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Nevýhody neparametrických testů
+
+Neparametrické testy jsou soubor statistických metod, které nevyžadují předpoklad o konkrétním rozdělení dat, například normální rozdělení. To může být v mnoha situacích výhodné, avšak existují také určité nevýhody, které bychom měli mít na paměti při jejich používání. V této lekci se zaměříme na tyto nevýhody.
+
+## 1. Nižší síla testu
+
+Neparametrické testy mají obecně nižší statistickou sílu ve srovnání s parametrickými testy, pokud jsou použity na data, která skutečně splňují předpoklady parametrických testů. Statistická síla testu je pravděpodobnost, že správně odmítneme nulovou hypotézu, pokud je nepravdivá.
+
+### Příklad
+Představte si, že testujete vliv léku na krevní tlak pacientů. Máte několik skupin pacientů s měřeními krevního tlaku před a po podání léku. Pokud krevní tlak pacientů v každé skupině má normální rozdělení a použijete neparametrický test, vaše schopnost detekovat skutečný efekt léku může být nižší než při použití parametrických testů jako je například t-test.
+
+## 2. Nezachování informací
+
+Neparametrické testy často pracují s pořadím dat místo jejich konkrétních hodnot. To znamená, že mohou ztratit informace obsažené v původních měřeních. Například místo průměrných hodnot a rozptylu se využívají mediány a pořadí, což může být méně informativní.
+
+### Příklad
+Uvažujme průzkum spokojenosti zákazníků, kde respondenti hodnotí produkt na škále od 1 do 10. Pokud použijete neparametrický test založený na pořadí hodnocení, ztratíte informace o tom, jak moc jeden zákazník preferuje hodnotu 9 nad 8, nebo jaký je rozdíl k hodnocení 10.
+
+## 3. Potřeba větších vzorků
+
+Některé neparametrické testy mohou vyžadovat větší velikost vzorku ke spolehlivé detekci efektů. To může být nepraktické nebo nákladné, zejména pokud je obtížné sbírat data.
+
+### Příklad
+Představme si, že chceme porovnat průměrné příjmy dvou regionů bez předpokladu o rozdělení příjmů. Pokud máte k dispozici jen malý počet respondentů, mohou být výsledky testu neprůkazné a může být potřeba získat více dat.
+
+## 4. Omezené aplikace
+
+Neparametrické testy nebyly vyvinuty pro všechny možné testovací scénáře. Mohou existovat situace, kde neparametrický test jednoduše neexistuje nebo není vhodný.
+
+### Příklad
+V některých případech, jako jsou složitější vícerozměrné analýzy, může být velmi obtížné najít neparametrické ekvivalenty k dostupným parametrickým metodám.
+
+## Závěr
+
+Zatímco neparametrické testy poskytují cenný nástroj tam, kde nelze splnit předpoklady parametrických testů, je důležité být si vědom jejich nevýhod. Pro lepší rozhodování je klíčové porozumět povaze vašich dat a výběrem správné metody maximalizovat pravděpodobnost dosažení spolehlivých výsledků. Tato znalost může být obzvláště užitečná v různých oblastech výzkumu, od lékařství po sociální vědy a ekonomii. Vždy pečlivě zvažte předpoklady a omezení jakékoli statistické metody, kterou se rozhodnete použít.
+

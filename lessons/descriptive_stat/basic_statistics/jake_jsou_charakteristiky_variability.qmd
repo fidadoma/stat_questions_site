@@ -1,0 +1,91 @@
+---
+title: "Charakteristiky variability"
+order: 40
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do charakteristik variability
+
+Variabilita je jedním ze základních konceptů ve statistice, který nám umožňuje pochopit, jak jsou data rozptýlena nebo rozložena kolem střední hodnoty. Pokud bychom měli dvě skupiny dat se stejným průměrem, ale různou variabilitou, může to znamenat, že jedna skupina je konzistentnější, zatímco druhá může být rozptýlenější. Tento koncept je kritický pro pochopení údajů a jejich interpretaci.
+
+# Proč je variabilita důležitá?
+
+Představte si, že chcete porovnat průměrné známky dvou různých tříd. Zatímco obě třídy mohou mít stejný průměr, rozptyl jejich známek může říci více o rozdílné výkonnosti studentů. Pokud je rozptyl malý, většina studentů má podobné známky, zatímco velký rozptyl může znamenat velké rozdíly mezi jednotlivými studenty.
+
+## Hlavní charakteristiky variability
+
+Základní metriky, které popisují variabilitu dat, jsou následující:
+
+### 1. Rozptyl (Variance)
+
+Rozptyl je jedním z nejpoužívanějších způsobů měření variability. Vychází z průměrné čtvercové odchylky každého bodu dat od střední hodnoty. Čím větší je hodnota rozptylu, tím větší je variabilita v datové sadě.
+
+- **Vzorec pro rozptyl (s²):**
+  
+math
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2
+```
+
+kde:
+  - \( x_i \) je každá jednotlivá hodnota,
+  - \( \bar{x} \) je průměr,
+  - \( n \) je počet datových bodů.
+
+### 2. Směrodatná odchylka (Standard Deviation)
+
+Směrodatná odchylka je odmocnina rozptylu a je často upřednostňována, protože se vyjadřuje ve stejných jednotkách jako původní data. Směrodatná odchylka nám říká, jak daleko od průměru se běžně nacházejí jednotlivé hodnoty.
+
+- **Vzorec pro směrodatnou odchylku (s):**
+
+```math
+s = \sqrt{s^2}
+```
+
+### 3. Variační koeficient (Coefficient of Variation)
+
+Variační koeficient je poměr směrodatné odchylky k průměru a je vyjádřen v procentech. Tato metrika je užitečná při porovnávání variability datových sad, které mají různé rozsahy nebo jednotky.
+
+- **Vzorec pro variační koeficient (CV):**
+
+```math
+CV = \frac{s}{\bar{x}} \times 100\%
+```
+
+### 4. Mezikvartilový rozptyl (Interquartile Range, IQR)
+
+Mezikvartilový rozptyl je rozdíl mezi horním a dolním kvartilem (25. a 75. percentil), což představuje rozsah střední poloviny dat. Je odolný vůči odlehlým hodnotám a je tedy užitečný pro popis dobře rozdělených dat.
+
+- **Vzorec pro IQR:**
+
+```math
+IQR = Q3 - Q1
+```
+
+kde:
+  - \( Q1 \) je dolní kvartil,
+  - \( Q3 \) je horní kvartil.
+
+# Příklady z každodenního života
+
+1. **Finanční investice**: Při investování je velmi důležité sledovat volatilitu cen akcií. Akcie s vysokým rozptylem mohou mít větší riziko, ale i vyšší potenciální výnosy.
+
+2. **Kvalita výrobků**: Představte si produkční linku, která vyrábí plastové lahve. Pokud je variabilita velikosti lahve malá, výrobky budou více konzistentní, což může minimalizovat odpad a zvýšit spokojenost zákazníků.
+
+3. **Teplota počasí**: Při sledování teploty v určité oblasti může rozptyl informovat o tom, jak stabilní je klima. Oblasti s malou variabilitou mohou mít stabilnější klima, což může být důležité pro zemědělství.
+
+# Shrnutí
+
+Charakteristiky variability nám poskytují klíčový pohled na to, jak jsou data rozložena kolem střední hodnoty. Prostřednictvím rozptylu, směrodatné odchylky, variačního koeficientu a mezikvartilového rozptylu můžeme lépe pochopit, jaké procesy ovlivňují naše data a jak je můžeme efektivně interpretovat. Při analýze dat je důležité zvolit správný ukazatel variability podle povahy dat, které máme k dispozici.
+```

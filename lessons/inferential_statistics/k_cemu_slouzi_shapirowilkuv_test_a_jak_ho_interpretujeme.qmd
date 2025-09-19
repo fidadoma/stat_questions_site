@@ -1,0 +1,59 @@
+
+---
+title: "Shapiro-Wilkův test: Co to je a jak ho interpretovat"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Přemýšleli jste někdy, zda jsou vaše data normálně rozložena? To může být důležité, například pokud chcete použít statistické testy, které předpokládají normální rozložení dat. Jedním z nejběžnějších způsobů, jak tuto předpoklad ověřit, je použití **Shapiro-Wilkova testu**.
+
+# Co je Shapiro-Wilkův test?
+
+Shapiro-Wilkův test je statistický test, který kontroluje, zda data pocházejí z normálního rozložení. Byl popsán Roaldem Shapirem a Martinem Wilkem v roce 1965 a je považován za jeden z nejúčinnějších testů pro tento účel.
+
+### Jak test funguje?
+
+Shapiro-Wilkův test vypočítává testovaci statistiku, která maximalizuje podobnost mezi vaší sadou dat a normálním rozložením. Pokud je hodnota této statistiky vysoká, data pravděpodobně pocházejí z normálního rozložení.
+
+### Výstup testu
+
+Výstupem Shapiro-Wilkova testu jsou dvě hlavní hodnoty: 
+
+- **W**: Statistická hodnota testu Shapiro-Wilk. Čím blíže je k 1, tím více se data podobají normálnímu rozložení.
+- **p-hodnota**: Pravděpodobnost, že rozdíl mezi vašimi daty a normálním rozložením je způsoben náhodou. Čím je p-hodnota vyšší, tím je pravděpodobnější, že data pocházejí z normálního rozložení.
+
+# Jak interpretovat výsledky?
+
+Interpretace Shapiro-Wilkova testu je založena hlavně na p-hodnotě:
+
+- **p-hodnota > 0,05**: Neodmítáme nulovou hypotézu, což znamená, že není dostatek důkazů k tomu, abychom řekli, že data nejsou normálně rozložena. Data mohou být považována za normální.
+- **p-hodnota ≤ 0,05**: Odmítáme nulovou hypotézu, což znamená, že existují důkazy, že data nejsou normálně rozložena.
+
+Je důležité si uvědomit, že pokud je p-hodnota velmi malá (například pod 0,01), jistota, že nejsou data z normálního rozložení, je velmi vysoká.
+
+# Příklady z reálného života
+
+1. **Výška lidí**: Představte si, že studujete rozdělení výšek studentů na vysoké škole. Výšky lidí obecně sledují normální rozložení, takže Shapiro-Wilkův test by měl mít p-hodnotu vyšší než 0,05.
+
+2. **Denní příjmy malé kavárny**: Majitel kavárny chce zjistit, zda jeho denní tržby sledují normální rozložení, aby mohl lépe plánovat zásoby a rozpočty. Pomocí Shapiro-Wilkova testu může zjistit, že jeho tržby jsou pozitivně zkosené. Získání p-hodnoty pod 0,05 by znamenalo, že denní příjmy nejsou normální, což může mít vliv na budoucí obchodní rozhodnutí.
+
+# Závěr
+
+Shapiro-Wilkův test je cenným nástrojem pro každého, kdo pracuje s daty a potřebuje zjistit, zda jsou data normálně rozložena. Pamatujte, že test nebude vždy poskytnout definitivní "ano" nebo "ne", ale poskytne jistotu, jak blízko jsou data k normálnímu rozložení.
+
+Při interpretaci výsledků testu je důležité zvažovat kontext, ve kterém se používají, a případně test doplnit i dalšími metodami a vizuálním zkoumáním dat.
+
+

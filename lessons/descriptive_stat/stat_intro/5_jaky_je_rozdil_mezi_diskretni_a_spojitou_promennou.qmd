@@ -1,0 +1,57 @@
+---
+title: "Rozdíl mezi diskrétní a spojitou proměnnou"
+order: 50
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+V oblasti statistiky a analýzy dat existují různé typy proměnných, které se liší svými vlastnostmi a způsobem, jakým mohou být zaznamenávány. Rozdělení na **diskrétní** a **spojité** proměnné je jedním z nejdůležitějších. V tomto materiálu se budeme zabývat tím, co každá z těchto kategorií znamená, jak je identifikovat a jaké příklady z běžného života jim můžeme přiřadit.
+
+## Diskrétní proměnná
+
+Diskrétní proměnnou můžeme popsat jako takovou, která nabývá konkrétních, oddělených hodnot. Tyto hodnoty jsou obvykle celá čísla a mezi nimi nejsou žádné hodnoty. 
+
+### Příklady diskrétních proměnných:
+
+1. **Počet dětí v rodině**: Rodina může mít 0, 1, 2, 3, atd. dětí. Mezi těmito hodnotami nejsou žádná "mezilehlá" čísla, například 2.5 dítěte.
+
+2. **Počet aut na parkovišti**: Můžeme mít na parkovišti např. 0, 1, 2, 3 auta, ale nikdy nemůžeme mít 1.5 auta.
+
+3. **Zápasy vyhrané během sezóny**: Ve sportu, například v hokeji, tým může vyhrát určitý počet zápasů, jako 60, 61, 62 atd. Není možné vyhrát polovinu zápasu.
+
+Diskrétní proměnné jsou běžně zaznamenávány pomocí čísel a často se s nimi setkáte v situacích, kdy výsledky lze spočítat či vyjádřit celým číslem.
+
+## Spojitá proměnná
+
+Spojitá proměnná, na druhé straně, může nabývat jakékoli hodnoty v určitém rozsahu. Tyto proměnné mohou obsahovat nekonečně mnoho hodnot, včetně desetinných čísel a zlomků.
+
+### Příklady spojitých proměnných:
+
+1. **Výška osoby**: Výška může být 170 cm, ale také 170.5 cm či 170.55 cm atd. Je možné měřit ji s jakoukoli úrovní přesnosti.
+
+2. **Teplota**: Například 24.7 stupňů Celsia, 24.75 stupňů atd. Teplota může mít nekonečné možné hodnoty v rámci fyzikálně definovaných mezí.
+
+3. **Čas**: Čas může být 5 sekund, 5.1 sekund, 5.123 sekund atd. Souvisí s otázkami, kde je důležitá přesnost a kontinuální měření.
+
+### Jaké otázky si klást pro určení typu proměnné:
+
+- **Lze jednotlivé hodnoty spočítat či pojmenovat konkrétními celými čísly?** Pokud ano, jedná se o diskrétní proměnnou.
+- **Lze hodnoty měřit a jsou v rozmezí, kde každá další hodnota může být blíže k jinému číslu, než jaké jste zaznamenali?** Pokud ano, jedná se o spojitou proměnnou.
+
+## Závěr
+
+Rozlišení mezi diskrétními a spojitými proměnnými je klíčové pro správné pochopení dat, se kterými pracujete, a pro výběr vhodných metod analýzy. Diskrétní proměnné nabývají jasně definovaných hodnot, které mohou být spočítány, zatímco spojité proměnné lze měřit na škále s potenciálně nekonečnými hodnotami. Ujistěte se, že pečlivě zvážíte povahu proměnné, když analyzujete data ve statistické studii.
+

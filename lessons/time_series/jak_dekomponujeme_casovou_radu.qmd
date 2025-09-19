@@ -1,0 +1,86 @@
+
+---
+title: "Decomposition of Time Series"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Introduction to Time Series Decomposition
+
+Time series decomposition is an essential method in statistics that breaks down a time series into its constituent components. This process allows us to see the underlying patterns and trends in the data by separating them into meaningful components.
+
+## Components of Time Series
+
+There are typically four components that can be extracted from a time series:
+
+1. **Trend Component**: This represents the long-term progression of the series. It is the underlying direction that the data follows over time, whether it's increasing, decreasing, or having a constant pattern. 
+
+    - *Example*: Consider the sales of electric cars over the past decade. The trend component would show a general increase in sales due to technological advancements and increased consumer awareness.
+
+2. **Seasonal Component**: This captures the rhythmic variations at regular intervals due to seasonal factors. These are patterns that repeat at predictable intervals.
+
+    - *Example*: Retail stores often experience higher sales during the holiday season or summer sales. The seasonal component would capture these predictable spikes and drops.
+
+3. **Cyclical Component**: This reflects the longer-term business cycles in the data that are not of fixed period like seasonal effects.
+
+    - *Example*: The economic boom and recession cycles would be an example of long-term cyclical components in unemployment data.
+
+4. **Irregular Component**: Also known as the "noise," this comprises the random variations that do not follow a pattern. It is what remains after extracting the other components.
+
+    - *Example*: A sudden political event causing a short-term fluctuation in stock prices.
+
+## Methods of Decomposition
+
+There are mainly two types of decomposition models used:
+
+- **Additive Model**: This is used when the amplitude of seasonal variations or the magnitude of the irregular component does not change over time. It is generally expressed as:
+  
+  \[
+  Y(t) = T(t) + S(t) + C(t) + I(t)
+  \]
+
+  *Example*: If a company sells a fixed number of products every winter, regardless of the overall sales volume, it may be well-suited to an additive model.
+
+- **Multiplicative Model**: This is used when the seasonal variation or the irregular component magnitude is influenced by the level of the series (i.e., it changes proportionally as the series value changes). It is represented as:
+  
+  \[
+  Y(t) = T(t) \times S(t) \times C(t) \times I(t)
+  \]
+
+  *Example*: If a company's sales are doubling every year, including the seasonal peaks, it would be better described by a multiplicative model.
+
+## Steps for Decomposition
+
+1. **Identify the type of model**: Determine whether the problem at hand is better suited to an additive or multiplicative model.
+
+2. **Estimate the trend component**: This can be done using moving averages or fitting a regression line to your data.
+
+3. **Calculate the seasonal component**: By removing the trend from the data and analyzing the repetitive patterns over fixed intervals.
+
+4. **Assess the cyclical component**: Examine the residuals after removing trend and seasonality for potential cycles.
+
+5. **Analyze the irregular component**: This is what remains after removing the above components from the time series.
+
+## Practical Application
+
+To put this into practice, imagine managing a retail store and noticing that sales fluctuate throughout the year. By decomposing your sales data, you can identify which part of the fluctuation is due to a long-term increase in popularity (trend), which parts are predictable year-in-out increases during summer (seasonal), and which are due to broader economic cycles (cyclical).
+
+With this newfound understanding, decisions such as inventory management, marketing strategies, and staffing can be improved, making your operations more efficient and responsive to actual data patterns.
+
+## Conclusion
+
+Understanding time series decomposition enables you to break through the complex mix of patterns in data and make well-informed decisions based on clear insights from historical data. It's a crucial skill for statisticians, economists, business managers, and anyone handling data-driven decision-making.
+
+
+

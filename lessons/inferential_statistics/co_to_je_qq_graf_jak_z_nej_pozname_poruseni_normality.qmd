@@ -1,0 +1,52 @@
+
+---
+title: "Co to je Q-Q graf? Jak z něj poznáme porušení normality?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Co je Q-Q graf?
+
+Q-Q graf neboli kvantil-kvantil graf je nástroj v statistice, který se používá k vizuálnímu porovnávání dvou pravděpodobnostních rozdělení tím, že porovnává jejich kvantily. Nejčastěji se Q-Q graf používá ke kontrole, zda datový soubor následuje určité teoretické rozložení, např. normální rozložení.
+
+## Jak Q-Q graf funguje
+
+Q-Q graf zobrazuje kvantily z jednoho rozdělení vůči kvantilům z druhého rozdělení. Pokud se rozdělení dat shoduje s teoretickým rozložením (např. normálním), body v grafu se budou seřazovat podél přímky, která vede pod úhlem 45 stupňů zleva dole doprava nahoře.
+
+### Jak Q-Q graf vytvořit
+
+1. Seřaď všechna data ve vzestupném pořadí.
+2. Vypočti jejich kumulativní pravděpodobnosti.
+3. Zjisti odpovídající teoretické kvantily pro teoretické rozdělení, se kterým porovnáváš.
+4. Vytvoř graf se zkoumanými kvantily na jedné ose a teoretickými kvantily na druhé ose.
+
+## Poznání porušení normality z Q-Q grafu
+
+Při zjišťování, zda jsou data normálně rozložena, budou se data v Q-Q grafu oproti normálnímu rozložení řadit podél zmíněné úhlové přímky, pokud rozložení odpovídá. 
+
+### Znaky porušení normality:
+
+- **Výkyvy od přímky**: Pokud body systematicky uhýbají od přímky, naznačuje to, že data nesledují normální rozložení.
+- **S-křivka nebo Z-křivka**: Pokud body tvoří křivku podobnou písmenu "S" nebo "Z", může to značit, že data mají nadměrnou špičatost nebo šíři oproti normálnímu rozložení.
+- **Outliery (výstřední body)**: Pokud jsou na grafu extrémní hodnoty, které se výrazně odchylují od přímky, mohou to být výstředníky, které naznačují, že rozložení má další zdroje variability.
+
+## Příklady z běžného života:
+
+- **Ekonomická data**: Analytik může využít Q-Q grafy pro kontrolu, zda jsou denní výnosy akcií normálně rozloženy před aplikací modelů, které předpokládají normalitu.
+- **Přírodní vědy**: Výzkumník může použít Q-Q graf k ověření, zda měření nějaké přírodní veličiny (např. koncentrace látky) splňuje normální rozdělení, což je předpoklad pro některé statistické testy.
+- **Zdravotnictví**: V oblasti klinického výzkumu může být použit Q-Q graf pro ověření, zda biologická data, jako jsou hladiny cholesterolu, odpovídají normálnímu rozložení, což je důležité pro provedení odpovídající statistické analýzy.
+
+Pamatujte, že Q-Q graf je vizuální nástroj a pro dokonalé potvrzení normality by měly být použity i další statistické testy jako Shapiro-Wilkův test nebo Kolmogorov-Smirnovův test.
+
+

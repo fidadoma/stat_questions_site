@@ -1,0 +1,5 @@
+---
+title: "O stránce"
+---
+
+Tato stránka je podpůrný materiál pro studenty statistiky. Jde o vypracované odpovědi na otázky z témat probíraných v předmětu Statistika (500138) na VŠPJ. 

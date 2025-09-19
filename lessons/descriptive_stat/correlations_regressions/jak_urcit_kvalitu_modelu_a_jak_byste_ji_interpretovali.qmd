@@ -1,0 +1,62 @@
+---
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Jak určit kvalitu modelu a jak byste ji interpretovali?
+
+Kvalita statistického modelu je klíčová pro pochopení a předpovídání chování dat, což je důležité v mnoha oblastech života, od ekonomie po biologii. V této chvíli se zaměříme na to, jak můžeme určit, zda náš model dobře popisuje data, a jak můžeme kvalitu modelu interpretovat. Použijeme různé metriky a metody k určení kvality modelu a poskytneme příklady, které pomohou tomu porozumět lépe.
+
+## Metriky pro hodnocení kvality modelu
+
+Existuje několik klíčových metrik, které se často používají k hodnocení kvality modelu. Mezi ty nejdůležitější patří:
+
+1. **R-squared (R^2):**
+   
+   R-squared je metrika, která říká, jak dobře údaje odpovídají modelu. Hodnoty se pohybují od 0 do 1, kde hodnoty blížící se 1 naznačují dobré přizpůsobení modelu k datům. R-squared nám poskytuje procento variability, které může být vysvětleno modelovými prediktory.
+
+2. **Root Mean Squared Error (RMSE):**
+   
+   RMSE je standardní odchylka reziduí (chyb předpovědi). Čím nižší je hodnota RMSE, tím lepší je model. RMSE nám říká, jak daleko naše modelové predikce průměrně leží od skutečných hodnot.
+
+3. **Mean Absolute Error (MAE):**
+   
+   MAE je průměr absolutních chyb. Je to průměrná velikost chyb v našem modelu, bez ohledu na směr.
+
+4. **Adjusted R-squared:**
+   
+   Adjusted R-squared je upravená verze R-squared, která bere v úvahu počet prediktorů v modelu. Je to užitečné zejména při porovnávání modelů s různým počtem proměnných.
+
+5. **Akaike Information Criterion (AIC) a Bayesian Information Criterion (BIC):**
+   
+   AIC a BIC jsou určeny pro modelovou selekci. Nižší hodnoty AIC a BIC indikují lepší model. AIC a BIC penalizují modely s více prediktory, čímž podporují jednodušší modely.
+
+## Příklady interpretace
+
+### Příklad 1: Ekonomické předpovědi
+
+Představte si, že máte ekonomický model, který predikuje inflaci na základě různých ekonomických indikátorů. Pomocí R-squared zjistíte, že váš model vysvětluje 85 % variability inflace. To znamená, že většina fluktuací inflace je vaším modelem dobře zachycena. Nyní se podívejte na RMSE, který říká, že průměrná chyba vašeho modelu je například 0.5 %. To znamená, že predikce inflace jsou průměrně o 0.5 % mimo skutečné hodnoty.
+
+### Příklad 2: Biologický výzkum
+
+Zkoumáte růst rostlin a máte model, který predikuje výšku rostlin na základě jejich věku a množství přijatého světla. Vaše Adjusted R-squared je 0.70, což znamená, že váš model dobře vysvětluje růst rostlin, avšak existuje ještě prostor pro zlepšení nebo zahrnutí dalších prediktorů. AIC vašeho modelu je 120. Pokud vytvoříte nový model s několika dalšími proměnnými a jeho AIC klesne na 115, považujete ho za lepší.
+
+### Příklad 3: Doprava a logistika
+
+V oblasti dopravy můžete mít model, který odhaduje dobu doručení zásilky na základě vzdálenosti a dopravních podmínek. Pokud váš model má vysokou hodnotu MAE, například 2 hodiny, znamená to, že vaše předpovědi se často liší o 2 hodiny od skutečných časů doručení. Cílem je minimalizovat tuto chybu pro efektivní plánování.
+
+## Závěr
+
+Hodnocení kvality modelu je zásadním krokem pro pochopení toho, jak dobře váš model funguje a jaké jsou jeho slabosti. Použití různých metrik vám pomůže získat komplexní pohled na model a umožní vám jej dále zdokonalovat. Pochopení těchto konceptů vám umožní aplikovat je na reálné problémy v různých oborech. Každá metrika má své výhody a omezení, proto je důležité používat je v kombinaci a v kontextu problému, který řešíte.
+

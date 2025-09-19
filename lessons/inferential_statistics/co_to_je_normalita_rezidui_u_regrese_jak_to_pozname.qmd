@@ -1,0 +1,68 @@
+
+title: "Normalita Reziduí u Regrese: Klíčový faktor v liniové regresi"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+V této lekci se budeme zabývat pojmem 'normalita reziduí' v kontextu lineární regrese. Je to klíčový aspekt, který je často zkoumán při aplikaci regresního modelu na data. Pojďme se ponořit hlouběji do toho, co tento termín znamená, proč je důležitý, a jak můžete identifikovat normalitu reziduí ve svých datech.
+
+## Co je to Normalita Reziduí?
+
+Normalita reziduí je pojem, který označuje situaci, kdy rezidua z vašeho regresního modelu (rozdíly mezi skutečnými a predikovanými hodnotami) jsou normálně rozložena. To znamená, že pokud bychom je zakreslili na histogramu, měli bychom vidět symetrický zvonový tvar, typický pro normální rozdělení.
+
+### Proč je normalita reziduí důležitá?
+
+Existují konkrétní důvody, proč se zaměřujeme na normalitu reziduí:
+
+1. **Platnost Testů Hypotéz**: V lineární regresi se často používají t-testy a F-testy k testování hypotéz. Tyto testy předpokládají, že rezidua jsou normálně rozložena. Pokud tomu tak není, můžete se dostat k nesprávným závěrům.
+
+2. **Odhad Parametrů**: Normalita reziduí zajišťuje, že odhady parametrů (např. beta koeficienty) jsou nejefektivnější a mají minimální rozptyl.
+
+3. **Konstruování Intervalů Spolehlivosti**: Intervaly spolehlivosti a predikční intervaly, které vycházejí z regresních modelů, jsou přesnější, pokud jsou rezidua normálně rozložena.
+
+## Jak Poznáme Normalitu Reziduí?
+
+Existují různé způsoby a testy, jak zjistit, zda jsou rezidua z určitého modelu normálně rozložena:
+
+### Grafické Techniky
+
+1. **Histogram Reziduí**: Na první pohled se může zdát, že histogram je jednoduchý nástroj, ale může být velmi užitečný. Nakreslením histogramu vašich reziduí si můžete rychle ověřit, zda data navozují zvonový tvar.
+
+2. **QQ-Plot (Quantile-Quantile Plot)**: Pomocí QQ-Plotu můžete porovnat kvantily reziduí vašich dat s kvantily normálního rozdělení. Pokud jsou rezidua normálně rozložena, body by měly blízko ležet na přímce.
+
+### Statistické Testy
+
+1. **Shapiro-Wilk Test**: Tento test statisticky hodnotí hypotézu, zda data pochází z normálního rozložení. Výsledek p-hodnoty indikuje, zda je odchylka od normálnosti statisticky významná.
+
+2. **Kolmogorov-Smirnov Test**: Tento test porovnává distribuci reziduí s normálním rozložením a testuje, zda jsou signifikantní rozdíly mezi těmito distribucemi.
+
+## Příklady z Běžného Života
+
+### Ekonomie
+
+Představte si, že analyzujete data o příjmech domácností a počtu členů v domácnosti. Použitím regresní analýzy můžete modelovat závislost mezi počtem členů a celkovým příjmem. Normalita reziduí je důležitá, aby vaše predikce a intervaly spolehlivosti byly správné.
+
+### Zoologie
+
+Zoologové mohou zkoumat závislost mezi hmotností a délkou života určitých živočišných druhů. Pokud zavádějí regresní analýzu, normalita reziduí pomáhá zajistit, že jejich závěry o prodlevách v životě jsou správně kalibrovány.
+
+## Závěr
+
+Normalita reziduí je kritickým předpokladem v lineární regresi, který ovlivňuje platnost testů hypotéz, přesnost predikčních modelů a efektivnost odhadů parametrů. Používání grafických a statistických testů pro zajištění tohoto předpokladu může výrazně zlepšit kvalitu vaší analýzy.
+
+Rozvinout porozumění normalitě reziduí není jen akademickým cvičením—je to základ, který vám umožní provádět přesné a důvěryhodné analýzy.
+
+

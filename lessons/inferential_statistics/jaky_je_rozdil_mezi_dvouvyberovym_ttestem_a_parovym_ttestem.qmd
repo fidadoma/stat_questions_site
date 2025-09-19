@@ -1,0 +1,59 @@
+
+---
+title: "Rozdíl mezi dvouvýběrovým t-testem a párovým t-testem"
+author: Filip Děchtěrenko
+date: "{<meta date>}"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+T-testy jsou statistické testy, které se používají k určení, zda existují významné rozdíly mezi průměrnými hodnotami v různých skupinách. V této lekci se zaměříme na rozdíl mezi dvěma typy t-testů: **dvouvýběrovým t-testem** a **párovým t-testem**. Každý z těchto testů má svoje specifické použití v závislosti na povaze dat a experimentu.
+
+## Dvouvýběrový t-test
+
+Dvouvýběrový t-test, známý také jako **nepárový t-test**, se používá ke zjištění, zda existuje významný rozdíl mezi průměry dvou nezávislých skupin. Skupiny nejsou spárované, což znamená, že jednotlivé pozorování v jedné skupině nesouvisí s jednotlivými pozorováními v druhé skupině.
+
+### Příklady z běžného života
+
+- **Testování rozdílu ve spokojenosti zákazníků mezi dvěma pobočkami obchodu.** Obchody jsou nezávislé a data z jednoho obchodu neovlivňují data z druhého obchodu.
+- **Srovnávání akademických výkonů chlapců a dívek ve stejné třídě.** Chlapci a dívky představují dvě nezávislé skupiny.
+
+### Předpoklady
+
+- Obě skupiny dat jsou normálně distribuované.
+- Variance v obou skupinách je podobná (homoscedasticita).
+- Pozorování jsou nezávislá.
+
+## Párový t-test
+
+Párový t-test je navržen pro případy, kdy jsou data **závislá**, což znamená, že existuje přirozené párování mezi pozorováními ve dvou datových sadách. Tento test je použitelný, když chcete zjistit rozdíly ve stejné skupině subjektů ve dvou různých časech nebo podmínkách.
+
+### Příklady z běžného života
+
+- **Srovnání krevního tlaku pacientů před a po užití léku.** Každý pacient slouží jako vlastní kontrola.
+- **Výkon studentů na dvou různých testech.** Sledujte stejné studenty a jejich výkon na různých typech zkoušek.
+
+### Předpoklady
+
+- Rozdíly mezi párovými pozorováními jsou normálně distribuované.
+- Párování je správné, tj. každý subjekt v jedné skupině odpovídá jednomu subjektu v druhé skupině.
+
+## Závěr
+
+Abyste mohli správně zvolit mezi dvouvýběrovým a párovým t-testem, musíte především zvážit povahu svých dat a experimentálního designu. Dvouvýběrový t-test je vhodný pro nezávislé skupiny bez přirozeného párování. Na druhou stranu, pokud data obsahují přirozené párování (jako stejné subjekty v různých podmínkách), pak je párový t-test tou správnou volbou.
+
+Pečlivé zvážení a správné použití testu může vést k lepším interpretacím a spolehlivějším výsledkům ve Vašem výzkumu či aplikaci.
+
+
+

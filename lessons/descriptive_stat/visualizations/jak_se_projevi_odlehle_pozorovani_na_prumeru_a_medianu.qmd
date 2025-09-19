@@ -1,0 +1,88 @@
+---
+title: "Jak se projeví odlehlé pozorování na průměru a medianu?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+Statistika často pracuje s údaji, které mohou být ovlivněny tzv. odlehlými pozorováními. Odlehlé pozorování je hodnota, která se značně liší od ostatních hodnot v datové sadě. Jak taková odlehlá data ovlivní základní statistická měření, jako je průměr a medián?
+
+Tento studijní materiál vám pomůže pochopit vliv odlehlých pozorování na průměr a medián a ukáže to na příkladech z běžného života.
+
+## Průměr
+
+### Definice průměru
+
+**Průměr**, neboli aritmetický průměr, je jedním z nejpoužívanějších statistických ukazatelů k určení střední hodnoty sad dat. Vypočítá se jako součet všech hodnot v datové sadě, vydělený počtem těchto hodnot.
+
+\[
+\text{Průměr} = \frac{\sum_{i=1}^{n} x_i}{n}
+\]
+
+kde \( x_i \) je \( i \)–tá hodnota v datové sadě a \( n \) je počet hodnot.
+
+### Vliv odlehlých pozorování na průměr
+
+Odlehlé pozorování může mít výrazný vliv na průměr, protože průměr bere v úvahu všechny hodnoty v datové sadě rovnoměrně. Pokud máme odlehlé, extrémně vysoké nebo nízké hodnoty, průměr se posune směrem k těmto hodnotám. 
+
+### Příklad z běžného života - Mzdy
+
+Představme si společnost s pěti zaměstnanci a jejich měsíčními mzdami:
+
+- 30 000 Kč
+- 32 000 Kč
+- 31 000 Kč
+- 29 000 Kč
+- **100 000 Kč (odlehlé pozorování)**
+
+Průměrná mzda by se vypočítala následovně:
+
+\[
+\text{Průměr} = \frac{30\,000 + 32\,000 + 31\,000 + 29\,000 + 100\,000}{5} = \frac{222\,000}{5} = 44\,400 \, \text{Kč}
+\]
+
+Průměr je výrazně zvýšen vysokou mzdou jednoho zaměstnance a neodráží typickou mzdu většiny zaměstnanců.
+
+## Medián
+
+### Definice mediánu
+
+**Medián** je hodnota, která dělí datovou sadu na dva stejně početné celky. Tedy polovina hodnot je menších nebo rovna mediánu a polovina větších nebo rovna mediánu. Pro tříděnou datovou sadu medián najdeme snadno:
+
+- Pokud je počet hodnot lichý, medián je prostřední hodnota.
+- Pokud je počet hodnot sudý, medián je průměrem dvou prostředních hodnot.
+
+### Vliv odlehlých pozorování na medián
+
+Medián je mnohem méně citlivý na odlehlá pozorování než průměr, protože medián závisí pouze na pořadí dat a ne na jejich absolutních hodnotách.
+
+### Příklad z běžného života - Mzdy
+
+Při použití stejného příkladu se mzdami jako dříve:
+
+- 29 000 Kč
+- 30 000 Kč
+- **31 000 Kč (medián)**
+- 32 000 Kč
+- 100 000 Kč
+
+Medián je hodnota třetího zaměstnance v seřazené sadě, což je 31 000 Kč. Tento ukazatel více odpovídá tomu, co většina zaměstnanců skutečně vydělává, navzdory odlehlému pozorování u jednoho zaměstnance.
+
+## Závěr
+
+Odlehlá pozorování mají tendenci zkreslovat průměr datové sady, zatímco medián obvykle zůstává mnohem stabilnější. To je důvodem, proč se medián často používá k vyjádření "typické" nebo "střední" hodnoty, zvláště když je datová sada náchylná k odlehlým hodnotám.
+
+Při analýze dat vždy zvažte přítomnost odlehlých pozorování a jejich potenciální vliv na výsledky. Výběr mezi průměrem a mediánem jako reprezentativní hodnotou datové sady by měl záviset na povaze vašich dat a na tom, jaký aspekt rozdělení chcete nejvíce zdůraznit."
+

@@ -1,0 +1,61 @@
+
+---
+title: "Studijní materiál: Testování hypotéz ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do testování hypotéz
+
+Testování hypotéz je jednou z klíčových metod ve statistice, která nám umožňuje rozhodovat na základě dat. Prakticky se jedná o proces, při kterém se posuzuje platnost určité tvrzení (hypotézy) o populaci na základě výběrového vzorku. 
+
+## Proč testovat hypotézy?
+
+Vědecké a statistické metody hledají objektivní rozhodnutí, která jsou podložena daty. Hypotézu můžeme chápat jako předpoklad nebo tvrzení, které chceme ověřit. Například:
+
+- **Lék**: Chceme zjistit, zda nový lék je účinnější než stávající léčba.
+- **Marketing**: Testujeme, zda nová reklama zvýší tržby více než stávající.
+- **Věda**: Zajímá nás, zda je rozdíl ve výškách mužů a žen statisticky významný.
+
+## Základní pojmy v testování hypotéz
+
+- **Hypotéza**: Předpokládané tvrzení o vlastnosti populace.
+  - *Nulová hypotéza (H0)*: Obecně vyjadřuje tvrzení o neexistenci efektu či rozdílu. Například 'nový lék není účinnější než stávající'.
+  - *Alternativní hypotéza (H1)*: Je opakem nulové hypotézy a vyjadřuje existenci efektu či rozdílu. Například 'nový lék je účinnější než stávající'.
+
+- **Statistická významnost**: Pravděpodobnost, že bychom pozorovali naměřená data, pokud by nebyla účinnější. Vyjadřuje se pomocí p-hodnoty.
+
+- **P-hodnota**: Označuje pravděpodobnost dosažení výsledků alespoň tak extrémních, jako jsou pozorované, za předpokladu, že nulová hypotéza je pravdivá. Pokud je p-hodnota nízká (obvykle pod úrovní 0.05), máme důvod zamítnout nulovou hypotézu.
+
+## Jak funguje testování hypotéz?
+
+1. **Formulace hypotéz**: Na začátku formulujeme nulovou a alternativní hypotézu.
+2. **Výběr vhodného testu**: Volba statistického testu závisí na typu dat a experimentu.
+3. **Sběr dat**: Shromáždění dat pomocí experimentálních nebo observačních metod.
+4. **Výpočet statistiky testu**: Na základě shromážděných dat a zvoleného testu spočítáme testovací kritérium a p-hodnotu.
+5. **Rozhodnutí**: Na základě p-hodnoty rozhodujeme o zamítnutí nebo nezamítnutí nulové hypotézy.
+
+## Příklady z běžného života
+
+- **Farmacie**: Farmaceutická společnost testuje účinnost nového léku na vzorku populace a na základě testu hypotéz se rozhodne, myslí-li si, že nový lék je skutečně účinnější.
+  
+- **Výzkum trhu**: Firma před uvedením nového produktu testuje koncept na malé skupině zákazníků a podle výsledků hypotézního testu se rozhodne, zda produkt uvede na trh.
+
+- **Sociální výzkumy**: V analýzách veřejného mínění se zkoumá, zda existuje statisticky významný rozdíl v názorech různých demografických skupin.
+
+## Závěr
+
+Testování hypotéz je zásadní nástroj pro objektivní rozhodování na základě dat. Pomocí něj můžeme ověřovat předpoklady a učinit informovaná rozhodnutí. Rozumět tomuto procesu je klíčové jak pro vědecký výzkum, tak pro rozhodování v obchodním světě.
+
+

@@ -1,0 +1,58 @@
+
+---
+title: "Rozdíl mezi jednostranným a oboustranným testem"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do hypotéz a testování
+
+V statistice se často setkáváme s potřebou testovat hypotézy. Testování hypotéz je proces, který nám umožňuje učinit rozhodnutí o populaci na základě údajů z výběru. Myšlenka je prověřit platnost předpokladu, nazývaného hypotéza, pomocí statistického testu. Dva hlavní typy hypotéz, které testujeme, jsou:
+
+- **Nulová hypotéza (H0):** Tvrzení, které se snažíme vyvrátit nebo které si přejeme vyvrátit.
+- **Alternativní hypotéza (H1 nebo Ha):** Tvrzení, které přijmeme v případě, že zamítneme nulovou hypotézu.
+
+# Typy testů: Jednostranný a oboustranný
+
+## Jednostranný test
+
+Jednostranný test je statistický test, ve kterém alternativní hypotéza specifikuje, že parametr populace je buď větší než, nebo menší než hodnota specifikovaná nulovou hypotézou. V praxi to znamená, že testujeme, zda je parametr buď nad nebo pod určitou hodnotou.
+
+### Kdy použít jednostranný test?
+
+Jednostranný test použijeme, když máme přesné předpoklady o směru rozdílu, který očekáváme před testováním. Například když máme dobré důvody se domnívat, že zlepšení způsobené novou léčbou by mělo být pouze pozitivní (nikoli negativní).
+
+### Příklad z běžného života
+
+Představte si, že pracujete v cukrárně a vaší úlohou je zajistit, že průměrná hmotnost dortů je alespoň 500 gramů. Změříte průměrnou hmotnost dvanácti dortů a zjistíte, že průměrná hmotnost je 495 gramů. Použitím **jednostranného testu** (testujete směrem dolů) můžete prokázat, že průměrná hmotnost by mohla být menší než 500 gramů.
+
+## Oboustranný test
+
+Oboustranný test je statistický test, kde alternativní hypotéza uvádí, že parametr populace se liší (ať už ve větší nebo menší míře) od hodnoty specifikované nulovou hypotézou. Zde nejde jen o směr rozdílu, ale o skutečnost, že rozdíl existuje.
+
+### Kdy použít oboustranný test?
+
+Použití oboustranného testu je vhodné, když nás zajímají odchylky v obou směrech. Je to obvyklejší přístup, protože jsme často nezaujatí vůči tomu, zda se parametr zvyšuje či snižuje.
+
+### Příklad z běžného života
+
+Představte si, že pracujete jako kontrolor kvality léků a vaším úkolem je zajistit, že průměrný čas rozpouštění tablet je 15 minut. Pokud z testovaného vzorku zjistíte, že průměrný čas je 14 minut, použijete **oboustranný test**, abyste zjistili, zda je tento rozdíl statisticky významný a může tedy znamenat, že čas rozpouštění je ve skutečnosti odlišný od 15 minut.
+
+# Sumarizace a závěr
+
+- Použijeme **jednostranný test**, když máme apriorní přesvědčení o směru změny, kterou očekáváme.
+- Použijeme **oboustranný test**, když chceme zjistit, zda existuje jakákoli významná změna bez ohledu na směr této změny.
+
+Pro začínající studenty statistiky je dobré se v první řadě naučit kdy a jak používat který test. Berte v úvahu kontext, ve kterém data analyzujete, a formulujte hypotézy odpovídajícím způsobem. Oba testy mají svoje místo ve statistické analýze a výběr správného testu může významně ovlivnit interpretaci vašich výsledků.
+

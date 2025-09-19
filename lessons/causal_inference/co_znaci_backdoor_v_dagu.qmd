@@ -1,0 +1,68 @@
+---
+title: "Study Material: Back-door Criterion in Directed Acyclic Graphs (DAGs)"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Study Material: Back-door Criterion in Directed Acyclic Graphs (DAGs)
+
+## Introduction
+
+In statistics, especially when dealing with causal inference, understanding the concept of a back-door path is essential. Directed Acyclic Graphs (DAGs) provide a graphical representation of causal relationships between variables. A back-door path in a DAG can interfere with the identification of causal effects. In this study material, we will explore what a back-door path is, why it is important, and how it is applied using examples from real life.
+
+## What is a Directed Acyclic Graph (DAG)?
+
+A Directed Acyclic Graph is a graphical representation with directed edges (arrows) between nodes (variables), where no cycles exist. This means it is impossible to start at any one node and return to it by following the directed edges.
+
+**Example**: Think about a family tree, where each person can only be born after their parents. There can't be a situation where someone in the family tree is their own ancestor.
+
+## Understanding the Back-door Criterion
+
+The back-door criterion is a condition that helps determine whether a set of variables can be used to block all back-door paths in a DAG. A back-door path is any path from a treatment variable $X$ to an outcome variable $Y$ that starts with an arrow pointing into $X$.
+
+### Why is Blocking Back-door Paths Important?
+
+When estimating causal effects, we need to ensure that the relationship between the treatment and the outcome is not confounded by other variables (i.e., external variables that could give a misleading interpretation of the relationship). Back-door paths are potential confounders, and blocking these paths helps in making more accurate causal inferences.
+
+## Criteria for the Back-door
+
+A set of variables $Z$ satisfies the back-door criterion relative to an ordered pair of variables $(X, Y)$ in a DAG if:
+
+1. No node in $Z$ is a descendant of $X$.
+2. $Z$ "blocks" every back-door path between $X$ and $Y$, meaning that the set $Z$ intercepts all paths from $X$ to $Y$ that begin with an arrow pointing to $X$.
+
+### Real-life Example
+
+Imagine a study is conducted to measure the effect of a new diet pill (Treatment: $X$) on weight loss (Outcome: $Y$). However, there might be other factors like physical activity level or metabolic rate that could influence the outcome. A back-door path would be one where these factors confound the effect of the diet on weight loss. 
+
+By identifying and controlling for these variables, we ensure that we are assessing the effect of the diet pill directly on weight loss without interference from other paths.
+
+## Application in Real Life Scenarios
+
+### Healthcare
+
+Suppose you are studying whether smoking (Treatment: $X$) affects lung cancer (Outcome: $Y$). A back-door path might include genetic predisposition as it influences both smoking habits and cancer risk. Adjusting for or controlling genetic factors can help accurately assess the direct effect of smoking on lung cancer.
+
+### Economics
+
+In assessing whether higher education (Treatment: $X$) affects income (Outcome: $Y$), parental wealth could be a back-door path, as it might influence both the education level and the income. By controlling for parental wealth, one can better estimate the true effect of education on income.
+
+## Conclusion
+
+Understanding and utilizing the back-door criterion within Directed Acyclic Graphs allows researchers to more accurately determine causal relationships by identifying and controlling for potential confounding variables. By blocking back-door paths, we achieve a clearer perspective on how variables directly affect one another, leading to more reliable conclusions in research experiments and studies.
+
+This knowledge not only strengthens your statistical and analytical skills but also enhances critical thinking and decision-making abilities in various fields like healthcare, economics, and social sciences.
+
+Use this study material to reinforce your understanding of back-door criteria in DAGs and apply these concepts in analyzing causal relationships in your area of interest.
+`

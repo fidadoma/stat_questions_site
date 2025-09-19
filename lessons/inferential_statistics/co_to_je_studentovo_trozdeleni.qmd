@@ -1,0 +1,70 @@
+
+title: "Studentovo t-rozdělení"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Co to je studentovo t-rozdělení?
+
+## Úvod do statistiky a pravděpodobnosti
+
+Vítejte na cestě k pochopení studentova t-rozdělení, což je klíčový koncept ve světě statistiky. Statistika a pravděpodobnost jsou disciplíny matematiky, které nám pomáhají pochopit a analyzovat data. Pokud jste někdy slyšeli o normálním rozdělení (také známým jako Gaussovo rozdělení), tak t-rozdělení je koncept, který se používá velmi podobně, ale kdy a proč? Pojďme to zjistit!
+
+## Co je to Studentovo t-rozdělení?
+
+Studentovo t-rozdělení je pravděpodobnostní rozdělení, které se používá při odhadu průměru populace v případech, kdy velikost vzorku je malá a populace má normální rozdělení. Toto rozdělení bylo vyvinuto Williamem Sealy Gossetem pod pseudonymem "Student", odkud pochází jeho název.
+
+### Klíčové vlastnosti
+
+1. **Symetrie**: T-rozdělení je symetrické kolem nuly, podobně jako normální rozdělení.
+2. **Parametry**: Je určeno parametrem zvaným stupně volnosti (degrees of freedom, df), což je celé číslo, které ovlivňuje tvar rozdělení.
+3. **Distribuce**: Rozdělení je více "roztažené" nebo "placatější" než normální rozdělení, hlavně pokud máme malé stupně volnosti.
+
+## Proč a kdy používáme t-rozdělení?
+
+### Situace
+
+T-rozdělení přichází na scénu především ve dvou situacích:
+
+1. **Malé vzorky**: Když máme malý počet datových bodů (obvykle méně než 30).
+2. **Neznámá směrodatná odchylka**: Když směrodatná odchylka populace není známa a musíme používat vzorkovou směrodatnou odchylku.
+
+### Představa z každodenního života
+
+Představte si, že chcete zjistit průměrné skóre zkoušky pro všechny studenty ve vaší třídě. Když máte data o skórech všech studentů, můžete použít normální rozdělení. Ale co když máte jen vzorek, například skóre pouze od 5 studentů? Tady se hodí t-rozdělení – pomůže vám odhadnout průměr tak, že zohlední větší nejistotu.
+
+## Jak funguje t-rozdělení?
+
+### Matematický pohled
+
+Nechceme vás zahlcovat vzorci, ale důležité je vědět, že t-rozdělení se blíží normálnímu rozdělení, jak se zvyšuje počet stupňů volnosti. To znamená, že čím více pozorování máte, tím je t-rozdělení podobnější normálnímu rozdělení.
+
+### Příklad
+
+Pokud máte pouze 5 pozorování (například skóre zkoušky), budete mít 4 stupně volnosti. T-rozdělení zde bude mít výrazně širší a plošší tvar. Pokud byste měli 100 pozorování, rozdělení bude velmi blízké normálnímu rozdělení.
+
+## Kde se t-rozdělení používá?
+
+T-rozdělení se často používá ve statistických testech, jako je **t-test**, který slouží k porovnávání průměrů dvou skupin. Používá se také pro vytváření intervalů spolehlivosti pro průměry, kde data pocházejí z menších vzorků.
+
+### Příklady
+
+1. **T-test pro dva vzorky**: Představte si, že chcete porovnat průměrný čas, který stráví studenti při cvičení online kurzů mezi dvěma skupinami studentů (např. ti, kteří dostali doplňkový materiál a ti, kteří ne). T-test vám napoví, zda rozdíl v průměrném čase je statisticky významný.
+
+2. **Interval spolehlivosti**: Například chcete určit, s jakou přesností můžete říci, že průměrná výška rostlin ze vzorku bude stejná pro celou populaci rostlin.
+
+## Závěr
+
+Studentovo t-rozdělení je nepostradatelným nástrojem v arzenálu statistika, zejména když pracujete s malými vzorky a nejistotou v datech. Díky němu je možné lépe odhadovat průměry a provádět testy významnosti. Ačkoliv matematika za ním může být náročná, doufáme, že tento materiál vám pomohl pochopit základy a použití t-rozdělení v praxi.
+

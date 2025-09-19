@@ -1,0 +1,70 @@
+
+---
+title: "Problémy s testováním hypotéz"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+Testování hypotéz je jedním z nejpoužívanějších nástrojů ve statistické analýze dat. Umožňuje nám rozhodovat o pravdivosti či nepravdivosti určitých tvrzení na základě dat. I když je tento proces velmi užitečný, existuje několik problémů a úskalí, které mohou ovlivnit jeho správnost a platnost. Pojďme si tyto problémy podrobněji představit.
+
+## Co je to testování hypotéz?
+
+### Základní pojmy
+
+1. **Hypotéza**: Předpoklad nebo tvrzení, které chceme otestovat.
+2. **Nulová hypotéza (\(H_0\))**: Tvrzení, které testujeme. Obvykle reprezentuje stav bez efektu nebo změny.
+3. **Alternativní hypotéza (\(H_a\))**: Tvrzení, které chceme potvrdit, pokud je nulová hypotéza zavrhnuta.
+4. **P-hodnota**: Měří pravděpodobnost, že bychom získali takový nebo více extrémní výsledek, pokud je nulová hypotéza pravdivá.
+5. **Alfa (\(\alpha\))**: Předem stanovená hladina významnosti, často 0,05, která určuje hranici pro zamítnutí \(H_0\).
+
+### Problémy s testováním hypotéz
+
+#### 1. Chyby I. a II. druhu
+
+- **Chyba I. druhu** (\(\alpha\)): Falešné zamítnutí nulové hypotézy, když je pravdivá.
+- **Chyba II. druhu** (\(\beta\)): Nezamítnutí nulové hypotézy, když je nepravdivá.
+
+Příklady:
+
+- *Chyba I. druhu*: Představme si, že lékař testuje nový lék a na základě statistické analýzy se rozhodne, že lék funguje, i když ve skutečnosti nefunguje.
+- *Chyba II. druhu*: Naopak, pokud lékař prohlásí, že lék nefunguje, i když ve skutečnosti má terapeutické výsledky.
+
+#### 2. Výběr hladiny významnosti (\(\alpha\))
+
+Výběr příliš vysokého nebo příliš nízkého \(\alpha\) může vést k častějšímu výskytu chyb I. nebo II. druhu. Je důležité volit \(\alpha\) v závislosti na kontextu a důsledcích rozhodnutí.
+
+#### 3. P-hodnota jako absolutní ukazatel
+
+P-hodnota je často nesprávně interpretována jako míra důkazu. Nízká p-hodnota neznamená definitivně, že hypotéza je pravdivá, jen naznačuje, že data nejsou v souladu s \(H_0\).
+
+#### 4. Problematika vícenásobného testování
+
+Pokud provádíme mnoho testů, pravděpodobnost chyby I. druhu narůstá. Např. v genetice, kde se testují tisíce genů najednou, je nutné upravit testy (např. Bonferroniho korekcí), aby se snížilo riziko falešně pozitivních výsledků.
+
+#### 5. Předpojatost a selektivní publikace
+
+Vědci mohou mít tendenci publikovat jen pozitivní výsledky, což může ovlivnit celkové chápání problému v dané oblasti. Tento jev je znám jako publikační bias. Příklad: Pokud se publikují jen studie, které ukáží účinnost léku, může to vést k předčasným a chybným závěrům o jeho účinnosti.
+
+## Jaké jsou možné alternativy nebo doplnění k tradičnímu testování hypotéz?
+
+1. **Bayesovská statistika**: Tento přístup kombinuje pravděpodobnosti s předchozími znalostmi, což může poskytnout hlubší interpretaci výsledků.
+2. **Intervaly spolehlivosti**: Poskytují rozsah hodnot, ve kterém lze očekávat skutečnou hodnotu odhadovaného parametru.
+3. **Efekt velikost**: Místo zaměření se výhradně na významnost by se vědci měli soustředit na velikost efektu, která ukazuje praktickou významnost nalezených rozdílů.
+
+## Závěr
+
+Testování hypotéz je silným nástrojem ve statistické analýze, ale jako každý nástroj má své limity a úskalí. Vědci a studenti by měli být obeznámeni s těmito problémy a zvážit, jak mohou ovlivnit jejich výsledky a interpretace. Uvědomění si těchto úskalí je prvním krokem k jejich překonání a k přijetí informovanějších a opatrnějších rozhodnutí založených na datech. 
+

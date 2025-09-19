@@ -1,0 +1,63 @@
+
+---
+title: "Jaký je rozdíl mezi extrapolací a interpolací?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+V oblasti statistiky, matematiky a datové analýzy se můžete často setkat s pojmy **extrapolace** a **interpolace**. Tyto dvě techniky jsou základní pro práci s daty, zejména když potřebujete odhadnout hodnoty, které nejsou přímo dostupné z dat. Je důležité rozumět, jak oba pojmy fungují, a kdy je vhodné je použít.
+
+Často v reálném světě pracujeme s určitým množstvím datových bodů a potřebujeme odhadnout nebo předpovědět hodnoty mimo naše okamžité pozorování. To je místo, kde nám extrapolace a interpolace mohou pomoci.
+
+# Interpolace
+
+Interpolace je proces odhadování hodnoty uvnitř rozsahu známých datových bodů. Myšlenka interpolace je, že máte známé datové body a snažíte se zjistit hodnotu mezi těmito body. Proto je obecně považována za "bezpečnější" než extrapolace, protože pracujete s hodnotami, které leží v rámci již známého rozsahu.
+
+Například představte si, že máte údaje o teplotě měřené každý den v týdnu, ale z nějakého důvodu vám chybí data za středu. Pomocí interpolace můžete odhadnout teplotu ve středu na základě dat z úterý a čtvrtka.
+
+**Běžný životní příklad interpolace:**
+
+- **Cestovní čas:** Pokud víte, že cesta z města A do města B trvá 2 hodiny a z města B do města C trvá také 2 hodiny a chcete zjistit, jak dlouho trvá cesta do poloviny mezi městy A a B, můžete odhadnout, že cesta trvá přibližně 1 hodinu.
+
+# Extrapolace
+
+Extrapolace je proces odhadování hodnoty mimo rozsah známých datových bodů. Extrapolace se používá, když chceme předpovědět budoucí hodnoty datového souboru nebo zjistit hodnoty za naše aktuální pozorování.
+
+Například pokud máte data o růstu rostliny za posledních pět týdnů a chcete předpovědět, jak vysoká bude rostlina po desátém týdnu, používáte extrapolaci. Extrapolace ale může být riskantní, protože se spoléhá na předpoklad, že trend bude pokračovat i mimo rozsah pozorovaných dat.
+
+**Běžný životní příklad extrapolace:**
+
+- **Ekonomické předpovědi:** Pokud ekonomové zaznamenali stálý růst HDP (hrubého domácího produktu) poslední tři roky, mohou použít extrapolaci k předpovědi, jaký bude HDP i další rok.
+
+# Klíčové rozdíly a rizika
+
+- **Rozsah dat:**
+  - Interpolace se zabývá daty uvnitř známého rozsahu.
+  - Extrapolace se zabývá daty mimo známý rozsah.
+
+- **Rizika:**
+  - Interpolace je méně riskantní, protože odhadujeme hodnoty mezi známými body.
+  - Extrapolace je riskantní, protože předpovídáme hodnoty mimo známý rozsah a spoléháme na to, že se existující trendy nezmění.
+
+- **Přesnost:**
+  - Interpolace je obvykle přesnější, pokud je rozsah pozorování hustý a pravidelný.
+  - Extrapolace může být velmi nepřesná, pokud se nedoplní o další validaci či analytické metody.
+
+# Závěr
+
+Rozlišování mezi extrapolací a interpolací je klíčové pro správné a přesné zpracování dat. Při odhadování neznámých hodnot je důležité vždy zvážit kontext a možnosti, jak různé faktory mohou změnit dynamiku dat. Mějte na paměti, že zatímco obě techniqy jsou užitečné, jejich přesnost a platnost závisí na povaze vašich dat a rozumných předpokladech o jejich chování.
+
+

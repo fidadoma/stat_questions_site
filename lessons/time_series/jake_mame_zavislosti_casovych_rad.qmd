@@ -1,0 +1,82 @@
+
+---
+title: "Závislosti časových řad: Studijní materiál"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do časových řad
+
+Časová řada je posloupnost datových bodů uspořádaných v časovém pořadí. Často se používá ke sledování vývoje nějakého jevu v průběhu času. Mezi běžné příklady časových řad patří:
+
+- Měsíční výdaje domácnosti
+- Teplotní záznamy v průběhu roku
+- Denní počet kroků zaznamenaný chytrým náramkem
+
+Pochopení závislostí v časových řadách je klíčové pro analýzu a predikci budoucích hodnot.
+
+# Typy závislostí časových řad
+
+Ve statistice existuje několik typů závislostí a vzorů, které se v časových řadách mohou objevit. Mezi nejčastěji diskutované patří trendové závislosti, sezónní závislosti a autokorelace.
+
+## Trendové závislosti
+
+Trendová závislost představuje dlouhodobý směr časové řady. Může být buď rostoucí, klesající nebo konstantní. Příklady:
+
+- **Rostoucí trend**: Cena nemovitostí ve velké městské oblasti, která průměrně roste každý rok.
+- **Klesající trend**: Prodej staršího modelu mobilního telefonu, jehož prodej klesá s uvedením nového modelu.
+  
+**Jak se pozná trend?**
+
+Trend se obvykle identifikuje pomocí grafického znázornění dat a může být modelován pomocí lineární regrese, která pomůže určit jeho směr a sklon.
+
+## Sezónní závislosti
+
+Sezónní závislosti odkazují na vzory, které se pravidelně opakují v časové řadě. Tyto vzory se často objeví v ročních datech:
+
+- **Čtvrtletní zisky maloobchodních společností**: Často jsou vyšší ve čtvrtém čtvrtletí díky nákupům před svátky.
+- **Spotřeba energie**: Bývá vyšší v zimě kvůli vytápění.
+
+**Identifikace sezónnosti**
+
+Sezónnost lze objevit průzkumem datového vzoru a může být kvantitativně vyjádřena pomocí dekompozičních metod, které oddělí sezónní komponentu.
+
+## Autokorelace
+
+Autokorelace je míra toho, jak může hodnota časové řady v jednom časovém bodě ovlivnit hodnotu ve druhém bodě. Může naznačovat, že časová řada není náhodná a vyžaduje speciální analýzu.
+
+**Příklady**:
+
+- **Akciové trhy**: Může se stát, že pokud cena akcie dnešní den prudce vzroste, existuje tendence, že dalším dnem bude cena podobně vysoká.
+- **Počasí**: Teplé dny mohou často následovat po sobě, což vytváří autokorelační vzor.
+
+**Jak změřit autokorelaci?**
+
+Autokorelaci lze měřit pomocí Autocorrelation Function (ACF), což je nástroj, který vyjadřuje korelaci časových řad s jejich vlastními součiniteli na různých časových lagem.
+
+# Využití identifikace závislostí
+
+Vysledování závislostí v časových řadách je klíčové pro:
+
+- **Predikční modelování**: Prognózy budoucích hodnot mohou využívat trendové a sezónní vzory.
+- **Ekonomickou analýzu**: Predikce hospodářských cyklů a jejich příležitostí.
+- **Optimalizaci zásobování a výroby**: Lepší plánování na základě sezónních poptávek.
+
+# Shrnutí
+
+Pochopení závislostí v časových řadách je klíčové pro správnou interpretaci dat a jejich následnou analýzu. Rozpoznání trendů, sezónnosti a autokorelace umožňuje lépe předpovídat budoucí hodnoty a rozhodovat se na základě těchto informací.
+
+Pokud si tyto koncepty dokážete představit ve skutečném životě, usnadní vám to analýzu a interpretaci časových řad ve vaší budoucí kariéře.
+
+

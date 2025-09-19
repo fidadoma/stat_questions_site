@@ -1,0 +1,59 @@
+
+---
+title: "Multikolinearita ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do multikolinearity
+
+Multikolinearita je fenomén, který může nastat v regression models, zejména v lineární regresi, když dvě nebo více nezávislých proměnných v modelu jsou silně korelované. To znamená, že obsahují redundantní informace o vysvětlované proměnné (respektive závislé proměnné).
+
+## Proč je multikolinearita problém?
+
+Hlavním problémem multikolinearity je, že znemožňuje přesné odhady regresních koeficientů. Pokud jsou nezávislé proměnné silně korelované, může to vést k nafouknutým standardním chybám koeficientů, což činí statistické testování jejich významnosti nespolehlivým. To může vést k tomu, že model bude špatně interpretován nebo že nebude možné rozhodnout, které z prediktorů mají na závislou proměnnou skutečný vliv.
+
+## Kde se s multikolinearitou setkáváme?
+
+Představme si následující příklady, kde může k multikolinearitě dojít:
+
+- **Ekonomie:** Může se stát, že v modelu, kde odhadujeme vliv vzdělání a zkušeností na výši platu, jsou vzdělání a zkušenosti korelované, protože lidé s vyšším vzděláním mají často i více pracovních zkušeností.
+
+- **Zdravotnictví:** Při zkoumání faktorů ovlivňujících tělesnou hmotnost by mohly být výška a BMI (index tělesné hmotnosti) korelované, protože obě tyto proměnné obsahují informace o velikosti těla.
+
+- **Environmentální vědy:** Pokud modelujeme vliv různých meteorologických proměnných (např. teplota, vlhkost, tlak) na výnos plodin, může být řada z nich vzájemně silně korelovaná.
+
+## Jak poznáme multikolinearitu?
+
+Existuje několik metod, jak identifikovat multikolinearitu:
+
+1. **Korelační matice:** Vypočítání korelace mezi nezávislými proměnnými. Pokud jsou korelace mezi dvěma nebo více proměnnými velmi vysoké (např. vyšší než 0,8), může jít o prvek multikolinearity.
+
+2. **Variance Inflation Factor (VIF):** Jeden z nejoblíbenějších způsobů, jak testovat multikolinearitu. Každá proměnná má vlastní VIF, který měří, jak moc je její rozptyl nafouknut vinou korelace s ostatními proměnnými. Obecně platí, že VIF vyšší než 10 naznačuje multikolinearitu.
+
+3. **Pohled na nestabilní koeficienty:** Pokud při přidání nebo odstranění proměnných z modelu dochází k dramatickým změnám v hodnotách koeficientů, může to svědčit o problémech s multikolinearitou.
+
+## Jak řešit multikolinearitu?
+
+Pokud diagnostikujeme multikolinearitu, máme několik možností:
+
+- **Odstranit některé z korelovaných proměnných:** Pokud je některá proměnná nadbytečná, může být odstraněna z modelu, aniž by byla ztracena informace.
+
+- **Použití metody hlavních komponent:** Tato technika redukce dimenzí umožňuje transformovat sadu korelovaných proměnných do menšího počtu nekorelovaných proměnných.
+
+- **Získání více dat:** Někdy může více pozorování pomoci rozlišit mezi korelovanými proměnnými.
+
+Multikolinearita tedy představuje problém, který může ovlivnit kvalitu a interpretaci výsledků statistických modelů. Je důležité, aby studenti pochopili, jak multikolinearita vzniká, jak ji detekovat a jaké má důsledky pro výzkum a analýzu dat.
+
+

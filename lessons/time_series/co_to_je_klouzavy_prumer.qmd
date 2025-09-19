@@ -1,0 +1,87 @@
+
+---
+title: "Klouzavý průměr"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do klouzavého průměru
+
+Klouzavý průměr je statistický nástroj používaný k analýze časových řad dat s cílem vyhladit krátkodobé výkyvy a odhalit dlouhodobé trendy nebo cykly. Nejčastěji se využívá ve finančním sektoru pro analýzu cen akcií, ale najít ho lze i v dalších oblastech, jako je meteorologie, ekologie, ekonomika a další.
+
+## Jak klouzavý průměr funguje?
+
+Klouzavý průměr se počítá průměrováním hodnot daného počtu časových bodů a "klouže" pozorováními směrem k současnosti. Existuje několik typů klouzavých průměrů, ale mezi nejčastější patří:
+
+- **Jednoduchý klouzavý průměr (SMA - Simple Moving Average):** Vypočítá se tak, že se sečtou poslední n hodnot a potom se vydělí n (počet hodnot).
+
+- **Exponenciální klouzavý průměr (EMA - Exponential Moving Average):** Podobný jako SMA, ale sleduje aktuálnější hodnoty (nedávné hodnoty mají větší váhu).
+
+## Výpočet jednoduchého klouzavého průměru
+
+### Praktický příklad
+
+Představte si, že sledujete teplotu města prostřednictvím 7denního klouzavého průměru. Tady je, jak by to vypadalo:
+
+Máte tyto denní teploty ve stupních Celsia:
+
+- Den 1: 22°C
+- Den 2: 21°C
+- Den 3: 23°C
+- Den 4: 22°C
+- Den 5: 25°C
+- Den 6: 26°C
+- Den 7: 24°C
+
+Chcete vypočítat 3denní klouzavý průměr. Postup je následující:
+
+1. Pro den 3 (protože předchozí dva dny již potřebujete k výpočtu):
+   \[
+   \text{Průměr} = \frac{(21 + 23 + 22)}{3} = 22°C
+   \]
+
+2. Pro den 4:
+   \[
+   \text{Průměr} = \frac{(23 + 22 + 25)}{3} = 23.33°C
+   \]
+
+3. A tak dále, až do konce vašich dat.
+
+### Představa v běžném životě
+
+Klouzavé průměry se často používají tam, kde potřebujeme vyhladit krátkodobé fluktuace a oprostit se od šumů, abychom lépe viděli trend.
+
+- **Finanční trhy:** Investoři sledují klouzavý průměr cen akcií, aby identifikovali trend a rozhodli se, kdy nakupovat nebo prodávat.
+- **Sport:** Trenéři mohou sledovat klouzavý průměr výkonnosti sportovců, aby zjistili formu a připravili plán tréninku.
+
+## Exponenciální klouzavý průměr (EMA)
+
+Na rozdíl od SMA, EMA dává větší váhu nejaktuálnějším datům, což může být užitečné pro sledování aktuálnějších trendů. Výpočet EMA je složitější a vyžaduje použití určité konstanty (k), která určuje rychlost poklesu váhy minulých dat:
+
+\[
+k = \frac{2}{n + 1}
+\]
+
+kde n je počet period. EMA pak počítáme rekurzivně pomocí vzorce:
+
+\[
+\text{EMA}_t = (X_t \cdot k) + (\text{EMA}_{t-1} \cdot (1-k))
+\]
+
+kde \( X_t \) je aktuální hodnota a \( \text{EMA}_{t-1} \) je EMA z předchozího období.
+
+## Závěr
+
+Klouzavé průměry jsou neocenitelným nástrojem při analýze datových trendů. Pomáhají identifikovat dlouhodobé směry a etapy, ale je důležité si uvědomovat, že jsou založeny na historických datech a nemohou předpovídat budoucnost s jistotou. Jakýkoli klouzavý průměr je tedy vhodné používat v kombinaci s dalšími analytickými nástroji a informacemi.
+

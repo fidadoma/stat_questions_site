@@ -1,0 +1,51 @@
+
+title: "Tři typy proměnných v testování hypotéz"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Při testování hypotéz ve statistice je důležité rozumět tomu, jaké typy proměnných existují a jaké mají role ve statistickém výzkumu. V testování hypotéz rozeznáváme tři hlavní typy proměnných: nezávislé proměnné, závislé proměnné a intervenující proměnné. Pochopení těchto kategorií je klíčové pro efektivní a přesné provádění výzkumných studií.
+
+# Nezávislé proměnné
+
+Nezávislá proměnná je ta proměnná, kterou výzkumník manipuluje nebo ji považuje za příčinu nějaké změny. V rámci experimentů je to tedy proměnná, kterou zkoumáme za účelem pozorování jejího vlivu na jiné proměnné. 
+
+### Příklad z praxe
+
+Pokud bysme třeba zkoumali vliv kávy na výkon, nezávislou proměnnou by bylo množství konzumované kávy. Budeme měnit množství kávy a pozorovat, jak se mění výsledný výkon (který je závislou proměnnou).
+
+# Závislé proměnné
+
+Závislá proměnná je proměnná, na kterou se očekává, že bude ovlivněna nezávislou proměnnou. Jinými slovy, to, co se mění jako „výsledek“ vlivu nezávislé proměnné. 
+
+### Příklad z praxe
+
+Ve zmíněném příkladě s kávou je závislou proměnnou výkon. Sledujeme, zda změna v množství kávy (nezávislá proměnná) způsobí změnu ve výkonu osoby.
+
+# Intervenující proměnné
+
+Intervenující proměnné, někdy též nazývané moderátory či mediátory, jsou proměnné, které mohou ovlivňovat vztah mezi nezávislou a závislou proměnnou. Tyto proměnné mohou buď zvětšovat, snižovat nebo měnit směr vztahu mezi hlavními proměnnými.
+
+### Příklad z praxe
+
+Opět se podívejme na náš příklad s kávou. Možná, že intervenující proměnnou může být spánkový cyklus. Pokud někdo spal špatně, možná bude účinek kávy na jeho výkon výraznější než u někoho, kdo spal dobře.
+
+# Shrnutí
+
+Pochopení těchto tří typů proměnných je klíčové pro konstrukci a analýzu výzkumu. Nezávislé proměnné jsou příčiny, závislé proměnné jsou následky a intervenující proměnné jsou potenciální faktory, které mohou ovlivnit vztah mezi příčinou a následky. Vždy je třeba důkladně plánovat, jak tyto proměnné ve výzkumu identifikovat a kontrolovat, aby výsledky byly co nejpřesnější a nejpoužitelnější.
+
+
+

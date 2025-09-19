@@ -1,0 +1,69 @@
+---
+title: "Jak funguje Pipe v DAGu?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+V dnešním studijním materiálu se podíváme na koncept **Pipe v DAGu**. Je důležité porozumět tomu, jak tato konstrukce funguje, protože je široce používána v moderních datových aplikacích a nástrojích pro zpracování dat. **Directed Acyclic Graph (DAG)** je struktura, která se skládá z uzlů a hran, přičemž hranové spoje plynou pouze v jednom směru a graf nemá žádné cykly.
+
+## Co je to Pipe?
+
+V oblasti datového zpracování se pod pojmem "Pipe" rozumí mechanizmus, který umožňuje předávat výstupy jedné části programu jako vstupy pro druhou část. Můžete si to představit jako pásový dopravník ve výrobní továrně, kde produkt prochází po lince a v každé stanici se s ním provádí nějaká operace.
+
+### Příklady z běžného života:
+
+1. **Kuchyňská linka:** Každý kuchař v kuchyni připravuje určitý prvek pokrmu, než je jídlo finalizováno a podáno.
+2. **Automobilová montážní linka:** Automobil je postaven krok za krokem, přičemž každý oddělený tým přidává komponenty nebo provádí určité kontrolní úlohy.
+
+## Co je DAG a proč se používají Pipes?
+
+**DAG** je velmi užitečný při plánování úkolů a jejich závislostí. Představme si, že máte několik datových úloh, které potřebují být provedeny v určitém pořadí. DAG zaručuje, že tyto úlohy budou prováděny bez tvorby cyklů, což zabraňuje nekonečným smyčkám.
+
+V DAGu můžete pomocí Pipes předat výstup jednoho uzlu jako vstup pro následující uzel. To umožňuje efektivní zpracování dat právě v těchto krokových procesech.
+
+## Jak to funguje v praxi?
+
+Představme si, že máme úlohy A, B a C, kde:
+
+- Úloha A zpracovává surová data a jejich výstup je použit v úloze B.
+- Úloha B aplikuje transformaci na data z úlohy A a předává výstup úloze C.
+- Úloha C potom agreguje data a vytvoří finální výstup.
+
+
+A -> B -> C
+```
+
+### Příklad z běžného života:
+
+Představme si výrobní linku v textilní továrně:
+
+1. **Úloha A:** Barvení látek
+2. **Úloha B:** Vyřezávání látek na kusy
+3. **Úloha C:** Šití látek do oděvů
+
+Každý krok v procesu (každý "Pipe") zajišťuje, že produkt je transformován do dalšího stavu, který je připraven pro další operaci.
+
+## Výhody použití Pipes v DAGu
+
+- **Modularita:** Každý krok procesu může být snadno upraven nebo nahrazen, aniž by to ovlivnilo ostatní části.
+- **Efektivita:** Umožňuje paralelní zpracování, kde několik úloh může běžet současně, pokud nemají na sobě závislosti.
+- **Přehlednost:** Umožňuje snadné vizuální porozumění toku dat a závislostí mezi úlohami.
+- **Správa chyb:** Chyby mohou být snadno lokalizovány a opraveny pouze v jednom modulu či kroku procesu.
+
+## Závěr
+
+Chápání toho, jak fungují Pipes v DAGu, je klíčové pro efektivní návrh a správu datových zpracovacích systémů. S každým krokem v procesu, kde jsou definovány vstupy a výstupy, je možné nejenom optimalizovat tok dat, ale také zvýšit škálovatelnost a spolehlivost vašich systémů. Doufáme, že tento materiál vám pomohl lépe porozumět této problematice a že jste si dokázali představit praktické aplikace, které DAGs a Pipes nabízejí.
+```

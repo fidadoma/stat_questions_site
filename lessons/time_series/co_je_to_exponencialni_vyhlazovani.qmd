@@ -1,0 +1,73 @@
+
+---
+title: "Exponenciální vyhlazování ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Exponenciální vyhlazování
+
+## Úvod
+
+Exponenciální vyhlazování je jednou z nejpoužívanějších metod pro analýzu časových řad a předpovědi budoucích hodnot. Tato technika je obzvlášť oblíbená pro svou jednoduchost a efektivnost při využití omezeného množství historických dat. V tomto studijním materiálu si podrobně vysvětlíme, co exponenciální vyhlazování znamená a jak ho můžeme použít v praxi.
+
+## Teorie exponenciálního vyhlazování
+
+### Co je exponenciální vyhlazování?
+
+Exponenciální vyhlazování je technika zpracování časových řad, která vytváří vyhlazené časové řady prostřednictvím váženého průměru minulých pozorování. Na rozdíl od jednoduchého klouzavého průměru, kde mají všechny hodnoty stejnou váhu, v exponenciálním vyhlazování hodnoty daleko v minulosti mají menší váhu než nedávné hodnoty. To umožňuje, aby model reagoval citlivěji na změny v časové řadě.
+
+### Matematická formulace
+
+Základní rovnice pro exponenciální vyhlazování je následující:
+
+\[
+S_t = \alpha \cdot X_t + (1 - \alpha) \cdot S_{t-1}
+\]
+
+kde:
+- \(S_t\) je vyhlazená hodnota pro čas \(t\),
+- \(X_t\) je skutečná hodnota pro čas \(t\),
+- \(S_{t-1}\) je vyhlazená hodnota pro čas \(t-1\),
+- \(\alpha\) je vyhlazovací parametr (0 < \(\alpha\) < 1), který určuje úroveň vyhlazení.
+
+Hodnota \(\alpha\) je klíčovým parametrem: čím blíže je k 1, tím větší důraz je kladen na nejnovější pozorování.
+
+## Praktické využití exponenciálního vyhlazování
+
+### Příklady z běžného života
+
+1. **Prognóza prodeje:** Exponenciální vyhlazování je často používáno v obchodě a marketingu pro předpověď budoucího prodeje. Pokud například vlastníte obchod a sbíráte denní prodejní data, můžete použít exponenciální vyhlazování ke zjednodušení dat a předpovědi trendů prodeje v následujících týdnech.
+
+2. **Monitorování teploty:** Měření teploty po celý den může být nerovnoměrné kvůli zásahům, jako jsou sluneční záření nebo klimatizační systém. Exponenciální vyhlazování může pomoci vyrovnat tyto výkyvy a poskytnout stabilnější obraz o průměrné teplotě během dne.
+
+3. **Finanční analýza:** Investoři v trhu s akciemi mohou využít exponenciální vyhlazování k analýze časových řad denních uzávěrových cen akcií. To může pomoci v identifikaci obecných trendů a odstraňování šumu způsobeného denními výkyvy cen.
+
+### Výhody a nevýhody exponenciálního vyhlazování
+
+**Výhody:**
+- Jednoduchost a snadná implementace.
+- Citlivost na poslední trendy v datech díky váhám.
+- Schopnost "zapomenout" staré údaje, které nemusí být pro aktuální rozhodování relevantní.
+
+**Nevýhody:**
+- Není vhodné pro časové řady s trendem a sezónností bez další úpravy.
+- Hodnota \(\alpha\) vyžaduje pečlivý výběr pro dosažení optimálních výsledků.
+
+## Závěr
+
+Exponenciální vyhlazování je mocným nástrojem pro analýzu a vyhlazování časových řad, což umožňuje lépe chápat a předpovídat chování dat. Přestože je základní exponenciální vyhlazování vhodné pro jednoduché problémy, existují rozšířené verze, jako je dvojité nebo trojité exponenciální vyhlazování, které řeší komplexnější vzorce v datech, jako je trend a sezónnost.
+
+Můžete si vyzkoušet implementaci exponenciálního vyhlazování na svých vlastních datech a experimentovat s různými hodnotami \(\alpha\) pro dosažení lepších výsledků. S praxí a porozuměním této techniky můžete výrazně zlepšit své dovednosti v analýze časových řad.
+```

@@ -1,0 +1,66 @@
+
+---
+title: "Základní pravděpodobnostní modely"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do pravděpodobnostních modelů
+
+Pravděpodobnostní modely jsou klíčovým nástrojem statistiky. Pomáhají nám předpovídat různé události a analyzovat data v nejrůznějších oblastech - od ekonomiky až po přírodní vědy. V této kapitole si představíme základní druhy pravděpodobnostních modelů, které se běžně používají.
+
+# Klasifikace pravděpodobnostních modelů
+
+Pravděpodobnostní modely můžeme klasifikovat podle několika kritérií. Základní klasifikace rozděluje modely na **diskrétní** a **spojité**:
+
+- **Diskrétní pravděpodobnostní modely:** Pracují s proměnnými, které mohou nabývat pouze konečného nebo spočetného množství hodnot. Typickým příkladem je hod kostkou, kde výsledky mohou být pouze celé čísla od 1 do 6.
+
+- **Spojité pravděpodobnostní modely:** Pracují s proměnnými, které mohou nabývat jakékoliv hodnoty v určitém intervalu. Například měření výšky člověka, kde výsledky mohou být jakékoliv reálné číslo v určitém rozsahu.
+
+### Diskrétní pravděpodobnostní modely
+
+1. **Binomický model**
+
+   Binomický model je pravděpodobnostní model pro diskrétní náhodnou veličinu, která má dva možné výsledky (např. úspěch a neúspěch). Používá se pro modelování počtu úspěchů v pevně stanoveném počtu nezávislých pokusů.
+
+   - **Formální zápis**: $X \sim \text{Bin}(n, p)$
+   - **Příklad použití**: Představte si výrobní linku, která produkuje žárovky a každá žárovka má pravděpodobnost 0.95, že bude funkční. Binomický model použijeme k předpovědi počtu funkčních žárovek v balení po 20 kusech.
+
+2. **Poissonův model**
+
+   Tento model je užitečný pro popisování událostí, které se vyskytují nezávisle na sobě během pevního časového úseku nebo prostoru. Pravděpodobnost události je konstantní.
+
+   - **Formální zápis**: $X \sim \text{Poisson}(\lambda)$
+   - **Příklad použití**: Počet telefonních hovorů, které přijdou na linku zákaznické podpory během jedné hodiny.
+
+### Spojité pravděpodobnostní modely
+
+1. **Normální (Gaussův) model**
+
+   Normální model, často označovaný jako Gaussova distribuce, je jeden z nejdůležitějších modelů ve statistice. Tento model popisuje data, která se přirozeně shlukují kolem průměru.
+
+   - **Formální zápis**: $X \sim N(\mu, \sigma^2)$
+   - **Příklad použití**: Výška dospělých lidí v populaci. Může být modelována jako normální rozdělení, kde většina lidí má výšku blízko průměru.
+
+2. **Exponenciální model**
+
+   Používá se k popisu času mezi událostmi v Poissonově procesu. Tento model je často využívaný ve spolehlivosti a čekacích dobách.
+
+   - **Formální zápis**: $X \sim \text{Exp}(\lambda)$
+   - **Příklad použití**: Čas do selhání zařízení, čas do příchodu dalšího zákazníka.
+
+# Závěr
+
+Rozumět základním pravděpodobnostním modelům a jejich aplikacím v reálném světě je klíčové pro každého, kdo se zabývá statistickou analýzou. Doufáme, že díky tomuto přehledu máte nyní lepší porozumění, jak tyto modely fungují a jak je můžete aplikovat ve vlastních studiích a projektech.
+

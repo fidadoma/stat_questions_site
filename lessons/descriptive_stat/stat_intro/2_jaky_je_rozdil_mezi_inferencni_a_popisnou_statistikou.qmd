@@ -1,0 +1,68 @@
+---
+title: "Rozdíl mezi inferenční a popisnou statistikou"
+order: 20
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do statistiky
+
+Statistika je vědní obor, který se zabývá sběrem, analýzou, interpretací, prezentací a organizací dat. Statistika se dělí na dvě hlavní oblasti: **popisnou statistiku** a **inferenční statistiku**. Je důležité pochopit rozdíly mezi těmito dvěma typy přístupů, protože se používají k řešení různých typů problémů.
+
+## Popisná statistika
+
+### Definice
+
+Popisná statistika se zabývá souhrnem a popisem základních vlastností dat. Jednoduše řečeno, popisná statistika je o shrnutí a prezentaci dat způsobem, který je pochopitelný a informativní. Popisná statistika neprovádí žádné závěry nebo předpovědi o populaci na základě vzorku dat; místo toho se zaměřuje na samotná data.
+
+### Příklady:
+
+1. **Shrnutí výsledků voleb:** Představte si, že analyzujete výsledky voleb v určité oblasti. Popisná statistika je to, co vám umožní říci například "60 % voličů hlasovalo pro kandidáta A", nebo "průměrný věk voličů byl 45 let".
+   
+2. **Analýza výšky studentů:** Ve třídě můžeme použít popisnou statistiku k určení průměrné výšky studentů, rozptylu výšek, mediánu a modu (nejčastější výška).
+
+### Používané techniky
+
+- **Měřítka centrální tendence:** průměr, medián, modus
+- **Měřítka rozptylu:** rozptyl, směrodatná odchylka, interkvartilové rozpětí
+- **Vizualizace dat:** histogramy, sloupcové grafy, krabicové grafy
+
+## Inferenční statistika
+
+### Definice
+
+Inferenční statistika jde nad rámec jednoduchého popisu dat tím, že vytváří předpovědi nebo závěry o populaci na základě vzorku dat. To znamená, že inferenční statistika využívá vzorek dat k tomu, aby učinila obecné závěry o větší skupině (populaci).
+
+### Příklady:
+
+1. **Testování nového léku:** Pokud farmaceutická firma chce zjistit účinnost nového léku, nemůže ho otestovat na všech lidech na světě. Místo toho testuje lék na reprezentativním vzorku populace a inferenční statistika se použije k odhadu účinnosti léku pro celou populaci.
+
+2. **Průzkumy veřejného mínění:** Při provádění průzkumů veřejného mínění se vezme vzorek populace (např. 1000 lidí) a inferenční statistika se používá k předpovědím názorů celého národa.
+
+### Používané techniky
+
+- **Odhad intervalů:** konfidenční intervaly, intervaly spolehlivosti
+- **Testování hypotéz:** testy významnosti (např. t-test, ANOVA)
+- **Regresní analýza:** lineární regresní modely pro predikci
+
+## Hlavní rozdíly
+
+- **Účel:** Popisná statistika je zaměřena na shrnutí dat, zatímco inferenční statistika se soustředí na předpovídání a generalizaci.
+- **Rozsah:** Popisná statistika pracuje s celou sadou dat, inferenční statistika pracuje s jejich vzorkem.
+- **Techniky:** Popisná statistika používá techniky jako průměr a rozptyl, zatímco inferenční statistika využívá testování hypotéz a odhadování intervalů.
+
+## Závěr
+
+Popisná a inferenční statistika jsou oba klíčové aspekty statistické analýzy, přičemž každý má své specifické využití a techniky. Popisná statistika je skvělá pro shrnutí a popis vašich dat, zatímco inferenční statistika vám umožňuje dělat predikce a závěry pro větší populaci. Pochopení obou typů statistiky je zásadní pro analýzu dat a rozhodování založené na datech.
+

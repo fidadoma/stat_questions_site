@@ -1,0 +1,69 @@
+
+---
+title: "Studijní materiál: ARIMA model"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Co je ARIMA model?
+
+ARIMA je zkratka pro AutoRegressive Integrated Moving Average. Jedná se o statistický model používaný pro analýzu a predikci časových řad. Časové řady jsou data, která jsou shromažďována nebo zaznamenávána v časových intervalech. Příklady časových řad z běžného života zahrnují:
+
+- Denní teploty zaznamenané v určité lokalitě.
+- Měsíční údaje o počtu prodaných kusů výrobků ve firmě.
+- Týdenní celkové tržby supermarketu.
+- Čtvrtletní HDP země.
+
+## Komponenty ARIMA modelu
+
+ARIMA model se skládá ze tří hlavních složek, což jsou:
+
+1. **AR (AutoRegressive)**: Tato komponenta se snaží zachytit vztah mezi současnými a minulými hodnotami časové řady. Například, pokud prodáváte sezónní výrobek, pak by zvýšené prodeje v zimě mohly predikovat lepší prodeje i další zimu. AR část modelu říká, že minulá data mají vliv na aktuální dobu.
+
+2. **I (Integrated)**: Tato část modelu se zabývá děláním časové řady stacionární. Stacionární časová řada znamená, že její statistické vlastnosti (např. střední hodnota a rozptyl) jsou v čase neměnné. Integrační část odstraňuje trend nebo sezónnost v datech. Například pokud prodeje firmy stále rostou, integrační část se postará, že odstraní růstový trend, aby model mohl lépe analyzovat zbývající strukturu série.
+
+3. **MA (Moving Average)**: Tato komponenta modelu používá závislosti mezi chybami (rezidui) z různých časových okamžiků. Například pokud špatně odhadnete setrvačnost prodeje, mohla by chyba z jednoho týdne ovlivnit chyby v následných týdnech. MA část zohledňuje fakt, že aktuální hodnota je kombinací dřívějších šumových hodnot (nepraktických odhadů).
+
+## Parametry ARIMA modelu
+
+ARIMA model je definován pomocí tří parametrů: (p, d, q).
+
+- **p (autoregresivní řád)**: Určuje počet minulých hodnot, které model používá ke generování předpovědí. Například p = 2 znamená, že k předpovědi současné hodnoty používáme poslední dvě hodnoty časové řady.
+
+- **d (integrační řád)**: Toto číslo určuje, kolikrát je potřeba časovou řadu diferencovat (odečítat sousední hodnoty), aby byla stacionární. Například pokud vaše data mají trend, můžete aplikovat rozdílovaní, abyste odstranili trendy a učinili data stacionárními.
+
+- **q (řád klouzavého průměru)**: Určuje počet předchozích chybových hodnot zahrnutých do modelu. Například q = 2 znamená, že model využívá dvě předchozí chybové hodnoty při tvorbě předpovědi.
+
+## Příklady a aplikace ARIMA modelu
+
+ARIMA model se hojně využívá v oblastech jako:
+
+- **Ekonomie**: Predikce ekonomických indikátorů jako HDP, inflace nebo nezaměstnanost.
+- **Finance**: Prognózy pro ceny akcií, měnové kurzy nebo výnosy dluhopisů.
+- **Meteo služby**: Předpovědi počasí na základě analýzy historických dat.
+- **Obchodní operace**: Predikce tržeb, poptávky po produktech a skladových zásob.
+
+## Jak ARIMA pracuje - krok za krokem
+
+1. **Identifikace modelu**: Analyzujeme data, abychom určili hodnoty p, d, q. To zahrnuje vizuální průzkum dat a použití statistických testů, jako je ADF test pro určení stacionarity.
+
+2. **Odhad parametrů**: Pomocí metod, jako je metoda maximální věrohodnosti, odhadneme parametry modelu.
+
+3. **Diagnostika modelu**: Když máme funkční model, otestujeme, jestli se reziduální chyby chovají jako bílý šum. Pokud ne, je možné, že je nutná další úprava modelu.
+
+4. **Prognóza**: Použití modelu pro předpověď budoucích hodnot časové řady a jejich vyhodnocení na základě přesnosti a robustnosti.
+
+Pamatujte, že ARIMA model je účinný hlavně pro jednoúčelovou časovou řadu, ale může být náročný pro všechny typy dat, které nejsou lineární nebo mají složité sezónní vzory. Pro takové případy může být lepší použít SARIMA (přidání sezónní složky) nebo jiné pokročilejší metody.
+
+

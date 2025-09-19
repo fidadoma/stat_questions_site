@@ -1,0 +1,62 @@
+---
+title: "Studijní materiál: Možnosti relativních četností pro kontingenční tabulku"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Relativní četnost v kontingenční tabulce je velmi užitečný nástroj, který nám pomáhá pochopit proporce nebo procenta jednotlivých kategorií ve vztahu k celkovému souboru dat. V tomto studijním materiálu se zaměříme na různé možnosti relativních četností, které můžeme použít v kontingenční tabulce, abychom lépe porozuměli vzájemným vztahům mezi kategoriemi.
+
+# Základní pojmy
+
+Než se pustíme do samotných možností, je důležité pochopit několik základních pojmů:
+
+- **Absolutní četnost:** Počet výskytů určité kategorie v dané skupině.
+- **Relativní četnost:** Procentuální vyjádření absolutní četnosti vzhledem k celkovému počtu — jaká část celku je tvořena danou kategorií.
+- **Kontingenční tabulka:** Tabulka zobrazující frekvenci (častost) různých kombinací kategorií dvou (nebo více) proměnných.
+
+# Možnosti relativních četností v kontingenční tabulce
+
+## 1. Relativní četnost k celkovému součtu
+
+Tato metoda počítá relativní četnosti vzhledem ke všem záznamům v tabulce. Každá buňka reprezentuje poměr vůči celkovému počtu všech záznamů.
+
+### Příklad z každodenního života
+
+Představme si, že analyzujeme preference čtyř různých jídel ve školní jídelně mezi studenty různého věku. Celkový počet studentů je 200. Relativní četnost k celkovému součtu nám ukáže, jaké procento z těchto 200 studentů si oblíbilo každé jídlo.
+
+## 2. Relativní četnost v rámci řádků
+
+Takto počítané četnosti se vztahují k sumě všech hodnot v jednotlivých řádcích. Pomocí této možnosti vidíme, jaké procento z jednoho řádku odpovídá každé kategorii.
+
+### Příklad
+
+Pokud bychom zůstali u předchozího příkladu, představme si, že máme řádky rozděleny podle věkových kategorií studentů. Relativní četnost v rámci řádků nám pomůže zjistit, jaké procento studentů v každé věkové kategorii preferuje určité jídlo.
+
+## 3. Relativní četnost v rámci sloupců
+
+Tento způsob počítání relativních četností se zaměřuje na proporce v rámci sloupců. Pro každý sloupec ukazujeme poměr jednotlivých buněk k celkovému součtu sloupce.
+
+### Příklad
+
+Pokud použijeme sloupce pro různá jídla, relativní četnost v rámci sloupců nám řekne, jaké procento studentů (bez ohledu na věk) preferuje určité jídlo vzhledem k celkovému počtu studentů, kteří zvolili jídlo z příslušného sloupce.
+
+# Závěr
+
+Relativní četnosti v kontingenční tabulce jsou základním nástrojem statistiků a analytiků dat, protože pomáhají v identifikaci a pochopení vzorců uvnitř dat. Pochopení různých způsobů vykazování relativních četností může dramaticky zlepšit schopnost interpretace dat ze skutečného světa. 
+
+Ať už se jedná o analýzu trendů spotřebitelských preferencí nebo studium efektivity různých léčebných metod ve zdravotnictví, znalost, jak využít kontingenční tabulku k analýze relativních četností, je klíčová pro mnohé aplikace.
+
+

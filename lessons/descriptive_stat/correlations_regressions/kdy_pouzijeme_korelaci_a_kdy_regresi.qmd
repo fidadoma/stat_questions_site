@@ -1,0 +1,70 @@
+
+---
+title: "Studijní materiál: Korelace vs Regrese"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Korelace a regrese jsou dvě klíčové statistické techniky, které studenti často používají k analýze vztahů mezi proměnnými. Pochopit rozdíl mezi nimi je zásadní pro správnou analýzu dat a interpretaci výsledků.
+
+## Co je korelace?
+
+Korelace měří sílu a směr lineárního vztahu mezi dvěma proměnnými. Vyjadřuje se pomocí korelačního koeficientu, který může nabývat hodnot od -1 do 1.
+
+- **Korelační koeficient r = 1** znamená perfektní pozitivní lineární vztah.
+- **r = -1** znamená perfektní negativní lineární vztah.
+- **r = 0** znamená, že mezi proměnnými není žádný lineární vztah.
+
+### Příklady, kdy použít korelaci
+
+1. **Studium vztahu mezi teplotou a prodejem zmrzliny**: Zvyšuje se prodej zmrzliny s rostoucí teplotou? Korelace může kvantifikovat, jak silný je tento vztah.
+2. **Souvislost mezi časem stráveným studiem a akademickým výkonem**: Pokud studenti, kteří studují více, dosahují lepších výsledků, korelace nám poskytne sílu tohoto vztahu.
+3. **Analýza, zda existuje vztah mezi dvěma proměnnými**: Například výška a váha jednotlivce mohou být korelovány.
+
+## Co je regrese?
+
+Regrese je statistická metoda, která zkoumá vztah mezi závislou proměnnou a jednou nebo více nezávislými proměnnými. Zatímco korelace měří sílu vztahu, regrese ho modeluje a umožňuje předpovědi.
+
+### Lineární regrese
+
+Nejjednodušší forma regrese je lineární regrese, kde vztah mezi závislou (Y) a nezávislou proměnnou (X) je modelován jako přímka:
+
+\[ Y = a + bX + \epsilon \]
+
+- **a** je průsečík na ose Y.
+- **b** je směrnice, která určuje sklon čáry.
+- **ε** je náhodná odchylka.
+
+### Příklady, kdy použít regresi
+
+1. **Předpověď budoucího prodeje**: Pokud máte data o prodeji za poslední měsíce, regrese vám pomůže odhadnout budoucí prodeje na základě trendu.
+2. **Stanovení vlivu faktorů na cenu nemovitosti**: Vliv velikosti, lokality, počtu pokojů na cenu nemovitosti lze kvantifikovat pomocí regrese.
+3. **Odhalení vlivu reklamy na prodej**: Pokud chcete zjistit, jak televizní nebo internetová reklama ovlivňuje prodej, můžete použít regresi pro modelování tohoto vztahu.
+
+## Rozdíly mezi korelací a regresí
+
+Zatímco korelace a regrese se mohou zdát podobné, mají odlišné účely:
+
+- **Korelace** kvantifikuje sílu vztahu mezi dvěma proměnnými, ale nemůže říci, zda změna v jedné proměnné způsobuje změnu v druhé.
+- **Regrese** umožňuje předpovědi a modeluje příčinný vztah. Pomocí regrese můžete zjistit, jak změna jedné proměnné předpovídá změnu druhé proměnné.
+
+## Shrnutí
+
+Je důležité si uvědomit, kdy použít korelaci a kdy regresi. Korelaci použijeme, když chceme zjistit sílu a směr vztahu mezi dvěma proměnnými, zatímco regresi použijeme, když chceme modelovat vztah pro analýzu nebo předpovídání.
+
+S těmito znalostmi můžete přistoupit k datové analýze více informovaní a rozhodnout, kterou metodu aplikovat pro požadovaný výsledek.
+
+

@@ -1,0 +1,61 @@
+
+title: "Studijní materiál: Stupně volnosti (Degrees of Freedom)"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Stupně volnosti (anglicky "degrees of freedom", zkráceně často DoF) jsou klíčovým konceptem ve statistice, který se využívá při testování hypotéz, modelování a dalších statistických metodách. Abychom lépe pochopili, co stupně volnosti znamenají, podívejme se na ně z různých úhlů pohledu a použijme příklady z běžného života.
+
+# Co jsou stupně volnosti?
+
+Stupně volnosti v podstatě představují počet hodnot ve výpočtu, které mají možnost svobodně se měnit bez porušení jakéhosi závazku, jenž na soubor dat byl stanoven. V kontextu statistik a analýz dat jsou stupně volnosti obvykle počet nezávislých pozorování v datovém souboru minus počet odhadovaných parametrů.
+
+## Matematická interpretace
+
+Když máme například vzorek dat o velikosti 10, a pro tato data počítáme průměr, jeden parametr (průměr) již byl odhadnut. V takovém případě máme 9 stupňů volnosti, protože 10 pozorování bylo použito, ale jedno "volnost" jsme ztratili kvůli odhadu parametru.
+
+$$
+\text{DoF} = n - k
+$$
+
+Kde:
+- \( n \) je počet pozorování.
+- \( k \) je počet odhadovaných parametrů.
+
+# Příklady z běžného života
+
+## Příklad 1: Maturitní zkouška
+
+Představme si maturitní zkoušku, kde student skládá pět testů. Pro úspěšné ukončení musí získat průměrnou známku nejméně 3,0. I když jsou testy nezávislé, pokud víte, že ze čtyř testů student dostal konkrétní známky, pátá známka je omezena potřebou splnit průměrnou hodnotu. Stupně volnosti v tomto kontextu mohou být chápány jako počet testů mínus jedno omezení, které vyplývá z požadavku na průměr.
+
+## Příklad 2: Rozdělování rozpočtu
+
+Představte si, že máte měsíční rodinný rozpočet, který může být rozdělen mezi různé kategorie jako je jídlo, bydlení, doprava, úspory a volný čas. Můžete svobodně upravovat výdaje ve čtyřech kategoriích, ale pátá kategorie se přizpůsobí tak, aby celkový rozpočet zůstal konstantní. Zde opět máme jeden omezený parametr, což odpovídá jednomu stupni volnosti.
+
+# Stupně volnosti ve statistických testech
+
+Stupně volnosti jsou zásadní při interpretaci statistických testů, jako jsou například t-testy nebo chi-kvadrát testy. 
+
+- **t-test**: Tento test porovnává průměry dvou skupin. Stupně volnosti obvykle závisí na velikosti obou skupin.
+
+- **chi-kvadrát test**: Používá se pro testování dobré shody nebo nezávislosti. V případě tabulek kontingence se stupně volnosti určují jako (počet řádků - 1) krát (počet sloupců - 1).
+
+# Závěr
+
+Pochopení stupňů volnosti je důležité pro interpretaci výsledků statistických analýz a správný výběr statistických testů. Stupně volnosti nám říkají, kolik nezávislých volných "pohybů" máme při odhadování statistických parametrů, což má zásadní dopad na validitu a spolehlivost našich výsledků.
+
+Doufám, že tento materiál pomohl objasnit pojem stupňů volnosti a jak jej aplikovat v praxi i v rámci akademických úloh.
+

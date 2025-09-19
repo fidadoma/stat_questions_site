@@ -1,0 +1,64 @@
+
+---
+title: Podmíněná pravděpodobnost
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Podmíněná pravděpodobnost
+
+Podmíněná pravděpodobnost je koncept ve statistice, který vyjadřuje pravděpodobnost, že se událost A stane za předpokladu, že už víme, že se událost B stala. 
+
+## Základní Představa
+
+Představte si, že máte balíček karet. Pokud z tohoto balíčku vyberete jednu kartu, pravděpodobnost, že bude srdová, je \( \frac{1}{4} \). Když ale víte, že vybranou kartou je červená karta (srdce nebo káry), vaší "podmínkou" je, že už víte, že karta je červená. Právě teď je podmíněná pravděpodobnost, že karta je srdová, \( \frac{1}{2} \), protože z červených karet je polovina srdíček.
+
+## Matematická Definice
+
+Formálně je podmíněná pravděpodobnost události A, za předpokladu, že se stala událost B, označována jako \( P(A|B) \) a je definována takto:
+
+\[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+
+kde:
+- \( P(A \cap B) \) je pravděpodobnost, že se stane obě události A a B.
+- \( P(B) \) je pravděpodobnost, že se stane událost B a musí být větší než nula (protože nemůžeme podmínit něco, co se nestalo).
+
+## Příklady z Běžného Života
+
+1. **Počasí:** Představte si, že chcete znát pravděpodobnost, že bude pršet zítra (A), když dnes vidíte temné mraky (B). Už to, že jsou na obloze temné mraky, může znamenat, že událost pršení zítra je pravděpodobnější než obvykle.
+
+2. **Lékařské testy:** Představte si, že máte test na určitou nemoc. Pravděpodobnost, že jste nemocní (A), může být výrazně vyšší, pokud je výsledek testu pozitivní (B).
+
+3. **Hry na počítači:** Pokud hrajete karetní hru a máte v balíčku už jenom pár karet, víte, že některé karty už byly vytaženy. Podmíněná pravděpodobnost vám může pomoci lépe odhadovat, jaké karty ještě mohou být vytaženy.
+
+## Výpočty
+
+Uvažujme příklad s kostkami. Máme dvě kostky a chceme zjistit pravděpodobnost, že součet hodů bude 8, pokud víme, že první kostka padla čtyřka.
+
+1. Celkový prostor možností pro dvě kostky je 36 (každá kostka má 6 stran a kombinujeme obě kostky).
+2. Z možností, kde první kostka je 4, máme tyto možné součty vystihující událost: (4,4), (4,3), (4,2), (4,1), (4,2).
+3. Z těchto párů pouze dvojice (4,4) dává součet 8.
+
+Takže:
+- Pravděpodobnost \( P(A \cap B) \) (první je 4 a součet je 8) je 1/36
+- Pravděpodobnost \( P(B) \) (první je 4) je 6/36.
+- Použijeme vzorec pro podmíněnou pravděpodobnost: 
+
+\[ P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{\frac{1}{36}}{\frac{6}{36}} = \frac{1}{6} \]
+
+## Shrnutí
+
+Podmíněná pravděpodobnost je užitečný nástroj, který najde uplatnění v různých oblastech každodenního života, od her, přes lékařství až po rozhodování na základě počasí. Umožňuje nám lépe odhadnout pravděpodobnost události při znalosti dalších souvisejících skutečností.
+
+

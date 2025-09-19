@@ -1,0 +1,71 @@
+
+---
+title: "Koeficienty asociace pro r × c tabulky"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+Ve statistice se často setkáváme s potřebou zjistit, zda mezi dvěma kategoriálními proměnnými existuje určitý druh vztahu nebo asociace. Tento vztah může být měřen pomocí koeficientů asociace, které mohou odhalit sílu a směr tohoto vztahu. V případě tabulek r × c, kde 'r' označuje počet řádků a 'c' počet sloupců, existuje několik koeficientů, pomocí kterých lze tento vztah zkoumat.
+
+## Příklady použití
+
+Předtím, než se ponoříme do jednotlivých koeficientů, podívejme se na několik příkladů z běžného života:
+
+1. **Výzkum trhu**: Společnost provádí průzkum a zjišťuje, jaký vliv má věk na preferovaný typ mobilního telefonu (např. do 20 let, 20–40 let, 40+ let vs. Android, iOS, Jiný).
+
+2. **Zdravotnictví**: Nemocnice sleduje asociaci mezi typy léčby a různými věkovými skupinami pacientů.
+
+3. **Vzdělávání**: Škola analyzuje vztah mezi úrovní vzdělání rodičů a školním výkonem jejich dětí.
+
+## Základní koeficienty asociace
+
+### 1. **Chi-kvadrát test (χ²)**
+
+Chi-kvadrát test je jedním z nejpoužívanějších testů pro zjištění asociace mezi kategoriálními proměnnými. Používá se k testování hypotézy, zda existuje významný rozdíl mezi očekávanými a skutečnými frekvencemi v jednotlivých kategoriích.
+
+- **Příklad**: Pokud chcete zjistit, zda existuje rozdíl v preferencích mezi muži a ženami ohledně typu automobilu, který jezdí, chi-kvadrát vám pomůže zjistit, zda pozorovaný rozdíl je významný.
+
+### 2. **Cramerovo V**
+
+Cramerovo V je míra síly asociace mezi dvěma kategoriálními proměnnými. Nabývá hodnot od 0 (žádná asociace) do 1 (silná asociace).
+
+- **Příklad**: Po provedení chi-kvadrát testu můžete zjistit, že existuje asociace mezi proměnnými. Cramerovo V vám ukáže, jak silná tato asociace ve skutečnosti je.
+
+### 3. **Kontingenční koeficient**
+
+Kontingenční koeficient je další možnost, jak měřit sílu asociace. Má podobný účel jako Cramerovo V, ale je méně častý.
+
+- **Poznámka**: Tento koeficient není omezen na interval 0–1, což někdy může ztížit interpretaci.
+
+### 4. **Koeficient Phi (φ)**
+
+Koeficient Phi je speciální případ Cramerova V pro 2x2 tabulky. Měří sílu vztahu mezi dvěma binárními proměnnými.
+
+- **Příklad**: Zjistěte, zda existuje vztah mezi výskytem určité nemoci a pohlavím, například onemocnění srdce u mužů a žen.
+
+## Jak koeficienty interpretovat?
+
+Interpretace koeficientů asociace vyžaduje pečlivost. Například:
+
+- **Hodnota blízká nule**: zde je obecně malý nebo žádný vztah mezi proměnnými.
+- **Hodnota blízká jedné**: zde je silná asociace mezi proměnnými.
+
+Každý koeficient má své vlastní nuance a doporučení pro použití, proto je důležité zohlednit konkrétní kontext analýzy a také využít více statistických měr pro plnější pochopení výsledků.
+
+## Závěr
+
+Pochopení koeficientů asociace je klíčovým krokem k analýze kategoriálních dat. Tyto koeficienty nabízejí cennou perspektivu při zkoumání vztahů mezi proměnnými a jsou široce využívány napříč různými obory – od marketingu po zdravotnictví. Doufám, že tento materiál poskytl jasnější pochopení základních konceptů a budete schopni je aplikovat ve své další statistické analýze.
+

@@ -1,0 +1,68 @@
+
+title: Krabicový graf a deskriptivní statistiky
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do krabicového grafu
+
+Krabicový graf, také často nazývaný jako *boxplot*, je výborným nástrojem pro vizualizaci rozdělení dat. Poskytuje přehled o několika klíčových deskriptivních statistikách najednou. V této lekci si vysvětlíme, které deskriptivní statistiky obsahuje, jak je interpretovat a na čem nám mohou pomoci.
+
+## Deskriptivní statistiky v krabicovém grafu
+
+Krabicový graf se skládá z několika důležitých částí:
+
+1. **Medián (středová čára v krabici)**:
+   - Medián je hodnota, která dělí data na dvě poloviny. 50% dat je menších nebo rovných než medián a 50% je větších nebo rovných než medián. Medián je v krabicovém grafu zobrazen středovou čárou uvnitř krabice.
+   
+   - *Příklad: Představte si, že máte kartonový pruh s 9 různě barevnými žetony naskládanými od nejsvětlejšího k nejtmavšímu. Žeton uprostřed představuje medián – 5 žetonů je světlejších nebo stejně tmavých a 5 je tmavších nebo stejně světlých jako medián.*
+
+2. **První kvartil (dolní okraj krabice)**:
+   - První kvartil (Q1) je hodnota, pod kterou leží 25% dat. V krabicovém grafu je zobrazen jako dolní okraj krabice.
+   
+   - *Příklad: Vraťme se k žetonům – pokud vezmete kartonový pruh a rozdělíte ho na čtyři stejné části, 25% žetonů ležících na dolním konci by bylo pod hodnotou prvního kvartilu.*
+
+3. **Třetí kvartil (horní okraj krabice)**:
+   - Třetí kvartil (Q3) je hodnota, nad kterou leží 25% dat. V krabicovém grafu je zobrazen jako horní okraj krabice.
+   
+   - *Příklad: Stejným způsobem jako u prvního kvartilu, třetí kvartil představuje hodnotu, nad kterou leží horní 25% žetonů.*
+
+4. **Mezikvartilové rozpětí (šířka krabice)**:
+   - Mezikvartilové rozpětí (IQR) je rozdíl mezi třetím a prvním kvartilem (IQR = Q3 - Q1) a představuje rozsah středních 50% dat.
+   
+   - *Příklad: Pokud znovu použijeme žetony, mezikvartilové rozpětí by bylo rozdílem mezi barvou žetonu na třetím kvartilu a barvou žetonu na prvním kvartilu. Udává "délku" pruhu, ve které se nachází většina – 50% – vašich žetonů.*
+
+5. **Minimální/Maximální hodnoty (konce fousků)**:
+   - Vnější "fousky" nebo whiskers ukazují rozsah dat. Nicméně jejich délka může být omezena pro detekci odlehlých hodnot. Často se považují za maximální/minimální hodnoty ležící v 1.5 násobku IQR od kvartilů.
+   
+   - *Příklad: Pokud definujete největší a nejmenší přípustnou tmavost žetonů, které nejsou příliš odlišné od středních (dle pravidla 1.5 IQR), tak tyto žetony reprezentují minimální a maximální hodnoty v krabicovém grafu.*
+
+## Význam a praktické použití
+
+Krabicový graf je užitečný pro:
+
+- Identifikaci odlehlých hodnot (*outliers*), což jsou data, která leží výrazně mimo zbytek rozložení.
+- Rychlé srovnání rozdělení dat mezi různými skupinami.
+- Posouzení symmetry nebo asymmetry rozložení dat.
+- Poskytnutí vizuálního přehledu o rozsahu a centrální tendenci dat.
+
+## Běžné příklady použití
+
+- **Posuzování studentských výsledků**: Krabicový graf může zobrazit rozdíl v distribuci známek mezi různými třídami.
+- **Zdravotní statistiky**: Například vizualizace rozdělení krevního tlaku mezi pacienty různého věku či pohlaví.
+- **Finanční analýza**: Porovnání rozložení zisků různých finančních produktů.
+
+Krabicové grafy jsou snadno srozumitelné a umožňují rychlou interpretaci dat, což je velmi výhodné v mnoha oblastech každodenního života i odborného výzkumu.
+
+

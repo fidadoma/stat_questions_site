@@ -1,0 +1,68 @@
+
+---
+title: "Maximum Likelihood Estimation (MLE)"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Maximum Likelihood Estimation (MLE)
+
+## Úvod
+
+Maximum Likelihood Estimation (MLE) je statistická metoda používaná pro odhad parametrů statistického modelu. Má široké uplatnění napříč různými oblastmi, od ekonomie po biostatistiku. Zjednodušeně řečeno, MLE nám pomáhá najít ty parametry modelu, které nejlépe vysvětlují námi pozorovaná data.
+
+### Příklad z běžného života
+
+Představte si, že jste degustátor čokolády a chcete odhadnout, kolik procent cukru obsahuje vaše oblíbená značka. Můžete si koupit různé vzorky čokolády (data) a MLE vám pomůže odhadnout to nejlepší možné procento cukru (parametr), které by mělo nejlépe odpovídat vašim ochutnávacím výsledkům.
+
+## Základní Pojmy
+
+- **Pravděpodobnostní distribuce**: To je způsob, jakým jsou data rozdělena. Příkladem může být normální distribuce, která je často používána k modelování přirozených fenoménů.
+  
+- **Parametry modelu**: To jsou nezbytné proměnné ve vaší pravděpodobnostní distribuci, např. střední hodnota (mean) a rozptyl (variance) u normální distribuce.
+
+- **Likelihood**: Je to funkce, která udává pravděpodobnost pozorování konkrétní sady dat pro danou sadu parametrů.
+
+## Jak funguje MLE?
+
+Cílem MLE je najít ty parametry, které maximalizují likelihood funkci. To znamená, že hledáme parametry, díky kterým by bylo co nejpravděpodobnější, že zvolený model generoval daná pozorování.
+
+### Krok za krokem:
+
+1. **Určete formu pravděpodobnostní distribuce**: Nejprve si musíte vybrat vhodnou distribuci pro vaše data. Například, pro výšky lidí by mohla být vhodná normální distribuce.
+
+2. **Vyjádřete likelihood funkci**: Toto je matematické vyjádření pravděpodobnosti pozorovaných dat danými parametry.
+
+3. **Maximalizace likelihood funkce**: Použitím matematických neboli numerických metod pak vyhledáte parametry, které maximalizují funkci likelihood.
+
+### Technická poznámka
+
+Při práci s logaritmem (log-likelihood) se matematické výpočty často zjednodušují a zároveň je možné práci s extrémně malými čísly, které se v praxi vyskytují.
+
+## Příklady použití MLE
+
+### Příklad 1: Poissonova distribuce
+
+Poissonova distribuce je často používána k modelování četnosti událostí, které se stávají v pevném čase nebo prostoru. Například, počet telefonních hovorů, které přijde na zákaznickou podporu za hodinu.
+
+### Příklad 2: Normální distribuce
+
+Normální distribuce může být použita k modelování lidských výšek. Pomocí MLE můžeme odhadnout střední hodnotu a rozptyl výšky populace na základě dat.
+
+## Závěr
+
+Maximum Likelihood Estimation je mocný nástroj v statistice, který je široce používán pro odhad parametrů modelu. Pomocí této metody lze lépe porozumět a předpovídat různá data a jejich chování. Vždy je však důležité si uvědomit, že výběr správné pravděpodobnostní distribuce je klíčový pro úspěšnou aplikaci MLE.
+
+Doufám, že tento materiál vám pomůže lépe pochopit, jak rámcově funguje metoda MLE a její aplikace v běžném životě i vědeckém výzkumu.
+

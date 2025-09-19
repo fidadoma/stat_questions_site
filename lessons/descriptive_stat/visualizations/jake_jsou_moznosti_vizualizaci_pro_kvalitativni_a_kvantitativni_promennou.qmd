@@ -1,0 +1,59 @@
+---
+title: "Vizualizace Kvalitativních a Kvantitativních Proměnných"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod
+
+Vizualizace dat je klíčovým nástrojem ve statistice, který nám pomáhá nejen pochopit data, ale také sdělit naše zjištění dalším lidem. V závislosti na typu proměnné, kterou máme, potřebujeme zvolit vhodnou metodu vizualizace. V tomto studijním materiálu se podíváme na možnosti vizualizace pro kvalitativní (číselné) a kvantitativní (kategorické) proměnné.
+
+# 1. Kvalitativní Proměnné
+
+Kvalitativní proměnné jsou typy proměnných, které popisují vlastnosti nebo kategorie a nejsou numerické. Typické kvalitativní proměnné zahrnují pohlaví, barvu, značky aut, typy květin atd. Zde jsou některé běžné způsoby, jak mohou být tyto údaje vizualizovány:
+
+## Sloupcové Grafy
+
+Sloupcové grafy jsou ideální pro vizualizaci kvalitativních proměnných, protože jasně ukazují počet nebo procentní podíl každé kategorie. 
+
+- **Příklad z běžného života**: Představme si, že chceme vizualizovat oblíbenost různých značek aut mezi studenty univerzity. Každá sloupec by reprezentoval jednu značku a jeho výška by odpovídala počtu studentů upřednostňující tuto značku.
+
+## Koláčové Grafy
+
+Koláčové grafy nám poskytují vizuální reprezentaci různých částí celku a umožňují rychlý přehled o částech, které tvoří celé.
+
+- **Příklad z běžného života**: Představte si školní volby, kde studenti hlasují pro svého školního prezidenta. Každý segment koláčového grafu by ukazoval procentní podíl hlasů pro jednotlivé kandidáty.
+
+# 2. Kvantitativní Proměnné
+
+Kvantitativní proměnné jsou numerické povahy a mohou být měřeny nebo počítány. Zahrnují například výšku, hmotnost, věk nebo teplotu. Vizualizovat můžeme například následovně:
+
+## Histogramy
+
+Histogramy jsou užitečné pro vizualizaci rozdělení kvantitativních dat. Data jsou rozdělena do intervalů (bins) a četnost nebo procento hodnot v každém intervalu je znázorněno pomocí výšky sloupce.
+
+- **Příklad z běžného života**: Představme si, že chceme znázornit rozdělení věku studentů na univerzitě. Každý sloupec by reprezentoval určité věkové rozmezí a jeho výška by odpovídala počtu studentů v tomto věkovém rozmezí.
+
+## Bodové Grafy (Scatter Plots)
+
+Bodové grafy se používají k zobrazení vztahu mezi dvěma kvantitativními proměnnými. Umožňují vizualizaci korelačních vztahů mezi proměnnými.
+
+- **Příklad z běžného života**: Můžeme zobrazit vztah mezi dobou studia a výsledky zkoušek. Každý bod by reprezentoval jednoho studenta, přičemž osa x by ukazovala počet hodin strávených učením a osa y by ukazovala dosaženou známku.
+
+# Závěr
+
+Výběr správné vizualizace je klíčový pro správnou interpretaci dat. Zatímco kvalitativní proměnné často vizualizujeme pomocí sloupcových nebo koláčových grafů, kvantitativní proměnné se obvykle prezentují histogramy nebo bodovými grafy. Důležité je vybrat takový typ vizualizace, který nejlépe vyhovuje vašim datům a umožní efektivní komunikaci výsledků. 
+
+Pamatujte, že vizualizace je nejen o estetice, ale především o efektivním sdělení informací!
+

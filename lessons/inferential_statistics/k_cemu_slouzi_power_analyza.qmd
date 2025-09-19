@@ -1,0 +1,60 @@
+
+title: "Power Analýza v Statistikách: K čemu slouží a jak ji využít?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+V tomto studijním materiálu se budeme zabývat konceptem **power analýzy** ve statistikách. Power analýza je důležitým nástrojem v plánování experimentů a testování hypotéz. Cílem je pochopit, proč je power analýza důležitá, jak funguje a kdy ji použít.
+
+## Co je to Power Analýza?
+
+Power analýza je statistická technika používaná k určení velikosti vzorku potřebné pro detekci efektu určité velikosti s danou úrovní jistoty. Power analýza odpovídá na otázku: "Jak velký vzorek potřebuji pro svůj experiment, abych měl dostatečně silný důkaz pro podporu (nebo zamítnutí) hypotézy?"
+
+### Klíčové Pojmy
+
+- **Síla Testu (Power)**: Pravděpodobnost správného zamítnutí nulové hypotézy, když je alternativní hypotéza vázána pravda. Často je cílem experimentu mít sílu testu 80% nebo vyšší.
+- **Nulová Hypotéza (H0)**: Výchozí předpoklad, který se snažíme otestovat. Například, že nový lék nemá žádný efekt.
+- **Alternativní Hypotéza (H1)**: Hypotéza, kterou se snažíme prokázat. Například, že nový lék má pozitivní efekt.
+- **Velikost Efektu**: Kvantitativní měřítko síly jevu (např. například rozdíl mezi dvěma skupinami).
+- **Hladina Významnosti (α)**: Pravděpodobnost chybného zamítnutí nulové hypotézy (obvykle stanovená na 0.05).
+
+## Proč je Power Analýza Důležitá?
+
+Představte si, že organizujete experiment, abyste zjistili, zda nový vzdělávací program zlepšuje výsledky studentů. Pokud máte příliš malý vzorek studentů, možná nedetekujete skutečný efekt programu, i když existuje (tzv. **chyba typu II**). Naopak, pokud váš vzorek je příliš velký, můžete najít efekt, který je statisticky významný, ale není prakticky významný.
+
+Power analýza pomáhá vyvážit tyto aspekty:
+- **Zajistí Dostatečnou Velikost Vzorku**: Některé experimenty mohou být časově a finančně nákladné, a proto je efektivní plánování klíčové.
+- **Minimalizace Chyb**: Snižuje pravděpodobnost výskytu chyb typu I a II.
+
+## Jak Probíhá Power Analýza?
+
+Před provedením experimentu byste měli procvičit power analýzu. Zde je, jak to obvykle probíhá:
+
+1. **Stanovení Hladiny Významnosti (α)**: Určete, s jakou pravděpodobností jste ochotni zamítnout nulovou hypotézu chybně.
+2. **Odhad Velikosti Efektu**: Odhadněte velikost efektu, který očekáváte (např. rozdíl ve skóre mezi kontrolní a experimentální skupinou).
+3. **Zvolení Síly Testu**: Rozhodněte se, jakou chcete mít sílu testu. Většinou se volí 0.8 (80%).
+4. **Výpočet Potřebné Velikosti Vzorku**: Pomocí statistického softwaru nebo tabulek stanovte počet pozorování, které potřebujete pro dosažení požadované síly testu.
+
+### Příklad z Běžného Života
+
+Představte si, že pracujete v potravinářské firmě a máte na starosti testování nové chuti zmrzliny. Chcete zjistit, zda nová chuť je oblíbenější než stávající. Pokud podceníte velikost vzorku, můžete nezjistit, že nová chuť je o 10 % oblíbenější, což by mohlo vést k mylným rozhodnutím o uvedení na trh.
+
+## Závěr
+
+Power analýza je cenným nástrojem, který zajišťuje, že experimenty jsou navrženy efektivně a přinesou smysluplné výsledky. Pomáhá minimalizovat chyby při statistických testech a při správném použití vede k lepším a spolehlivějším závěrům. V průběhu své kariéry ve statistikách se seznámíte se mnoha nástroji a technikami, ale power analýza je jedna z klíčových, která by neměla být přehlížena.
+
+Využijte power analýzu pro efektivní plánování vašich experimentů a podpořte ji pochopením konceptů uvedených v tomto materiálu.
+

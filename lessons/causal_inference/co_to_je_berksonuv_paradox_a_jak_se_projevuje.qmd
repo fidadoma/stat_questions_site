@@ -1,0 +1,69 @@
+---
+title: "Berksonův Paradox a Jeho Dopady"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Berksonova Paradoxu
+
+Berksonův paradox je jev ve statistice, který ukazuje, jak může být spojení mezi dvěma proměnnými zkreslené kvůli omezení výběrového souboru. To může vést k chybným závěrům o vztahu mezi proměnnými, pokud není tento efekt náležitě zvážen. 
+
+Berksonův paradox byl poprvé popsán v roce 1946 Josephem Berksonem, a to v kontextu zdravotnického výzkumu. Nicméně jeho aplikace je daleko širokospektřejší a může se objevit v různých oblastech, od sociologie po ekonomii.
+
+# Jak Berksonův Paradox Funguje?
+
+Berksonův paradox nastává, když:
+
+1. Máme dvě vlastnosti, které nejsou inherentně závislé.
+2. Je možné, že si při určitém způsobu výběru dat vybereme pouze podskupinu dat, kteří splňují určité kritérium.
+3. Tímto výběrem dat vznikne zdánlivý (i když neexistující) vztah mezi těmito dvěma vlastnostmi.
+
+## Přehledový Příklad
+
+Představme si, že zkoumáme nemocnici a sledujeme pacienty, kteří mají jak chřipku, tak astma. Astma a chřipka nejsou v populaci nijak výrazně korelované, ale pacienti s těmito dvěma nemocemi zároveň jsou častěji hospitalizováni. Takže pokud bychom zkoumali pouze hospitalizované pacienty, mohli bychom dojít k závěru, že astma a chřipka jsou korelované, byť ve skutečnosti nejsou.
+
+## Detailní Příklad
+
+### Situace
+
+Zvažujme hypotetickou situaci. Máme data z univerzity a sledujeme studenty a jejich výsledky v matematice a angličtině:
+
+- Někteří studenti jsou dobří v matematice.
+- Jiní jsou dobří v angličtině.
+- Většina studentů nejsou experti v obou předmětech.
+
+### Omezení Výběru
+
+Kdybychom se ale zajímali pouze o studenty, kteří byli přijati na elitní obor, kde je požadována buď výborná matematika nebo výborná angličtina, mohli bychom dojít k závěru, že být dobrý v matematice znamená, že jste pravděpodobně horší v angličtině a naopak, protože většina studentů nemá obě dovednosti na špičkové úrovni současně.
+
+# Reálné Aplikace Berksonova Paradoxu
+
+### Výběr na Rande
+
+Představte si svět aplikací na randění. V online seznamce můžete filtrovat uživatele podle věku a výšky. Kdyby většina uživatelů byla filtrována při rozhodování podle těchto kritérií, mohli byste dojít k závěru, že vyšší lidé jsou mladší nebo starší, i když ve skutečnosti tato korelace nemusí existovat v širší populaci.
+
+### Nábor Zaměstnanců
+
+V zaměstnání může nastat podobná situace. Představme si, že společnost najímá zaměstnance pouze na základě několika velmi specifických kritérií, třeba jazykových znalostí. Mezi lidmi, kteří prošli výběrovým řízením, se může zdánlivě zdát, že tito lidé vykazují určitou vlastnost, např. jsou většinou introvertní. To ale může být jen nesprávný závěr vycházející z omezené populace pohovorů a velmi úzce nastavených kritérií.
+
+# Jak Se Vyhnout Berksonovu Paradoxu
+
+Je důležité být si vědom toho, že omezení výběrového souboru může vytvářet zdánlivé korelace, které ve skutečnosti nemusí existovat. K dosažení objektivnějšího závěru:
+
+- Při interpretaci výsledků zvažujte, jestli byl výběr nějakým způsobem omezen či zkreslen.
+- Zkoumejte širší populaci za použití různých metod a nástrojů, jakými jsou např. statistické kontrolní proměnné.
+- Zkuste přistupovat k analýze dat s otevřenou myslí a kritickou péčí.
+
+Berksonův paradox je užitečným připomenutím toho, že ve statistice je třeba vždy mít na paměti podmínky, za nichž byla data shromážděna. Pouze tímto způsobem dosáhneme správných a užitečných závěrů.
+```

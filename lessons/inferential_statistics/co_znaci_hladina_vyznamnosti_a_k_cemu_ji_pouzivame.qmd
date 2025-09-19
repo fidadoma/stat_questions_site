@@ -1,0 +1,51 @@
+markdown
+---
+title: "Hladina významnosti ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do hladiny významnosti
+
+Ve statistikách často čelíme potřebě rozhodnout, zda pozorování z dat podporuje určitou hypotézu nebo nikoli. To je obvykle dosaženo pomocí *statistických testů*. Klíčovým pojmem, který se zde objevuje, je **hladina významnosti**. Tento pojem hraje zásadní roli při rozhodování o platnosti hypotéz.
+
+## Co je hladina významnosti?
+
+**Hladina významnosti** (obvykle označovaná symbolem \(\alpha\)) je pravděpodobnost, že zamítneme nulovou hypotézu, když je ve skutečnosti pravdivá. V podstatě nám dává míru, do jaké jsme ochotni riskovat chybu při zamítnutí pravdivé hypotézy.
+
+Typické hodnoty hladiny významnosti jsou 0.05 (5%), 0.01 (1%) nebo 0.10 (10%). Je to jakási prahová hodnota, na základě které rozhodujeme, zda rozdíl, který pozorujeme, je významný nebo jen důsledek náhody.
+
+## Proč používáme hladinu významnosti?
+
+Při statistickém testování máme vždy riziko dvou typů chyb:
+
+1. **Chyba I. druhu (α chyba)**: Zamítnutí pravdivé nulové hypotézy.
+2. **Chyba II. druhu (β chyba)**: Přijetí nepravdivé nulové hypotézy.
+
+Hladina významnosti se přímo vztahuje k chybě I. druhu. Stanovuje maximální přijatelné riziko, že uděláme tuto chybu.
+
+## Příklady z běžného života
+
+1. **Lékařské testy**: Předpokládejme, že lékař testuje nový lék. Nulová hypotéza by mohla být, že lék není účinnější než placebo. Pokud je hladina významnosti stanovena na 0.05, znamená to, že existuje 5% šance, že dojde k chybnému závěru, že lék je účinný, když ve skutečnosti není.
+  
+2. **Vědecký výzkum**: Výzkumník může testovat hypotézu, zda nová vzdělávací technika zlepšuje průměrné skóre studentů ve srovnání s tradičními metodami. Hladina významnosti 0.01 by znamenala, že existuje 1% šance, že dojde k chybnému zamítnutí nulové hypotézy, což znamená, že bude nesprávně věřit, že nová metoda je lepší, i když není.
+
+3. **Průmyslové testy**: Výrobní společnost může testovat, zda nový výrobní proces snižuje počet defektních produktů. Při hladině významnosti 0.10 je 10% šance, že dojde k chybnému rozhodnutí zamítnout hypotézu, že proces neovlivňuje kvalitu, když ve skutečnosti neexistuje žádný skutečný účinek.
+
+## Shrnutí
+
+Hladina významnosti je klíčovým konceptem ve statistickém testování hypotéz, neboť nám poskytuje návod, jak činit rozhodnutí na základě datových důkazů. Výběr hladiny významnosti by měl být uvážlivý, a to s ohledem na důsledky možných chyb ve specifickém kontextu aplikace.
+
+Pro efektivní využití hladiny významnosti je důležité nejen rozumět její definici, ale také tomu, jak ovlivňuje interpretaci výsledků testování a rozhodovací proces. Ujistěte se, že pokaždé, když aplikujete statistický test, zvažujete jak hladinu významnosti, tak možné důsledky vašeho rozhodnutí.
+```

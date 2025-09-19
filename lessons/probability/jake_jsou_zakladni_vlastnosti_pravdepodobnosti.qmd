@@ -1,0 +1,74 @@
+
+---
+title: "Základní vlastnosti pravděpodobnosti"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do pravděpodobnosti
+
+Pravděpodobnost je koncept, který je základem statistiky a používá se k vyjádření míry nejistoty týkající se výskytu určité události. V běžném životě se s pravděpodobností setkáváme každý den. Například, když uvažujeme o tom, zda si vzít deštník, protože je pravděpodobné, že bude pršet, nebo když sázíme na určité sportovní události. Abychom mohli efektivně pracovat s pravděpodobností, musíme porozumět jejím základním vlastnostem.
+
+## Základní vlastnosti pravděpodobnosti
+
+### 1. Rozsah pravděpodobnosti
+
+Pravděpodobnost určité události E se vždy pohybuje v rozsahu od 0 do 1. To znamená, že:
+
+- **P(E) = 0**: Událost nikdy nenastane. Představte si, že házíte obyčejnou šestistěnnou kostkou a ptáte se, jaká je pravděpodobnost, že padne 7. Odpověď je 0, protože 7 na kostce není.
+- **P(E) = 1**: Událost nastane vždy. Představte si, že házíte kostkou a ptáte se na pravděpodobnost, že padne číslo mezi 1 a 6. Tato pravděpodobnost je 1, protože jiná možnost neexistuje.
+
+### 2. Pravděpodobnost komplementární události
+
+Pravděpodobnost, že se stane komplementární událost k události E, se rovná 1 minus pravděpodobnost události E. Matematicky zapsáno jako:
+
+\[ P(\overline{E}) = 1 - P(E) \]
+
+Například, pokud je pravděpodobnost, že bude pršet, 0.3, pak pravděpodobnost, že nebude pršet, je 0.7.
+
+### 3. Additivita pravděpodobnosti
+
+Pokud máme dvě navzájem se vylučující (disjunktní) události A a B, pravděpodobnost jejich spojení (čili že nastane buď A, nebo B) je rovna součtu jejich pravděpodobností:
+
+\[ P(A \cup B) = P(A) + P(B) \]
+
+Pokud například máme hru, kde házíme mincí a událostí A je "padne líc" a událostí B je "padne rub", pak:
+
+\[ P(A \cup B) = P(A) + P(B) = 0.5 + 0.5 = 1 \]
+
+Pokud události A a B nejsou disjunktní (mohou nastat zároveň), platí obecnější vztah:
+
+\[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+
+### 4. Nezávislost událostí
+
+Dvě události A a B jsou nezávislé, pokud pravděpodobnost jejich společného výskytu je rovna součinu jejich jednotlivých pravděpodobností:
+
+\[ P(A \cap B) = P(A) \cdot P(B) \]
+
+Například, pokud hodíte dvěma kostkami, pravděpodobnost, že na první padne 1 a na druhé padne 2, je \( (1/6) \cdot (1/6) = 1/36 \).
+
+### 5. Zákon celkové pravděpodobnosti
+
+Pokud je událost E rozložitelná na několik podmínek, celková pravděpodobnost události E je dána jako součet pravděpodobností těchto podmíněných událostí, vynásobených pravděpodobností podmínek:
+
+\[ P(E) = P(E|A)P(A) + P(E|B)P(B) + \ldots \]
+
+Například, pokud chceme zjistit celkovou pravděpodobnost, že v sázkové hře vyhrajete, můžeme to zjistit z pravděpodobností pro různé scénáře výhry.
+
+## Závěr
+
+Pochopení základních vlastností pravděpodobnosti je klíčové pro efektivní studium a aplikaci statistiky. Tyto vlastnosti nám poskytují nástroje pro práci s pravděpodobnostmi a jejich výpočty, což je základním předpokladem pro složitější statistické analýzy. Znalost těchto vlastností nám pomáhá lépe řídit nejistoty a rizika v různých oblastech našeho života.
+
+

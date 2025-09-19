@@ -1,0 +1,61 @@
+
+---
+title: "χ2 rozdělení a jeho využití ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod do χ² rozdělení
+
+χ² (čte se jako chí-kvadrát) rozdělení je důležité rozdělení pravděpodobnosti, které se často používá ve statistice, zvláště ve vztahu k hypotézním testům a analýze rozptylu. Je to asymetrické rozdělení, které začíná v nule a rozprostírá se do pozitivního nekonečna. Pravděpodobnostní hustota je definována pro kladné hodnoty a hodnota rozdělení určuje pravděpodobnost různých výsledků statistiky chí-kvadrát.
+
+## Definice a vlastnosti
+
+χ² rozdělení je parametrizováno počtem stupňů volnosti (degrees of freedom, často označováno jako "df"). Stupně volnosti obecně odpovídají počtu nezávislých hodnot ve výpočtech, které se používají ke kalkulaci testovací statistiky.
+
+Některé základní vlastnosti χ² rozdělení:
+- **Jednostrannost**: Distribuce je vždy kladná, neboť kvadratické formy jako součet čtverců nezáporných hodnot nemohou být záporné.
+- **Asymetrie**: S rostoucím počtem stupňů volnosti se χ² rozdělení stává stále více podobným normálnímu rozdělení.
+- **Střední hodnota**: Je rovna počtu stupňů volnosti.
+- **Rozptyl**: Je dvakrát počet stupňů volnosti.
+
+## Použití χ² rozdělení
+
+### 1. Test dobré shody
+
+Test dobré shody (χ² test goodness-of-fit) je metoda používaná k určení, zda existuje významný rozdíl mezi očekávanými a skutečnými frekvencemi v jedné nebo více kategoriích. Používá se např. k testování, zda datový vzorek pochází z určitého rozdělení.
+
+**Příklad**: Předpokládejme, že máte pytel bonbónů s čtyřmi různými barvami a výrobce tvrdí, že každá barva je zastoupena rovnoměrně. χ² test by vám pomohl určit, zda rozdíl mezi pozorovaným a očekávaným množstvím bonbónů každé barvy je náhodný, nebo statisticky významný.
+
+### 2. Test nezávislosti
+
+Tento test se často používá k určení, zda existuje statisticky významný vztah mezi dvěma kategoriálními proměnnými, které jsou často prezentovány v kontingenčních tabulkách.
+
+**Příklad**: Zkoumáte, zda je preference určitých televizních pořadů závislá na věkových skupinách. S pomocí χ² testu pro nezávislost můžete testovat hypotézu, že preference pořadů jsou nezávislé na věku.
+
+### 3. Test homogenity
+
+Test homogenity je podobný testu nezávislosti, ale jeho účelem je zjistit, zda různé vzorky pocházejí ze stejné populace.
+
+**Příklad**: Pokud chcete ověřit, jestli rozdělení krevních skupin ve dvou odlišných městech je stejné, můžete použít χ² test homogenity k porovnání dvou vzorků.
+
+## Praktická aplikace
+
+Představte si, že chcete zkontrolovat, zda naučné časy ve dvou různých školách odpovídají stejné úrovni. Můžete shromáždit data o průměrných časech, které studenti věnují studiu každý týden, a následně použít χ² test homogenity pro porovnání rozložení v obou školách.
+
+### Závěr
+
+χ² rozdělení je nepostradatelným nástrojem při provádění statistických testů zahrnujících kategorizovaná data. Pomocí testů, jako jsou test dobré shody, test nezávislosti či test homogenity, nám χ² rozdělení poskytuje způsob, jak interpretovat a analyzovat mnohé situace z každodenního života, kde data mohou být rozdělena do kategorických skupin.
+
+

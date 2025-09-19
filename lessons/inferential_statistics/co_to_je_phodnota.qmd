@@ -1,0 +1,58 @@
+
+---
+title: "Co to je p-hodnota?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Co to je p-hodnota?
+
+## Úvod do p-hodnoty
+
+P-hodnota je klíčový koncept ve statistice, zejména při provádění hypotézních testů. Poskytuje nám způsob, jak můžeme rozhodnout, zda pozorovaný jev je důsledkem náhody nebo zda je statisticky významný. Pojďme si p-hodnotu detailněji vysvětlit a ukázat si, jak funguje na příkladu z běžného života.
+
+## Co je to p-hodnota?
+
+P-hodnota, také nazývaná jako p-value, je pravděpodobnost, že bychom pozorovali testovaný statistický údaj (nebo něco extrémnějšího) za předpokladu, že nulová hypotéza je pravdivá. Nulová hypotéza obvykle představuje situaci, kdy neexistuje žádný efekt nebo rozdíl.
+
+### Jak rozumět p-hodnotě?
+
+Představme si, že děláme test, kde chceme zjistit, zda nová značka kávy zlepšuje náladu oproti běžné značce. Nulová hypotéza v našem případě je, že nová káva nemá žádný vliv na náladu. 
+
+- Pokud bychom získali malou p-hodnotu (např. menší než 0.05), znamená to, že je velmi nepravděpodobné, že by zlepšení nálady bylo jen náhodné, a můžeme pak říci, že nová káva má pravděpodobně nějaký vliv na zlepšení nálady.
+- Pokud bychom získali vysokou p-hodnotu, znamená to, že náš výsledek není dostatečně přesvědčivý k tomu, abychom odmítli nulovou hypotézu.
+
+## Běžné chyby spojené s p-hodnotou
+
+### Chybná interpretace
+
+Jedním z nejčastějších omylů je považovat p-hodnotu za pravděpodobnost, že nulová hypotéza je pravdivá. Ve skutečnosti p-hodnota není pravděpodobnost pravdivosti nulové hypotézy; je to spíš míra důkazů proti ní.
+
+### Pružný výběr hranice
+
+Při práci s p-hodnotami je klíčové nestanovovat hranice podle již získaných dat (p-hacking). Tzn. předem si stanovit, jaká p-hodnota bude považována za statisticky významnou (obvykle je to 0.05).
+
+## Příklady z každodenního života
+
+1. **Testování účinnosti léků:**
+   - Farmaceutická společnost může použít p-hodnotu k určení, zda nový lék má skutečně léčebný účinek. Pokud je p-hodnota menší než 0.05, lék je považován za efektivní.
+
+2. **Průzkum spokojenosti zákazníků:**
+   - Pokud obchodní řetězec testuje, zda nová marketingová strategie zlepšila spokojenost zákazníků, p-hodnota jim pomůže rozhodnout, zda změny vedly k statisticky významnému zlepšení.
+
+## Závěr
+
+P-hodnota je nezbytným nástrojem ve statistice, který nám umožňuje rozhodnout o platnosti našich hypotéz. Přestože p-hodnota sama o sobě neposkytuje úplný závěr, je důležitou součástí statistické analýzy. Je klíčové ji správně interpretovat a používat v kontextu celého výzkumu.
+
+

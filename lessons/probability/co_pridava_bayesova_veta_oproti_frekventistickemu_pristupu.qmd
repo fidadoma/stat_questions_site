@@ -1,0 +1,70 @@
+
+---
+title: "Bayesova věta vs. Frekventistický přístup ve statistice"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+## Úvod
+
+Statistika je široká věda, která se zabývá sběrem, analýzou, interpretací a prezentací dat. Dvěma základními teoretickými přístupy ve statistice jsou frekventistický přístup a Bayesův přístup, který využívá Bayesovu větu. Oba přístupy se používají k odhadování pravděpodobnosti událostí nebo parametrů modelů, ale liší se v metodologii a filozofii.
+
+---
+
+## Frekventistický přístup
+
+Frekventistická statistika je tradičním přístupem k interpretaci pravděpodobnosti, který chápe pravděpodobnost jako dlouhodobý poměr výskytů událostí. V frekventistickém přístupu je pravděpodobnost objektivní a měřitelná. Tento přístup bývá často používán při klasických statistických testech jako T-testy, ANOVA, apod.
+
+### Příklad: Házení kostkou
+
+Představte si, že házíte férovou šestistěnnou kostkou. Frekventista by řekl, že pravděpodobnost hodu jedničky je 1/6, protože při dostatečně velkém počtu hodů by každý výsledek (1, 2, 3, 4, 5, 6) měl přibližně stejný počet výskytů.
+
+---
+
+## Bayesův přístup
+
+Na druhé straně Bayesovský přístup vede k subjektivnímu chápání pravděpodobnosti. Zatímco frekventistický přístup je postaven na častosti, Bayesův přístup využívá osobní znalosti a aktualizuje pravděpodobnost na základě nových dat. Klíčovým nástrojem je Bayesova věta, která slouží ke kombinaci předchozích znalostí s novými důkazy.
+
+### Bayesova věta
+
+Bayesova věta vyjadřuje vztah mezi pravděpodobnostmi různých událostí:
+
+$$ P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} $$
+
+- $P(A|B)$ je pravděpodobnost události A za předpokladu, že B nastalo.
+- $P(B|A)$ je pravděpodobnost události B za předpokladu, že A nastalo.
+- $P(A)$ a $P(B)$ jsou (apriorní) pravděpodobnosti událostí A a B.
+
+### Příklad: Diagnostika onemocnění
+
+Majme test na určité onemocnění, který je pozitivní v 99% (senzitivita) u nemocných a v 95% negativní u zdravých jedinců (specificita). V populaci je prevalence onemocnění 1%. Frekventista by se mohl zaměřit na vlastnosti testu, zatímco bayesovec aktualizuje pravděpodobnost, že člověk je skutečně nemocný, pokud má pozitivní výsledek testu, pomocí Bayesovy věty.
+
+V tomto případě bychom vypočítali:
+
+- $P(A)$: Pravděpodobnost, že je člověk nemocný = 0.01
+- $P(B|A)$: Pravděpodobnost pozitivního testu u nemocného = 0.99
+- $P(B)$: Pravděpodobnost pozitivního testu celkově. To zahrnuje pravděpodobnost pozitivního testu u nemocných a zdravých.
+
+Na základě těchto pravděpodobností bayesovec aktualizuje své přesvědčení o konkrétních výstupech.
+
+---
+
+## Závěr
+
+Bayesova věta přidává do statistiky flexibilnější a pragmatičtější přístup oproti frekventistickému. Umožňuje zařadit nové informace do již existujícího rámce vědění a dynamicky tak aktualizovat odhady pravděpodobnosti. Tento přístup může být zejména užitečný v reálném světě, kde nové důkazy mění pravděpodobnostní modely, například v medicíně, rizikovém managementu a umělé inteligenci.
+
+Frekventistický přístup je však stále cenný pro svoji jednoduchost a objektivnost v případě nesmlouvavých statistických analýz s velkými množinami dat.
+
+--- 
+

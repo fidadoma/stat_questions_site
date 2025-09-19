@@ -1,0 +1,103 @@
+---
+title: "Studijní materiál - Druhy četnosti ve statistice"
+order: 10
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Studijní materiál: Druhy četnosti ve statistice
+
+V tomto materiálu se podíváme na různé druhy četnosti, které se používají ve statistice, a prozkoumáme jejich aplikace v reálných situacích. Pochopení těchto konceptů je klíčové pro analýzu dat a interpretaci statistických výsledků.
+
+## Základní pojmy
+
+### Co je četnost?
+
+Četnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:
+
+- **Absolutní četnost** (f)
+- **Relativní četnost** (r)
+- **Kumulativní četnost** (F)
+- **Kumulativní relativní četnost** (R)
+
+## Druhy četnosti
+
+### 1. Absolutní četnost (f)
+
+Absolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru. 
+
+#### Příklad:
+Pokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud:
+- 10 studentů preferuje fotbal,
+- 8 studentů preferuje basketbal,
+- 5 studentů preferuje tenis.
+
+Pak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.
+
+### 2. Relativní četnost (r)
+
+Relativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:
+
+\[
+r = \frac{f}{N}
+\]
+
+Kde:
+- \(f\) je absolutní četnost,
+- \(N\) je celkový počet pozorování.
+
+#### Příklad:
+Pokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:
+
+\[
+r_{\text{fotbal}} = \frac{10}{23} \approx 0.435
+\]
+
+To znamená, že přibližně 43,5 % studentů preferuje fotbal.
+
+### 3. Kumulativní četnost (F)
+
+Kumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.
+
+#### Příklad:
+Pokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:
+
+\[
+F_{\text{basketbal}} = f_{\text{fotbal}} + f_{\text{basketbal}} = 10 + 8 = 18
+\]
+
+To znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.
+
+### 4. Kumulativní relativní četnost (R)
+
+Podobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.
+
+#### Příklad:
+Kumulativní relativní četnost pro basketbal bude:
+
+\[
+R_{\text{basketbal}} = r_{\text{fotbal}} + r_{\text{basketbal}} \approx 0.435 + 0.348 = 0.783
+\]
+
+To znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.
+
+## Kdy použít jednotlivé druhy četnosti?
+
+- **Absolutní četnost** je vhodná, když chceme znát prostý počet výskytů určité hodnoty.
+- **Relativní četnost** je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.
+- **Kumulativní četnost** je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.
+- **Kumulativní relativní četnost** je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.
+
+Doufám, že tento materiál pomohl objasnit rozdíly mezi jednotlivými druhy četnosti a jejich praktickou aplikaci. Další otázky a nejasnosti si probereme na semináři.
+

@@ -1,0 +1,56 @@
+---
+title: "Co to je DAG?"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Co je to DAG?
+
+DAG je zkratka pro Directed Acyclic Graph, což v překladu znamená orientovaný acyklický graf. Tento koncept je klíčový v různých oblastech informatiky a matematiky, zejména ve statistice, počítačové vědě a teorií grafů.
+
+## Základní pojmy
+
+Představte si graf jako sadu bodů, které nazýváme uzly (nebo také vrcholy), spojené čarami, které nazýváme hrany. Pokud jsou tyto čáry orientované, tzn., že jdou jenom jedním směrem (například z bodu A do bodu B, ale ne zpět), nazýváme graf orientovaným.
+
+- **Uzly (Vrcholy)**: Reprezentují entity nebo body v grafu, které mohou být propojeny.
+- **Hrany**: Spojují dva uzly, a pokud jsou orientované, mají směr.
+
+Když řekneme, že graf je acyklický, znamená to, že v něm neexistují žádné cykly - tedy neexistuje žádná cesta, která by vedla ze nějakého uzlu zpět do sebe sama prostřednictvím orientovaných hran.
+
+Díky těmto vlastnostem je DAG struktura, která představuje směr závislostí bez návratu – můžete samo o sobě myslet jako na tok jednosměrných šipek bez zpětných smyček.
+
+## Příklady z reálného světa
+
+Abychom si to představili lépe, můžeme si uvést několik příkladů z každodenního života:
+
+### Příklady:
+
+1. **Rodení rodokmen**: Představte si rodokmen vaší rodiny. Každá osoba je uzel a hrany vedou od rodiče k dítěti. Logicky se nevyskytuje situace, kdy by někdo mohl být vlastním prarodičem, tudíž zde není možné, aby cyklus existoval. Takový graf je orientovaný a acyklický.
+
+2. **Řízení projektů nebo úkolů**: Pokud řídíte projekt, každý úkol může záviset na jiném úkolu. Například, nemůžete malovat dům, dokud není dokončeno základy. Každý úkol je uzel a závislosti mezi nimi tvoří hrany. Opět, nemůžete mít cyklus, protože by znamenal neřešitelnou závislost.
+
+3. **Cirkulace informací nebo znalostí**: Pokud jste ve skupině lidí, kde znalosti nebo informace proudí jedním směrem (například školní hierarchie učitel-žák), informace jdou jen jednosměrně a nevytváří cyklus.
+
+### Použití v počítačové vědě
+
+V počítačové vědě se DAG často používá ke znázornění a řešení problémů, jako jsou plánování úkolů, paralelizace výpočtů, optimalizace databázových dotazů a jako datová struktura pro kompilátory. 
+
+### Důležitost v teorii grafů
+
+V teorii grafů DAGy pomáhají při hledání topologického uspořádání - to je seznam nebo pořadí, ve kterém se uzly mohou navštívit, takovým způsobem, že pro každou orientovanou hranu (uv, uw) uzel u přichází před uveve. Tím se zajišťuje, že všechny závislosti jsou splněny, ještě než se daný prvek zpracovává.
+
+## Shrnutí
+
+DAG je vynikajícím nástrojem pro zobrazení a analýzu závislostí mezi daty v mnoha oblastech - od projektového managementu po počítačovou vědu. Jeho vlastnosti orientovanosti a acykličnosti ho činí ideálním pro modelování procesů, daných situací a strukturálních vztahů v mnoha reálných scénářích.
+

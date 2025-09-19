@@ -1,0 +1,61 @@
+---
+title: "Spearmanův korelační koeficient: Studium korelace řádových dat"
+author: Filip Děchtěrenko
+date: "`r Sys.Date()`"
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show the code"
+    embed-resources: true
+editor: source
+---
+
+# Úvod do Spearmanova korelačního koeficientu
+
+Spearmanův korelační koeficient, často označovaný jako $\rho$ (rho) nebo $r_s$, je statistický nástroj používaný k měření síly a směru monotónního vztahu mezi dvěma proměnnými. Na rozdíl od Pearsonova korelačního koeficientu, který se používá k měření lineární korelace mezi dvěma spojitými proměnnými, Spearmanův koeficient pracuje s pořadovými daty nebo s daty, která nejsou normálně distribuována.
+
+## Kdy se používá Spearmanův korelační koeficient?
+
+Spearmanův korelační koeficient je užitečný v situacích, kdy údaje:
+
+1. **Nejsou normálně distribuována** - Může být použit pro data, která neplní předpoklady normální distribuce.
+2. **Jsou na ordinalní škále** - Pokud údaje nemají přirozený či spojitý význam a mohou být seřazeny nebo se nacházejí v pořadí.
+3. **Obsahují nelineární monotónní vztah** - I když vztah mezi proměnnými není lineární, ale je monotónní (tj. jedna proměnná má tendenci růst při růstu druhé nebo jedna klesá při růstu druhé).
+
+## Výpočet Spearmanova korelačního koeficientu
+
+Spearmanův korelační koeficient se určuje na základě pořadí, nikoli skutečných hodnot. Postup pro výpočet je následující:
+
+1. **Seřaďte data** - Obě proměnné seřaďte zvlášť a určete grafy pořadí.
+2. **Spočítejte rozdíly pořadí** - Stanovte rozdíl pořadí pro každý pár dat $(d_i = R(x_i) - R(y_i))$.
+3. **Aplikujte vzorec**:
+   
+   \[
+   r_s = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
+   \]
+
+   kde $n$ je počet pozorování a $d_i$ je rozdíl mezi pořadím odpovídajících hodnot.
+
+### Příklad z běžného života
+
+Představte si, že chcete zjistit, zda existuje vztah mezi pořadím studentů podle výšky a jejich pořadím ve skoku do dálky. Výšky i délky skoků nejsou nutně normálně distribuovány a nemusí existovat přímý lineární vztah. Spearmanův korelační koeficient vám umožní zjistit, zda vyšší studenti mají tendenci skákat dále, aniž byste předpokládali lineární vztah.
+
+## Interpretace výsledků
+
+Spearmanův korelační koeficient nabývá hodnot od -1 do 1:
+- **1** znamená dokonalou pozitivní monotónní korelaci.
+- **-1** znamená dokonalou negativní monotónní korelaci.
+- **0** znamená, že neexistuje žádná monotónní korelace.
+
+Zásadní je, že i když tento koeficient ukazuje sílu a směr monotónní korelace, nemůže dokazovat kauzalitu. K tomu je třeba využít dalších metodologických postupů.
+
+## Závěr
+
+Spearmanův korelační koeficient je cenným nástrojem v situacích, kde data nemusí být normálně distribuována nebo když zkoumáme vztahy v ordinalních datech. Pomáhá identifikovat monotónní vztahy, které mohou poskytovat hlubší vhled do našich dat. Ať už zkoumáte výšku a skok do dálky, hodnocení studentů nebo jiná data, tento koeficient vám poskytne robustní analýzu i v případě neideálních podmínek.
+
+
