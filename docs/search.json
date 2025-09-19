@@ -1799,9 +1799,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "statweb",
+    "title": "Otázky a odpovědi ze statistiky",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Tento web slouží jako sada Q&A ze statistiky. Neklade si ambici na to, aby byl koherentní učebnicí, ale představuje dílčí otázky, které si studenti mohou klást při učení se na zkoušku. Odpovědi jsou záměrně redundantní, aby se otázky daly číst samostatně,"
   },
   {
     "objectID": "lessons/causal_inference/co_to_je_dag.html",
