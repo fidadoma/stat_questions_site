@@ -47,7 +47,3 @@ Pearsonův korelační koeficient je užitečný v situacích, kdy chceme měři
 
 Je však důležité poznamenat, že vysoká hodnota Pearsonova korelačního koeficientu neimplikuje příčinný vztah — tedy to, že jedna proměnná způsobuje změnu v druhé. Korelace neznamená kauzalitu.
 
----
-
-Tento výukový materiál by měl pomoci studentům pochopit, co Pearsonův korelační koeficient je, co popisuje a kdy je vhodné ho použít. Kdykoliv si nejste jisti vhodností jeho použití, přemýšlejte o povaze vašich dat a vztazích, které zkoumáte.
-

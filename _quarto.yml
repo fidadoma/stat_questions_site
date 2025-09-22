@@ -19,23 +19,17 @@ website:
           - section: "Základní statistiky"
             contents: lessons/descriptive_stat/basic_statistics/*
           - section: "Vizualizace"
-            contents:
-              - lessons/descriptive_stat/visualizations
+            contents: lessons/descriptive_stat/visualizations/*
           - section: "Korelace a regrese"
-            contents:
-              - lessons/descriptive_stat/correlations_regressions
+            contents: lessons/descriptive_stat/correlations_regressions/*
           - section: "Kontingenční tabulky"
-            contents:
-              - lessons/descriptive_stat/contingency_tables
+            contents: lessons/descriptive_stat/contingency_tables/*
       - section: "Pravděpodobnost"
-        contents:
-          - lessons/probability
+        contents: lessons/probability/*
       - section: "Časové řady"
-        contents:
-          - lessons/time_series
+        contents: lessons/time_series/*
       - section: "Inferenční statistika"
-        contents:
-          - lessons/inferential_statistics
+        contents: lessons/inferential_statistics/*
       
 format:
   html:
