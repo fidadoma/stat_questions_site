@@ -1,17 +1,19 @@
-
 ---
-title: "Exponenciální vyhlazování ve statistice"
+title: "Co to je exponenciální vyhlazování"
+order: 90
 author: Filip Děchtěrenko
-date: "`r Sys.Date()`"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
   cache: false
 format:
   html:
+    html-math-method: mathjax
     toc: true
     code-fold: true
-    code-summary: "Show the code"
+    code-summary: "Zobrazit kód"
     embed-resources: true
 editor: source
 ---
@@ -32,17 +34,18 @@ Exponenciální vyhlazování je technika zpracování časových řad, která v
 
 Základní rovnice pro exponenciální vyhlazování je následující:
 
-\[
+$$
 S_t = \alpha \cdot X_t + (1 - \alpha) \cdot S_{t-1}
-\]
+$$
 
 kde:
-- \(S_t\) je vyhlazená hodnota pro čas \(t\),
-- \(X_t\) je skutečná hodnota pro čas \(t\),
-- \(S_{t-1}\) je vyhlazená hodnota pro čas \(t-1\),
-- \(\alpha\) je vyhlazovací parametr (0 < \(\alpha\) < 1), který určuje úroveň vyhlazení.
 
-Hodnota \(\alpha\) je klíčovým parametrem: čím blíže je k 1, tím větší důraz je kladen na nejnovější pozorování.
+- $X_t$ je skutečná hodnota pro čas *t*,
+- $S_{t-1}$ je vyhlazená hodnota pro čas *t-1*,
+- $S_t$ je vyhlazená hodnota pro čas *t*,
+- $\alpha$ je vyhlazovací parametr (0 < $\alpha$ < 1), který určuje úroveň vyhlazení.
+
+Hodnota $\alpha$ je klíčovým parametrem: čím blíže je k 1, tím větší důraz je kladen na nejnovější pozorování.
 
 ## Praktické využití exponenciálního vyhlazování
 
@@ -63,11 +66,11 @@ Hodnota \(\alpha\) je klíčovým parametrem: čím blíže je k 1, tím větš�
 
 **Nevýhody:**
 - Není vhodné pro časové řady s trendem a sezónností bez další úpravy.
-- Hodnota \(\alpha\) vyžaduje pečlivý výběr pro dosažení optimálních výsledků.
+- Hodnota $\alpha$ vyžaduje pečlivý výběr pro dosažení optimálních výsledků.
 
 ## Závěr
 
 Exponenciální vyhlazování je mocným nástrojem pro analýzu a vyhlazování časových řad, což umožňuje lépe chápat a předpovídat chování dat. Přestože je základní exponenciální vyhlazování vhodné pro jednoduché problémy, existují rozšířené verze, jako je dvojité nebo trojité exponenciální vyhlazování, které řeší komplexnější vzorce v datech, jako je trend a sezónnost.
 
-Můžete si vyzkoušet implementaci exponenciálního vyhlazování na svých vlastních datech a experimentovat s různými hodnotami \(\alpha\) pro dosažení lepších výsledků. S praxí a porozuměním této techniky můžete výrazně zlepšit své dovednosti v analýze časových řad.
+Můžete si vyzkoušet implementaci exponenciálního vyhlazování na svých vlastních datech a experimentovat s různými hodnotami $\alpha$ pro dosažení lepších výsledků. S praxí a porozuměním této techniky můžete výrazně zlepšit své dovednosti v analýze časových řad.
 ```

@@ -1,8 +1,9 @@
-
 ---
-title: "Decomposition of Time Series"
+title: "Jak dekomponujeme časovou řadu"
+order: 40
 author: Filip Děchtěrenko
-date: "`r Sys.Date()`"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
@@ -11,76 +12,69 @@ format:
   html:
     toc: true
     code-fold: true
-    code-summary: "Show the code"
+    code-summary: "Zobrazit kód"
     embed-resources: true
 editor: source
 ---
 
-# Introduction to Time Series Decomposition
+# Úvod do dekompozice časových řad
 
-Time series decomposition is an essential method in statistics that breaks down a time series into its constituent components. This process allows us to see the underlying patterns and trends in the data by separating them into meaningful components.
+Dekompozice časových řad je zásadní statistická metoda, která rozkládá časovou řadu na její dílčí komponenty. Tento proces nám umožňuje rozpoznat základní vzorce a trendy v datech tím, že je rozdělíme na smysluplné složky.
 
-## Components of Time Series
+## Komponenty časových řad
 
-There are typically four components that can be extracted from a time series:
+Z časové řady obvykle extrahujeme čtyři základní komponenty:
 
-1. **Trend Component**: This represents the long-term progression of the series. It is the underlying direction that the data follows over time, whether it's increasing, decreasing, or having a constant pattern. 
+1. **Trendová složka**: Reprezentuje dlouhodobý vývoj řady. Ukazuje základní směr, kterým se data v čase ubírají – ať už roste, klesá, nebo zůstává stabilní.  
 
-    - *Example*: Consider the sales of electric cars over the past decade. The trend component would show a general increase in sales due to technological advancements and increased consumer awareness.
+   - *Příklad*: U prodeje elektromobilů za poslední dekádu trendová složka zachytí celkový nárůst prodejů způsobený technologickým pokrokem a rostoucím povědomím spotřebitelů.  
 
-2. **Seasonal Component**: This captures the rhythmic variations at regular intervals due to seasonal factors. These are patterns that repeat at predictable intervals.
+2. **Sezónní složka**: Zachycuje rytmické výkyvy v pravidelných intervalech, způsobené sezónními faktory. Jsou to vzorce, které se pravidelně opakují.  
 
-    - *Example*: Retail stores often experience higher sales during the holiday season or summer sales. The seasonal component would capture these predictable spikes and drops.
+   - *Příklad*: Maloobchodní prodejny často zaznamenávají vyšší tržby během svátků nebo letních výprodejů. Sezónní složka tyto pravidelné výkyvy zachytí.  
 
-3. **Cyclical Component**: This reflects the longer-term business cycles in the data that are not of fixed period like seasonal effects.
+3. **Cyklická složka**: Odráží dlouhodobější hospodářské cykly, které nemají pevně danou periodu jako sezónní vlivy.  
 
-    - *Example*: The economic boom and recession cycles would be an example of long-term cyclical components in unemployment data.
+   - *Příklad*: Hospodářský boom a recese se odrážejí například v dlouhodobých cyklech nezaměstnanosti.  
 
-4. **Irregular Component**: Also known as the "noise," this comprises the random variations that do not follow a pattern. It is what remains after extracting the other components.
+4. **Náhodná složka (reziduum)**: Označovaná také jako „šum“. Obsahuje nepravidelné výkyvy, které nelze zařadit do žádné z předchozích kategorií.  
 
-    - *Example*: A sudden political event causing a short-term fluctuation in stock prices.
+   - *Příklad*: Náhlá politická událost vyvolávající krátkodobý pohyb na burze.  
 
-## Methods of Decomposition
+## Metody dekompozice
 
-There are mainly two types of decomposition models used:
+Používají se zejména dva typy modelů dekompozice:
 
-- **Additive Model**: This is used when the amplitude of seasonal variations or the magnitude of the irregular component does not change over time. It is generally expressed as:
-  
+- **Additivní model**: Používá se, pokud se amplituda sezónních výkyvů nebo velikost nepravidelné složky v čase nemění. Zapisuje se jako:  
+
   \[
   Y(t) = T(t) + S(t) + C(t) + I(t)
   \]
 
-  *Example*: If a company sells a fixed number of products every winter, regardless of the overall sales volume, it may be well-suited to an additive model.
+  *Příklad*: Pokud firma každou zimu prodá zhruba stejný počet produktů bez ohledu na celkový objem prodeje, je vhodný additivní model.  
 
-- **Multiplicative Model**: This is used when the seasonal variation or the irregular component magnitude is influenced by the level of the series (i.e., it changes proportionally as the series value changes). It is represented as:
-  
+- **Multiplikativní model**: Používá se, pokud se velikost sezónních nebo nepravidelných složek mění v závislosti na úrovni celé řady (tedy roste nebo klesá úměrně hodnotám). Zapisuje se jako:  
+
   \[
   Y(t) = T(t) \times S(t) \times C(t) \times I(t)
   \]
 
-  *Example*: If a company's sales are doubling every year, including the seasonal peaks, it would be better described by a multiplicative model.
+  *Příklad*: Pokud se prodeje firmy každý rok zdvojnásobí včetně sezónních špiček, lépe je popíše multiplikativní model.  
 
-## Steps for Decomposition
+## Kroky dekompozice
 
-1. **Identify the type of model**: Determine whether the problem at hand is better suited to an additive or multiplicative model.
+1. **Určit typ modelu**: Rozhodnout, zda se hodí additivní, nebo multiplikativní přístup.  
+2. **Odhadnout trendovou složku**: Například pomocí klouzavých průměrů nebo regresní křivky.  
+3. **Vypočítat sezónní složku**: Odečtením trendu a analýzou pravidelně se opakujících vzorců.  
+4. **Vyhodnotit cyklickou složku**: Prozkoumáním reziduí po odstranění trendu a sezónnosti.  
+5. **Analyzovat náhodnou složku**: To, co zbude po odstranění všech předchozích komponent.  
 
-2. **Estimate the trend component**: This can be done using moving averages or fitting a regression line to your data.
+## Praktická aplikace
 
-3. **Calculate the seasonal component**: By removing the trend from the data and analyzing the repetitive patterns over fixed intervals.
+Představte si, že vedete maloobchodní prodejnu a vidíte, že se prodeje během roku mění. Pomocí dekompozice prodejních dat zjistíte, která část výkyvů je dána dlouhodobým růstem oblíbenosti (trend), která je předvídatelným nárůstem v létě (sezónnost) a která souvisí s širšími hospodářskými cykly (cyklická složka).  
 
-4. **Assess the cyclical component**: Examine the residuals after removing trend and seasonality for potential cycles.
+Tato znalost vám umožní lépe plánovat zásoby, marketingové strategie i personální obsazení – tedy provoz efektivněji přizpůsobit skutečným vzorcům v datech.  
 
-5. **Analyze the irregular component**: This is what remains after removing the above components from the time series.
+## Závěr
 
-## Practical Application
-
-To put this into practice, imagine managing a retail store and noticing that sales fluctuate throughout the year. By decomposing your sales data, you can identify which part of the fluctuation is due to a long-term increase in popularity (trend), which parts are predictable year-in-out increases during summer (seasonal), and which are due to broader economic cycles (cyclical).
-
-With this newfound understanding, decisions such as inventory management, marketing strategies, and staffing can be improved, making your operations more efficient and responsive to actual data patterns.
-
-## Conclusion
-
-Understanding time series decomposition enables you to break through the complex mix of patterns in data and make well-informed decisions based on clear insights from historical data. It's a crucial skill for statisticians, economists, business managers, and anyone handling data-driven decision-making.
-
-
-
+Porozumění dekompozici časových řad umožňuje proniknout skrze komplexní směsici vzorců v datech a činit rozhodnutí založená na jasných vhledech z historických údajů. Je to klíčová dovednost pro statistiky, ekonomy, manažery i všechny, kdo pracují s datově podloženým rozhodováním.  

@@ -1,7 +1,9 @@
 ---
-title: "Berksonův Paradox a Jeho Dopady"
+title: "Berksonův paradox a jeho dopady"
+order: 60
 author: Filip Děchtěrenko
-date: "`r Sys.Date()`"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
@@ -10,7 +12,7 @@ format:
   html:
     toc: true
     code-fold: true
-    code-summary: "Show the code"
+    code-summary: "Zobrazit kód"
     embed-resources: true
 editor: source
 ---
@@ -66,4 +68,4 @@ Je důležité být si vědom toho, že omezení výběrového souboru může vy
 - Zkuste přistupovat k analýze dat s otevřenou myslí a kritickou péčí.
 
 Berksonův paradox je užitečným připomenutím toho, že ve statistice je třeba vždy mít na paměti podmínky, za nichž byla data shromážděna. Pouze tímto způsobem dosáhneme správných a užitečných závěrů.
-```
+

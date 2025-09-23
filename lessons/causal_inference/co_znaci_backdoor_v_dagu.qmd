@@ -1,7 +1,9 @@
 ---
-title: "Study Material: Back-door Criterion in Directed Acyclic Graphs (DAGs)"
-author: Filip Děchtěrenko
-date: "`r Sys.Date()`"
+title: "Kritérium zadních cest v orientovaných acyklických grafech (DAG)"
+order: 20
+author: "Filip Děchtěrenko"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
@@ -10,59 +12,56 @@ format:
   html:
     toc: true
     code-fold: true
-    code-summary: "Show the code"
+    code-summary: "Zobrazit kód"
     embed-resources: true
 editor: source
 ---
 
-# Study Material: Back-door Criterion in Directed Acyclic Graphs (DAGs)
+# Kritérium zadních cest v orientovaných acyklických grafech (DAG)
 
-## Introduction
+## Úvod
 
-In statistics, especially when dealing with causal inference, understanding the concept of a back-door path is essential. Directed Acyclic Graphs (DAGs) provide a graphical representation of causal relationships between variables. A back-door path in a DAG can interfere with the identification of causal effects. In this study material, we will explore what a back-door path is, why it is important, and how it is applied using examples from real life.
+Ve statistice, zejména při práci s kauzální inferencí, je porozumění pojmu *zadní cesta* (back-door path) klíčové. Orientované acyklické grafy (DAG) poskytují grafickou reprezentaci kauzálních vztahů mezi proměnnými. Zadní cesta v DAGu může narušit identifikaci kauzálních efektů. V tomto materiálu si vysvětlíme, co zadní cesta je, proč je důležitá a jak ji aplikovat na příkladech z reálného života.
 
-## What is a Directed Acyclic Graph (DAG)?
+## Co je orientovaný acyklický graf (DAG)?
 
-A Directed Acyclic Graph is a graphical representation with directed edges (arrows) between nodes (variables), where no cycles exist. This means it is impossible to start at any one node and return to it by following the directed edges.
+Orientovaný acyklický graf je grafické znázornění s orientovanými hranami (šipkami) mezi uzly (proměnnými), kde neexistují cykly. To znamená, že není možné začít v jednom uzlu a po sledování orientovaných hran se k němu vrátit.
 
-**Example**: Think about a family tree, where each person can only be born after their parents. There can't be a situation where someone in the family tree is their own ancestor.
+**Příklad**: Představte si rodokmen – každý člověk se může narodit až po svých rodičích. Nemůže nastat situace, že by někdo byl zároveň vlastním předkem.
 
-## Understanding the Back-door Criterion
+## Porozumění kritériu zadních cest
 
-The back-door criterion is a condition that helps determine whether a set of variables can be used to block all back-door paths in a DAG. A back-door path is any path from a treatment variable $X$ to an outcome variable $Y$ that starts with an arrow pointing into $X$.
+Kritérium zadních cest je podmínka, která pomáhá určit, zda lze určitý soubor proměnných použít k zablokování všech zadních cest v DAGu. Zadní cesta je jakákoli cesta z proměnné léčby $X$ k výstupní proměnné $Y$, která začíná šipkou směřující do $X$.
 
-### Why is Blocking Back-door Paths Important?
+### Proč je blokování zadních cest důležité?
 
-When estimating causal effects, we need to ensure that the relationship between the treatment and the outcome is not confounded by other variables (i.e., external variables that could give a misleading interpretation of the relationship). Back-door paths are potential confounders, and blocking these paths helps in making more accurate causal inferences.
+Při odhadu kauzálních efektů musíme zajistit, aby vztah mezi léčbou a výstupem nebyl zkreslen jinými proměnnými (tj. *matoucí proměnné*, které mohou vytvářet mylnou interpretaci vztahu). Zadní cesty představují potenciální konfoundery a jejich zablokování nám umožňuje činit přesnější kauzální závěry.
 
-## Criteria for the Back-door
+## Kritéria pro zadní cesty
 
-A set of variables $Z$ satisfies the back-door criterion relative to an ordered pair of variables $(X, Y)$ in a DAG if:
+Množina proměnných $Z$ splňuje kritérium zadních cest vzhledem k uspořádané dvojici $(X, Y)$ v DAGu, pokud:
 
-1. No node in $Z$ is a descendant of $X$.
-2. $Z$ "blocks" every back-door path between $X$ and $Y$, meaning that the set $Z$ intercepts all paths from $X$ to $Y$ that begin with an arrow pointing to $X$.
+1. Žádný uzel v $Z$ není potomkem $X$.  
+2. $Z$ „blokuje“ všechny zadní cesty mezi $X$ a $Y$, tj. množina $Z$ přeruší všechny cesty z $X$ do $Y$, které začínají šipkou směřující do $X$.  
 
-### Real-life Example
+### Reálný příklad
 
-Imagine a study is conducted to measure the effect of a new diet pill (Treatment: $X$) on weight loss (Outcome: $Y$). However, there might be other factors like physical activity level or metabolic rate that could influence the outcome. A back-door path would be one where these factors confound the effect of the diet on weight loss. 
+Představte si studii, která zkoumá vliv nové dietní pilulky (léčba: $X$) na hubnutí (výstup: $Y$). Mohou však existovat další faktory, jako je fyzická aktivita nebo rychlost metabolismu, které ovlivňují výsledek. Zadní cesta by byla taková, kde tyto faktory konfundují vztah mezi dietou a hubnutím.  
 
-By identifying and controlling for these variables, we ensure that we are assessing the effect of the diet pill directly on weight loss without interference from other paths.
+Identifikací a kontrolou těchto proměnných zajistíme, že hodnotíme přímý vliv dietní pilulky na hubnutí, bez interference dalších cest.  
 
-## Application in Real Life Scenarios
+## Aplikace v praxi
 
-### Healthcare
+### Zdravotnictví
 
-Suppose you are studying whether smoking (Treatment: $X$) affects lung cancer (Outcome: $Y$). A back-door path might include genetic predisposition as it influences both smoking habits and cancer risk. Adjusting for or controlling genetic factors can help accurately assess the direct effect of smoking on lung cancer.
+Předpokládejme, že zkoumáme, zda kouření (léčba: $X$) ovlivňuje vznik rakoviny plic (výstup: $Y$). Zadní cestu může tvořit genetická predispozice, která ovlivňuje jak kouření, tak riziko rakoviny. Kontrola genetických faktorů nám umožní přesněji odhadnout přímý vliv kouření na rakovinu plic.  
 
-### Economics
+### Ekonomie
 
-In assessing whether higher education (Treatment: $X$) affects income (Outcome: $Y$), parental wealth could be a back-door path, as it might influence both the education level and the income. By controlling for parental wealth, one can better estimate the true effect of education on income.
+Při hodnocení, zda vyšší vzdělání (léčba: $X$) ovlivňuje příjem (výstup: $Y$), může zadní cestu tvořit majetek rodičů, který ovlivňuje jak úroveň vzdělání, tak příjem. Kontrolou rodičovského majetku lze lépe odhadnout skutečný vliv vzdělání na příjem.  
 
-## Conclusion
+## Závěr
 
-Understanding and utilizing the back-door criterion within Directed Acyclic Graphs allows researchers to more accurately determine causal relationships by identifying and controlling for potential confounding variables. By blocking back-door paths, we achieve a clearer perspective on how variables directly affect one another, leading to more reliable conclusions in research experiments and studies.
+Porozumění a využívání kritéria zadních cest v orientovaných acyklických grafech umožňuje výzkumníkům přesněji určovat kauzální vztahy tím, že identifikují a kontrolují potenciální konfoundery. Blokováním zadních cest získáváme jasnější pohled na to, jak se proměnné přímo ovlivňují, a tím docházíme k spolehlivějším závěrům ve výzkumech a studiích.  
 
-This knowledge not only strengthens your statistical and analytical skills but also enhances critical thinking and decision-making abilities in various fields like healthcare, economics, and social sciences.
-
-Use this study material to reinforce your understanding of back-door criteria in DAGs and apply these concepts in analyzing causal relationships in your area of interest.
-`
+Toto poznání nejen posiluje statistické a analytické dovednosti, ale také rozvíjí kritické myšlení a schopnost rozhodování v oblastech, jako je zdravotnictví, ekonomie či sociální vědy.  

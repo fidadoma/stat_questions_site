@@ -1,7 +1,9 @@
 ---
-title: "Studijní materiál: Možnosti relativních četností pro kontingenční tabulku"
+title: "Možnosti relativních četností pro kontingenční tabulku"
+order: 20
 author: Filip Děchtěrenko
-date: "`r Sys.Date()`"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
@@ -10,7 +12,7 @@ format:
   html:
     toc: true
     code-fold: true
-    code-summary: "Show the code"
+    code-summary: "Zobrazit kód"
     embed-resources: true
 editor: source
 ---

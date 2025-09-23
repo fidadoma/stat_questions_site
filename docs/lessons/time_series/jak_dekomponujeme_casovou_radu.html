@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Filip Děchtěrenko">
+<meta name="dcterms.date" content="2025-09-20">
 
-<title>Decomposition of Time Series – Otázky a odpovědi ze Statistiky</title>
+<title>Jak dekomponujeme časovou řadu – Otázky a odpovědi ze Statistiky</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3811,7 +3812,7 @@ vertical-align: -.125em;
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/time_series/co_je_to_exponencialni_vyhlazovani.html">Časové řady</a></li><li class="breadcrumb-item"><a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html">Decomposition of Time Series</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/time_series/co_to_je_casova_rada_a_jak_je_delime.html">Časové řady</a></li><li class="breadcrumb-item"><a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html">Jak dekomponujeme časovou řadu</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -3975,13 +3976,13 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/visualizations/jake_jsou_zakladni_moznosti_vizualizace_dvou_promennych.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vizualizace dvou proměnných</span></a>
+ <span class="menu-text">Možnosti vizualizace dvou proměnných</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/visualizations/ktere_deskriptivni_statistiky_obsahuje_krabicovy_graf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Krabicový graf a deskriptivní statistiky</span></a>
   </div>
 </li>
       </ul>
@@ -4004,19 +4005,19 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/correlations_regressions/co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Pearsonův korelační koeficient</span></a>
+ <span class="menu-text">Co to je Pearsonův korelační koeficient</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/correlations_regressions/co_nam_popisuje_spearmanuv_korelacni_koeficient_a_kdy_se_pouziva.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spearmanův korelační koeficient: Studium korelace řádových dat</span></a>
+ <span class="menu-text">Co to je Spearmanův korelační koeficient</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/correlations_regressions/jak_urcit_kvalitu_modelu_a_jak_byste_ji_interpretovali.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jak určit kvalitu modelu a jak byste ji interpretovali?</span></a>
+ <span class="menu-text">Jak určit kvalitu regresního modelu a jak jí interpretovat</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4052,7 +4053,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/correlations_regressions/kdy_pouzijeme_korelaci_a_kdy_regresi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Korelace vs Regrese</span></a>
+ <span class="menu-text">Kdy se použije korelace a kdy regrese</span></a>
   </div>
 </li>
       </ul>
@@ -4069,19 +4070,19 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/contingency_tables/co_nam_popisuje_kontingencni_tabulka.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Kontingenční tabulka</span></a>
+ <span class="menu-text">Co nám popisuje kontingenční tabulka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/descriptive_stat/contingency_tables/jake_znate_moznosti_relativnich_cetnosti_pro_kontingencni_tabulku.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Možnosti relativních četností pro kontingenční tabulku</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/descriptive_stat/contingency_tables/jake_jsou_mozne_koeficienty_asociace_pro_2x2_tabulku_a_jake_jsou_jejich_vlastnosti.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Možné koeficienty asociace pro 2x2 tabulku a jejich vlastnosti</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/descriptive_stat/contingency_tables/jake_znate_moznosti_relativnich_cetnosti_pro_kontingencni_tabulku.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Možnosti relativních četností pro kontingenční tabulku</span></a>
   </div>
 </li>
       </ul>
@@ -4099,32 +4100,8 @@ vertical-align: -.125em;
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/co_pridava_bayesova_veta_oproti_frekventistickemu_pristupu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Bayesova věta vs. Frekventistický přístup ve statistice</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/co_rika_centralni_limitni_veta_a_jake_ma_prakticke_pouziti.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Centrální Limitní Věta: Teorie a Praktické Aplikace</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/co_znaci_podminena_pravdepodobnost.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Podmíněná pravděpodobnost</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../lessons/probability/jaka_je_definice_pravdepodobnosti.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Základní pravděpodobnostní modely</span></a>
+ <span class="menu-text">Definice Pravděpodobnosti</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4135,8 +4112,14 @@ vertical-align: -.125em;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/jake_parametry_ma_normalni_rozdeleni_a_co_znamenaji.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+  <a href="../../lessons/probability/co_znaci_podminena_pravdepodobnost.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Co značí podmíněná pravděpodobnost</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/probability/jaky_je_vztah_elementarniho_jevu_a_nahodneho_jevu_muzete_uvest_jeden_priklad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vztah mezi elementárním jevem a náhodným jevem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4147,8 +4130,26 @@ vertical-align: -.125em;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/probability/jaky_je_vztah_elementarniho_jevu_a_nahodneho_jevu_muzete_uvest_jeden_priklad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vztah mezi elementárním jevem a náhodným jevem</span></a>
+  <a href="../../lessons/probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Základní pravděpodobnostní modely</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/probability/jake_parametry_ma_normalni_rozdeleni_a_co_znamenaji.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parametry normálního rozdělení a jejich význam</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/probability/co_rika_centralni_limitni_veta_a_jake_ma_prakticke_pouziti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Centrální Limitní Věta: Teorie a Praktické Aplikace</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/probability/co_pridava_bayesova_veta_oproti_frekventistickemu_pristupu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesova věta vs. Frekventistický přístup ve statistice</span></a>
   </div>
 </li>
       </ul>
@@ -4164,20 +4165,8 @@ vertical-align: -.125em;
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/time_series/co_je_to_exponencialni_vyhlazovani.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exponenciální vyhlazování ve statistice</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/time_series/co_to_je_arima_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: ARIMA model</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../lessons/time_series/co_to_je_casova_rada_a_jak_je_delime.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní Materiál: Časové Řady a Jejich Dělení</span></a>
+ <span class="menu-text">Časové řady a jejich dělení</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4188,32 +4177,44 @@ vertical-align: -.125em;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/time_series/co_vite_o_reziduich_casove_rady.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Rezidua v časové řadě</span></a>
+  <a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Jak dekomponujeme časovou řadu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Decomposition of Time Series</span></a>
+  <a href="../../lessons/time_series/co_vite_o_reziduich_casove_rady.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rezidua v časové řadě</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/time_series/jake_mame_zavislosti_casovych_rad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Závislosti časových řad: Studijní materiál</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../lessons/time_series/jake_znate_koeficienty_miry_dynamiky_a_jaky_je_mezi_nimi_vztah.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Závislosti časových řad</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/time_series/jaky_je_rozdil_mezi_extrapolaci_a_interpolaci.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Jaký je rozdíl mezi extrapolací a interpolací?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/time_series/co_to_je_arima_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Co to je ARIMA model?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/time_series/co_je_to_exponencialni_vyhlazovani.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Co to je exponenciální vyhlazování</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lessons/time_series/jake_znate_koeficienty_miry_dynamiky_a_jaky_je_mezi_nimi_vztah.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Koeficienty míry dynamiky a jejich vztahy</span></a>
   </div>
 </li>
       </ul>
@@ -4236,7 +4237,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_je_to_hypoteza_a_jake_na_ni_mame_pozadavky.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Co je to Hypotéza a Jaké na Ní Máme Požadavky?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4260,19 +4261,19 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_to_je_homeskedascita_jak_ji_pozname.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Studijní materiál: Homoskedasticita ve statistice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_to_je_chyba_i_a_ii_druhu_a_jaky_je_mezi_nimi_rozdil.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Chyba I. a II. druhu: Vysvětlení a příklady</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_to_je_normalita_rezidui_u_regrese_jak_to_pozname.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Normalita Reziduí u Regrese</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4296,13 +4297,13 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_to_je_studentovo_trozdeleni.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Studentovo t-rozdělení</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_to_je_velikost_efektu_a_k_cemu_se_pouziva.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Velikost efektu ve statistice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4314,7 +4315,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/co_znamenaji_stupne_volnosti.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Co to jsou stupně volnosti (Degrees of Freedom)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4326,7 +4327,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/jak_muzeme_otestovat_normalitu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Normalita a testování normality</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4350,7 +4351,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/jake_jsou_predpoklady_jednovyberoveho_ttestu_a_co_znamenaji.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Předpoklady jednovýběrového t-testu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4362,7 +4363,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/jake_mame_tri_typy_promennych_vzhledem_k_testovani_hypotez_a_co_znamenaji.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Tři typy proměnných v testování hypotéz</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4380,7 +4381,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/jake_znate_verze_2_testu_a_k_cemu_slouzi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Verze χ² testu a jejich aplikace</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4422,13 +4423,13 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/k_cemu_slouzi_bodovy_odhad_a_jake_bodove_odhady_znate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Statistika: Bodový Odhad</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/k_cemu_slouzi_intervalovy_odhad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Intervalový Odhad: Co to Je a K Čemu Slouží?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4440,7 +4441,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/k_cemu_slouzi_power_analyza.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">editor: source</span></a>
+ <span class="menu-text">Power Analýza v Statistikách: K čemu slouží a jak ji využít?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4452,7 +4453,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/inferential_statistics/k_cemu_slouzi_testovani_hypotez.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Studijní materiál: Testování hypotéz ve statistice</span></a>
+ <span class="menu-text">Testování hypotéz ve statistice</span></a>
   </div>
 </li>
       </ul>
@@ -4467,13 +4468,13 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-time-series-decomposition" id="toc-introduction-to-time-series-decomposition" class="nav-link active" data-scroll-target="#introduction-to-time-series-decomposition">Introduction to Time Series Decomposition</a>
+  <li><a href="#úvod-do-dekompozice-časových-řad" id="toc-úvod-do-dekompozice-časových-řad" class="nav-link active" data-scroll-target="#úvod-do-dekompozice-časových-řad">Úvod do dekompozice časových řad</a>
   <ul class="collapse">
-  <li><a href="#components-of-time-series" id="toc-components-of-time-series" class="nav-link" data-scroll-target="#components-of-time-series">Components of Time Series</a></li>
-  <li><a href="#methods-of-decomposition" id="toc-methods-of-decomposition" class="nav-link" data-scroll-target="#methods-of-decomposition">Methods of Decomposition</a></li>
-  <li><a href="#steps-for-decomposition" id="toc-steps-for-decomposition" class="nav-link" data-scroll-target="#steps-for-decomposition">Steps for Decomposition</a></li>
-  <li><a href="#practical-application" id="toc-practical-application" class="nav-link" data-scroll-target="#practical-application">Practical Application</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#komponenty-časových-řad" id="toc-komponenty-časových-řad" class="nav-link" data-scroll-target="#komponenty-časových-řad">Komponenty časových řad</a></li>
+  <li><a href="#metody-dekompozice" id="toc-metody-dekompozice" class="nav-link" data-scroll-target="#metody-dekompozice">Metody dekompozice</a></li>
+  <li><a href="#kroky-dekompozice" id="toc-kroky-dekompozice" class="nav-link" data-scroll-target="#kroky-dekompozice">Kroky dekompozice</a></li>
+  <li><a href="#praktická-aplikace" id="toc-praktická-aplikace" class="nav-link" data-scroll-target="#praktická-aplikace">Praktická aplikace</a></li>
+  <li><a href="#závěr" id="toc-závěr" class="nav-link" data-scroll-target="#závěr">Závěr</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -4481,9 +4482,9 @@ vertical-align: -.125em;
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/time_series/co_je_to_exponencialni_vyhlazovani.html">Časové řady</a></li><li class="breadcrumb-item"><a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html">Decomposition of Time Series</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/time_series/co_to_je_casova_rada_a_jak_je_delime.html">Časové řady</a></li><li class="breadcrumb-item"><a href="../../lessons/time_series/jak_dekomponujeme_casovou_radu.html">Jak dekomponujeme časovou řadu</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Decomposition of Time Series</h1>
+<h1 class="title">Jak dekomponujeme časovou řadu</h1>
 </div>
 
 
@@ -4500,10 +4501,16 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
+      <p class="date">September 20, 2025</p>
     </div>
   </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">September 23, 2025</p>
+    </div>
+  </div>
     
   </div>
   
@@ -4512,61 +4519,65 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="introduction-to-time-series-decomposition" class="level1">
-<h1>Introduction to Time Series Decomposition</h1>
-<p>Time series decomposition is an essential method in statistics that breaks down a time series into its constituent components. This process allows us to see the underlying patterns and trends in the data by separating them into meaningful components.</p>
-<section id="components-of-time-series" class="level2">
-<h2 class="anchored" data-anchor-id="components-of-time-series">Components of Time Series</h2>
-<p>There are typically four components that can be extracted from a time series:</p>
+<section id="úvod-do-dekompozice-časových-řad" class="level1">
+<h1>Úvod do dekompozice časových řad</h1>
+<p>Dekompozice časových řad je zásadní statistická metoda, která rozkládá časovou řadu na její dílčí komponenty. Tento proces nám umožňuje rozpoznat základní vzorce a trendy v datech tím, že je rozdělíme na smysluplné složky.</p>
+<section id="komponenty-časových-řad" class="level2">
+<h2 class="anchored" data-anchor-id="komponenty-časových-řad">Komponenty časových řad</h2>
+<p>Z časové řady obvykle extrahujeme čtyři základní komponenty:</p>
 <ol type="1">
-<li><p><strong>Trend Component</strong>: This represents the long-term progression of the series. It is the underlying direction that the data follows over time, whether it’s increasing, decreasing, or having a constant pattern.</p>
+<li><p><strong>Trendová složka</strong>: Reprezentuje dlouhodobý vývoj řady. Ukazuje základní směr, kterým se data v čase ubírají – ať už roste, klesá, nebo zůstává stabilní.</p>
 <ul>
-<li><em>Example</em>: Consider the sales of electric cars over the past decade. The trend component would show a general increase in sales due to technological advancements and increased consumer awareness.</li>
+<li><em>Příklad</em>: U prodeje elektromobilů za poslední dekádu trendová složka zachytí celkový nárůst prodejů způsobený technologickým pokrokem a rostoucím povědomím spotřebitelů.</li>
 </ul></li>
-<li><p><strong>Seasonal Component</strong>: This captures the rhythmic variations at regular intervals due to seasonal factors. These are patterns that repeat at predictable intervals.</p>
+<li><p><strong>Sezónní složka</strong>: Zachycuje rytmické výkyvy v pravidelných intervalech, způsobené sezónními faktory. Jsou to vzorce, které se pravidelně opakují.</p>
 <ul>
-<li><em>Example</em>: Retail stores often experience higher sales during the holiday season or summer sales. The seasonal component would capture these predictable spikes and drops.</li>
+<li><em>Příklad</em>: Maloobchodní prodejny často zaznamenávají vyšší tržby během svátků nebo letních výprodejů. Sezónní složka tyto pravidelné výkyvy zachytí.</li>
 </ul></li>
-<li><p><strong>Cyclical Component</strong>: This reflects the longer-term business cycles in the data that are not of fixed period like seasonal effects.</p>
+<li><p><strong>Cyklická složka</strong>: Odráží dlouhodobější hospodářské cykly, které nemají pevně danou periodu jako sezónní vlivy.</p>
 <ul>
-<li><em>Example</em>: The economic boom and recession cycles would be an example of long-term cyclical components in unemployment data.</li>
+<li><em>Příklad</em>: Hospodářský boom a recese se odrážejí například v dlouhodobých cyklech nezaměstnanosti.</li>
 </ul></li>
-<li><p><strong>Irregular Component</strong>: Also known as the “noise,” this comprises the random variations that do not follow a pattern. It is what remains after extracting the other components.</p>
+<li><p><strong>Náhodná složka (reziduum)</strong>: Označovaná také jako „šum“. Obsahuje nepravidelné výkyvy, které nelze zařadit do žádné z předchozích kategorií.</p>
 <ul>
-<li><em>Example</em>: A sudden political event causing a short-term fluctuation in stock prices.</li>
+<li><em>Příklad</em>: Náhlá politická událost vyvolávající krátkodobý pohyb na burze.</li>
 </ul></li>
 </ol>
 </section>
-<section id="methods-of-decomposition" class="level2">
-<h2 class="anchored" data-anchor-id="methods-of-decomposition">Methods of Decomposition</h2>
-<p>There are mainly two types of decomposition models used:</p>
+<section id="metody-dekompozice" class="level2">
+<h2 class="anchored" data-anchor-id="metody-dekompozice">Metody dekompozice</h2>
+<p>Používají se zejména dva typy modelů dekompozice:</p>
 <ul>
-<li><p><strong>Additive Model</strong>: This is used when the amplitude of seasonal variations or the magnitude of the irregular component does not change over time. It is generally expressed as:</p>
+<li><p><strong>Additivní model</strong>: Používá se, pokud se amplituda sezónních výkyvů nebo velikost nepravidelné složky v čase nemění. Zapisuje se jako:</p>
 <p>[ Y(t) = T(t) + S(t) + C(t) + I(t) ]</p>
-<p><em>Example</em>: If a company sells a fixed number of products every winter, regardless of the overall sales volume, it may be well-suited to an additive model.</p></li>
-<li><p><strong>Multiplicative Model</strong>: This is used when the seasonal variation or the irregular component magnitude is influenced by the level of the series (i.e., it changes proportionally as the series value changes). It is represented as:</p>
+<p><em>Příklad</em>: Pokud firma každou zimu prodá zhruba stejný počet produktů bez ohledu na celkový objem prodeje, je vhodný additivní model.</p></li>
+<li><p><strong>Multiplikativní model</strong>: Používá se, pokud se velikost sezónních nebo nepravidelných složek mění v závislosti na úrovni celé řady (tedy roste nebo klesá úměrně hodnotám). Zapisuje se jako:</p>
 <p>[ Y(t) = T(t) S(t) C(t) I(t) ]</p>
-<p><em>Example</em>: If a company’s sales are doubling every year, including the seasonal peaks, it would be better described by a multiplicative model.</p></li>
+<p><em>Příklad</em>: Pokud se prodeje firmy každý rok zdvojnásobí včetně sezónních špiček, lépe je popíše multiplikativní model.</p></li>
 </ul>
 </section>
-<section id="steps-for-decomposition" class="level2">
-<h2 class="anchored" data-anchor-id="steps-for-decomposition">Steps for Decomposition</h2>
+<section id="kroky-dekompozice" class="level2">
+<h2 class="anchored" data-anchor-id="kroky-dekompozice">Kroky dekompozice</h2>
 <ol type="1">
-<li><p><strong>Identify the type of model</strong>: Determine whether the problem at hand is better suited to an additive or multiplicative model.</p></li>
-<li><p><strong>Estimate the trend component</strong>: This can be done using moving averages or fitting a regression line to your data.</p></li>
-<li><p><strong>Calculate the seasonal component</strong>: By removing the trend from the data and analyzing the repetitive patterns over fixed intervals.</p></li>
-<li><p><strong>Assess the cyclical component</strong>: Examine the residuals after removing trend and seasonality for potential cycles.</p></li>
-<li><p><strong>Analyze the irregular component</strong>: This is what remains after removing the above components from the time series.</p></li>
+<li><strong>Určit typ modelu</strong>: Rozhodnout, zda se hodí additivní, nebo multiplikativní přístup.<br>
+</li>
+<li><strong>Odhadnout trendovou složku</strong>: Například pomocí klouzavých průměrů nebo regresní křivky.<br>
+</li>
+<li><strong>Vypočítat sezónní složku</strong>: Odečtením trendu a analýzou pravidelně se opakujících vzorců.<br>
+</li>
+<li><strong>Vyhodnotit cyklickou složku</strong>: Prozkoumáním reziduí po odstranění trendu a sezónnosti.<br>
+</li>
+<li><strong>Analyzovat náhodnou složku</strong>: To, co zbude po odstranění všech předchozích komponent.</li>
 </ol>
 </section>
-<section id="practical-application" class="level2">
-<h2 class="anchored" data-anchor-id="practical-application">Practical Application</h2>
-<p>To put this into practice, imagine managing a retail store and noticing that sales fluctuate throughout the year. By decomposing your sales data, you can identify which part of the fluctuation is due to a long-term increase in popularity (trend), which parts are predictable year-in-out increases during summer (seasonal), and which are due to broader economic cycles (cyclical).</p>
-<p>With this newfound understanding, decisions such as inventory management, marketing strategies, and staffing can be improved, making your operations more efficient and responsive to actual data patterns.</p>
+<section id="praktická-aplikace" class="level2">
+<h2 class="anchored" data-anchor-id="praktická-aplikace">Praktická aplikace</h2>
+<p>Představte si, že vedete maloobchodní prodejnu a vidíte, že se prodeje během roku mění. Pomocí dekompozice prodejních dat zjistíte, která část výkyvů je dána dlouhodobým růstem oblíbenosti (trend), která je předvídatelným nárůstem v létě (sezónnost) a která souvisí s širšími hospodářskými cykly (cyklická složka).</p>
+<p>Tato znalost vám umožní lépe plánovat zásoby, marketingové strategie i personální obsazení – tedy provoz efektivněji přizpůsobit skutečným vzorcům v datech.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Understanding time series decomposition enables you to break through the complex mix of patterns in data and make well-informed decisions based on clear insights from historical data. It’s a crucial skill for statisticians, economists, business managers, and anyone handling data-driven decision-making.</p>
+<section id="závěr" class="level2">
+<h2 class="anchored" data-anchor-id="závěr">Závěr</h2>
+<p>Porozumění dekompozici časových řad umožňuje proniknout skrze komplexní směsici vzorců v datech a činit rozhodnutí založená na jasných vhledech z historických údajů. Je to klíčová dovednost pro statistiky, ekonomy, manažery i všechny, kdo pracují s datově podloženým rozhodováním.</p>
 
 
 </section>
