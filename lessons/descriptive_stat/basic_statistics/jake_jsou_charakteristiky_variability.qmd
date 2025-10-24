@@ -35,9 +35,9 @@ Rozptyl je jedním z nejpoužívanějších způsobů měření variability. Vyc
 
 - **Vzorec pro rozptyl (s²):**
   
-math
+$$
 s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2
-```
+$$
 
 kde:
   - \( x_i \) je každá jednotlivá hodnota,
@@ -50,9 +50,9 @@ Směrodatná odchylka je odmocnina rozptylu a je často upřednostňována, prot
 
 - **Vzorec pro směrodatnou odchylku (s):**
 
-```math
-s = \sqrt{s^2}
-```
+$$
+s = \sqrt{s^2}=\sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2}
+$$
 
 ### 3. Variační koeficient (Coefficient of Variation)
 
@@ -60,9 +60,9 @@ Variační koeficient je poměr směrodatné odchylky k průměru a je vyjádře
 
 - **Vzorec pro variační koeficient (CV):**
 
-```math
+$$
 CV = \frac{s}{\bar{x}} \times 100\%
-```
+$$
 
 ### 4. Mezikvartilový rozptyl (Interquartile Range, IQR)
 
@@ -70,13 +70,13 @@ Mezikvartilový rozptyl je rozdíl mezi horním a dolním kvartilem (25. a 75. p
 
 - **Vzorec pro IQR:**
 
-```math
+$$
 IQR = Q3 - Q1
-```
+$$
 
 kde:
-  - \( Q1 \) je dolní kvartil,
-  - \( Q3 \) je horní kvartil.
+  - $Q1$ je dolní kvartil,
+  - $Q3$ je horní kvartil.
 
 # Příklady z každodenního života
 

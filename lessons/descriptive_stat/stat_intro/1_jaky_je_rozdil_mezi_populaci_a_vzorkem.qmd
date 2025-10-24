@@ -41,6 +41,13 @@ Statistika je vědecký obor, který se zabývá sběrem, analýzou, interpretac
 - **500 knih z knihovny** - pro zjištění průměrného počtu stran.
 - **20 automobilů z autoškoly** - pro analýzu spotřeby paliva.
 
+```{r}
+#| label: fig-population-sample
+#| fig-cap: "Vizualizace vztahu populace a vzorků"
+#| out-width: "50%"
+knitr::include_graphics("img/population_sample.png")
+```
+
 ## Proč jsou tyto pojmy důležité?
 
 Rozlišování mezi populací a vzorkem je klíčové, protože určuje, jaké statistické metody použijeme k analýze dat. Když pracujeme se vzorkem, musíme si uvědomit, že výsledky nebudou absolutně přesné pro celou populaci, ale můžeme je použít k vytvoření odhadů a předpovědí.

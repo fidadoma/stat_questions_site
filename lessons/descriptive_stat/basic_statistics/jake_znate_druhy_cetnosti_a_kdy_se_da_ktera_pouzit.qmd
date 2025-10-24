@@ -1,5 +1,5 @@
 ---
-title: "Studijní materiál - Druhy četnosti ve statistice"
+title: "Druhy četnosti ve statistice"
 order: 10
 author: Filip Děchtěrenko
 date: 2025-09-20
@@ -27,10 +27,10 @@ V tomto materiálu se podíváme na různé druhy četnosti, které se používa
 
 Četnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:
 
-- **Absolutní četnost** (f)
-- **Relativní četnost** (r)
-- **Kumulativní četnost** (F)
-- **Kumulativní relativní četnost** (R)
+- **Absolutní četnost** 
+- **Relativní četnost** 
+- **Kumulativní četnost** 
+- **Kumulativní relativní četnost** 
 
 ## Druhy četnosti
 
@@ -50,46 +50,47 @@ Pak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.
 
 Relativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:
 
-\[
+$$
 r = \frac{f}{N}
-\]
+$$
 
 Kde:
-- \(f\) je absolutní četnost,
-- \(N\) je celkový počet pozorování.
+
+- f je absolutní četnost,
+- N je celkový počet pozorování.
 
 #### Příklad:
 Pokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:
 
-\[
+$$
 r_{\text{fotbal}} = \frac{10}{23} \approx 0.435
-\]
+$$
 
 To znamená, že přibližně 43,5 % studentů preferuje fotbal.
 
-### 3. Kumulativní četnost (F)
+### 3. Kumulativní četnost (cf)
 
 Kumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.
 
 #### Příklad:
 Pokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:
 
-\[
-F_{\text{basketbal}} = f_{\text{fotbal}} + f_{\text{basketbal}} = 10 + 8 = 18
-\]
+$$
+cf_{\text{basketbal}} = f_{\text{fotbal}} + f_{\text{basketbal}} = 10 + 8 = 18
+$$
 
 To znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.
 
-### 4. Kumulativní relativní četnost (R)
+### 4. Kumulativní relativní četnost (cr)
 
 Podobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.
 
 #### Příklad:
 Kumulativní relativní četnost pro basketbal bude:
 
-\[
-R_{\text{basketbal}} = r_{\text{fotbal}} + r_{\text{basketbal}} \approx 0.435 + 0.348 = 0.783
-\]
+$$
+cr_{\text{basketbal}} = r_{\text{fotbal}} + r_{\text{basketbal}} \approx 0.435 + 0.348 = 0.783
+$$
 
 To znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.
 
@@ -100,5 +101,5 @@ To znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo baske
 - **Kumulativní četnost** je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.
 - **Kumulativní relativní četnost** je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.
 
-Doufám, že tento materiál pomohl objasnit rozdíly mezi jednotlivými druhy četnosti a jejich praktickou aplikaci. Další otázky a nejasnosti si probereme na semináři.
+
 

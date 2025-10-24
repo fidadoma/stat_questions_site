@@ -1,5 +1,5 @@
 ---
-title: "Rozdíl mezi charakteristikou středy a charakteristikou variability"
+title: "Rozdíl mezi charakteristikami středu a variability"
 order: 20
 author: Filip Děchtěrenko
 date: 2025-09-20
@@ -19,13 +19,13 @@ editor: source
 
 # Úvod
 
-Statistika je důležitou částí našeho každodenního života, i když si to často neuvědomujeme. Je to vědní obor, který nám pomáhá pochopit svět kolem nás tím, že shromažďuje, analyzuje, interpretuje a prezentuje data. Dnes se zaměříme na dvě základní koncepty ve statistice: **charakteristiku středy** a **charakteristiku variability**. Tyto dvě charakteristiky jsou klíčové pro popis a porozumění dat a mají široké využití v různých oblastech, ať už v ekonomii, medicíně, sportu nebo v běžném životě.
+V deskriptivní statistice používáme při popisu statistických dat **charakteristiky středu** a **charakteristiky variability**. Tyto dvě charakteristiky jsou klíčové pro popis a porozumění dat.
 
-# Charakteristika Středy
+# Charakteristika středu
 
-## Co je charakteristika středy?
+## Co je charakteristika středu?
 
-Charakteristika středy je způsob, jak shrnout velké množství dat pomocí jednoho čísla, které představuje "střed" nebo "typickou hodnotu" datové sady. Nejčastěji používanou charakteristikou středy je **průměr**. Dalšími klasickými ukazateli středu jsou **medián** a **modus**.
+Charakteristika středu je způsob, jak shrnout velké množství dat pomocí jednoho čísla, které představuje "střed" nebo "typickou hodnotu" datové sady. Nejčastěji používanou charakteristikou středy je **průměr**. Dalšími klasickými ukazateli středu jsou **medián** a **modus**.
 
 ### Průměr
 Průměr je součet všech hodnot datové sady vydělený počtem hodnot. Je to velmi intuitivní a snadno pochopitelná statistika.
@@ -65,5 +65,4 @@ Rozpětí je nejjednodušší formou variability, představuje rozdíl mezi nejv
 
 # Závěr
 
-Charakteristika středu a charakteristika variability jsou základní koncepty ve statistice, které pomáhají popsat a analyzovat data. Charakteristika středu poskytuje informaci o typické hodnotě datové sady, zatímco charakteristika variability nám říká, jak jsou data rozptýlena. Porozumění těmto pojmům je klíčové pro pokročilejší analýzy a interpretace v mnoha oblastech, nejen ve statistice, ale i v širokém spektru aplikací v reálném životě.
-
+Charakteristika středu a charakteristika variability jsou základní koncepty ve statistice, které pomáhají popsat a analyzovat data. Charakteristika středu poskytuje informaci o typické hodnotě datové sady, zatímco charakteristika variability nám říká, jak jsou data rozptýlena. 

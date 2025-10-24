@@ -1921,7 +1921,7 @@
     "href": "lessons/descriptive_stat/stat_intro/1_jaky_je_rozdil_mezi_populaci_a_vzorkem.html#definice-vzorku",
     "title": "Rozdíl mezi Populací a Vzorkem",
     "section": "Definice Vzorku",
-    "text": "Definice Vzorku\nVzorek je část populace, kterou skutečně studujeme. Je to podmnožina populace, která je vybraná tak, aby reprezentovala populaci co nejpřesněji. Vzorek používáme, protože ve většině případů je nemožné nebo příliš nákladné studovat celou populaci. Výběr vzorku nám umožňuje provádět výzkumy a analýzy efektivněji.\n\nPříklady Vzorků\n\n1000 náhodně vybraných obyvatel ČR - pro odhad průměrného věku obyvatel.\n500 knih z knihovny - pro zjištění průměrného počtu stran.\n20 automobilů z autoškoly - pro analýzu spotřeby paliva.",
+    "text": "Definice Vzorku\nVzorek je část populace, kterou skutečně studujeme. Je to podmnožina populace, která je vybraná tak, aby reprezentovala populaci co nejpřesněji. Vzorek používáme, protože ve většině případů je nemožné nebo příliš nákladné studovat celou populaci. Výběr vzorku nám umožňuje provádět výzkumy a analýzy efektivněji.\n\nPříklady Vzorků\n\n1000 náhodně vybraných obyvatel ČR - pro odhad průměrného věku obyvatel.\n500 knih z knihovny - pro zjištění průměrného počtu stran.\n20 automobilů z autoškoly - pro analýzu spotřeby paliva.\n\n\n\nZobrazit kód\nknitr::include_graphics(\"img/population_sample.png\")\n\n\n\n\n\n\n\n\nFigure 1: Vizualizace vztahu populace a vzorků",
     "crumbs": [
       "Deskriptivní statistika",
       "Základní pojmy",
@@ -2339,49 +2339,49 @@
   {
     "objectID": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html",
     "href": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html",
-    "title": "Studijní materiál - Druhy četnosti ve statistice",
+    "title": "Druhy četnosti ve statistice",
     "section": "",
-    "text": "V tomto materiálu se podíváme na různé druhy četnosti, které se používají ve statistice, a prozkoumáme jejich aplikace v reálných situacích. Pochopení těchto konceptů je klíčové pro analýzu dat a interpretaci statistických výsledků.\n\n\n\n\nČetnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:\n\nAbsolutní četnost (f)\nRelativní četnost (r)\nKumulativní četnost (F)\nKumulativní relativní četnost (R)\n\n\n\n\n\n\n\nAbsolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru.\n\n\nPokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud: - 10 studentů preferuje fotbal, - 8 studentů preferuje basketbal, - 5 studentů preferuje tenis.\nPak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.\n\n\n\n\nRelativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:\n[ r = ]\nKde: - (f) je absolutní četnost, - (N) je celkový počet pozorování.\n\n\nPokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:\n[ r_{} = ]\nTo znamená, že přibližně 43,5 % studentů preferuje fotbal.\n\n\n\n\nKumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.\n\n\nPokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:\n[ F_{} = f_{} + f_{} = 10 + 8 = 18 ]\nTo znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\nPodobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.\n\n\nKumulativní relativní četnost pro basketbal bude:\n[ R_{} = r_{} + r_{} + 0.348 = 0.783 ]\nTo znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\n\n\nAbsolutní četnost je vhodná, když chceme znát prostý počet výskytů určité hodnoty.\nRelativní četnost je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.\nKumulativní četnost je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.\nKumulativní relativní četnost je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.\n\nDoufám, že tento materiál pomohl objasnit rozdíly mezi jednotlivými druhy četnosti a jejich praktickou aplikaci. Další otázky a nejasnosti si probereme na semináři.",
+    "text": "V tomto materiálu se podíváme na různé druhy četnosti, které se používají ve statistice, a prozkoumáme jejich aplikace v reálných situacích. Pochopení těchto konceptů je klíčové pro analýzu dat a interpretaci statistických výsledků.\n\n\n\n\nČetnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:\n\nAbsolutní četnost\nRelativní četnost\nKumulativní četnost\nKumulativní relativní četnost\n\n\n\n\n\n\n\nAbsolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru.\n\n\nPokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud: - 10 studentů preferuje fotbal, - 8 studentů preferuje basketbal, - 5 studentů preferuje tenis.\nPak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.\n\n\n\n\nRelativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:\n\\[\nr = \\frac{f}{N}\n\\]\nKde:\n\nf je absolutní četnost,\nN je celkový počet pozorování.\n\n\n\nPokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:\n\\[\nr_{\\text{fotbal}} = \\frac{10}{23} \\approx 0.435\n\\]\nTo znamená, že přibližně 43,5 % studentů preferuje fotbal.\n\n\n\n\nKumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.\n\n\nPokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:\n\\[\ncf_{\\text{basketbal}} = f_{\\text{fotbal}} + f_{\\text{basketbal}} = 10 + 8 = 18\n\\]\nTo znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\nPodobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.\n\n\nKumulativní relativní četnost pro basketbal bude:\n\\[\ncr_{\\text{basketbal}} = r_{\\text{fotbal}} + r_{\\text{basketbal}} \\approx 0.435 + 0.348 = 0.783\n\\]\nTo znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\n\n\nAbsolutní četnost je vhodná, když chceme znát prostý počet výskytů určité hodnoty.\nRelativní četnost je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.\nKumulativní četnost je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.\nKumulativní relativní četnost je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.",
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Studijní materiál - Druhy četnosti ve statistice"
+      "Druhy četnosti ve statistice"
     ]
   },
   {
     "objectID": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#základní-pojmy",
     "href": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#základní-pojmy",
-    "title": "Studijní materiál - Druhy četnosti ve statistice",
+    "title": "Druhy četnosti ve statistice",
     "section": "",
-    "text": "Četnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:\n\nAbsolutní četnost (f)\nRelativní četnost (r)\nKumulativní četnost (F)\nKumulativní relativní četnost (R)",
+    "text": "Četnost udává, kolikrát se určitý jev v daném souboru dat vyskytuje. Pomůže nám pochopit rozložení a charakteristiky dat. Typickými druhy četnosti jsou:\n\nAbsolutní četnost\nRelativní četnost\nKumulativní četnost\nKumulativní relativní četnost",
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Studijní materiál - Druhy četnosti ve statistice"
+      "Druhy četnosti ve statistice"
     ]
   },
   {
     "objectID": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#druhy-četnosti",
     "href": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#druhy-četnosti",
-    "title": "Studijní materiál - Druhy četnosti ve statistice",
+    "title": "Druhy četnosti ve statistice",
     "section": "",
-    "text": "Absolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru.\n\n\nPokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud: - 10 studentů preferuje fotbal, - 8 studentů preferuje basketbal, - 5 studentů preferuje tenis.\nPak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.\n\n\n\n\nRelativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:\n[ r = ]\nKde: - (f) je absolutní četnost, - (N) je celkový počet pozorování.\n\n\nPokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:\n[ r_{} = ]\nTo znamená, že přibližně 43,5 % studentů preferuje fotbal.\n\n\n\n\nKumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.\n\n\nPokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:\n[ F_{} = f_{} + f_{} = 10 + 8 = 18 ]\nTo znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\nPodobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.\n\n\nKumulativní relativní četnost pro basketbal bude:\n[ R_{} = r_{} + r_{} + 0.348 = 0.783 ]\nTo znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.",
+    "text": "Absolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru.\n\n\nPokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud: - 10 studentů preferuje fotbal, - 8 studentů preferuje basketbal, - 5 studentů preferuje tenis.\nPak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.\n\n\n\n\nRelativní četnost vyjadřuje poměr počtu výskytů určité hodnoty k celkovému počtu pozorování. Je tedy určena vztahem:\n\\[\nr = \\frac{f}{N}\n\\]\nKde:\n\nf je absolutní četnost,\nN je celkový počet pozorování.\n\n\n\nPokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:\n\\[\nr_{\\text{fotbal}} = \\frac{10}{23} \\approx 0.435\n\\]\nTo znamená, že přibližně 43,5 % studentů preferuje fotbal.\n\n\n\n\nKumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.\n\n\nPokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:\n\\[\ncf_{\\text{basketbal}} = f_{\\text{fotbal}} + f_{\\text{basketbal}} = 10 + 8 = 18\n\\]\nTo znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.\n\n\n\n\nPodobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.\n\n\nKumulativní relativní četnost pro basketbal bude:\n\\[\ncr_{\\text{basketbal}} = r_{\\text{fotbal}} + r_{\\text{basketbal}} \\approx 0.435 + 0.348 = 0.783\n\\]\nTo znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.",
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Studijní materiál - Druhy četnosti ve statistice"
+      "Druhy četnosti ve statistice"
     ]
   },
   {
     "objectID": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#kdy-použít-jednotlivé-druhy-četnosti",
     "href": "lessons/descriptive_stat/basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.html#kdy-použít-jednotlivé-druhy-četnosti",
-    "title": "Studijní materiál - Druhy četnosti ve statistice",
+    "title": "Druhy četnosti ve statistice",
     "section": "",
-    "text": "Absolutní četnost je vhodná, když chceme znát prostý počet výskytů určité hodnoty.\nRelativní četnost je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.\nKumulativní četnost je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.\nKumulativní relativní četnost je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.\n\nDoufám, že tento materiál pomohl objasnit rozdíly mezi jednotlivými druhy četnosti a jejich praktickou aplikaci. Další otázky a nejasnosti si probereme na semináři.",
+    "text": "Absolutní četnost je vhodná, když chceme znát prostý počet výskytů určité hodnoty.\nRelativní četnost je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.\nKumulativní četnost je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.\nKumulativní relativní četnost je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.",
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Studijní materiál - Druhy četnosti ve statistice"
+      "Druhy četnosti ve statistice"
     ]
   },
   {
@@ -2706,7 +2706,7 @@
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Rozdíl mezi charakteristikou středy a charakteristikou variability"
+      "Rozdíl mezi charakteristikami středu a variability"
     ]
   },
   {
@@ -2718,7 +2718,7 @@
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Rozdíl mezi charakteristikou středy a charakteristikou variability"
+      "Rozdíl mezi charakteristikami středu a variability"
     ]
   },
   {
@@ -2730,7 +2730,7 @@
     "crumbs": [
       "Deskriptivní statistika",
       "Základní statistiky",
-      "Rozdíl mezi charakteristikou středy a charakteristikou variability"
+      "Rozdíl mezi charakteristikami středu a variability"
     ]
   },
   {
@@ -4878,6 +4878,18 @@
     "crumbs": [
       "Časové řady",
       "Koeficienty míry dynamiky a jejich vztahy"
+    ]
+  },
+  {
+    "objectID": "lessons/descriptive_stat/basic_statistics/jaky_je_rozdil_mezi_charakteristikou_stredy_a_charakteristikou_variability.html#co-je-charakteristika-středu",
+    "href": "lessons/descriptive_stat/basic_statistics/jaky_je_rozdil_mezi_charakteristikou_stredy_a_charakteristikou_variability.html#co-je-charakteristika-středu",
+    "title": "Rozdíl mezi charakteristikami středu a variability",
+    "section": "Co je charakteristika středu?",
+    "text": "Co je charakteristika středu?\nCharakteristika středu je způsob, jak shrnout velké množství dat pomocí jednoho čísla, které představuje “střed” nebo “typickou hodnotu” datové sady. Nejčastěji používanou charakteristikou středy je průměr. Dalšími klasickými ukazateli středu jsou medián a modus.\n\nPrůměr\nPrůměr je součet všech hodnot datové sady vydělený počtem hodnot. Je to velmi intuitivní a snadno pochopitelná statistika.\nPříklad z běžného života: Představte si, že chcete zjistit průměrnou výši kapesného, které dostává vaše skupina přátel. Sečtete tedy všechnu obdrženou částku peněz a vydělíte počtem přátel.\n\n\nMedián\nMedián je střední hodnota datového souboru, když jsou všechny hodnoty seřazeny od nejmenší po největší. Je užitečný zejména tehdy, jsou-li v datech extrémy, které mohou zkreslit průměr.\nPříklad z běžného života: Pokud seřadíte své známky od nejhorší po nejlepší, medián bude hodnota uprostřed vašeho seznamu.\n\n\nModus\nModus je hodnota, která se v datové sadě vyskytuje nejčastěji. Může být více než jedna, pokud se více hodnot vyskytuje stejně často.\nPříklad z běžného života: V anketě o oblíbenou chuť zmrzliny může být nejčastější odpovědí čokoládová zmrzlina. Ta je tedy modem.",
+    "crumbs": [
+      "Deskriptivní statistika",
+      "Základní statistiky",
+      "Rozdíl mezi charakteristikami středu a variability"
     ]
   }
 ]

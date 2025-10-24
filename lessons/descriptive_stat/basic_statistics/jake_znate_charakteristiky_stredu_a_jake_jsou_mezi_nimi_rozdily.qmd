@@ -1,5 +1,5 @@
 ---
-title: "Charakteristiky středu ve statistice"
+title: "Charakteristiky středu"
 order: 30
 author: Filip Děchtěrenko
 date: 2025-09-20
@@ -49,7 +49,7 @@ Medián je střední hodnota datového souboru, která dělí soubor na dvě ste
 
 ### Příklad z běžného života
 
-Pokud máte stejnou sadu známek: 1, 2, 2, 3, 4, medián je 2, protože je to prostřední hodnota v setříděném seznamu. Pokud by vaše známky byly: 1, 2, 2, 3, 4, 5, potom medián by byl průměr dvou prostředních hodnot, tedy $(2 + 3)/2 = 2.5$.
+Pokud máte stejnou sadu známek: 1, 2, 2, 3, 4, medián je 2, protože je to prostřední hodnota v setříděném seznamu. Pokud by vaše známky byly: 1, 2, 2, 3, 4, 5, potom medián by byl průměr dvou prostředních hodnot, tedy (2 + 3)/2 = 2,5.
 
 ### Výhody a nevýhody
 
@@ -67,7 +67,7 @@ Pokud se podíváme na náš příklad s pěti testy: 1, 2, 2, 3, a 4, modus je 
 
 ### Výhody a nevýhody
 
-Modus je užitečný pro kategorie s nepravidelným rozdělením nebo v kvalitativních datech, kde se jiné měry nemusí uplatnit (např. oblíbená barva). Naopak v numerických datech může být nestabilní, zejména pokud je variabilita vysoká nebo počet opakování nízký.
+Modus je užitečný pro kategorie s nepravidelným rozdělením nebo v kvalitativních datech, kde se jiné měry nemusí uplatnit (např. oblíbená barva). Naopak v numerických datech může být nestabilní, zejména pokud je variabilita vysoká nebo počet opakování nízký (u číselných dat typicky modus počítáme na základě histogramu). Je to jediná charakteristika, která lze použít i pro kategorické proměnné.
 
 ## Závěr
 
