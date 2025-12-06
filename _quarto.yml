@@ -4,6 +4,10 @@ project:
   render:
     - "*.qmd"
     - "lessons/**/*.qmd"
+  resources:
+    - "lessons/**/*_files/**"
+  post-render:
+    - copy_figures.R
 
 website:
   title: "Otázky a odpovědi ze Statistiky"
@@ -25,12 +29,116 @@ website:
           - section: "Kontingenční tabulky"
             contents: lessons/descriptive_stat/contingency_tables/*
       - section: "Pravděpodobnost"
-        contents: lessons/probability/*
+        contents:
+          - section: "Základy pravděpodobnosti"
+            contents:
+              - lessons/probability/jaka_je_definice_pravdepodobnosti.qmd
+              - lessons/probability/jake_jsou_zakladni_vlastnosti_pravdepodobnosti.qmd
+              - lessons/probability/jaky_je_vztah_elementarniho_jevu_a_nahodneho_jevu_muzete_uvest_jeden_priklad.qmd
+              - lessons/probability/co_znaci_podminena_pravdepodobnost.qmd
+          - section: "Pravděpodobnostní rozdělení"
+            contents:
+              - lessons/probability/jake_parametry_ma_normalni_rozdeleni_a_co_znamenaji.qmd
+              - lessons/probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.qmd
+              - lessons/probability/jakou_maji_vyhody_pravdepodobnostni_modely_oproti_specifikovani_rucne_pomoci_nahodne_promenne.qmd
+          - section: "Pokročilé koncepty"
+            contents:
+              - lessons/probability/co_rika_centralni_limitni_veta_a_jake_ma_prakticke_pouziti.qmd
+              - lessons/probability/co_pridava_bayesova_veta_oproti_frekventistickemu_pristupu.qmd
       - section: "Časové řady"
-        contents: lessons/time_series/*
+        contents:
+          - section: "Základy časových řad"
+            contents:
+              - lessons/time_series/co_to_je_casova_rada_a_jak_je_delime.qmd
+              - lessons/time_series/jak_dekomponujeme_casovou_radu.qmd
+              - lessons/time_series/co_vite_o_reziduich_casove_rady.qmd
+              - lessons/time_series/jake_mame_zavislosti_casovych_rad.qmd
+          - section: "Vyhlazování a predikce"
+            contents:
+              - lessons/time_series/co_to_je_klouzavy_prumer.qmd
+              - lessons/time_series/co_je_to_exponencialni_vyhlazovani.qmd
+              - lessons/time_series/jaky_je_rozdil_mezi_extrapolaci_a_interpolaci.qmd
+          - section: "Modelování časových řad"
+            contents:
+              - lessons/time_series/co_to_je_arima_model.qmd
+              - lessons/time_series/jake_znate_koeficienty_miry_dynamiky_a_jaky_je_mezi_nimi_vztah.qmd
       - section: "Inferenční statistika"
-        contents: lessons/inferential_statistics/*
-      
+        contents:
+          - section: "Základy testování hypotéz"
+            contents:
+              - lessons/inferential_statistics/k_cemu_slouzi_testovani_hypotez.qmd
+              - lessons/inferential_statistics/co_je_to_hypoteza_a_jake_na_ni_mame_pozadavky.qmd
+              - lessons/inferential_statistics/jaky_je_rozdil_nulovou_a_alternativni_hypotezou.qmd
+              - lessons/inferential_statistics/co_to_je_phodnota.qmd
+              - lessons/inferential_statistics/co_znaci_hladina_vyznamnosti_a_k_cemu_ji_pouzivame.qmd
+              - lessons/inferential_statistics/co_to_je_chyba_i_a_ii_druhu_a_jaky_je_mezi_nimi_rozdil.qmd
+              - lessons/inferential_statistics/jake_jsou_problemy_s_testovanim_hypotez.qmd
+              - lessons/inferential_statistics/jaky_je_rozdil_mezi_jednostrannym_a_oboustrannym_testem.qmd
+              - lessons/inferential_statistics/jake_mame_tri_typy_promennych_vzhledem_k_testovani_hypotez_a_co_znamenaji.qmd
+          - section: "Pravděpodobnostní rozdělení"
+            contents:
+              - lessons/inferential_statistics/co_to_je_studentovo_trozdeleni.qmd
+              - lessons/inferential_statistics/co_znamenaji_stupne_volnosti.qmd
+              - lessons/inferential_statistics/co_to_je_2_rozdeleni_a_k_cemu_ho_pouzivame.qmd
+              - lessons/inferential_statistics/co_to_je_f_rozdeleni_jake_ma_parametry.qmd
+          - section: "Odhady a intervaly"
+            contents:
+              - lessons/inferential_statistics/k_cemu_slouzi_bodovy_odhad_a_jake_bodove_odhady_znate.qmd
+              - lessons/inferential_statistics/k_cemu_slouzi_intervalovy_odhad.qmd
+              - lessons/inferential_statistics/jaky_je_vztah_mezi_testovanim_hypotez_a_konfidencnimi_intervaly.qmd
+              - lessons/inferential_statistics/co_to_je_standardni_chyba_prumeru_a_k_cemu_slouzi.qmd
+              - lessons/inferential_statistics/co_to_je_velikost_efektu_a_k_cemu_se_pouziva.qmd
+              - lessons/inferential_statistics/k_cemu_slouzi_power_analyza.qmd
+          - section: "T-testy"
+            contents:
+              - lessons/inferential_statistics/jak_funguje_jednovyberovy_ttest.qmd
+              - lessons/inferential_statistics/jake_jsou_predpoklady_jednovyberoveho_ttestu_a_co_znamenaji.qmd
+              - lessons/inferential_statistics/jaky_je_rozdil_mezi_dvouvyberovym_ttestem_a_parovym_ttestem.qmd
+          - section: "ANOVA"
+            contents:
+              - lessons/inferential_statistics/k_cemu_slouzi_anova.qmd
+              - lessons/inferential_statistics/proc_se_neda_pouzit_nekolik_ttestu_namisto_anovy.qmd
+              - lessons/inferential_statistics/jake_mame_sumy_ctvercu_u_anovy.qmd
+              - lessons/inferential_statistics/jake_ma_anova_predpoklady.qmd
+              - lessons/inferential_statistics/k_cemu_slouzi_posthoc_testy_a_kdy_je_provadime.qmd
+              - lessons/inferential_statistics/jaky_je_vztah_anovy_a_regrese.qmd
+          - section: "Neparametrické testy"
+            contents:
+              - lessons/inferential_statistics/jake_znate_zakladni_neparametricke_testy.qmd
+              - lessons/inferential_statistics/jak_zhruba_funguje_wilcoxonuvmann_whitneyho_test.qmd
+              - lessons/inferential_statistics/jake_nevyhody_maji_neparametricke_testy.qmd
+          - section: "Chi-kvadrát testy"
+            contents:
+              - lessons/inferential_statistics/jake_znate_verze_2_testu_a_k_cemu_slouzi.qmd
+              - lessons/inferential_statistics/jaky_je_rozdil_mezi_pozorovanymi_a_ocekavanymi_pocty.qmd
+              - lessons/inferential_statistics/co_delat_v_pripade_kontingencni_tabulky_s_malym_poctem_pozorovani.qmd
+              - lessons/inferential_statistics/jake_znate_koeficienty_asociace_pro_tabulky_r_c.qmd
+          - section: "Regrese a předpoklady"
+            contents:
+              - lessons/inferential_statistics/co_testujeme_u_korelacniho_koeficientu_a_u_regrese.qmd
+              - lessons/inferential_statistics/jak_porovnavame_nekolik_regresnich_modelu_s_vice_prediktory.qmd
+              - lessons/inferential_statistics/co_to_je_normalita_rezidui_u_regrese_jak_to_pozname.qmd
+              - lessons/inferential_statistics/jak_muzeme_otestovat_normalitu.qmd
+              - lessons/inferential_statistics/co_to_je_qq_graf_jak_z_nej_pozname_poruseni_normality.qmd
+              - lessons/inferential_statistics/k_cemu_slouzi_shapirowilkuv_test_a_jak_ho_interpretujeme.qmd
+              - lessons/inferential_statistics/co_to_je_homeskedascita_jak_ji_pozname.qmd
+              - lessons/inferential_statistics/k_cemu_slouzi_levenho_test_a_jak_ho_interpretujeme.qmd
+              - lessons/inferential_statistics/co_je_to_multikolinearita_jak_ji_pozname.qmd
+              - lessons/inferential_statistics/jak_ramcove_funguje_metoda_mle.qmd
+      - section: "Kauzální inference"
+        contents:
+          - section: "DAG a kauzální struktury"
+            contents:
+              - lessons/causal_inference/co_to_je_dag.qmd
+              - lessons/causal_inference/jak_funguje_pipe_v_dagu.qmd
+              - lessons/causal_inference/jak_funguje_fork_v_dagu.qmd
+              - lessons/causal_inference/jak_funguje_collider_v_dagu.qmd
+              - lessons/causal_inference/co_znaci_backdoor_v_dagu.qmd
+          - section: "Biasy a paradoxy"
+            contents:
+              - lessons/causal_inference/co_to_je_berksonuv_paradox_a_jak_se_projevuje.qmd
+              - lessons/causal_inference/co_to_je_regrese_k_prumeru.qmd
+
 format:
   html:
     theme: cosmo
