@@ -2,4 +2,6 @@
 title: "Otázky a odpovědi ze statistiky"
 ---
 
-Tento web slouží jako sada Q&A ze statistiky. Neklade si ambici na to, aby byl koherentní učebnicí, ale představuje dílčí otázky, které si studenti mohou klást při učení se na zkoušku. Odpovědi jsou záměrně redundantní, aby se otázky daly číst samostatně,
+Tento web slouží jako sada Q&A ze statistiky. Neklade si ambici na to, aby byl koherentní učebnicí, ale představuje dílčí otázky, které si studenti mohou klást při učení se na zkoušku. Odpovědi jsou záměrně redundantní, aby se otázky daly číst samostatně. 
+
+V otázkách jsou často metodologická doporučení. Ta mají látku rozšiřovat a záměrně jsou obtížnější. 
