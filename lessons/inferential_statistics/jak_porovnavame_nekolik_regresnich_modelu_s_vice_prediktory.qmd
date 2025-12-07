@@ -1,5 +1,6 @@
 ---
 title: "Porovnávání regresních modelů s více prediktory"
+order: 270
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do porovnávání regresních modelů
+## Úvod
 
 Porovnávání regresních modelů je důležitým krokem ve statistické analýze a strojovém učení. Když máme více regresních modelů s různými prediktory, chceme zjistit, který model je nejlepší pro naše data. Ale co přesně znamená "nejlepší"? Nejlepší model by měl být ten, který nejpřesněji předpovídá nový soubor dat a splňuje další kritéria, jako je jednoduchost, interpretovatelnost a výpočetně přijatelné náklady.
 
@@ -65,6 +65,163 @@ Představte si, že pracujete jako datový vědec pro realitní kancelář, a na
 3. **Vyhodnocení složitosti pomocí AIC a BIC**: Porovnejte AIC a BIC pro výběr modelu, který nepřesahuje svoji složitost.
 
 Výsledkem těchto analýz bude výběr modelu, který je nejen přesný, ale také efektivní a vysvětlitelný. 
+
+:::{.callout-important}
+## Metodologická poznámka: Porovnávání regresních modelů - praktický průvodce
+
+**Cíl porovnávání modelů:**
+
+- ❓ Najít model s nejlepší **prediktivní schopností**
+- ❓ Vyvážit **fit** (přesnost) a **složitost** (parsimonie)
+- ❓ Vybrat model, který se **generalizuje** na nová data
+
+**Metriky pro porovnání modelů:**
+
+### 1. R² (Coefficient of Determination)
+
+**Vzorec:**
+$$R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$
+
+**Interpretace:**
+
+- R² = 0.70 → Model vysvětluje **70% variability** v y
+- Rozsah: 0-1 (0 = žádné vysvětlení, 1 = perfektní)
+
+**❌ PROBLÉM s R²:**
+- Vždy roste s přidáním dalšího prediktoru (i náhodného!)
+- Nelze použít k porovnání modelů s **různým počtem prediktorů**
+
+### 2. Adjusted R² (LEPŠÍ!)
+
+**Vzorec:**
+$$R^2_{adj} = 1 - \frac{(1-R^2)(n-1)}{n-p-1}$$
+
+kde:
+- n = počet pozorování
+- p = počet prediktorů
+
+**Vlastnosti:**
+
+- ✅ Penalizuje za počet prediktorů
+- ✅ Může klesat při přidání irelevantního prediktoru
+- ✅ Lepší pro porovnání modelů s různým počtem prediktorů
+
+
+**Pravidlo:** Vyšší adjusted R² = lepší model
+
+### 3. AIC (Akaike Information Criterion)
+
+**Vzorec:**
+$$AIC = 2k - 2\ln(\hat{L})$$
+
+kde:
+
+- k = počet parametrů
+- $\hat{L}$ = likelihood modelu
+
+**Interpretace:**
+- **Nižší AIC = lepší model**
+- Penalizuje složitost (2k část)
+- Porovnává fit vs komplexitu
+
+**Pravidlo palce:**
+
+- ΔAICᵢ = AICᵢ - AIC_min
+- **ΔAIC < 2**: Oba modely srovnatelné
+- **ΔAIC 4-7**: Výrazný rozdíl
+- **ΔAIC > 10**: Silný důkaz proti horšímu modelu
+
+### 4. BIC (Bayesian Information Criterion)
+
+**Vzorec:**
+$$BIC = k\ln(n) - 2\ln(\hat{L})$$
+
+**Rozdíl oproti AIC:**
+
+- **Více penalizuje** složitost (zvláště pro velké n)
+- Obecně preferuje **jednodušší modely** než AIC
+
+**AIC vs BIC:**
+
+| Aspekt | AIC | BIC |
+|--------|-----|-----|
+| **Penalizace složitosti** | Mírnější | **Přísnější** |
+| **Preferuje** | Mírně složitější modely | **Jednodušší modely** |
+| **Cíl** | Predikce | Identifikace \"pravého\" modelu |
+| **Kdy použít** | Focus na predikci | Focus na inference |
+
+### 5. Prediktivní metriky (pro testovací data)
+
+**MAE (Mean Absolute Error):**
+$$MAE = \frac{1}{n}\sum|y_i - \hat{y}_i|$$
+
+**RMSE (Root Mean Squared Error):**
+$$RMSE = \sqrt{\frac{1}{n}\sum(y_i - \hat{y}_i)^2}$$
+
+**MAE vs RMSE:**
+- **MAE**: Průměrná velikost chyby (robustní vůči outlierům)
+- **RMSE**: Více penalizuje velké chyby (citlivý na outliery)
+
+
+**Rozhodovací workflow:**
+
+```
+1. Fit více modelů s různými prediktory
+      ↓
+2. Porovnejte R² a Adjusted R²
+   (základní pochopení fit)
+      ↓
+3. Porovnejte AIC/BIC
+   ├─ Pro predikci → preferujte AIC
+   └─ Pro inference → preferujte BIC
+      ↓
+4. Kontrola předpokladů u finálního modelu
+   (normalita, homoskedasticita, VIF, influential points)
+      ↓
+5. Interpretabilita a teoretická smysluplnost
+   (nejjednodušší model s přijatelným performance)
+```
+
+
+**Časté chyby:**
+
+- ❌ Porovnávat R² bez adjusted R² (nadhodnocení složitých modelů)
+- ❌ Vybrat model jen podle R² bez kontroly předpokladů
+- ❌ Nepoužít testovací data nebo CV (overfitting!)
+- ❌ Ignorovat teoretickou smysluplnost (\"data mining\")
+- ❌ Přidat všechny možné prediktory (multikolinearita!)
+- ❌ Nevzít v úvahu Occam's razor (\"simpler is better\")
+
+**Overfitting vs Underfitting:**
+
+```
+Underfitting ← → Sweet Spot ← → Overfitting
+(too simple)    (just right)     (too complex)
+
+Training R²: Nízké    Vysoké       Velmi vysoké
+Test R²:     Nízké    Vysoké       ⚠️ NÍZKÉ!
+```
+
+**Signály overfittingu:**
+- Obrovský rozdíl mezi train a test performance
+- Velmi vysoké R² (>0.99) u reálných dat
+- Mnoho prediktorů relativně k n (pravidlo: n > 10-20× počet prediktorů)
+- Nesmyslné koeficienty
+
+**Best practice reportování:**
+
+✅ **Kompletní tabulka porovnání:**
+```
+Model 1 (y ~ x1):           R² = .65, Adj R² = .64, AIC = 523, BIC = 536
+Model 2 (y ~ x1 + x2):      R² = .72, Adj R² = .70, AIC = 518, BIC = 532
+Model 3 (y ~ x1 + x2 + x3): R² = .73, Adj R² = .69, AIC = 520, BIC = 536
+
+Model 2 selected based on lowest AIC and highest Adjusted R².
+10-fold CV RMSE: Model 2 (3.12) vs Model 1 (3.45), p < .001.
+```
+
+**Złaté pravidlo**: Vyberte **nejjednodušší** model, který má **přijatelný** performance. Složitější ≠ lepší!
+:::
 
 # Závěr
 

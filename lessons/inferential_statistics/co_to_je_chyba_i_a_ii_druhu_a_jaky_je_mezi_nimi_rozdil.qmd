@@ -1,5 +1,6 @@
 ---
 title: "Chyba I. a II. druhu: Vysvětlení a příklady"
+order: 110
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Ve statistickém testování hypotéz často hovoříme o dvou typech chyb: **chyba I. druhu** (též označována jako alfa chyba) a **chyba II. druhu** (též beta chyba). Tyto chyby se týkají procesu rozhodování, kdy rozhodujeme o přijetí či zamítnutí nulové hypotézy ($H_0$). Pojďme se podívat, co tyto chyby přesně znamenají a jaký je mezi nimi rozdíl.
 
@@ -47,6 +47,56 @@ Chyba II. druhu nastává, když přijmeme nulovou hypotézu $H_0$, ačkoli je v
 2. **Úroveň významnosti ($\alpha$):** Chyba I. druhu souvisí s úrovní významnosti statistického testu, typicky stanovenou na 0.05 nebo 0.01. Snížení úrovně významnosti může snížit šanci chyby I. druhu, ale může zároveň zvýšit šanci chyby II. druhu.
 
 3. **Síla testu ($1-\beta$):** Schopnost statistického testu odhalit skutečnou účinnost (odmítnout $H_0$, když je $H_a$ pravda) je označována jako síla testu. Čím je větší síla testu, tím je menší pravděpodobnost chyby II. druhu.
+
+:::{.callout-important}
+## Metodologická tabulka: Chyby v testování hypotéz
+
+**Kompletní matice rozhodnutí:**
+
+|  | **H0 je PRAVDA** | **H0 je NEPRAVDA (Ha je pravda)** |
+|---|---|---|
+| **Zamítneme H0** | ❌ **Chyba I. druhu (α)** <br> False Positive | ✅ **Správné rozhodnutí** <br> True Positive <br> (Power = 1-β) |
+| **Nezamítneme H0** | ✅ **Správné rozhodnutí** <br> True Negative <br> (1-α) | ❌ **Chyba II. druhu (β)** <br> False Negative |
+
+**Klíčové parametry:**
+
+- **α (alfa)** = P(Chyba I. druhu) = P(zamítnout H0 | H0 pravda)
+  - Typicky: α = 0.05 (5% hladina významnosti)
+- **β (beta)** = P(Chyba II. druhu) = P(nezamítnout H0 | Ha pravda)
+  - Typicky: β = 0.20 nebo menší
+- **Power (síla testu)** = 1 - β = P(zamítnout H0 | Ha pravda)
+  - Doporučeno: Power ≥ 0.80 (80%)
+
+**Trade-off mezi α a β:**
+
+- ↓ α (přísnější test) → ↑ β (menší power)
+- ↑ α (benevolentnější test) → ↓ β (větší power)
+- **Řešení**: Zvětšit vzorek n → můžeme mít malé α I β!
+
+**Která chyba je horší?**
+Záleží na kontextu:
+
+| Kontext | Horší chyba | Důvod |
+|---------|-------------|-------|
+| **Lékařský screening** | Chyba II (β) | Neodhalit nemoc může být fatální |
+| **Klinické schválení léku** | Chyba I (α) | Schválit neúčinný/škodlivý lék je nebezpečné |
+| **Soudní proces** | Chyba I (α) | "Lepší propustit vinného než odsoudit nevinného" |
+| **Vědecké objevy** | Chyba I (α) | False positives ničí vědeckou literaturu |
+
+**Praktická doporučení:**
+
+1. **Vždy stanovte α PŘED sběrem dat** (typicky 0.05 nebo 0.01)
+2. **Proveďte power analýzu** před studií (kolik n potřebujeme?)
+3. **Reportujte obojí**: α I power (nebo β)
+4. **Zvažte kontext**: V explorační fázi můžete použít vyšší α (0.10)
+5. **Replikujte výsledky**: Jedna studie nestačí!
+
+**Bayesovský pohled:**
+
+Frekventistický přístup (α, β) nezohledňuje prior pravděpodobnost H0. Bayesovský přístup toto zohledňuje → méně false positives v praxi.
+
+**Zlaté pravidlo**: Při návrhu studie myslete na obě chyby, ne jen na α!
+:::
 
 # Shrnutí
 

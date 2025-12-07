@@ -1,5 +1,6 @@
 ---
 title: "χ2 rozdělení a jeho využití ve statistice"
+order: 280
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,21 +13,21 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-## Úvod do χ² rozdělení
+## Úvod do $\chi^2$ rozdělení
 
-χ² (čte se jako chí-kvadrát) rozdělení je důležité rozdělení pravděpodobnosti, které se často používá ve statistice, zvláště ve vztahu k hypotézním testům a analýze rozptylu. Je to asymetrické rozdělení, které začíná v nule a rozprostírá se do pozitivního nekonečna. Pravděpodobnostní hustota je definována pro kladné hodnoty a hodnota rozdělení určuje pravděpodobnost různých výsledků statistiky chí-kvadrát.
+$\chi^2$ (čte se jako chí-kvadrát) rozdělení je důležité rozdělení pravděpodobnosti, které se často používá ve statistice, zvláště ve vztahu k hypotézním testům a analýze rozptylu. Je to asymetrické rozdělení, které začíná v nule a rozprostírá se do pozitivního nekonečna. Pravděpodobnostní hustota je definována pro kladné hodnoty a hodnota rozdělení určuje pravděpodobnost různých výsledků statistiky chí-kvadrát.
 
 ## Definice a vlastnosti
 
-χ² rozdělení je parametrizováno počtem stupňů volnosti (degrees of freedom, často označováno jako "df"). Stupně volnosti obecně odpovídají počtu nezávislých hodnot ve výpočtech, které se používají ke kalkulaci testovací statistiky.
+$\chi^2$ rozdělení je parametrizováno počtem stupňů volnosti (degrees of freedom, často označováno jako "df"). Stupně volnosti obecně odpovídají počtu nezávislých hodnot ve výpočtech, které se používají ke kalkulaci testovací statistiky.
 
-Některé základní vlastnosti χ² rozdělení:
+Některé základní vlastnosti $\chi^2$ rozdělení:
+
 - **Jednostrannost**: Distribuce je vždy kladná, neboť kvadratické formy jako součet čtverců nezáporných hodnot nemohou být záporné.
-- **Asymetrie**: S rostoucím počtem stupňů volnosti se χ² rozdělení stává stále více podobným normálnímu rozdělení.
+- **Asymetrie**: S rostoucím počtem stupňů volnosti se $\chi^2$ rozdělení stává stále více podobným normálnímu rozdělení.
 - **Střední hodnota**: Je rovna počtu stupňů volnosti.
 - **Rozptyl**: Je dvakrát počet stupňů volnosti.
 
@@ -34,28 +35,182 @@ Některé základní vlastnosti χ² rozdělení:
 
 ### 1. Test dobré shody
 
-Test dobré shody (χ² test goodness-of-fit) je metoda používaná k určení, zda existuje významný rozdíl mezi očekávanými a skutečnými frekvencemi v jedné nebo více kategoriích. Používá se např. k testování, zda datový vzorek pochází z určitého rozdělení.
+Test dobré shody ($\chi^2$ test goodness-of-fit) je metoda používaná k určení, zda existuje významný rozdíl mezi očekávanými a skutečnými frekvencemi v jedné nebo více kategoriích. Používá se např. k testování, zda datový vzorek pochází z určitého rozdělení.
 
-**Příklad**: Předpokládejme, že máte pytel bonbónů s čtyřmi různými barvami a výrobce tvrdí, že každá barva je zastoupena rovnoměrně. χ² test by vám pomohl určit, zda rozdíl mezi pozorovaným a očekávaným množstvím bonbónů každé barvy je náhodný, nebo statisticky významný.
+**Příklad**: Předpokládejme, že máte pytel bonbónů s čtyřmi různými barvami a výrobce tvrdí, že každá barva je zastoupena rovnoměrně. $\chi^2$ test by vám pomohl určit, zda rozdíl mezi pozorovaným a očekávaným množstvím bonbónů každé barvy je náhodný, nebo statisticky významný.
 
 ### 2. Test nezávislosti
 
 Tento test se často používá k určení, zda existuje statisticky významný vztah mezi dvěma kategoriálními proměnnými, které jsou často prezentovány v kontingenčních tabulkách.
 
-**Příklad**: Zkoumáte, zda je preference určitých televizních pořadů závislá na věkových skupinách. S pomocí χ² testu pro nezávislost můžete testovat hypotézu, že preference pořadů jsou nezávislé na věku.
+**Příklad**: Zkoumáte, zda je preference určitých televizních pořadů závislá na věkových skupinách. S pomocí $\chi^2$ testu pro nezávislost můžete testovat hypotézu, že preference pořadů jsou nezávislé na věku.
 
 ### 3. Test homogenity
 
 Test homogenity je podobný testu nezávislosti, ale jeho účelem je zjistit, zda různé vzorky pocházejí ze stejné populace.
 
-**Příklad**: Pokud chcete ověřit, jestli rozdělení krevních skupin ve dvou odlišných městech je stejné, můžete použít χ² test homogenity k porovnání dvou vzorků.
+**Příklad**: Pokud chcete ověřit, jestli rozdělení krevních skupin ve dvou odlišných městech je stejné, můžete použít $\chi^2$ test homogenity k porovnání dvou vzorků.
 
 ## Praktická aplikace
 
-Představte si, že chcete zkontrolovat, zda naučné časy ve dvou různých školách odpovídají stejné úrovni. Můžete shromáždit data o průměrných časech, které studenti věnují studiu každý týden, a následně použít χ² test homogenity pro porovnání rozložení v obou školách.
+Představte si, že chcete zkontrolovat, zda naučné časy ve dvou různých školách odpovídají stejné úrovni. Můžete shromáždit data o průměrných časech, které studenti věnují studiu každý týden, a následně použít $\chi^2$ test homogenity pro porovnání rozložení v obou školách.
+
+:::{.callout-note}
+## Metodologická poznámka: χ² rozdělení a testy - kompletní přehled
+
+**Co je χ² (chi-square) rozdělení?**
+- Rozdělení pravděpodobnosti pro **kladné hodnoty**
+- Parametrizováno **stupni volnosti** (df)
+- Asymetrické (right-skewed), ale s rostoucím df → normální
+
+**Vlastnosti χ² rozdělení:**
+
+| Vlastnost | Vzorec/Hodnota |
+|-----------|---------------|
+| **Rozsah** | 0 až ∞ (jen kladné!) |
+| **Střední hodnota** | E(χ²) = **df** |
+| **Rozptyl** | Var(χ²) = **2×df** |
+| **Tvar** | Asymetrický, s df↑ → symetričtější |
+
+**Vztah k normálnímu rozdělení:**
+Pokud $Z_1, Z_2, ..., Z_k \sim N(0,1)$ (nezávislé), pak:
+$$\chi^2 = Z_1^2 + Z_2^2 + ... + Z_k^2 \sim \chi^2(k)$$
+
+**Tři hlavní χ² testy:**
+
+### 1. Goodness-of-Fit Test (Test dobré shody)
+
+**Otázka**: „Odpovídají data očekávanému rozdělení?"
+
+**Kdy použít:**
+- 1 kategoriální proměnná
+- Známe teoretické očekávané četnosti
+- Např: „Je kostka férová?" (očekáváme 1/6 pro každé číslo)
+
+**Vzorec:**
+$$\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}$$
+
+kde:
+- $O_i$ = observed (pozorované) četnosti
+- $E_i$ = expected (očekávané) četnosti
+- k = počet kategorií
+
+**Stupně volnosti:** $df = k - 1$
+
+
+**Příklad interpretace:**
+\"χ²(5) = 2.4, p = .79 → Kostka je férová (nezamítáme H0)\"
+
+### 2. Test of Independence (Test nezávislosti)
+
+**Otázka**: „Jsou dvě kategoriální proměnné nezávislé?"
+
+**Kdy použít:**
+- 2 kategoriální proměnné
+- Kontingenční tabulka (r × c)
+- Např: "Je preference kávy nezávislá na pohlaví?"
+
+**Vzorec:**
+$$\chi^2 = \sum_{i=1}^{r}\sum_{j=1}^{c} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
+
+**Očekávané četnosti:**
+$$E_{ij} = \frac{(\text{řádkový součet}_i) \times (\text{sloupcový součet}_j)}{n}$$
+
+**Stupně volnosti:** $df = (r-1) \times (c-1)$
+
+
+**Příklad:**
+```
+          Káva  Čaj
+Muži       40   10
+Ženy       25   25
+
+χ²(1) = 7.5, p = .006 → Preference závislá na pohlaví!
+```
+
+### 3. Test of Homogeneity (Test homogenity)
+
+**Otázka**: \"Mají různé populace stejné rozdělení?"
+
+**Kdy použít:**
+- Porovnání 2+ skupin (populací)
+- Každá skupina má vlastní vzorek
+- Např: \"Mají tři města stejné rozdělení krevních skupin?\"
+
+**Vzorec:** Stejný jako test nezávislosti!
+$$\chi^2 = \sum_{i=1}^{r}\sum_{j=1}^{c} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
+
+**df:** $(r-1) \times (c-1)$
+
+
+**Test nezávislosti vs Test homogenity:**
+
+| Aspekt | Nezávislost | Homogenita |
+|--------|------------|-----------|
+| **Design** | 1 vzorek, 2 proměnné | 2+ vzorky, 1 proměnná |
+| **Otázka** | \"Jsou proměnné nezávislé?\" | \"Jsou distribuce stejné?\" |
+| **Výpočet** | Identický! | Identický! |
+| **Příklad** | Pohlaví × Preference | Praha × Brno × Ostrava |
+
+**→ Matematicky totožné, liší se jen interpretací!**
+
+**Předpoklady χ² testů:**
+
+| Předpoklad | Význam | Co dělat když porušeno |
+|-----------|--------|----------------------|
+| **Expected ≥ 5** | Každá očekávaná četnost ≥ 5 | **Fisher's exact test** (pro 2×2) |
+| **Nezávislá pozorování** | Každý subjekt v 1 kategorii | Re-design studie |
+| **Kategoriální data** | Nominální nebo ordinální | ✅ OK |
+| **Dostatečný n** | Obvykle n > 20 | Zvětšit vzorek nebo sloučit kategorie |
+
+**Velikosti efektu pro χ² testy:**
+
+**1. Phi coefficient (φ) - pro 2×2 tabulky:**
+$$\phi = \sqrt{\frac{\chi^2}{n}}$$
+
+| Hodnota φ | Interpretace |
+|-----------|-------------|
+| 0.1 | Malý efekt |
+| 0.3 | Střední efekt |
+| 0.5 | Velký efekt |
+
+**2. Cramérovo V - pro větší tabulky:**
+$$V = \sqrt{\frac{\chi^2}{n \times \min(r-1, c-1)}}$$
+
+
+**Časté chyby:**
+
+- ❌ Používat χ² test na malé vzorky (očekávané < 5)
+- ❌ Zaměňovat test nezávislosti a homogenity (jsou stejné!)
+- ❌ Myslet si, že χ² test měří sílu vztahu (měří jen signifikanci!)
+- ❌ Nehlásit effect size (p-hodnota ≠ velikost efektu!)
+- ❌ Používat χ² na spojitá data (nejdřív kategorizujte)
+- ❌ Ignorovat standardizované rezidua (ztratíte info o zdroji rozdílu)
+
+**Best practice reportování:**
+
+✅ **Test nezávislosti:**
+\"A chi-square test of independence revealed a significant association between gender and coffee preference, χ²(1, N=100) = 7.5, p = .006, Cramér's V = .27 (small-to-medium effect). Standardized residuals indicated that males preferred coffee more than expected (z = 2.7)\"
+
+✅ **Goodness-of-fit:**
+\"The distribution of dice rolls did not significantly differ from a uniform distribution, χ²(5, N=100) = 2.4, p = .79\"
+
+✅ **Test homogenity:**
+\"Blood type distributions were homogeneous across three cities, χ²(6, N=300) = 3.8, p = .70\"
+
+**Alternativy k χ² testům:**
+
+| Situace | Alternativa |
+|---------|-------------|
+| **Malé vzorky** (expected < 5) | **Fisher's exact test** |
+| **Ordinální data** | **Mann-Whitney U**, **Kruskal-Wallis** |
+| **Párová data** | **McNemar test** |
+| **3+ závislá měření** | **Cochran's Q test** |
+
+**Zlaté pravidlo**: χ² testy jsou skvělé pro kategoriální data, ale vždy kontrolujte očekávané četnosti (≥ 5) a reportujte effect size!
+:::
 
 ### Závěr
 
-χ² rozdělení je nepostradatelným nástrojem při provádění statistických testů zahrnujících kategorizovaná data. Pomocí testů, jako jsou test dobré shody, test nezávislosti či test homogenity, nám χ² rozdělení poskytuje způsob, jak interpretovat a analyzovat mnohé situace z každodenního života, kde data mohou být rozdělena do kategorických skupin.
-
+$\chi^2$ rozdělení je nepostradatelným nástrojem při provádění statistických testů zahrnujících kategorizovaná data. Pomocí testů, jako jsou test dobré shody, test nezávislosti či test homogenity, nám $\chi^2$ rozdělení poskytuje způsob, jak interpretovat a analyzovat mnohé situace z každodenního života, kde data mohou být rozdělena do kategorických skupin.
 

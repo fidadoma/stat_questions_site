@@ -1,5 +1,6 @@
 ---
 title: "Rozdíl mezi korelací a kauzalitou"
+order: 20
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do problematiky
+## Úvod
 
 V tomto materiálu se budeme věnovat dvěma důležitým pojmům ve statistice a vědeckém výzkumu obecně: **korelaci** a **kauzalitě**. Tyto dva pojmy se často zaměňují, ale ve skutečnosti mají odlišný význam a použití. Porozumění těmto rozdílům je zásadní pro správnou interpretaci dat a rozhodování na základě statistik.
 
@@ -53,10 +53,163 @@ Jednou z nejčastějších chyb je přijímání korelace jako důkazu kauzality
 
 ## Příklad nesprávné interpretace
 
-Představte si, že zjistíte, že prodej zmrzliny pozitivně koreluje s počtem útoků žraloků. Můžeme dojít k mylnému závěru, že prodej zmrzliny způsobuje útoky žraloků. Ve skutečnosti ale může existovat jiná proměnná, jako je teplota počasí, která ovlivňuje oba faktory. 
+Představte si, že zjistíte, že prodej zmrzliny pozitivně koreluje s počtem útoků žraloků. Můžeme dojít k mylnému závěru, že prodej zmrzliny způsobuje útoky žraloků. Ve skutečnosti ale může existovat jiná proměnná, jako je teplota počasí, která ovlivňuje oba faktory.
+
+```{r}
+#| label: fig-correlation-vs-causation
+#| fig-cap: "Korelace vs Kauzalita: Klasické příklady"
+#| warning: false
+#| fig-height: 12
+
+library(ggplot2)
+library(gridExtra)
+
+set.seed(123)
+
+# 1. Zmrzlina a žraloci (spurious correlation)
+# Skrytá proměnná: teplota
+teplota <- seq(15, 35, length.out = 50)
+zmrzlina <- 20 + 3 * teplota + rnorm(50, 0, 15)
+zraloci <- 2 + 0.5 * teplota + rnorm(50, 0, 5)
+data_spurious <- data.frame(teplota, zmrzlina, zraloci)
+
+p1 <- ggplot(data_spurious, aes(x = zmrzlina, y = zraloci)) +
+  geom_point(aes(color = teplota), size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "#E74C3C") +
+  scale_color_gradient(low = "blue", high = "red",
+                       name = "Teplota (°C)") +
+  labs(
+    title = "Korelace ≠ Kauzalita",
+    subtitle = sprintf("Prodej zmrzliny × Útoky žraloků (r = %.2f)",
+                       cor(zmrzlina, zraloci)),
+    x = "Prodej zmrzliny (tisíce Kč)",
+    y = "Počet útoků žraloků"
+  ) +
+  annotate("text", x = mean(zmrzlina), y = max(zraloci) * 0.9,
+           label = "Skrytá proměnná:\nTEPLOTA!",
+           color = "#E67E22", fontface = "bold", size = 5) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# 2. Skutečná kauzalita: Studium a výsledky
+hodiny_studia <- seq(0, 10, length.out = 50)
+vysledky <- 40 + 5 * hodiny_studia + rnorm(50, 0, 5)
+data_causal <- data.frame(hodiny_studia, vysledky)
+
+p2 <- ggplot(data_causal, aes(x = hodiny_studia, y = vysledky)) +
+  geom_point(color = "#2ECC71", size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "#27AE60") +
+  labs(
+    title = "Kauzální vztah",
+    subtitle = sprintf("Hodiny studia → Výsledky testu (r = %.2f)",
+                       cor(hodiny_studia, vysledky)),
+    x = "Počet hodin studia",
+    y = "Výsledek testu (%)"
+  ) +
+  annotate("text", x = 5, y = 90,
+           label = "Skutečný kauzální vztah:\nVíce studia → lepší výsledky",
+           color = "#27AE60", fontface = "bold", size = 4) +
+  theme_minimal()
+
+# 3. Diagram znázorňující rozdíl
+# Vytvoření diagramu
+diagram_data <- data.frame(
+  x = c(1, 3, 5, 1, 3, 5, 2, 4),
+  y = c(3, 3, 3, 1, 1, 1, 2, 2),
+  label = c("X", "Y", "Korelace\nX ↔ Y", "X", "Y", "Kauzalita\nX → Y", "Z", "Z"),
+  type = c(rep("Korelace", 3), rep("Kauzalita", 3), rep("Confounding", 2))
+)
+
+p3 <- ggplot() +
+  # Korelace
+  annotate("point", x = 1, y = 3, size = 15, color = "steelblue", alpha = 0.7) +
+  annotate("point", x = 3, y = 3, size = 15, color = "steelblue", alpha = 0.7) +
+  annotate("text", x = 1, y = 3, label = "X", fontface = "bold", size = 6, color = "white") +
+  annotate("text", x = 3, y = 3, label = "Y", fontface = "bold", size = 6, color = "white") +
+  annotate("segment", x = 1.5, xend = 2.5, y = 3, yend = 3,
+           arrow = arrow(length = unit(0.3, "cm"), ends = "both"),
+           size = 1.5, color = "darkblue") +
+  annotate("text", x = 2, y = 3.5, label = "Korelace\n(nenaplňuje kauzalitu)",
+           fontface = "bold", color = "darkblue", size = 4) +
+
+  # Kauzalita
+  annotate("point", x = 1, y = 1, size = 15, color = "#2ECC71", alpha = 0.7) +
+  annotate("point", x = 3, y = 1, size = 15, color = "#2ECC71", alpha = 0.7) +
+  annotate("text", x = 1, y = 1, label = "X", fontface = "bold", size = 6, color = "white") +
+  annotate("text", x = 3, y = 1, label = "Y", fontface = "bold", size = 6, color = "white") +
+  annotate("segment", x = 1.5, xend = 2.5, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.3, "cm")),
+           size = 1.5, color = "#27AE60") +
+  annotate("text", x = 2, y = 0.5, label = "Kauzalita\n(X způsobuje Y)",
+           fontface = "bold", color = "#27AE60", size = 4) +
+
+  # Confounding
+  annotate("point", x = 4, y = 2, size = 15, color = "#E67E22", alpha = 0.7) +
+  annotate("point", x = 5, y = 2.5, size = 12, color = "#E67E22", alpha = 0.7) +
+  annotate("point", x = 5, y = 1.5, size = 12, color = "#E67E22", alpha = 0.7) +
+  annotate("text", x = 4, y = 2, label = "Z", fontface = "bold", size = 6, color = "white") +
+  annotate("text", x = 5, y = 2.5, label = "X", fontface = "bold", size = 5, color = "white") +
+  annotate("text", x = 5, y = 1.5, label = "Y", fontface = "bold", size = 5, color = "white") +
+  annotate("segment", x = 4.3, xend = 4.8, y = 2.1, yend = 2.4,
+           arrow = arrow(length = unit(0.2, "cm")),
+           size = 1.2, color = "#D35400") +
+  annotate("segment", x = 4.3, xend = 4.8, y = 1.9, yend = 1.6,
+           arrow = arrow(length = unit(0.2, "cm")),
+           size = 1.2, color = "#D35400") +
+  annotate("text", x = 4.5, y = 1, label = "Confounding\n(Z ovlivňuje X i Y)",
+           fontface = "bold", color = "#D35400", size = 4) +
+
+  xlim(0, 6) +
+  ylim(0, 4) +
+  labs(
+    title = "Tři typy vztahů mezi proměnnými",
+    subtitle = "Jak rozlišit korelaci, kauzalitu a confounding"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    plot.subtitle = element_text(hjust = 0.5, size = 11)
+  )
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+:::{.callout-warning}
+## Metodologické varování: "Korelace není kauzalita" - ale jak zjistit kauzalitu?
+
+Věta "korelace neznamená kauzalitu" je v statistice běžná, ale méně se vysvětluje, **jak vlastně kauzalitu určit**:
+
+**Metody pro zjištění kauzality**:
+
+1. **Randomizovaný kontrolovaný experiment (RCT)** - zlatý standard
+   - Náhodně přiřadit účastníky do skupin
+   - Příklad: Placebo vs lék
+   - Problém: Často drahé nebo ne etické
+
+2. **Časová následnost** - nutná, ale ne postačující podmínka
+   - Příčina musí předcházet následek
+   - Ale pozor: obě mohou být způsobeny třetí proměnnou
+
+3. **Metody kauzální inference** (pokročilé):
+   - Instrumentální proměnné
+   - Difference-in-differences
+   - Propensity score matching
+   - DAG (Directed Acyclic Graphs) - viz sekce o kauzální inferenci
+
+4. **Hill's criteria** - pro epidemiologii:
+   - Síla asociace, dávka-odpověď, konzistence, specificita, biologická plauzibilita
+
+**Praktická rada**: Pokud nemůžete provést experiment, buďte ve formulacích opatrní. Místo "X způsobuje Y" řekněte "X je asociováno s Y" nebo "X predikuje Y".
+:::
 
 # Závěr
 
 Porozumění rozdílu mezi korelací a kauzalitou je klíčové pro správnou interpretaci vědeckých dat. Korelace může být užitečným nástrojem pro identifikaci vztahů, ale pouze pomocí pokročilejších metod můžeme určit kauzalitu. Buďte obezřetní při analýze údajů a věnujte čas důkladné analýze možných příčinných vztahů.
 
+## Viz také
+
+- [Co nám popisuje Pearsonův korelační koeficient](co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - měření korelace
+- [Co to je DAG](../../../causal_inference/co_to_je_dag.qmd) - kauzální diagramy
+- [Jak funguje fork v DAGu](../../../causal_inference/jak_funguje_fork_v_dagu.qmd) - confounding
+- [Co to je Berksonův paradox](../../../causal_inference/co_to_je_berksonuv_paradox_a_jak_se_projevuje.qmd) - falešné korelace
 

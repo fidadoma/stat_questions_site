@@ -1,5 +1,6 @@
 ---
 title: "Standardní chyba průměru"
+order: 40
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 V této lekci se seznámíme s pojmem **standardní chyba průměru**. Tento koncept je klíčový nejen ve statistikách, ale i v různých oblastech, kde se provádí analýza dat. Přestože může znít složitě, při blízkém prozkoumání zjistíme, že jde o intuitivní koncept. Abyste lépe pochopili tento pojem, použijeme příklady z běžného života.
 
@@ -26,13 +26,13 @@ Standardní chyba průměru (anglicky "Standard Error of the Mean", zkráceně S
 
 Formálně je definována jako:
 
-\[ 
+$$ 
 SE = \frac{\sigma}{\sqrt{n}} 
-\]
+$$
 
 kde:
-- \( \sigma \) je směrodatná odchylka populace,
-- \( n \) je velikost vzorku.
+- $ \sigma $ je směrodatná odchylka populace,
+- $ n $ je velikost vzorku.
 
 # Proč je důležitý?
 
@@ -47,6 +47,136 @@ Představte si, že jste vybrali vzorek 30 studentů a zjistili jejich průměrn
 ## Příklad 2: Průměrný příjem domácností
 
 Analyzujete data o příjmech domácností ve vašem městě. Zde vezmete vzorek 200 domácností. Pokud příjmy výrazně kolísají (např. vysoký příjem u několika domácností a nízký příjem u mnoha jiných), standardní chyba průměru bude vysoká, což znamená větší nejistotu ohledně průměrného příjmu. Pokud jsou ale příjmy relativně rovnoměrné, standardní chyba průměru bude nízká, což znamená větší důvěru v přesnost vašeho odhadu průměru.
+
+:::{.callout-warning}
+## Metodologická poznámka: SE vs SD - KRITICKÝ ROZDÍL!
+
+**⚠️ NEJČASTĚJŠÍ ZÁMĚNA VE STATISTICE!**
+
+| Aspekt | **Standard Deviation (SD)** | **Standard Error (SE)** |
+|--------|---------------------------|------------------------|
+| **Co měří** | Variabilitu **dat** | Přesnost **průměru** |
+| **Interpretace** | \"Jak moc se liší jednotlivá pozorování\" | \"Jak přesně známe populační μ\" |
+| **Vzorec** | $SD = \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}}$ | $SE = \frac{SD}{\sqrt{n}}$ |
+| **Vztah k n** | **Nezmění se** s velikostí vzorku | **Klesá** s √n |
+| **Když n → ∞** | Zůstává konstantní | **→ 0** |
+| **Kdy reportovat** | Popis dat | **Inference** o průměru |
+
+**Vzorec SEM:**
+$$SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}} \approx \frac{s}{\sqrt{n}}$$
+
+kde:
+- σ = populační SD (neznámé)
+- s = výběrové SD (odhad σ)
+- n = velikost vzorku
+
+
+**Příklad interpretace:**
+
+Máte data: n = 100, mean = 50, SD = 10
+
+- **SD = 10**: \"Typické pozorování se odchyluje o ±10 od průměru\"
+- **SE = 10/√100 = 1**: \"Průměr 50 je přesný na ±1\" (nepřesně řečeno)
+
+**Vztah SE a velikosti vzorku:**
+
+| n | SD | SE = SD/√n | Interpretace |
+|---|----|-----------|--------------|
+| **10** | 10 | **3.16** | Velká nejistota |
+| **100** | 10 | **1.00** | Střední nejistota |
+| **1000** | 10 | **0.32** | Malá nejistota |
+| **10000** | 10 | **0.10** | Velmi malá nejistota |
+
+**→ SE klesá s √n, SD zůstává!**
+
+**K čemu slouží SE:**
+
+### 1. Konfidenční intervaly
+
+**95% CI pro průměr:**
+$$CI_{95\%} = \bar{x} \pm t_{n-1, 0.975} \times SE$$
+
+
+**Interpretace CI:**
+\"S 95% jistotou leží skutečný populační průměr v intervalu [48.7, 51.3]\"
+
+### 2. T-test (testování hypotéz)
+
+**T statistika:**
+$$t = \frac{\bar{x} - \mu_0}{SE}$$
+
+→ SE je ve jmenovateli! **Menší SE = větší t = větší power**
+
+
+**Kdy reportovat SD vs SE:**
+
+| Situace | Reportovat | Důvod |
+|---------|-----------|-------|
+| **Popisná statistika** | **SD** | Charakterizuje variabilitu dat |
+| **Inferenční statistika** | **SE nebo CI** | Ukazuje přesnost odhadu |
+| **T-test, ANOVA** | **SE nebo CI** | Related to hypothesis test |
+| **Bar plot s error bars** | **95% CI** | Nejinformativnější! |
+| \"Jak moc se liší data?\" | **SD** | Přímá odpověď |
+| \"Jak přesný je průměr?\" | **SE** | Přímá odpověď |
+
+**Časté chyby:**
+
+❌ **Reportovat SE místo SD pro popis dat**
+   → SE je vždy menší, takže data vypadají \"méně variabilní\"
+
+❌ **Použít SD error bars v inferenčních grafech**
+   → Nevyjadřuje nejistotu průměru!
+
+❌ **Zaměňovat SE a 95% CI**
+   → 95% CI ≈ mean ± 2×SE (přesněji: mean ± t×SE)
+
+❌ **Myslet si, že SE měří variabilitu dat**
+   → NE! SD měří variabilitu, SE měří nejistotu průměru
+
+**Vztah SE, CI a p-hodnoty:**
+
+**Pravidlo palce:**
+Pokud se **95% CI dvou skupin nepřekrývají** → p < 0.05 (přibližně)
+
+```
+Skupina A: Mean = 10, 95% CI [8, 12]
+Skupina B: Mean = 15, 95% CI [13, 17]
+→ Nepřekrývají se → pravděpodobně p < .05
+```
+
+**⚠️ POZOR**: Toto je aproximace! Skutečný test může mít jiný výsledek.
+
+**SE vs SEM terminologie:**
+
+- **SE** = Standard Error (obecný pojem)
+- **SEM** = Standard Error of the Mean (specificky pro průměr)
+- **SE of difference** = SE rozdílu průměrů (v t-testu)
+- **SE of coefficient** = SE regresního koeficientu
+
+
+
+**Best practice reportování:**
+
+✅ **Pro popisnou statistiku:**
+\"Mean reaction time: 250 ms (SD = 40 ms, range: 180-340 ms)\"
+
+✅ **Pro inferenční statistiku:**
+\"Group A showed faster reaction times (M = 250 ms, 95% CI [235, 265]) compared to Group B (M = 270 ms, 95% CI [253, 287]), t(58) = 2.15, p = .036\"
+
+✅ **V tabulce:**
+```
+Group | Mean | SD | SE | 95% CI
+------|------|----|----|--------
+A     | 250  | 40 | 7.3| [235, 265]
+B     | 270  | 45 | 8.2| [253, 287]
+```
+
+**Zlaté pravidlo**:
+
+- **SD** pro popis dat (\"jak moc se liší pozorování\")
+- **SE nebo CI** pro inference (\"jak přesně známe průměr\")
+- **V grafech preferujte 95% CI** před SE!
+:::
 
 # Závěr
 

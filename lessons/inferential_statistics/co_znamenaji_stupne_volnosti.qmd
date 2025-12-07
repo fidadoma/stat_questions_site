@@ -1,5 +1,6 @@
 ---
 title: "Co to jsou stupně volnosti (Degrees of Freedom)"
+order: 100
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Stupně volnosti (anglicky "degrees of freedom", zkráceně často DoF) jsou klíčovým konceptem ve statistice, který se využívá při testování hypotéz, modelování a dalších statistických metodách. Abychom lépe pochopili, co stupně volnosti znamenají, podívejme se na ně z různých úhlů pohledu a použijme příklady z běžného života.
 
@@ -33,8 +33,8 @@ $$
 $$
 
 Kde:
-- \( n \) je počet pozorování.
-- \( k \) je počet odhadovaných parametrů.
+- $ n $ je počet pozorování.
+- $ k $ je počet odhadovaných parametrů.
 
 # Příklady z běžného života
 
@@ -53,6 +53,148 @@ Stupně volnosti jsou zásadní při interpretaci statistických testů, jako js
 - **t-test**: Tento test porovnává průměry dvou skupin. Stupně volnosti obvykle závisí na velikosti obou skupin.
 
 - **chi-kvadrát test**: Používá se pro testování dobré shody nebo nezávislosti. V případě tabulek kontingence se stupně volnosti určují jako (počet řádků - 1) krát (počet sloupců - 1).
+
+:::{.callout-tip}
+## Metodologická poznámka: Degrees of Freedom (df) - praktický průvodce
+
+**Intuitivní definice:**
+Stupně volnosti = **počet hodnot, které mohou "svobodně" varírovat** po naložení omezení na data
+
+**Formální definice:**
+$$df = n - k$$
+kde:
+
+- n = počet pozorování
+- k = počet odhadovaných parametrů/omezení
+
+**Proč záleží na df?**
+1. ✅ Určují **kritické hodnoty** pro statistické testy
+2. ✅ Ovlivňují **tvar** rozdělení (t, χ², F)
+3. ✅ Ovlivňují **šířku confidence intervalů**
+4. ✅ Ovlivňují **power** testu
+
+**Degrees of Freedom pro různé testy:**
+
+### 1. T-testy
+
+**Jednovýběrový t-test:**
+$$df = n - 1$$
+
+**Proč n-1?**
+- Odhadujeme 1 parametr (μ) z dat
+- Pokud známe 9 hodnot a průměr, poslední hodnota je určena
+
+**Dvouvýběrový t-test (stejné variance):**
+$$df = n_1 + n_2 - 2$$
+
+**Proč -2?**
+- Odhadujeme 2 průměry (μ₁, μ₂)
+
+**Welch t-test (různé variance):**
+$$df = \frac{(s_1^2/n_1 + s_2^2/n_2)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}$$
+
+**Párový t-test:**
+$$df = n - 1$$
+(n = počet párů)
+
+### 2. Chi-square testy
+
+**Goodness-of-fit:**
+$$df = k - 1$$
+k = počet kategorií
+
+**Test nezávislosti (r × c tabulka):**
+$$df = (r - 1) \times (c - 1)$$
+
+
+**Proč (r-1)(c-1)?**
+- Známe-li marginální sumy a (r-1)(c-1) buněk, ostatní jsou určeny
+
+### 3. Lineární regrese
+
+**Jednoduchá regrese:**
+$$df_{residual} = n - 2$$
+
+**Proč -2?**
+- Odhadujeme 2 parametry (β₀, β₁)
+
+**Vícenásobná regrese:**
+$$df_{residual} = n - p - 1$$
+p = počet prediktorů
+
+
+**Porovnání modelů (F-test):**
+
+- df_numerator = p₂ - p₁ (rozdíl v počtu prediktorů)
+- df_denominator = n - p₂ - 1
+
+
+### 4. ANOVA
+
+**One-way ANOVA:**
+
+- df_between = k - 1 (k = počet skupin)
+- df_within = N - k (N = celkový počet pozorování)
+
+
+**Two-way ANOVA:**
+```
+df_A = a - 1
+df_B = b - 1
+df_AB = (a-1)(b-1)  # Interakce
+df_error = N - ab
+```
+
+**Repeated measures ANOVA:**
+Složitější - závisí na počtu faktorů a subjektů
+
+### 5. Korelace
+
+**Pearsonova korelace:**
+$$df = n - 2$$
+
+**Proč -2?**
+- Používáme vzorové průměry obou proměnných
+
+**Jak df ovlivňuje kritické hodnoty:**
+
+**Příklad t-distribuce:**
+
+| df | t_crit (α=0.05, two-tailed) |
+|----|----------------------------|
+| 5  | 2.571 ← Široký CI |
+| 10 | 2.228 |
+| 30 | 2.042 |
+| 100| 1.984 |
+| ∞  | 1.960 ← Z-score |
+
+**→ S rostoucím df klesá t_crit → užší CI → větší síla testu!**
+
+
+**Běžné chyby:**
+
+- ❌ Zapomenout -1 nebo -k při výpočtu df
+- ❌ Zaměňovat df pro různé testy
+- ❌ Neodečítat odhadované parametry
+- ❌ U Welch t-testu používat n1 + n2 - 2 (je to složitější!)
+- ❌ Ignorovat df při interpretaci výsledků
+
+
+**Rychlé reference:**
+
+| Test | df | Příklad (n=100) |
+|------|----|----|
+| Jednovýběrový t-test | n - 1 | 99 |
+| Dvouvýběrový t-test | n₁ + n₂ - 2 | 98 (50+50-2) |
+| Párový t-test | n_pairs - 1 | 99 |
+| Korelace | n - 2 | 98 |
+| Regrese (p pred.) | n - p - 1 | 97 (p=2) |
+| χ² goodness-of-fit (k cat.) | k - 1 | 5 (k=6) |
+| χ² independence (r×c) | (r-1)(c-1) | 2 (2×3) |
+| One-way ANOVA (k groups) | between: k-1, within: N-k | 2 and 97 (k=3) |
+
+**Zlaté pravidlo**: df = volné informace po odečtení omezení/parametrů. Čím více odhadujeme, tím méně df máme!
+:::
 
 # Závěr
 

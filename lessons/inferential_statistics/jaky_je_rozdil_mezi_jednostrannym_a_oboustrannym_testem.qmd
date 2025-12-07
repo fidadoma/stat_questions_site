@@ -1,5 +1,6 @@
 ---
 title: "Rozdíl mezi jednostranným a oboustranným testem"
+order: 100
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do hypotéz a testování
+## Úvod
 
 V statistice se často setkáváme s potřebou testovat hypotézy. Testování hypotéz je proces, který nám umožňuje učinit rozhodnutí o populaci na základě údajů z výběru. Myšlenka je prověřit platnost předpokladu, nazývaného hypotéza, pomocí statistického testu. Dva hlavní typy hypotéz, které testujeme, jsou:
 
@@ -48,6 +48,184 @@ Použití oboustranného testu je vhodné, když nás zajímají odchylky v obou
 ### Příklad z běžného života
 
 Představte si, že pracujete jako kontrolor kvality léků a vaším úkolem je zajistit, že průměrný čas rozpouštění tablet je 15 minut. Pokud z testovaného vzorku zjistíte, že průměrný čas je 14 minut, použijete **oboustranný test**, abyste zjistili, zda je tento rozdíl statisticky významný a může tedy znamenat, že čas rozpouštění je ve skutečnosti odlišný od 15 minut.
+
+:::{.callout-warning}
+## Metodologická poznámka: One-tailed vs Two-tailed tests - kdy a jak
+
+**⚠️ KLÍČOVÉ ROZHODNUTÍ před sběrem dat!**
+
+### Oboustranný test (Two-tailed) - DEFAULT!
+
+**Hypotézy:**
+- H0: μ = μ₀ (nebo θ = θ₀)
+- Ha: μ ≠ μ₀ (parametr se **LIŠÍ**)
+
+**Kdy použít:**
+✅ **VŽDY** když předem nevíte směr rozdílu
+✅ Když testujete existenci **jakéhokoliv** efektu
+✅ **Nejběžnější volba** (konzervativnější)
+
+**P-hodnota:**
+- Plocha v obou ocasech distribuce
+- p_two-tailed = 2 × P(|Z| > |z_obs|)
+
+**Oblasti odmítnutí:**
+```
+     |----- α/2 ----|         |----- α/2 ----|
+     ─────────────────────────────────────────
+    -∞            -z_crit  0  +z_crit          +∞
+        Zamítnout H0        Přijmout H0      Zamítnout H0
+```
+
+### Jednostranný test (One-tailed)
+
+**Pravostranný (right-tailed):**
+
+- H0: μ ≤ μ₀
+- Ha: μ > μ₀ (parametr je **VĚTŠÍ**)
+
+**Levostranný (left-tailed):**
+
+- H0: μ ≥ μ₀
+- Ha: μ < μ₀ (parametr je **MENŠÍ**)
+
+**Kdy použít:**
+⚠️ **POUZE** když:
+
+1. Máte **silné apriorní teoretické** důvody pro směr
+2. Efekt v opačném směru by byl **teoreticky nemožný** nebo **irrelevantní**
+3. Rozhodnuto **PŘED** sběrem dat!
+
+**P-hodnota:**
+
+- Plocha jen v jednom ocasu
+- p_one-tailed = p_two-tailed / 2
+
+**Vztah mezi p-hodnotami:**
+
+**Klíčový vzorec:**
+$$p_{one-tailed} = \frac{p_{two-tailed}}{2}$$
+
+**Příklad:**
+```
+t-statistic = 2.1
+p_two-tailed = 0.040
+p_one-tailed = 0.020  ← Polovina!
+```
+
+**→ One-tailed test je "snazší" zamítnout H0**
+
+**Kdy použít one-tailed vs two-tailed:**
+
+| Situace | Test | Příklad |
+|---------|------|---------|
+| **Explorační výzkum** | **Two-tailed** | \"Má léčba efekt?\" |
+| **Obecný test** | **Two-tailed** | \"Liší se skupiny?\" |
+| **Teoreticky odůvodněný směr** | One-tailed | \"Je nový lék **lepší**?\" (ne jen jiný) |
+| **Bezpečnostní test** | One-tailed | \"Je vedlejší účinek **horší**?\" |
+| **Quality control** | One-tailed | \"Je kvalita **pod** standardem?\" |
+
+**Příklady:**
+
+**✅ SPRÁVNÉ použití one-tailed:**
+
+**Příklad 1: Bezpečnostní test**
+```
+Ha: Nová chemikálie má VYŠŠÍ toxicitu než stará
+→ Zajímá nás jen zhoršení, ne zlepšení
+→ Right-tailed test
+```
+
+**Příklad 2: Quality control**
+```
+Ha: Průměrná hmotnost balíčků je NIŽŠÍ než standard
+→ Nižší = problém, vyšší = OK
+→ Left-tailed test
+```
+
+**❌ ŠPATNÉ použití one-tailed:**
+
+```
+❌ \Vybrali jsme one-tailed PO prohlédnutí dat\
+   → P-hacking! Musí být rozhodnuto PŘED!
+
+❌ \Použili jsme one-tailed abychom dostali p < .05\
+   → Neetické! Manipulace s výsledky
+
+❌ \Efekt byl opačný směr než očekáváno, ale ignorujeme to\
+   → Cherry-picking! Musíte reportovat
+```
+
+**Power considerations:**
+
+**Pro stejný α a effect size:**
+
+- **One-tailed test má VYŠŠÍ power** (~ 10-15%)
+- Ale pouze pro efekty v očekávaném směru!
+
+**Příklad:**
+```
+α = 0.05, d = 0.5, two-tailed:  n = 64 per group (power = 0.80)
+α = 0.05, d = 0.5, one-tailed:  n = 51 per group (power = 0.80)
+```
+
+**→ One-tailed vyžaduje menší n, ale...**
+
+**POZOR**: Pokud efekt je v **opačném směru**, nemůžete zamítnout H0 (i kdyby byl obrovský!)
+
+
+**→ One-tailed test je "slepý" k efektům v opačném směru!**
+
+**Rozhodovací strom:**
+
+```
+Máte SILNÉ teoretické důvody pro konkrétní směr?
+    │
+    ├─ NE → **TWO-TAILED** (konzervativní, bezpečný)
+    │
+    └─ ANO
+        │
+        ├─ Je efekt v opačném směru NEMOŽNÝ/IRRELEVANTNÍ?
+        │   ├─ ANO → Můžete one-tailed (ale buďte opatrní!)
+        │   └─ NE → **TWO-TAILED** (bezpečnější)
+        │
+        └─ Rozhodli jste to PŘED sběrem dat?
+            ├─ ANO → OK pro one-tailed
+            └─ NE → **MUSÍTE two-tailed** (jinak p-hacking!)
+```
+
+**Časté chyby:**
+
+- ❌ **Post-hoc rozhodnutí**: Vybrat one-tailed PO prohlédnutí dat
+- ❌ **P-hacking**: Použít one-tailed jen abychom dostali p < .05
+- ❌ **Ignorovat opačný směr**: Nehlásit efekty v neočekávaném směru
+- ❌ **Nedostatečné odůvodnění**: \"Prostě očekáváme zlepšení\" není dost!
+- ❌ **Nekonzistence**: Hlásit two-tailed v úvodu, ale použít one-tailed
+
+**Best practice:**
+
+- ✅ **Default**: Vždy používejte **two-tailed** pokud nemáte velmi dobré důvody
+- ✅ **Pre-register**: Rozhodněte se PŘED sběrem dat
+- ✅ **Justify**: Pokud one-tailed, jasně odůvodněte proč
+- ✅ **Report**: Vždy řekněte, který test jste použili
+- ✅ **Be honest**: Pokud efekt je opačný směr, hlaste to!
+
+**Reportování:**
+
+❌ \"The difference was significant (p = .02)\"
+   → Nevíme jestli one nebo two-tailed!
+
+✅ \"A two-tailed t-test revealed significant difference (t(28) = 2.5, p = .02)\"
+
+✅ \"Based on prior theory predicting improvement, a one-tailed test was conducted (t(28) = 2.5, p = .01, one-tailed)\"
+
+**Akademické časopisy:**
+- Většina vyžaduje **two-tailed** unless justified
+- One-tailed musí být jasně stated a defended
+- Některé časopisy NEAKCEPTUJÍ one-tailed vůbec
+
+**Zlaté pravidlo**: Když si nejste jistí → **TWO-TAILED**! Je to konzervativnější a etičtější volba.
+:::
 
 # Sumarizace a závěr
 

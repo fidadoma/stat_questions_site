@@ -1,5 +1,6 @@
 ---
 title: "Studentovo t-rozdělení"
+order: 30
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Co to je studentovo t-rozdělení?
+## Úvod
 
 ## Úvod do statistiky a pravděpodobnosti
 
@@ -64,6 +64,111 @@ T-rozdělení se často používá ve statistických testech, jako je **t-test**
 1. **T-test pro dva vzorky**: Představte si, že chcete porovnat průměrný čas, který stráví studenti při cvičení online kurzů mezi dvěma skupinami studentů (např. ti, kteří dostali doplňkový materiál a ti, kteří ne). T-test vám napoví, zda rozdíl v průměrném čase je statisticky významný.
 
 2. **Interval spolehlivosti**: Například chcete určit, s jakou přesností můžete říci, že průměrná výška rostlin ze vzorku bude stejná pro celou populaci rostlin.
+
+:::{.callout-note}
+## Metodologická poznámka: Student's t-distribution vs Normal distribution
+
+**Co je t-distribuce?**
+
+- Pravděpodobnostní rozdělení podobné normálnímu
+- **Parametr**: degrees of freedom (df)
+- **Těžší tails** než normální distribuce
+- S rostoucím df → normální distribuce
+
+**Proč používáme t-distribution?**
+
+| Situace | Použijte | Proč |
+|---------|---------|------|
+| **Velké n** (> 30) + známé σ | **Z-test** (normální) | CLT zajišťuje normalitu |
+| **Velké n** (> 30) + neznámé σ | **T-test** | Ale t ≈ z |
+| **Malé n** (< 30) + neznámé σ | **T-test** | **Musíte!** |
+| **Malé n** + známé σ | **Z-test** | Vzácné v praxi |
+
+**Klíčový důvod:**
+
+- V praxi **téměř nikdy neznáme** populační σ
+- Používáme vzorkové s → **nejistota** → t-distribuce
+
+**Vlastnosti t-distribuce:**
+
+**1. Symetrie kolem nuly** (jako normální)
+**2. Těžší tails** (více extrémních hodnot než u normální)
+**3. Tvar závisí na df:**
+
+```
+df = 1:   Velmi široké, těžké ocasy (Cauchy)
+df = 5:   Stále širší než normální
+df = 30:  Téměř identické s normální
+df = ∞:   IDENTICKÉ s normální
+```
+
+**Porovnání kritických hodnot:**
+
+**Pro 95% CI (two-tailed, α = 0.05):**
+
+| df | t_critical | z_critical | Rozdíl |
+|----|-----------|-----------|--------|
+| 5  | **2.571** | 1.960 | **+31%** ← Mnohem širší CI! |
+| 10 | **2.228** | 1.960 | **+14%** |
+| 30 | **2.042** | 1.960 | **+4%** |
+| 100| **1.984** | 1.960 | **+1%** ← Téměř stejné |
+| ∞  | **1.960** | 1.960 | **0%** ← Identické |
+
+
+
+**→ Menší df = širší CI = více nejistoty**
+
+**Kdy t → normální?**
+
+**Pravidlo palce:**
+
+- **df < 30**: Používejte t-distribuce (významný rozdíl)
+- **df ≥ 30**: t ≈ z (rozdíl < 5%)
+- **df ≥ 100**: t ≈≈ z (prakticky identické)
+
+**Ale VŽDY použijte t-test když σ neznáme!**
+
+
+**T-test vs Z-test:**
+
+| Aspekt | T-test | Z-test |
+|--------|--------|--------|
+| **Kdy použít** | σ neznámé (obvykle!) | σ známé (vzácné) |
+| **Distribuce** | t-distribution | Normal |
+| **Malé n** | ✅ Přesné | ❌ Nepřesné |
+| **Velké n** | ✅ Přesné | ✅ Přesné (ale použijte t!) |
+| **Šířka CI** | Širší (bezpečnější) | Užší |
+| **Power** | Mírně nižší (malé n) | Mírně vyšší |
+
+
+**William Sealy Gosset (\"Student\"):**
+- Pracoval v pivovaru Guinness
+- Publikoval pod pseudonymem \"Student\" (firma to vyžadovala)
+- Vyvinul t-test pro malé vzorky (degustační panely piva!)
+- Revoluční: umožnil inference s malými n
+
+
+**Časté chyby:**
+
+- ❌ Používat z-test když σ neznáme (téměř vždy!)
+- ❌ Myslet si, že pro n > 30 můžeme ignorovat t-distribuce
+- ❌ Zapomenout, že t → z s rostoucím n
+- ❌ Nerozlišovat mezi malým a velkým n
+- ❌ Používat normální approximaci pro t-test
+
+**Best practice:**
+
+- ✅ **VŽDY použijte t-test** když σ neznáme (což je téměř vždy)
+- ✅ Pro malé n (< 30): t-distribution je **kritická**
+- ✅ Pro velké n (> 30): t ≈ z, ale použijte t (bezpečnější)
+- ✅ Reportujte df spolu s t-statistikou
+
+**Příklad reportování:**
+
+✅ \"Mean difference was significant, t(24) = 3.45, p = .002, 95% CI [1.2, 4.8]\"
+
+**Zlaté pravidlo**: Když neznáte σ (což je téměř vždy), použijte t-distribution! Pro malé vzorky je to **nezbytné**.
+:::
 
 ## Závěr
 

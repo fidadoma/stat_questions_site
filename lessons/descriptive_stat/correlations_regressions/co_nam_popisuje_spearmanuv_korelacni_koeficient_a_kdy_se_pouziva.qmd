@@ -1,5 +1,6 @@
 ---
 title: "Co to je Spearmanův korelační koeficient"
+order: 40
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Spearmanova korelačního koeficientu
+## Úvod
 
 Spearmanův korelační koeficient, často označovaný jako $\rho$ (rho) nebo $r_s$, je statistický nástroj používaný k měření síly a směru monotónního vztahu mezi dvěma proměnnými. Na rozdíl od Pearsonova korelačního koeficientu, který se používá k měření lineární korelace mezi dvěma spojitými proměnnými, Spearmanův koeficient pracuje s pořadovými daty nebo s daty, která nejsou normálně distribuována.
 
@@ -36,9 +36,9 @@ Spearmanův korelační koeficient se určuje na základě pořadí, nikoli skut
 2. **Spočítejte rozdíly pořadí** - Stanovte rozdíl pořadí pro každý pár dat $(d_i = R(x_i) - R(y_i))$.
 3. **Aplikujte vzorec**:
    
-   \[
+   $$
    r_s = 1 - \frac{6 \sum d_i^2}{n(n^2-1)}
-   \]
+   $$
 
    kde $n$ je počet pozorování a $d_i$ je rozdíl mezi pořadím odpovídajících hodnot.
 
@@ -49,14 +49,164 @@ Představte si, že chcete zjistit, zda existuje vztah mezi pořadím studentů 
 ## Interpretace výsledků
 
 Spearmanův korelační koeficient nabývá hodnot od -1 do 1:
+
 - **1** znamená dokonalou pozitivní monotónní korelaci.
 - **-1** znamená dokonalou negativní monotónní korelaci.
 - **0** znamená, že neexistuje žádná monotónní korelace.
 
 Zásadní je, že i když tento koeficient ukazuje sílu a směr monotónní korelace, nemůže dokazovat kauzalitu. K tomu je třeba využít dalších metodologických postupů.
 
+:::{.callout-tip}
+## Metodologická poznámka: Kdy použít Spearman místo Pearson?
+
+**Použijte Spearmanův korelační koeficient**, když:
+
+1. **Data nejsou normálně rozdělená**
+   - Pearson předpokládá normalitu pro testování významnosti
+   - Spearman je neparametrický → žádné předpoklady o rozdělení
+
+2. **Máte ordinální proměnné**
+   - Například: hodnocení 1-5, vzdělání (ZŠ < SŠ < VŠ)
+   - Pearson vyžaduje intervalové/poměrové škály
+
+3. **Vztah je monotónní, ale ne lineární**
+   - Exponenciální růst, logaritmický vztah
+   - Spearman detekuje: "když X roste, Y roste" (nemusí to být přímka)
+
+4. **Data obsahují outliers**
+   - Spearman pracuje s pořadím → outliers mají menší vliv
+   - Příklad: Příjmy (několik milionářů zkreslí Pearson)
+
+**Kdy stále použít Pearson?**
+- Data jsou normální, lineární vztah, intervalová škála
+- Chcete parametrické testy a konfidenční intervaly
+
+**Pravidlo palce**: Pokud si nejste jisti,spočítejte obě! Pokud se výrazně liší, data nejsou vhodná pro Pearson.
+:::
+
+```{r}
+#| label: fig-spearman-examples
+#| fig-cap: "Porovnání Pearsonova a Spearmanova korelačního koeficientu"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# 1. Lineární vztah - obě korelace podobné
+data_linear <- data.frame(
+  x = seq(1, 100, length.out = 100),
+  y = 2 * seq(1, 100, length.out = 100) + rnorm(100, 0, 20)
+)
+pearson_linear <- cor(data_linear$x, data_linear$y, method = "pearson")
+spearman_linear <- cor(data_linear$x, data_linear$y, method = "spearman")
+
+p1 <- ggplot(data_linear, aes(x = x, y = y)) +
+  geom_point(color = "steelblue", alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Lineární vztah",
+    subtitle = sprintf("Pearson: %.3f | Spearman: %.3f", pearson_linear, spearman_linear),
+    x = "X",
+    y = "Y"
+  ) +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 15, 5, 5)) +
+  annotate("text", x = 25, y = max(data_linear$y) * 0.85,
+           label = "Obě korelace\npodobné", color = "darkgreen",
+           fontface = "bold", size = 3.5)
+
+# 2. Monotónní nelineární vztah - Spearman lepší
+data_mono <- data.frame(
+  x = seq(1, 100, length.out = 100),
+  y = log(seq(1, 100, length.out = 100)) * 20 + rnorm(100, 0, 3)
+)
+pearson_mono <- cor(data_mono$x, data_mono$y, method = "pearson")
+spearman_mono <- cor(data_mono$x, data_mono$y, method = "spearman")
+
+p2 <- ggplot(data_mono, aes(x = x, y = y)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE, color = "orange") +
+  labs(
+    title = "Monotónní nelineární vztah",
+    subtitle = sprintf("Pearson: %.3f | Spearman: %.3f", pearson_mono, spearman_mono),
+    x = "X",
+    y = "Y"
+  ) +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 15, 5, 5)) +
+  annotate("text", x = 20, y = max(data_mono$y) * 0.8,
+           label = "Spearman lépe", color = "darkgreen",
+           fontface = "bold", size = 3.5)
+
+# 3. Vztah s odlehlou hodnotou - Spearman robustnější (ještě méně bodů!)
+x_vals <- c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
+y_vals <- c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50) + rnorm(10, 0, 2)
+data_outlier <- data.frame(
+  x = c(x_vals, 20),
+  y = c(y_vals, 10)  # outlier - měl by být kolem 55, ale je 10
+)
+pearson_outlier <- cor(data_outlier$x, data_outlier$y, method = "pearson")
+spearman_outlier <- cor(data_outlier$x, data_outlier$y, method = "spearman")
+
+p3 <- ggplot(data_outlier, aes(x = x, y = y)) +
+  geom_point(aes(color = y < 30), alpha = 0.9, size = 4) +
+  scale_color_manual(values = c("steelblue", "red")) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed", size = 0.8) +
+  labs(
+    title = "Vztah s odlehlou hodnotou",
+    subtitle = sprintf("Pearson: %.3f | Spearman: %.3f", pearson_outlier, spearman_outlier),
+    x = "X",
+    y = "Y"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 40, 5, 5)
+  ) +
+  annotate("text", x = 13, y = 18,
+           label = "Spearman\nméně citlivý", color = "darkgreen",
+           fontface = "bold", hjust = 0, size = 3.5)
+
+# 4. Příklad s ordinálními daty - výška a skok
+data_ordinal <- data.frame(
+  porad_vyska = 1:20,
+  porad_skok = c(1, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14, 17, 16, 19, 18, 20) +
+                 sample(-1:1, 20, replace = TRUE)
+)
+data_ordinal$porad_skok <- pmin(20, pmax(1, data_ordinal$porad_skok))
+spearman_ordinal <- cor(data_ordinal$porad_vyska, data_ordinal$porad_skok, method = "spearman")
+
+p4 <- ggplot(data_ordinal, aes(x = porad_vyska, y = porad_skok)) +
+  geom_point(color = "purple", size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "darkblue") +
+  labs(
+    title = "Ordinální data",
+    subtitle = sprintf("Spearman: %.3f", spearman_ordinal),
+    x = "Pořadí podle výšky",
+    y = "Pořadí ve skoku do dálky"
+  ) +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 15, 5, 5)) +
+  scale_x_continuous(breaks = seq(0, 20, 5)) +
+  scale_y_continuous(breaks = seq(0, 20, 5)) +
+  annotate("text", x = 5, y = 17,
+           label = "Ideální pro\npořadová data", color = "darkgreen",
+           fontface = "bold", hjust = 0, size = 3.5)
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
 ## Závěr
 
 Spearmanův korelační koeficient je cenným nástrojem v situacích, kde data nemusí být normálně distribuována nebo když zkoumáme vztahy v ordinalních datech. Pomáhá identifikovat monotónní vztahy, které mohou poskytovat hlubší vhled do našich dat. Ať už zkoumáte výšku a skok do dálky, hodnocení studentů nebo jiná data, tento koeficient vám poskytne robustní analýzu i v případě neideálních podmínek.
 
+## Viz také
+
+- [Co nám popisuje Pearsonův korelační koeficient](co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - parametrická alternativa
+- [Rozdíl mezi ordinální a číselnou proměnnou](../../stat_intro/7_jaky_je_rozdil_mezi_ordinalni_a_ciselnou_promennou.qmd) - kdy použít Spearmana
+- [Jak se projeví odlehlé pozorování](../../visualizations/jak_se_projevi_odlehle_pozorovani_na_prumeru_a_medianu.qmd) - robustnost Spearmana
+- [Jaké znáte základní neparametrické testy](../../../inferential_statistics/jake_znate_zakladni_neparametricke_testy.qmd) - souvisejíc í metody
 

@@ -1,5 +1,5 @@
 ---
-title: "Vztah mezi Pravděpodobností a Inferenční Statistikou"
+title: "Vztah mezi pravděpodobností a inferenční statistikou"
 order: 30
 author: Filip Děchtěrenko
 date: 2025-09-20
@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -21,20 +20,12 @@ editor: source
 
 Pochopení vztahu mezi **pravděpodobností** a **inferenční statistiky** vztahu je klíčové pro každého, kdo se zabývá statistikou, protože pomáhá porozumět tomu, jak pracujeme s daty a jak můžeme učinit závěry, které jsou založené na náhodě a nejistotě.
 
-## Pravděpodobnost: Základy
-
-### Co je Pravděpodobnost?
+## Co je Pravděpodobnost?
 
 Pravděpodobnost je nástroj, který nám pomáhá kvantifikovat neurčitost. Popisuje, jak moc je událost pravděpodobná. Pro lepší porozumění si představte:
 
 - **Hod mincí**: Pravděpodobnost, že padne hlava, je 50 % (pokud mince není falešná).
 - **Hod kostkou**: Pravděpodobnost, že padne číslo 4, je 1/6, protože kostka má šest stran.
-
-### Proč je důležitá?
-
-Představte si, že hrajete v loterii. Pravděpodobnost vám pomáhá zjistit, jak malá šance je, že vyhrajete, a třeba vás to pak odradí od zbytečného sázení.
-
-## Inferenční Statistika: Základy
 
 ### Co je Inferenční Statistika?
 
@@ -42,10 +33,6 @@ Inferenční statistika nám umožňuje dělat závěry o populaci na základě 
 
 - **Volby**: Na základě dotazníkového šetření (vzorku) odhadujeme, kdo vyhraje volby.
 - **Zdravotní studie**: Na základě dat od určitého počtu pacientů usuzujeme, jaký účinek má nový lék.
-
-### Proč je důležitá?
-
-Představte si, že rozhodujete o zahájení výroby nového produktu. Pomocí inferenční statistiky můžete na vzorku spotřebitelů testovat, zda je o produkt zájem, ještě než investujete obrovské částky do výroby.
 
 ## Vztah mezi Pravděpodobností a Inferenční Statistikou
 
@@ -57,13 +44,37 @@ Představte si, že rozhodujete o zahájení výroby nového produktu. Pomocí i
 
 ### Praktické Příklady
 
-- **Testování hypotéz**: Představte si, že chcete zjistit, zda nový druh hnojiva zlepšuje růst rostlin. Pomocí testování hypotéz (součást inferenční statistiky) zjistíte, jak pravděpodobné je, že rozdíl ve výšce mezi rostlinami s různými hnojivy je skutečně způsoben hnojivy a ne náhodou.
+- **Testování hypotéz**: Představte si, že chcete zjistit, zda nový druh hnojiva zlepšuje růst rostlin. Pomocí [testování hypotéz](../../inferential_statistics/k_cemu_slouzi_testovani_hypotez.qmd) (součást inferenční statistiky) zjistíte, jak pravděpodobné je ([p-hodnota](../../inferential_statistics/co_to_je_phodnota.qmd)), že rozdíl ve výšce mezi rostlinami s různými hnojivy je skutečně způsoben hnojivy a ne náhodou.
 
-- **Intervaly Spolehlivosti**: Například při výzkumu průměrné výšky dospělých můžeme s určitou pravděpodobností říct, že průměrná výška je mezi 170–175 cm (95% interval spolehlivosti), i když jsme měřili jen malou skupinu lidí.
+- **Intervaly Spolehlivosti**: Například při výzkumu průměrné výšky dospělých můžeme s určitou pravděpodobností říct, že průměrná výška je mezi 170–175 cm ([95% interval spolehlivosti](../../inferential_statistics/k_cemu_slouzi_intervalovy_odhad.qmd)), i když jsme měřili jen malou skupinu lidí.
+
+:::{.callout-tip}
+## Metodologický pohled: Dva směry uvažování
+
+Vztah mezi pravděpodobností a inferenční statistikou lze chápat jako dva opačné směry:
+
+**1. Deduktivní směr (Pravděpodobnost)**
+- Známe populaci/model → odvodíme vlastnosti vzorku
+- "Pokud mince je férová (p=0.5), pak při 100 hodech očekáváme ~50 hlav"
+- Používáme při simulacích, power analýze, predikci
+
+**2. Induktivní směr (Inferenční statistika)**
+- Známe vzorek → odhadujeme vlastnosti populace
+- "Pozoroval jsem 48 hlav ze 100 hodů, je mince férová?"
+- Používáme při testování hypotéz, odhadech parametrů
+
+Tento dvojí pohled je zásadní: pravděpodobnost říká "co očekávat při známém modelu", inferenční statistika říká "jaký model nejlépe vysvětluje pozorovaná data".
+:::
 
 ## Závěr
 
 Pravděpodobnost a inferenční statistika jsou úzce propojené oblasti, které spolupracují na tom, aby nám umožnily porozumět a interpretovat data. Pravděpodobnost nám dává jazyk a nástroje pro pochopení neurčitosti, zatímco inferenční statistika je aplikací těchto konceptů na reálné problémy, aby nám pomohly učinit informované závěry.
 
-Pamatujte, že pochopení tohoto vztahu vám může otevřít dveře do složitých, ale fascinujících oblastí statistiky a analýzy dat. 
+## Viz také
+
+- [Rozdíl mezi inferenční a popisnou statistikou](2_jaky_je_rozdil_mezi_inferencni_a_popisnou_statistikou.qmd) - co je inferenční statistika
+- [Jaká je definice pravděpodobnosti](../../probability/jaka_je_definice_pravdepodobnosti.qmd) - základy pravděpodobnosti
+- [Co říká centrální limitní věta](../../probability/co_rika_centralni_limitni_veta_a_jake_ma_prakticke_pouziti.qmd) - propojení pravděpodobnosti a inferenční statistiky
+- [K čemu slouží testování hypotéz](../../inferential_statistics/k_cemu_slouzi_testovani_hypotez.qmd) - praktická aplikace pravděpodobnosti
+- [Co to je p-hodnota](../../inferential_statistics/co_to_je_phodnota.qmd) - jak pravděpodobnost vstupuje do testování hypotéz
 

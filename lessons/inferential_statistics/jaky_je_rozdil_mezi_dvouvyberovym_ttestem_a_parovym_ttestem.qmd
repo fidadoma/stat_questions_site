@@ -1,7 +1,9 @@
 ---
 title: "Rozdíl mezi dvouvýběrovým t-testem a párovým t-testem"
+order: 220
 author: Filip Děchtěrenko
-date: "{<meta date>}"
+date: 2025-09-20
+date-modified: last-modified
 execute:
   warning: false
   message: false
@@ -11,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 T-testy jsou statistické testy, které se používají k určení, zda existují významné rozdíly mezi průměrnými hodnotami v různých skupinách. V této lekci se zaměříme na rozdíl mezi dvěma typy t-testů: **dvouvýběrovým t-testem** a **párovým t-testem**. Každý z těchto testů má svoje specifické použití v závislosti na povaze dat a experimentu.
 
@@ -48,11 +49,125 @@ Párový t-test je navržen pro případy, kdy jsou data **závislá**, což zna
 - Rozdíly mezi párovými pozorováními jsou normálně distribuované.
 - Párování je správné, tj. každý subjekt v jedné skupině odpovídá jednomu subjektu v druhé skupině.
 
+:::{.callout-tip}
+## Metodologická poznámka: Který t-test použít?
+
+**Rozhodovací strom:**
+
+```
+Máte 2 skupiny dat?
+    ↓
+JSOU pozorování v obou skupinách od STEJNÝCH subjektů/jednotek?
+    ↓
+┌───YES (stejné subjekty)──────────┐
+│  → PÁROVÝ T-TEST                 │
+│  (paired t-test)                 │
+│                                  │
+│  Příklady:                       │
+│  • Před/po měření                │
+│  • Left/right eye                │
+│  • Twin studies                  │
+│  • Matched pairs                 │
+└──────────────────────────────────┘
+    │
+    NO (různé subjekty)
+    ↓
+┌───────────────────────────────────┐
+│  → DVOUVÝBĚROVÝ T-TEST           │
+│  (independent samples t-test)    │
+│                                  │
+│  Příklady:                       │
+│  • Muži vs ženy                  │
+│  • Treatment vs control          │
+│  • Brand A vs Brand B            │
+└──────────────────────────────────┘
+```
+
+**Klíčová otázka: Jsou data párová?**
+
+| Kritérium | Dvouvýběrový (independent) | Párový (paired) |
+|-----------|---------------------------|-----------------|
+| **Subjekty** | Různé v každé skupině | Stejné v obou skupinách |
+| **Nezávislost** | Skupiny nezávislé | Skupiny závislé |
+| **n v skupinách** | Může být různé | MUSÍ být stejné! |
+| **Variabilita** | Větší (mezi-subjektová) | Menší (within-subjektová) |
+| **Power** | Menší | **VĚTŠÍ** (výhodnější!) |
+
+**Proč je párový t-test silnější?**
+
+- Kontroluje individuální variabilitu
+- Každý subjekt slouží jako vlastní kontrola
+- → Menší error variance → větší power
+- **Pravidlo**: Pokud MŮŽETE použít párový design, POUŽIJTE ho!
+
+**Vzorce:**
+
+**Dvouvýběrový:**
+$$t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$$
+
+**Párový:**
+$$t = \frac{\bar{d}}{s_d / \sqrt{n}}$$
+kde $\bar{d}$ = průměr rozdílů, $s_d$ = SD rozdílů
+
+**Předpoklady:**
+
+| Předpoklad | Dvouvýběrový | Párový |
+|-----------|--------------|--------|
+| **Normalita** | Obě skupiny normální | **Rozdíly** normální |
+| **Homogenita rozptylů** | Ano (nebo Welch) | Ne (neaplikuje se) |
+| **Nezávislost** | Mezi skupinami | Mezi páry (ne within!) |
+
+**Praktické příklady:**
+
+**✅ Správně párový:**
+
+- Krevní tlak: před lékem vs po léku (stejní pacienti)
+- Levé oko vs pravé oko (stejné osoby)
+- Test 1 vs Test 2 (stejní studenti)
+- Manžel vs manželka (matched pairs)
+
+**❌ CHYBNĚ párový (správně dvouvýběrový):**
+
+- Muži vs ženy (různé osoby)
+- Léčba A vs Léčba B (různí pacienti v každé skupině)
+- Škola 1 vs Škola 2 (různí studenti)
+
+**Časté chyby:**
+
+❌ **Chyba 1**: Použít dvouvýběrový místo párového
+- Důsledek: **Ztráta power**, nesignifikantní výsledek
+- "Našli jsme nesignifikantní rozdíl" → Možná jste jen použili špatný test!
+
+❌ **Chyba 2**: Použít párový, když data nejsou párová
+- Důsledek: **Porušení nezávislosti**, inflated Type I error
+- R vás nenechá (n1 ≠ n2), ale pozor na ruční výpočty!
+
+❌ **Chyba 3**: Zapomenout, že párový test testuje rozdíly
+- H0: μd = 0 (průměrný rozdíl je nula)
+- Kontrolujte normalitu **ROZDÍLŮ**, ne původních dat!
+
+
+**Reportování:**
+
+✅ **Dvouvýběrový**: "Independent samples t-test revealed significant difference between groups (t(48) = 2.34, p = .023, d = 0.67)"
+
+✅ **Párový**: "Paired t-test showed significant improvement from pre- to post-test (t(24) = 3.12, p = .005, d = 0.62)"
+
+**Power benefit:**
+Pro stejný effect size a α:
+
+- Párový test potřebuje **PODSTATNĚ MÉNĚ n** než dvouvýběrový
+- Příklad: d=0.5, α=.05, power=.80
+  - Independent: n = 64 **per group** (128 celkem)
+  - Paired: n = 34 **pairs** (68 celkem)
+  - → **47% úspora!**
+
+**Zlaté pravidlo**: "To pair or not to pair" - ta je otázka! Odpověď závisí na designu studie, ne na datech!
+:::
+
 ## Závěr
 
 Abyste mohli správně zvolit mezi dvouvýběrovým a párovým t-testem, musíte především zvážit povahu svých dat a experimentálního designu. Dvouvýběrový t-test je vhodný pro nezávislé skupiny bez přirozeného párování. Na druhou stranu, pokud data obsahují přirozené párování (jako stejné subjekty v různých podmínkách), pak je párový t-test tou správnou volbou.
 
 Pečlivé zvážení a správné použití testu může vést k lepším interpretacím a spolehlivějším výsledkům ve Vašem výzkumu či aplikaci.
-
-
 

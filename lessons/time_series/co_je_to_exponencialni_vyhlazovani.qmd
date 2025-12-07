@@ -14,7 +14,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -68,9 +67,29 @@ Hodnota $\alpha$ je klíčovým parametrem: čím blíže je k 1, tím větší 
 - Není vhodné pro časové řady s trendem a sezónností bez další úpravy.
 - Hodnota $\alpha$ vyžaduje pečlivý výběr pro dosažení optimálních výsledků.
 
+:::{.callout-note}
+## Metodologická poznámka: Exponenciální vyhlazování - typy a použití
+
+**Základní typy:**
+
+| Typ | Pro data s... | Vzorec |
+|-----|---------------|--------|
+| **Simple (SES)** | Žádný trend, žádná sezónnost | $S_t = \alpha Y_t + (1-\alpha)S_{t-1}$ |
+| **Double (Holt)** | Trend, bez sezónnosti | Přidá $\beta$ pro trend |
+| **Triple (Holt-Winters)** | Trend + sezónnost | Přidá $\gamma$ pro sezónnost |
+
+**Výběr $\alpha$:**
+
+- $\alpha \to 1$: Více váhy na nedávné → reaktivní
+- $\alpha \to 0$: Více vyhlazení → stabilní
+
+
+**Zlaté pravidlo**: Pro stacionární data použijte SES, pro trend Holt, pro sezónnost Holt-Winters!
+:::
+
 ## Závěr
 
 Exponenciální vyhlazování je mocným nástrojem pro analýzu a vyhlazování časových řad, což umožňuje lépe chápat a předpovídat chování dat. Přestože je základní exponenciální vyhlazování vhodné pro jednoduché problémy, existují rozšířené verze, jako je dvojité nebo trojité exponenciální vyhlazování, které řeší komplexnější vzorce v datech, jako je trend a sezónnost.
 
 Můžete si vyzkoušet implementaci exponenciálního vyhlazování na svých vlastních datech a experimentovat s různými hodnotami $\alpha$ pro dosažení lepších výsledků. S praxí a porozuměním této techniky můžete výrazně zlepšit své dovednosti v analýze časových řad.
-```
+

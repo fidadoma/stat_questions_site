@@ -1,5 +1,6 @@
 ---
 title: "Leveneho Test: Interpretace a Použití"
+order: 210
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Leveneho Testu
+## Úvod
 
 ## Co je Leveneho test?
 
@@ -52,8 +52,8 @@ Pokud Leveneho test ukáže statisticky významný výsledek (tj. malou p-hodnot
 
 Představte si, že jste učitel a chcete porovnat výsledky testů studentů ze tří různých škol. Pokud zjistíte, že rozptyly testových výsledků jsou různé, může to znamenat, že školy mají různé úrovně variability ve výuce nebo že některé školy mohou být specializované na některé vědomosti více než jiné.
 
+
 # Shrnutí
 
 Leveneho test je klíčovým nástrojem v diagnostice předpokladu rovnosti rozptylů v mnoha statistických analýzách. Jeho správná aplikace a interpretace nám pomáhá s validními a spolehlivými výsledky, což je esenciální pro vědeckou práci i praktické rozhodování v různých oblastech.
-
 

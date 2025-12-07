@@ -1,5 +1,6 @@
 ---
-title: "Vizualizace Kvalitativních a Kvantitativních Proměnných"
+title: "Vizualizace kvalitativních a kvantitativních proměnných"
+order: 10
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,31 +13,30 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
-Vizualizace dat je klíčovým nástrojem ve statistice, který nám pomáhá nejen pochopit data, ale také sdělit naše zjištění dalším lidem. V závislosti na typu proměnné, kterou máme, potřebujeme zvolit vhodnou metodu vizualizace. V tomto studijním materiálu se podíváme na možnosti vizualizace pro kvalitativní (číselné) a kvantitativní (kategorické) proměnné.
+Vizualizace dat je klíčovým nástrojem ve statistice, který nám pomáhá nejen pochopit data, ale také sdělit naše zjištění dalším lidem. V závislosti na typu proměnné, kterou máme, potřebujeme zvolit vhodnou metodu vizualizace. V tomto studijním materiálu se podíváme na možnosti vizualizace pro kvalitativní (kategorické) a kvantitativní (číselné) proměnné.
 
-# 1. Kvalitativní Proměnné
+## 1. Kvalitativní (Kategorické) Proměnné
 
 Kvalitativní proměnné jsou typy proměnných, které popisují vlastnosti nebo kategorie a nejsou numerické. Typické kvalitativní proměnné zahrnují pohlaví, barvu, značky aut, typy květin atd. Zde jsou některé běžné způsoby, jak mohou být tyto údaje vizualizovány:
 
-## Sloupcové Grafy
+## Sloupcové grafy
 
 Sloupcové grafy jsou ideální pro vizualizaci kvalitativních proměnných, protože jasně ukazují počet nebo procentní podíl každé kategorie. 
 
 - **Příklad z běžného života**: Představme si, že chceme vizualizovat oblíbenost různých značek aut mezi studenty univerzity. Každá sloupec by reprezentoval jednu značku a jeho výška by odpovídala počtu studentů upřednostňující tuto značku.
 
-## Koláčové Grafy
+## Koláčové grafy
 
 Koláčové grafy nám poskytují vizuální reprezentaci různých částí celku a umožňují rychlý přehled o částech, které tvoří celé.
 
 - **Příklad z běžného života**: Představte si školní volby, kde studenti hlasují pro svého školního prezidenta. Každý segment koláčového grafu by ukazoval procentní podíl hlasů pro jednotlivé kandidáty.
 
-# 2. Kvantitativní Proměnné
+## 2. Kvantitativní (Číselné) Proměnné
 
 Kvantitativní proměnné jsou numerické povahy a mohou být měřeny nebo počítány. Zahrnují například výšku, hmotnost, věk nebo teplotu. Vizualizovat můžeme například následovně:
 
@@ -46,15 +46,183 @@ Histogramy jsou užitečné pro vizualizaci rozdělení kvantitativních dat. Da
 
 - **Příklad z běžného života**: Představme si, že chceme znázornit rozdělení věku studentů na univerzitě. Každý sloupec by reprezentoval určité věkové rozmezí a jeho výška by odpovídala počtu studentů v tomto věkovém rozmezí.
 
-## Bodové Grafy (Scatter Plots)
+## Bodové grafy (Scatter plots)
 
 Bodové grafy se používají k zobrazení vztahu mezi dvěma kvantitativními proměnnými. Umožňují vizualizaci korelačních vztahů mezi proměnnými.
 
 - **Příklad z běžného života**: Můžeme zobrazit vztah mezi dobou studia a výsledky zkoušek. Každý bod by reprezentoval jednoho studenta, přičemž osa x by ukazovala počet hodin strávených učením a osa y by ukazovala dosaženou známku.
 
-# Závěr
+## Praktické příklady vizualizací
 
-Výběr správné vizualizace je klíčový pro správnou interpretaci dat. Zatímco kvalitativní proměnné často vizualizujeme pomocí sloupcových nebo koláčových grafů, kvantitativní proměnné se obvykle prezentují histogramy nebo bodovými grafy. Důležité je vybrat takový typ vizualizace, který nejlépe vyhovuje vašim datům a umožní efektivní komunikaci výsledků. 
+Pro lepší pochopení si ukážeme konkrétní příklady vizualizací pro různé typy proměnných:
 
-Pamatujte, že vizualizace je nejen o estetice, ale především o efektivním sdělení informací!
+```{r}
+#| label: fig-var-types
+#| fig-cap: "Vizualizace kvalitativních a kvantitativních proměnných"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# === KVALITATIVNÍ (KATEGORICKÉ) PROMĚNNÉ ===
+
+# 1. Sloupcový graf
+data_bar <- data.frame(
+  znacka = c("Toyota", "Škoda", "Volkswagen", "Ford", "Hyundai"),
+  pocet = c(45, 38, 32, 28, 22)
+)
+
+p1 <- ggplot(data_bar, aes(x = reorder(znacka, -pocet), y = pocet)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_text(aes(label = pocet), vjust = -0.5, fontface = "bold") +
+  labs(
+    title = "1. Sloupcový graf (Kvalitativní)",
+    subtitle = "Oblíbenost značek aut mezi studenty",
+    x = "Značka auta",
+    y = "Počet studentů"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# 2. Koláčový graf
+data_pie <- data.frame(
+  kandidat = c("Kandidát A", "Kandidát B", "Kandidát C", "Kandidát D"),
+  hlasy = c(35, 28, 22, 15)
+)
+data_pie$procento <- round(data_pie$hlasy / sum(data_pie$hlasy) * 100, 1)
+data_pie$pozice <- cumsum(data_pie$hlasy) - data_pie$hlasy / 2
+
+p2 <- ggplot(data_pie, aes(x = "", y = hlasy, fill = kandidat)) +
+  geom_col(color = "white", size = 2) +
+  coord_polar(theta = "y") +
+  geom_text(aes(y = pozice, label = paste0(procento, "%")),
+            color = "white", fontface = "bold", size = 5) +
+  labs(
+    title = "2. Koláčový graf (Kvalitativní)",
+    subtitle = "Výsledky školních voleb",
+    fill = "Kandidát"
+  ) +
+  theme_void() +
+  scale_fill_brewer(palette = "Set2")
+
+# === KVANTITATIVNÍ (ČÍSELNÉ) PROMĚNNÉ ===
+
+# 3. Histogram
+data_hist <- data.frame(
+  vek = rnorm(200, mean = 22, sd = 3)
+)
+
+p3 <- ggplot(data_hist, aes(x = vek)) +
+  geom_histogram(bins = 20, fill = "darkgreen", color = "white", alpha = 0.7) +
+  geom_vline(xintercept = mean(data_hist$vek), color = "red",
+             linetype = "dashed", size = 1) +
+  annotate("text", x = mean(data_hist$vek) + 1, y = 25,
+           label = paste0("Průměr = ", round(mean(data_hist$vek), 1)),
+           color = "red", fontface = "bold") +
+  labs(
+    title = "3. Histogram (Kvantitativní)",
+    subtitle = "Rozdělení věku studentů",
+    x = "Věk (roky)",
+    y = "Četnost"
+  ) +
+  theme_minimal()
+
+# 4. Bodový graf
+data_scatter <- data.frame(
+  hodiny_studia = rnorm(100, mean = 15, sd = 5),
+  znamka = rnorm(100, mean = 75, sd = 10)
+)
+data_scatter$znamka <- data_scatter$znamka + 1.5 * data_scatter$hodiny_studia + rnorm(100, 0, 5)
+data_scatter$hodiny_studia <- pmax(0, data_scatter$hodiny_studia)
+data_scatter$znamka <- pmin(100, pmax(0, data_scatter$znamka))
+
+p4 <- ggplot(data_scatter, aes(x = hodiny_studia, y = znamka)) +
+  geom_point(color = "darkblue", alpha = 0.6, size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(
+    title = "4. Bodový graf (Kvantitativní)",
+    subtitle = "Vztah mezi dobou studia a výsledkem zkoušky",
+    x = "Hodiny studia týdně",
+    y = "Výsledek zkoušky (%)"
+  ) +
+  theme_minimal()
+
+# 5. Krabicový graf
+data_box <- data.frame(
+  skupina = rep(c("1. ročník", "2. ročník", "3. ročník", "4. ročník"), each = 50),
+  vyska = c(
+    rnorm(50, mean = 170, sd = 8),
+    rnorm(50, mean = 172, sd = 8),
+    rnorm(50, mean = 173, sd = 7),
+    rnorm(50, mean = 173, sd = 7)
+  )
+)
+
+p5 <- ggplot(data_box, aes(x = skupina, y = vyska, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3, fill = "white") +
+  labs(
+    title = "5. Krabicový graf (Kvantitativní)",
+    subtitle = "Výška studentů podle ročníku",
+    x = "Ročník",
+    y = "Výška (cm)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Set1")
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
+```
+
+:::{.callout-tip}
+## Metodologický průvodce: Jak vybrat správnou vizualizaci?
+
+**Rychlé rozhodovací pravidlo**:
+
+**Jedna proměnná**:
+
+- Kategorická → **Sloupcový graf** (nebo koláčový, ale pozor na více než 5 kategorií!)
+- Číselná → **Histogram** (rozložení) nebo **Boxplot** (přehled statistik)
+
+**Dvě proměnné**:
+
+| Proměnná 1 | Proměnná 2 | Použijte |
+|------------|------------|----------|
+| Kategorická | Kategorická | Mozaikový graf, seskupený sloupcový graf |
+| Kategorická | Číselná | **Boxplot** (nejlepší volba!), violin plot |
+| Číselná | Číselná | **Bodový graf** (scatter plot) |
+| Časová | Číselná | **Spojnicový graf** |
+
+**Co NEDĚLAT**:
+
+- ❌ Koláčový graf pro >5 kategorií (nečitelný)
+- ❌ Sloupcový graf pro číselné proměnné (použijte histogram)
+- ❌ Histogram pro kategorické proměnné (použijte sloupcový graf)
+- ❌ 3D grafy (zkreslují proporce)
+
+**Zlaté pravidlo**: Vizualizace musí být srozumitelná na první pohled!
+:::
+
+## Shrnutí typů vizualizací podle typu proměnné
+
+| Typ proměnné | Vhodné vizualizace | Příklad použití |
+|--------------|-------------------|-----------------|
+| **Kvalitativní (Kategorická)** | Sloupcový graf, koláčový graf | Značky aut, barvy, pohlaví |
+| **Kvantitativní (Číselná)** | Histogram, boxplot, bodový graf | Věk, výška, váha, teplota |
+| **Kvalitativní + Kvantitativní** | Boxplot podle skupin, seskupený sloupcový graf | Výška podle pohlaví, příjem podle vzdělání |
+| **Dvě kvantitativní** | Bodový graf, spojnicový graf | Vztah mezi výškou a váhou |
+
+## Závěr
+
+Výběr správné vizualizace je klíčový pro správnou interpretaci dat. Zatímco **kvalitativní (kategorické) proměnné** často vizualizujeme pomocí sloupcových nebo koláčových grafů, **kvantitativní (číselné) proměnné** se obvykle prezentují histogramy, boxploty nebo bodovými grafy. Důležité je vybrat takový typ vizualizace, který nejlépe vyhovuje vašim datům a umožní efektivní komunikaci výsledků. Pamatujte, že vizualizace je nejen o estetice, ale především o efektivním sdělení informací!
+
+## Viz také
+
+- [Jak dělíme statistické proměnné](../../stat_intro/4_jak_delime_statisticke_promenne.qmd) - typy proměnných
+- [Jak z histogramu poznáme vlastnosti dat](jak_z_histogramu_pozname_vlastnosti_dat.qmd) - analýza spojitých dat
+- [Které deskriptivní statistiky obsahuje krabicový graf](ktere_deskriptivni_statistiky_obsahuje_krabicovy_graf.qmd) - alternativa k histogramu
+- [Jaké jsou základní možnosti vizualizace dvou proměnných](jake_jsou_zakladni_moznosti_vizualizace_dvou_promennych.qmd) - bivariatní grafy
 

@@ -1,5 +1,6 @@
 ---
-title: "Studijní materiál: Homoskedasticita ve statistice"
+title: "Homoskedasticita u lineární regrese"
+order: 250
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,13 +13,9 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
-
-V tomto materiálu se podíváme na jeden z klíčových pojmů ve statistice a ekonometrice: **homoskedasticita**. Tento pojem často vyvolává zmatek, proto jsme připravili podrobný návod, který vám pomůže tento koncept lépe pochopit. 
 
 ## Co je to homoskedasticita?
 
@@ -68,9 +65,9 @@ Pokud zjistíme, že naše data jsou heteroskedasticá, existují postupy, jak t
 
 **Příklad z praxe**: Pokud pracujete s daty o příjmech domácností, kde vyšší příjmy mohou mít výrazně rozdílnější rozptyl výdajů, můžete použít logaritmickou transformaci na příjmy, abyste dosáhli konstantního rozptylu.
 
+
 # Závěr
 
 Homoskedasticita je důležitý předpoklad v regresních modelech, který musíme ověřit, abychom měli jistotu ve výsledcích analýzy. Pokud je tento předpoklad porušen, existuje několik metod, jak tento problém adekvátně řešit. V praxi je důležité pravidelně testovat předpoklady regresních modelů, abychom zajistili spolehlivost a validitu našich závěrů.
 
-Doufám, že tento studijní materiál vám pomohl lépe pochopit pojem homoskedasticity a jak ho identifikovat a řešit.
 

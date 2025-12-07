@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Ve statistice potřebujeme rozlišovat, jaký typ proměnné v datech máme. Tento výběr rozhoduje o tom, jaké grafy, souhrny a testy smíme použít. V tomto materiálu srozumitelně vysvětlíme rozdíl mezi ordinální (pořadovou) a číselnou (kvantitativní) proměnnou a ukážeme si příklady z běžného života, typické chyby i správné postupy pro analýzu.
 
@@ -48,7 +47,30 @@ Ordinální proměnná (pořadová) má kategorie, které lze seřadit, ale nelz
 
 - Nepočítejme průměr ze škály 1–5, pokud si nejsme jisti rovnoměrnými rozestupy. Pokud to provedeme, musíme rozumět, co tato statistika znamená
 - Správně seřaďme úrovně (ne podle abecedy).
-- Číselné kódy kategorií nejsou čísla v měřítku (1 ≠ „méně“ než 2 v matematickém smyslu, jde jen o pořadí).
+- Číselné kódy kategorií nejsou čísla v měřítku (1 ≠ „méně" než 2 v matematickém smyslu, jde jen o pořadí).
+
+:::{.callout-important}
+## Metodologické doporučení: Kdy je bezpečné zacházet s ordinální jako s číselnou?
+
+V literatuře najdete spory o to, zda lze s ordinálními proměnnými (např. Likert škála 1–7) počítat průměry a používat parametrické testy. Empirické pravidlo:
+
+### Bezpečnější zacházet jako s číselnou, pokud:
+
+<ul>
+  <li>Má alespoň 5–7 kategorií (ne jen 3)</li>
+  <li>Kategorie jsou přibližně ekvidistantní (stejné vzdálenosti)</li>
+  <li>Rozdělení není extrémně zešikmené</li>
+  <li>Výsledky ověříme neparametrickými metodami</li>
+</ul>
+
+### Vždy zacházejte jako s ordinální, pokud:
+
+<ul>
+  <li>Kategorie mají kvalitativní popis (např. „slabé–střední–silné“)</li>
+  <li>Jsou pouze 2–3 kategorie</li>
+  <li>Vzdálenosti mezi kategoriemi jsou jasně nerovnoměrné</li>
+</ul>
+:::
 
 # Číselná proměnná
 
@@ -82,8 +104,18 @@ Ordinální proměnná (pořadová) má kategorie, které lze seřadit, ale nelz
 ::: {.callout-tip}
 ## Praktická pomůcka na rozhodnutí
 
-- Lze hodnoty seřadit? Pokud ne → nebude to ani ordinální, ani číselná (spíše nominální).
+- Lze hodnoty seřadit? Pokud ne → nebude to ani ordinální, ani číselná (spíše [nominální](6_jaky_je_rozdil_mezi_nominalni_a_ordinalni_promennou.qmd)).
 - Pokud ano: dávají smysl aritmetické operace a průměry?
-- - Ano → číselná
-- - Ne → ordinální
+  - Ano → číselná
+  - Ne → ordinální
+
 :::
+
+## Viz také
+
+- [Jak dělíme statistické proměnné](4_jak_delime_statisticke_promenne.qmd) - obecný přehled všech typů proměnných
+- [Rozdíl mezi nominální a ordinální proměnnou](6_jaky_je_rozdil_mezi_nominalni_a_ordinalni_promennou.qmd) - kategoriální proměnné
+- [Jaké znáte charakteristiky středu](../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - průměr vs medián pro různé typy dat
+- [Jaké znáte základní neparametrické testy](../../inferential_statistics/jake_znate_zakladni_neparametricke_testy.qmd) - testy pro ordinální data
+- [Co nám popisuje Spearmanův korelační koeficient](../correlations_regressions/co_nam_popisuje_spearmanuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - korelace pro ordinální proměnné
+

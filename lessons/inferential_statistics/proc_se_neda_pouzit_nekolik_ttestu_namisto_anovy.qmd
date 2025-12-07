@@ -1,0 +1,153 @@
+---
+title: "Proč se nedá použít několik t-testů namísto ANOVY?"
+order: 390
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+Při porovnávání tří nebo více skupin se může zdát logické jednoduše provést několik t-testů mezi všemi dvojicemi skupin. Proč tedy používáme ANOVA? Důvod je jednoduchý, ale zásadní: **problém mnohonásobného testování** a **inflace chyby I. druhu**.
+
+## Problém mnohonásobného testování
+
+### Co je chyba I. druhu?
+
+Chyba I. druhu (α) je pravděpodobnost, že **nesprávně zamítneme pravdivou nulovou hypotézu** - tedy že najdeme statisticky významný rozdíl, když ve skutečnosti žádný neexistuje (falešně pozitivní výsledek).
+
+Standardně nastavujeme α = 0.05, což znamená 5% riziko této chyby při **jednom testu**.
+
+### Problém s více testy
+
+Když provádíme **více testů**, pravděpodobnost alespoň jedné chyby I. druhu **dramaticky roste**!
+
+Pro **k skupin** potřebujeme $\binom{k}{2} = \frac{k(k-1)}{2}$ porovnání.
+
+Pravděpodobnost **alespoň jedné** chyby I. druhu je:
+
+$$P(\text{alespoň 1 chyba I. druhu}) = 1 - (1 - \alpha)^m$$
+
+kde $m$ je počet testů.
+
+## Praktický příklad
+
+Mějme **4 skupiny** (např. 4 různé diety). Potřebný počet t-testů je tedy 6 a pravděpodobnost alespoň jedné chyby I. druhu je 26.5%
+
+
+## Vizualizace problému
+
+```{r}
+#| label: fig-multiple-testing
+#| fig-cap: "Růst pravděpodobnosti chyby I. druhu s počtem testů"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření dat pro různé počty skupin
+groups <- 2:10
+tests_needed <- groups * (groups - 1) / 2
+error_rates <- sapply(tests_needed, function(m) 1 - (1 - 0.05)^m)
+
+data_error <- data.frame(
+  pocet_skupin = groups,
+  pocet_testu = tests_needed,
+  pravdepodobnost_chyby = error_rates * 100
+)
+
+# Graf
+ggplot(data_error, aes(x = pocet_skupin, y = pravdepodobnost_chyby)) +
+  geom_line(size = 1.5, color = "darkred") +
+  geom_point(size = 3, color = "darkred") +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "blue", size = 1) +
+  geom_text(aes(label = paste0(pocet_testu, " testů")),
+            vjust = -1, size = 3.5) +
+  annotate("text", x = 8, y = 7,
+           label = "Nominální α = 5%",
+           color = "blue", size = 4) +
+  labs(
+    title = "Inflace chyby I. druhu při mnohonásobném testování",
+    subtitle = "Při α = 0.05 pro každý jednotlivý test",
+    x = "Počet porovnávaných skupin",
+    y = "Pravděpodobnost alespoň 1 chyby I. druhu (%)"
+  ) +
+  scale_y_continuous(breaks = seq(0, 100, 10), limits = c(0, 100)) +
+  scale_x_continuous(breaks = 2:10) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+
+## Výhody ANOVY
+
+### 1. Kontrola chyby I. druhu
+ANOVA kontroluje tzv. **family-wise error rate** (FWER) - pravděpodobnost alespoň jedné chyby I. druhu v celé "rodině" testů.
+
+- **Více t-testů**: FWER roste exponenciálně
+- **ANOVA**: FWER zůstává na úrovni α (např. 5%)
+
+### 2. Efektivnější použití dat
+ANOVA používá všechna data najednou:
+
+- Lepší odhad variability
+- Vyšší statistická síla (power)
+
+### 3. Testování celkového efektu
+ANOVA testuje jednu konzistentní otázku: "Existuje rozdíl mezi skupinami?"
+
+:::{.callout-warning}
+## Důležité: Co dělat po ANOVA?
+
+**Pokud je ANOVA signifikantní**, TEPRVE POTOM můžeme provést **post-hoc testy** k identifikaci, které konkrétní skupiny se liší.
+
+Post-hoc testy používají **korekce pro mnohonásobné testování**:
+
+1. **Bonferroni korekce**: Nejkonzervativnější
+   - Nová α = 0.05 / m (kde m je počet srovnání)
+
+2. **Tukey HSD**: Doporučená pro všechna párová srovnání
+   - Kontroluje FWER při zachování vyšší síly
+
+3. **Holm-Bonferroni**: Sekvenční korekce
+   - Méně konzervativní než Bonferroni
+
+4. **FDR kontrola** (Benjamini-Hochberg): Pro mnoho testů
+   - Kontroluje false discovery rate místo FWER
+
+**Postup:**
+
+1. Nejdříve ANOVA → Je tam vůbec nějaký efekt?
+2. Pokud ano → Post-hoc testy → Které skupiny se liší?
+:::
+
+
+## Kdy je OK použít t-testy?
+
+T-testy můžeme použít bez problému v těchto situacích:
+
+1. **Máme pouze 2 skupiny** - jeden t-test, žádný problém s inflací chyby
+
+2. **Plánované kontrasty** - předem specifikované hypotézy
+   - Například: Testujeme jen kontrola vs. průměr léčebných skupin
+   - Počet testů je malý a teoreticky motivovaný
+
+3. **Explorativní analýza** s vědomím rizika
+   - Ale musíme to jasně komunikovat
+   - Ideálně následně ověřit na nových datech
+
+## Závěr
+
+Provádění více t-testů namísto ANOVY vede k vážnému problému - **inflaci chyby I. druhu**. Zatímco u jednoho testu je riziko falešně pozitivního výsledku 5%, při šesti srovnáních (4 skupiny) roste na více než 26%. ANOVA elegantně řeší tento problém tím, že nejprve testuje jedinou hypotézu o celkovém rozdílu mezi skupinami, přičemž udržuje chybu prvního druhu na požadované úrovni. Teprve pokud je ANOVA signifikantní, můžeme provést post-hoc testy s vhodnými korekcemi (např. Tukey HSD), které identifikují, které konkrétní páry skupin se liší. Použití více neoprávněných t-testů je metodologicky nesprávné a vede k nadhodnocení počtu falešně pozitivních nálezů ve výzkumu.

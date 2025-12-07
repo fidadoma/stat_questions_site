@@ -1,0 +1,206 @@
+---
+title: "Co to je F rozdělení, jaké má parametry?"
+order: 370
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+F rozdělení (Fisher-Snedecorovo rozdělení) je jedno z klíčových spojitých pravděpodobnostních rozdělení ve statistice, které se používá zejména při analýze rozptylu (ANOVA) a testování hypotéz o poměru rozptylů dvou populací. Je pojmenováno po statistikovi Ronaldu Fisherovi a Williamu Snedecorovi.
+
+## Co je F rozdělení?
+
+F rozdělení vzniká jako poměr dvou nezávislých chi-kvadrát rozdělení, přičemž každé je vyděleno svými stupni volnosti. Formálně:
+
+$$F = \frac{\chi^2_1 / df_1}{\chi^2_2 / df_2}$$
+
+kde:
+- $\chi^2_1$ a $\chi^2_2$ jsou nezávislé chi-kvadrát rozdělené náhodné veličiny
+- $df_1$ a $df_2$ jsou jejich příslušné stupně volnosti
+
+## Parametry F rozdělení
+
+F rozdělení má **dva parametry** - oba jsou stupně volnosti:
+
+1. **$df_1$ (numerator degrees of freedom)** - stupně volnosti čitatele
+   - Označuje se také jako $d_1$ nebo $\nu_1$
+   - V ANOVA odpovídá počtu skupin minus 1 (mezi-skupinové stupně volnosti)
+
+2. **$df_2$ (denominator degrees of freedom)** - stupně volnosti jmenovatele
+   - Označuje se také jako $d_2$ nebo $\nu_2$
+   - V ANOVA odpovídá celkovému počtu pozorování minus počet skupin (within-group stupně volnosti)
+
+Zapisujeme jako: $F \sim F(df_1, df_2)$
+
+## Vlastnosti F rozdělení
+
+- **Pozitivní hodnoty**: F rozdělení může nabývat pouze kladných hodnot (protože je to poměr dvou rozptylů)
+- **Asymetrické**: Rozdělení je zprava zešikmené (right-skewed), zejména při malých stupních volnosti
+- **Závislost na parametrech**: Tvar rozdělení se mění v závislosti na obou stupních volnosti
+- **Vztah k jiným rozdělením**:
+  - Pokud $df_2 \to \infty$, F rozdělení se blíží chi-kvadrát rozdělení
+  - Kvadrát t rozdělení dává F rozdělení s $df_1 = 1$: $t^2(df) = F(1, df)$
+
+## Vizualizace F rozdělení
+
+Podívejme se, jak vypadá F rozdělení pro různé stupně volnosti:
+
+```{r}
+#| label: fig-f-distribution
+#| fig-cap: "F rozdělení pro různé kombinace stupňů volnosti"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření dat pro různé kombinace df
+x <- seq(0, 5, length.out = 1000)
+
+# Vytvoření datasetu pro různé kombinace df
+df_combinations <- expand.grid(
+  x = x,
+  df1 = c(2, 5, 10),
+  df2 = c(10, 30, 100)
+)
+
+# Výpočet hustoty pro každou kombinaci
+df_combinations$density <- df(df_combinations$x,
+                               df_combinations$df1,
+                               df_combinations$df2)
+
+# Vytvoření labelu
+df_combinations$label <- paste0("df1=", df_combinations$df1,
+                                 ", df2=", df_combinations$df2)
+
+# Graf
+ggplot(df_combinations, aes(x = x, y = density, color = label, linetype = factor(df1))) +
+  geom_line(size = 1) +
+  facet_wrap(~ paste0("df2 = ", df2), ncol = 1, scales = "free_y") +
+  labs(
+    title = "F rozdělení pro různé stupně volnosti",
+    x = "F hodnota",
+    y = "Hustota pravděpodobnosti",
+    color = "Parametry",
+    linetype = "df1"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  ) +
+  scale_color_brewer(palette = "Set1")
+```
+
+## Praktické použití
+
+### 1. ANOVA (Analýza rozptylu)
+F rozdělení se používá k testování hypotézy, zda se průměry více skupin statisticky liší:
+
+$$F = \frac{\text{Mean Square Between}}{\text{Mean Square Within}} = \frac{MS_{between}}{MS_{within}}$$
+
+### 2. Test homogenity rozptylů
+F test může testovat, zda mají dvě populace stejný rozptyl:
+
+$$F = \frac{s_1^2}{s_2^2}$$
+
+kde $s_1^2$ a $s_2^2$ jsou výběrové rozptyly.
+
+### 3. Regresní analýza
+V lineární regresi se F test používá k testování celkové významnosti modelu.
+
+## Příklad výpočtu kritických hodnot
+
+```{r}
+#| label: fig-f-critical
+#| fig-cap: "Kritická hodnota F rozdělení pro α = 0.05"
+#| warning: false
+
+# Parametry
+df1 <- 3  # např. 4 skupiny - 1
+df2 <- 20 # např. 24 pozorování - 4 skupiny
+alpha <- 0.05
+
+# Kritická hodnota
+f_critical <- qf(1 - alpha, df1, df2)
+
+# Data pro graf
+x <- seq(0, 6, length.out = 1000)
+y <- df(x, df1, df2)
+
+# Oblast zamítnutí
+x_reject <- seq(f_critical, 6, length.out = 100)
+y_reject <- df(x_reject, df1, df2)
+
+# Graf
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_line(size = 1.2, color = "darkblue") +
+  geom_area(data = data.frame(x = x_reject, y = y_reject),
+            aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  geom_vline(xintercept = f_critical, linetype = "dashed",
+             color = "red", size = 1) +
+  annotate("text", x = f_critical + 0.5, y = max(y) * 0.5,
+           label = paste0("Kritická hodnota\nF = ", round(f_critical, 3)),
+           color = "red", size = 4) +
+  annotate("text", x = f_critical + 1, y = 0.05,
+           label = paste0("Oblast zamítnutí\n(α = ", alpha, ")"),
+           color = "red", size = 3.5) +
+  labs(
+    title = paste0("F rozdělení s df1 = ", df1, " a df2 = ", df2),
+    subtitle = paste0("Kritická hodnota pro α = ", alpha),
+    x = "F hodnota",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+cat(paste0("Pro df1 = ", df1, " a df2 = ", df2,
+           " při α = ", alpha,
+           " je kritická hodnota F = ", round(f_critical, 3)))
+```
+
+:::{.callout-tip}
+## Praktické poznámky k F rozdělení
+
+**Interpretace F statistiky:**
+
+- **F ≈ 1**: Rozptyly mezi skupinami a uvnitř skupin jsou podobné (žádný efekt)
+- **F >> 1**: Rozptyl mezi skupinami je větší než uvnitř skupin (potenciální efekt)
+- **F < 1**: Teoreticky možné, ale obvykle naznačuje problém s daty
+
+**Stupně volnosti:**
+
+- $df_1$: Počet skupin minus 1 (k - 1)
+- $df_2$: Celkový počet pozorování minus počet skupin (N - k)
+
+**Důležité vztahy:**
+
+1. $t^2$ test je speciálním případem F testu: $t^2(df) = F(1, df)$
+2. Pro velké $df_2$, $df_1 \times F \approx \chi^2(df_1)$
+
+**Předpoklady pro použití F testu:**
+
+- Normální rozdělení dat v každé skupině
+- Nezávislost pozorování
+- Homogenita rozptylů (homoskedasticita)
+
+**Když předpoklady nejsou splněny:**
+
+- Welch ANOVA (nevyžaduje homogenitu rozptylů)
+- Kruskal-Wallis test (neparametrická alternativa)
+- Transformace dat (log, odmocnina)
+:::
+
+## Závěr
+
+F rozdělení je kontinuální pravděpodobnostní rozdělení s dvěma parametry (stupně volnosti čitatele a jmenovatele), které vzniká jako poměr dvou nezávislých chi-kvadrát rozdělení vydělených jejich stupni volnosti. Je klíčové pro analýzu rozptylu (ANOVA), testování hypotéz o poměru rozptylů a regresní analýzu. F rozdělení je vždy pozitivní, asymetrické a jeho tvar závisí na obou stupních volnosti. Při větších hodnotách F (výrazně větších než 1) máme důkaz, že rozptyl mezi skupinami je větší než rozptyl uvnitř skupin, což naznačuje statisticky významný efekt.

@@ -13,15 +13,14 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do charakteristik variability
+## Úvod
 
 Variabilita je jedním ze základních konceptů ve statistice, který nám umožňuje pochopit, jak jsou data rozptýlena nebo rozložena kolem střední hodnoty. Pokud bychom měli dvě skupiny dat se stejným průměrem, ale různou variabilitou, může to znamenat, že jedna skupina je konzistentnější, zatímco druhá může být rozptýlenější. Tento koncept je kritický pro pochopení údajů a jejich interpretaci.
 
-# Proč je variabilita důležitá?
+## Proč je variabilita důležitá?
 
 Představte si, že chcete porovnat průměrné známky dvou různých tříd. Zatímco obě třídy mohou mít stejný průměr, rozptyl jejich známek může říci více o rozdílné výkonnosti studentů. Pokud je rozptyl malý, většina studentů má podobné známky, zatímco velký rozptyl může znamenat velké rozdíly mezi jednotlivými studenty.
 
@@ -40,9 +39,10 @@ s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2
 $$
 
 kde:
-  - \( x_i \) je každá jednotlivá hodnota,
-  - \( \bar{x} \) je průměr,
-  - \( n \) je počet datových bodů.
+
+- $x_i$ je každá jednotlivá hodnota,
+- $\bar{x}$ je průměr,
+- $n$ je počet datových bodů.
 
 ### 2. Směrodatná odchylka (Standard Deviation)
 
@@ -86,7 +86,88 @@ kde:
 
 3. **Teplota počasí**: Při sledování teploty v určité oblasti může rozptyl informovat o tom, jak stabilní je klima. Oblasti s malou variabilitou mohou mít stabilnější klima, což může být důležité pro zemědělství.
 
-# Shrnutí
+## Vizualizace variability
+
+Pro lepší pochopení konceptu variability si ukažme dva datové soubory se stejným průměrem, ale různou variabilitou:
+
+```{r}
+#| label: fig-variability
+#| fig-cap: "Porovnání dat s nízkou a vysokou variabilitou"
+#| warning: false
+
+library(ggplot2)
+set.seed(123)
+
+# Vytvoření dat s nízkou a vysokou variabilitou (stejný průměr)
+data_low_var <- data.frame(
+  hodnota = rnorm(100, mean = 50, sd = 3),
+  skupina = "Nízká variabilita"
+)
+
+data_high_var <- data.frame(
+  hodnota = rnorm(100, mean = 50, sd = 15),
+  skupina = "Vysoká variabilita"
+)
+
+data <- rbind(data_low_var, data_high_var)
+
+# Vizualizace
+ggplot(data, aes(x = hodnota, fill = skupina)) +
+  geom_histogram(alpha = 0.6, position = "identity", bins = 30) +
+  facet_wrap(~skupina, ncol = 1) +
+  geom_vline(xintercept = 50, linetype = "dashed", color = "red", size = 1) +
+  labs(
+    title = "Rozdíl mezi nízkou a vysokou variabilitou",
+    x = "Hodnota",
+    y = "Četnost",
+    caption = "Červená čára označuje průměr (50 v obou případech)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+:::{.callout-tip}
+## Metodologické doporučení: Která míra variability kdy?
+
+**Směrodatná odchylka (SD)** - standardní volba pro normálně rozdělená data:
+
+- Vyjádřena ve stejných jednotkách jako data
+- Nutná pro parametrické testy (t-test, ANOVA)
+- Příklad: "Výška: M = 175 cm, SD = 10 cm"
+
+**Rozptyl (Variance)** - především pro pokročilé výpočty:
+
+- Teoreticky důležitý (ANOVA, regrese)
+- V jednotkách na druhou → těžší interpretace
+- Aditivní vlastnost: Var(X+Y) = Var(X) + Var(Y)
+
+**Mezikvartilový rozptyl (IQR)** - pro zešikmená data nebo s outliers:
+
+- Robustní vůči extrémům
+- Popisuje variabilitu prostředních 50 % dat
+- Používá se s mediánem místo průměru
+- Příklad: Příjmy, ceny nemovitostí
+
+**Variační koeficient (CV)** - pro porovnání variability mezi různými měřítky:
+
+- Bezrozměrná míra (v %)
+- Umožňuje porovnat "výšku (cm)" s "váhou (kg)"
+- Užitečné v biologii, ekonomii
+- Pozor: Nevhodné, pokud průměr ≈ 0
+
+**Pravidlo**: Pro běžné reportování použijte SD. Pro robustní analýzy použijte IQR.
+:::
+
+## Závěr
 
 Charakteristiky variability nám poskytují klíčový pohled na to, jak jsou data rozložena kolem střední hodnoty. Prostřednictvím rozptylu, směrodatné odchylky, variačního koeficientu a mezikvartilového rozptylu můžeme lépe pochopit, jaké procesy ovlivňují naše data a jak je můžeme efektivně interpretovat. Při analýze dat je důležité zvolit správný ukazatel variability podle povahy dat, které máme k dispozici.
-```
+
+
+## Viz také
+
+- [Jaké znáte charakteristiky středu](jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - měření centrální tendence
+- [Rozdíl mezi rozptylem, směrodatnou odchylkou a průměrnou odchylkou](jaky_je_rozdil_mezi_rozptylem_smerodatnou_odchylkou_a_prumernou_odchylkou.qmd) - detaily o mírách variability
+- [Které deskriptivní statistiky obsahuje krabicový graf](../../visualizations/ktere_deskriptivni_statistiky_obsahuje_krabicovy_graf.qmd) - vizualizace IQR
+- [Co to je standardní chyba průměru](../../../inferential_statistics/co_to_je_standardni_chyba_prumeru_a_k_cemu_slouzi.qmd) - variabilita odhadů
+- [Co to je homoskedasticita](../../../inferential_statistics/co_to_je_homeskedascita_jak_ji_pozname.qmd) - homogenita rozptylů
+

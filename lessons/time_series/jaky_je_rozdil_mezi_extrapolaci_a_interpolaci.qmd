@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 V oblasti statistiky, matematiky a datové analýzy se můžete často setkat s pojmy **extrapolace** a **interpolace**. Tyto dvě techniky jsou základní pro práci s daty, zejména když potřebujete odhadnout hodnoty, které nejsou přímo dostupné z dat. Je důležité rozumět, jak oba pojmy fungují, a kdy je vhodné je použít.
 
@@ -57,8 +56,27 @@ Například pokud máte data o růstu rostliny za posledních pět týdnů a chc
   - Interpolace je obvykle přesnější, pokud je rozsah pozorování hustý a pravidelný.
   - Extrapolace může být velmi nepřesná, pokud se nedoplní o další validaci či analytické metody.
 
+:::{.callout-warning}
+## Metodologická poznámka: Extrapolace vs Interpolace - rizika
+
+**Definice:**
+
+| Metoda | Kde | Riziko | Použití |
+|--------|-----|--------|---------|
+| **Interpolace** | UVNITŘ dat | ✅ Nízké | Chybějící hodnoty |
+| **Extrapolace** | MIMO data | ⚠️ Vysoké | Forecast |
+
+
+**Riziká extrapolace:**
+
+❌ **Předpoklad stability**: Trend může změnit
+❌ **Strukturální zlomy**: Ekonomické šoky
+❌ **Out-of-sample**: Žádná data pro validaci
+
+**Zlaté pravidlo**: Interpolace je bezpečná, extrapolace vyžaduje opatrnost a intervaly spolehlivosti!
+:::
+
 # Závěr
 
 Rozlišování mezi extrapolací a interpolací je klíčové pro správné a přesné zpracování dat. Při odhadování neznámých hodnot je důležité vždy zvážit kontext a možnosti, jak různé faktory mohou změnit dynamiku dat. Mějte na paměti, že zatímco obě techniqy jsou užitečné, jejich přesnost a platnost závisí na povaze vašich dat a rozumných předpokladech o jejich chování.
-
 

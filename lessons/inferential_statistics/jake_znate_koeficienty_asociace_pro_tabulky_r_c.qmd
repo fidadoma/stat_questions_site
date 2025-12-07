@@ -1,5 +1,6 @@
 ---
 title: "Koeficienty asociace pro r × c tabulky"
+order: 320
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 

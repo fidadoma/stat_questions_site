@@ -13,15 +13,14 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Relativní četnost v kontingenční tabulce je velmi užitečný nástroj, který nám pomáhá pochopit proporce nebo procenta jednotlivých kategorií ve vztahu k celkovému souboru dat. V tomto studijním materiálu se zaměříme na různé možnosti relativních četností, které můžeme použít v kontingenční tabulce, abychom lépe porozuměli vzájemným vztahům mezi kategoriemi.
 
-# Základní pojmy
+## Základní pojmy
 
 Než se pustíme do samotných možností, je důležité pochopit několik základních pojmů:
 
@@ -29,36 +28,203 @@ Než se pustíme do samotných možností, je důležité pochopit několik zák
 - **Relativní četnost:** Procentuální vyjádření absolutní četnosti vzhledem k celkovému počtu — jaká část celku je tvořena danou kategorií.
 - **Kontingenční tabulka:** Tabulka zobrazující frekvenci (častost) různých kombinací kategorií dvou (nebo více) proměnných.
 
-# Možnosti relativních četností v kontingenční tabulce
+## Možnosti relativních četností v kontingenční tabulce
 
-## 1. Relativní četnost k celkovému součtu
+:::{.callout-important}
+## Metodologické doporučení: Která relativní četnost kdy?
+
+Existují **3 typy relativních četností** pro kontingenční tabulky, každý odpovídá na jinou otázku:
+
+**1. Relativní četnosti k celkovému součtu** - "Jaký % ze všech?"
+
+- Odpovídá: "Kolik % celého vzorku je v této buňce?"
+- Užitečné pro: Celkový přehled distribuce
+- Součet všech buněk = 100%
+
+**2. Relativní četnosti v rámci řádků** - "Jaký % v rámci této skupiny?"
+
+- Odpovídá: "Jaké % mužů preferuje modrou?" (řádek = muži)
+- Užitečné pro: Porovnání profilů skupin
+- Součet každého řádku = 100%
+
+**3. Relativní četnosti v rámci sloupců** - "Jaký % této kategorie?"
+
+- Odpovídá: "Kolik % lidí, co preferují modrou, jsou muži?" (sloupec = modrá)
+- Užitečné pro: Složení jednotlivých kategorií
+- Součet každého sloupce = 100%
+
+**Jak vybrat?**
+
+- **Závislá vs nezávislá proměnná**: Dělte podle nezávislé proměnné
+  - Pohlaví (nezávislá) × Preference (závislá) → %  v rámci řádků (pohlaví)
+- **Otázka výzkumu** určuje volbu!
+- **V publikacích**: Často reportujte absolutní + 1-2 typy relativních četností
+:::
+
+### 1. Relativní četnost k celkovému součtu
 
 Tato metoda počítá relativní četnosti vzhledem ke všem záznamům v tabulce. Každá buňka reprezentuje poměr vůči celkovému počtu všech záznamů.
 
-### Příklad z každodenního života
+#### Příklad z každodenního života
 
 Představme si, že analyzujeme preference čtyř různých jídel ve školní jídelně mezi studenty různého věku. Celkový počet studentů je 200. Relativní četnost k celkovému součtu nám ukáže, jaké procento z těchto 200 studentů si oblíbilo každé jídlo.
 
-## 2. Relativní četnost v rámci řádků
+```{r}
+#| label: fig-relative-total
+#| fig-cap: "Relativní četnosti k celkovému součtu"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+
+# Vytvoření ukázkových dat
+data <- data.frame(
+  vek = rep(c("15-18 let", "19-22 let", "23+ let"), each = 3),
+  jidlo = rep(c("Pizza", "Salát", "Burger"), 3),
+  pocet = c(30, 20, 15,  # 15-18 let
+            25, 30, 20,  # 19-22 let
+            15, 25, 20)  # 23+ let
+)
+
+# Výpočet relativních četností k celkovému součtu
+total <- sum(data$pocet)
+data$rel_total <- round(data$pocet / total * 100, 1)
+
+# Kontingenční tabulka s relativními četnostmi
+cont_rel_total <- xtabs(rel_total ~ vek + jidlo, data = data)
+
+knitr::kable(cont_rel_total,
+             caption = "Relativní četnosti k celkovému součtu (%)",
+             align = "c",
+             digits = 1)
+```
+
+### 2. Relativní četnost v rámci řádků
 
 Takto počítané četnosti se vztahují k sumě všech hodnot v jednotlivých řádcích. Pomocí této možnosti vidíme, jaké procento z jednoho řádku odpovídá každé kategorii.
 
-### Příklad
+#### Příklad
 
 Pokud bychom zůstali u předchozího příkladu, představme si, že máme řádky rozděleny podle věkových kategorií studentů. Relativní četnost v rámci řádků nám pomůže zjistit, jaké procento studentů v každé věkové kategorii preferuje určité jídlo.
 
-## 3. Relativní četnost v rámci sloupců
+```{r}
+#| label: fig-relative-rows
+#| fig-cap: "Relativní četnosti v rámci řádků"
+#| warning: false
+
+# Výpočet relativních četností v rámci řádků
+data <- data %>%
+  group_by(vek) %>%
+  mutate(rel_row = round(pocet / sum(pocet) * 100, 1)) %>%
+  ungroup()
+
+# Kontingenční tabulka s relativními četnostmi v řádcích
+cont_rel_row <- xtabs(rel_row ~ vek + jidlo, data = data)
+
+knitr::kable(cont_rel_row,
+             caption = "Relativní četnosti v rámci řádků (% v rámci věkové kategorie)",
+             align = "c",
+             digits = 1)
+```
+
+### 3. Relativní četnost v rámci sloupců
 
 Tento způsob počítání relativních četností se zaměřuje na proporce v rámci sloupců. Pro každý sloupec ukazujeme poměr jednotlivých buněk k celkovému součtu sloupce.
 
-### Příklad
+#### Příklad
 
 Pokud použijeme sloupce pro různá jídla, relativní četnost v rámci sloupců nám řekne, jaké procento studentů (bez ohledu na věk) preferuje určité jídlo vzhledem k celkovému počtu studentů, kteří zvolili jídlo z příslušného sloupce.
 
-# Závěr
+```{r}
+#| label: fig-relative-columns
+#| fig-cap: "Relativní četnosti v rámci sloupců"
+#| warning: false
+
+# Výpočet relativních četností v rámci sloupců
+data <- data %>%
+  group_by(jidlo) %>%
+  mutate(rel_col = round(pocet / sum(pocet) * 100, 1)) %>%
+  ungroup()
+
+# Kontingenční tabulka s relativními četnostmi ve sloupcích
+cont_rel_col <- xtabs(rel_col ~ vek + jidlo, data = data)
+
+knitr::kable(cont_rel_col,
+             caption = "Relativní četnosti v rámci sloupců (% v rámci jídla)",
+             align = "c",
+             digits = 1)
+```
+
+## Vizuální porovnání všech tří typů
+
+```{r}
+#| label: fig-relative-comparison
+#| fig-cap: "Porovnání různých typů relativních četností"
+#| warning: false
+#| fig-height: 15
+
+library(gridExtra)
+
+# Graf 1: Celkové relativní četnosti
+p1 <- ggplot(data, aes(x = jidlo, y = rel_total, fill = vek)) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_text(aes(label = paste0(rel_total, "%")),
+            position = position_dodge(width = 0.9),
+            vjust = -0.5, size = 3) +
+  labs(
+    title = "Relativní četnosti k celkovému součtu",
+    subtitle = "% ze všech studentů",
+    x = "Jídlo",
+    y = "Procento (%)",
+    fill = "Věková kategorie"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Graf 2: Relativní četnosti v řádcích
+p2 <- ggplot(data, aes(x = jidlo, y = rel_row, fill = vek)) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_text(aes(label = paste0(rel_row, "%")),
+            position = position_dodge(width = 0.9),
+            vjust = -0.5, size = 3) +
+  labs(
+    title = "Relativní četnosti v rámci řádků",
+    subtitle = "% v rámci každé věkové kategorie (řádky sumují na 100%)",
+    x = "Jídlo",
+    y = "Procento (%)",
+    fill = "Věková kategorie"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Graf 3: Relativní četnosti ve sloupcích
+p3 <- ggplot(data, aes(x = jidlo, y = rel_col, fill = vek)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = paste0(rel_col, "%")),
+            position = position_stack(vjust = 0.5),
+            color = "white", fontface = "bold", size = 3) +
+  labs(
+    title = "Relativní četnosti v rámci sloupců",
+    subtitle = "% v rámci každého jídla (sloupce sumují na 100%)",
+    x = "Jídlo",
+    y = "Procento (%)",
+    fill = "Věková kategorie"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+## Závěr
 
 Relativní četnosti v kontingenční tabulce jsou základním nástrojem statistiků a analytiků dat, protože pomáhají v identifikaci a pochopení vzorců uvnitř dat. Pochopení různých způsobů vykazování relativních četností může dramaticky zlepšit schopnost interpretace dat ze skutečného světa. 
 
 Ať už se jedná o analýzu trendů spotřebitelských preferencí nebo studium efektivity různých léčebných metod ve zdravotnictví, znalost, jak využít kontingenční tabulku k analýze relativních četností, je klíčová pro mnohé aplikace.
 
+## Viz také
+
+- [Co nám popisuje kontingenční tabulka](co_nam_popisuje_kontingencni_tabulka.qmd) - základy kontingenčních tabulek
+- [Jaké znáte druhy četností](../../basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.qmd) - typy četností
+- [Jaké znáte verze χ² testu](../../../inferential_statistics/jake_znate_verze_2_testu_a_k_cemu_slouzi.qmd) - testování vztahů
 

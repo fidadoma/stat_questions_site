@@ -1,5 +1,6 @@
 ---
 title: "Testování hypotéz ve statistice"
+order: 60
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -54,8 +54,83 @@ Vědecké a statistické metody hledají objektivní rozhodnutí, která jsou po
 
 - **Sociální výzkumy**: V analýzách veřejného mínění se zkoumá, zda existuje statisticky významný rozdíl v názorech různých demografických skupin.
 
+:::{.callout-tip}
+## Metodologický workflow: Testování hypotéz krok za krokem
+
+**6 kroků testování hypotéz:**
+
+**1. Formulace hypotéz**
+
+- **H0 (nulová)**: Žádný efekt/rozdíl (status quo)
+- **Ha (alternativní)**: Efekt/rozdíl existuje
+- Příklad: H0: μ1 = μ2 vs Ha: μ1 ≠ μ2
+
+**2. Volba hladiny významnosti (α)**
+
+- Typicky α = 0.05
+- Stanovit PŘED sběrem dat!
+
+**3. Výběr vhodného testu**
+
+| Situace | Test |
+|---------|------|
+| Porovnání průměrů (2 skupiny) | t-test |
+| Porovnání průměrů (3+ skupin) | ANOVA |
+| Vztah dvou číselných proměnných | Korelace/regrese |
+| Vztah kategoriálních proměnných | Chi-kvadrát test |
+| Non-normální data | Neparametrické testy |
+
+**4. Kontrola předpokladů**
+
+- Normalita (Shapiro-Wilk, Q-Q plot)
+- Homogenita rozptylů (Levene test)
+- Nezávislost pozorování
+- **VŽDY kontrolujte před testem!**
+
+**5. Výpočet testové statistiky a p-hodnoty**
+
+- Software vypočítá t, F, χ² statistiku
+- Z ní se odvozuje p-hodnota
+
+**6. Rozhodnutí a interpretace**
+
+- Pokud p < α: Zamítneme H0
+- Reportujte: p-hodnotu, CI, effect size, ne jen "signifikantní"
+
+**Co testování hypotéz NENÍ:**
+
+- ❌ Důkaz pravdy H0 nebo Ha
+- ❌ Měřítko praktického významu
+- ❌ Příčinný důkaz (korelace ≠ kauzalita)
+- ❌ Jedinou informaci, kterou potřebujete
+
+**Alternativy k NHST (Null Hypothesis Significance Testing):**
+
+- **Konfidenční intervaly**: Rozsah hodnot konzistentních s daty
+- **Bayesovské testování**: Poměr pravděpodobnosti H1 vs H0
+- **Equivalence testing**: Prokázání absence efektu
+- **Effect size s CI**: Velikost efektu + nejistota
+
+**Problém replikační krize:**
+
+- Mnoho "signifikantních" výsledků se nereplikuje
+- Důvody: p-hacking, publication bias, malé vzorky
+- Řešení: Předregistrace, větší vzorky, replikace
+
+**Best practices:**
+
+1. ✅ Předregistrujte hypotézy a analýzy
+2. ✅ Reportujte všechny testy (i nesignifikantní)
+3. ✅ Používejte konfidenční intervaly
+4. ✅ Reportujte velikost efektu
+5. ✅ Zkontrolujte předpoklady testů
+6. ✅ Interpretujte v kontextu, ne mechanicky
+7. ✅ Replikujte důležité výsledky
+
+**Zlaté pravidlo**: Testování hypotéz je nástroj, ne cíl. Používejte ho moudře a v kombinaci s jinými metodami!
+:::
+
 ## Závěr
 
 Testování hypotéz je zásadní nástroj pro objektivní rozhodování na základě dat. Pomocí něj můžeme ověřovat předpoklady a učinit informovaná rozhodnutí. Rozumět tomuto procesu je klíčové jak pro vědecký výzkum, tak pro rozhodování v obchodním světě.
-
 

@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Definice Pravděpodobnosti
+## Úvod
 
 Pravděpodobnost je matematický koncept, který měří míru jistoty nebo nejistoty události. Pravděpodobnost nám pomáhá vyjádřit, jak je pravděpodobné, že se něco stane. Tento pojem je ústřední pro oblast statistiky a pravděpodobnosti a je základem pro mnoho dalších statistických konceptů.
 
@@ -27,7 +26,54 @@ Formálně lze pravděpodobnost definovat jako číslo mezi 0 a 1, které vyjad�
 - **0**: Událost je nemožná, nebude se nikdy konat.
 - **1**: Událost je jistá, určitě se stane.
 
-Pravděpodobnost je často označována písmenem 'P'. Pokud máme událost 'A', pravděpodobnost této události se značí jako \( P(A) \).
+Pravděpodobnost je často označována písmenem 'P'. Pokud máme událost 'A', pravděpodobnost této události se značí jako $P(A)$.
+
+```{r}
+#| label: fig-probability-scale
+#| fig-cap: "Škála pravděpodobnosti od 0 (nemožné) do 1 (jisté)"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření dat pro škálu
+events <- data.frame(
+  event = c("Hod kostkou\npade 7", "Zítra bude\npršet (30%)",
+            "Hod mincí\npadne hlava", "Hod kostkou\npade 1-6", "Slunce\nvyjde zítra"),
+  probability = c(0, 0.3, 0.5, 1, 1),
+  y = c(1, 1, 1, 1, 1),
+  label_pos = c(1.3, 1.3, 1.3, 1.3, 1.3)
+)
+
+ggplot(events, aes(x = probability, y = y)) +
+  geom_segment(aes(x = 0, xend = 1, y = 1, yend = 1),
+               arrow = arrow(length = unit(0.3, "cm"), ends = "both"),
+               size = 1.5, color = "steelblue") +
+  geom_point(size = 5, color = "darkred") +
+  geom_text(aes(x = probability, y = label_pos, label = event),
+            size = 3, fontface = "bold", vjust = 0) +
+  annotate("text", x = 0, y = 0.7, label = "NEMOŽNÉ\nP = 0",
+           fontface = "bold", color = "darkred", size = 4) +
+  annotate("text", x = 1, y = 0.7, label = "JISTÉ\nP = 1",
+           fontface = "bold", color = "darkgreen", size = 4) +
+  annotate("text", x = 0.5, y = 0.7, label = "50-50\nP = 0.5",
+           fontface = "bold", color = "darkorange", size = 3.5) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1),
+                     labels = seq(0, 1, 0.1)) +
+  labs(
+    title = "Škála pravděpodobnosti",
+    subtitle = "Pravděpodobnost je vždy číslo mezi 0 a 1",
+    x = "Pravděpodobnost P",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  ylim(0.5, 2)
+```
 
 ## Příklady z Běžného Života
 
@@ -36,45 +82,59 @@ Abychom lépe pochopili, co pravděpodobnost znamená, podívejme se na několik
 ### 1. Hod kostkou
 
 Představte si, že máte férovou šestistěnnou kostku. Pokud se ptáme, jaká je pravděpodobnost, že při hodu padne číslo 3, použijeme definici pravděpodobnosti. Šestistěnná kostka má šest možných výsledků (1, 2, 3, 4, 5, 6). Pravděpodobnost, že padne trojka, je tedy 1 z 6, což se zapisuje jako:
-\[ P(\text{trojka}) = \frac{1}{6} \approx 0.1667 \]
+$$ P(\text{trojka}) = \frac{1}{6} \approx 0.1667 $$
 
 ### 2. Mince
 
 Pro jiný příklad vezměme hod mřížkou (například 1 korunou). Mince má dvě strany, hlavu a orel. Pokud hodíme mincí, pravděpodobnost, že padne hlava, je:
-\[ P(\text{hlava}) = \frac{1}{2} = 0.5 \]
+$$ P(\text{hlava}) = \frac{1}{2} = 0.5 $$
 
 ### 3. Počasí
 
 Jeden z běžných příkladů používání pravděpodobnosti je mít předpověď počasí. Například meteorologové mohou říkat, že je 30% pravděpodobnost deště. To znamená, že je málo pravděpodobné (přesto možné), že bude pršet, ale pravděpodobnost je nižší než 50%.
 
+:::{.callout-tip}
+## Metodologická poznámka: Jak pracovat s pravděpodobností?
+
+**Základní pravidla**:
+
+1. **Rozsah**: Pravděpodobnost je VŽDY mezi 0 a 1 (nebo 0% až 100%)
+2. **P = 0**: Událost je nemožná
+3. **P = 1**: Událost je jistá
+4. **0 < P < 1**: Událost je možná, ale nejistá
+
+**Časté chyby**:
+
+- ❌ "Pravděpodobnost je 120%" → Nemožné, max je 100%!
+- ❌ "Pravděpodobnost je -0.5" → Nemožné, min je 0!
+- ❌ Záměna P(A nebo B) s P(A) + P(B) → Platí jen pro **neslučitelné** události!
+
+**Interpretace**:
+
+- **Frekventistická**: P = 0.3 znamená "v 30% případů při opakování"
+- **Bayesovská**: P = 0.3 znamená "stupeň víry 30%"
+
+**Pro praktické použití**:
+
+- P < 0.05: "Nepravděpodobné"
+- P ≈ 0.5: "Fifty-fifty"
+- P > 0.95: "Téměř jisté"
+
+**Pravidlo palce**: Nikdy neříkejte "nemožné" (P=0) nebo "jisté" (P=1) u empirických dat - vždy je malá nejistota!
+:::
+
 ## Vlastnosti Pravděpodobnosti
 
 ### 1. Nezápornost
 Pravděpodobnost jakékoliv události 'A' je nezáporné číslo, tedy:
-\[ 0 \leq P(A) \leq 1 \]
+$$ 0 \leq P(A) \leq 1 $$
 
 ### 2. Jistá Událost
 Pravděpodobnost jisté události (událost, která se stane vždy) je 1. Například pravděpodobnost, že v noci bude tma, je:
-\[ P(\text{tma v noci}) = 1 \]
+$$ P(\text{tma v noci}) = 1 $$
 
 ### 3. Nemožná Událost
 Pravděpodobnost nemožné události (událost, která se nestane nikdy) je 0. Například pravděpodobnost, že šestistěnnou kostkou hodíte sedmičku, je:
-\[ P(\text{sedmička}) = 0 \]
+$$ P(\text{sedmička}) = 0 $$
 
-## Spojení Událostí
-
-### Sčítací Pravidlo
-Pokud máme dvě neslučitelné události 'A' a 'B', které se nemohou stát současně, pak pravděpodobnost, že nastane alespoň jedna z nich, je dána součtem jejich jednotlivých pravděpodobností:
-\[ P(A \cup B) = P(A) + P(B) \]
-Například pravděpodobnost, že z balíčku karet vytáhneme eso nebo krále, když každá možnost je neslučitelná s druhou, je součet pravděpodobností jednotlivých událostí.
-
-### Vylučovací Pravidlo
-Pokud máme dvě události, které se navzájem vylučují, pravděpodobnost, že nastanou obě, je nulová:
-\[ P(A \cap B) = 0 \]
-
-### Doplněk Události
-Pravděpodobnost, že se událost 'A' nestane, je rovna 1 minus pravděpodobnost, že se stane:
-\[ P(A') = 1 - P(A) \]
-
-Doufáme, že tento materiál vám pomohl lépe pochopit základní koncepty pravděpodobnosti a jejich aplikaci v každodenním životě. Pro hlubší porozumění je však nutná další studie a praxe s konkrétními úlohami a případovými studiemi.
 

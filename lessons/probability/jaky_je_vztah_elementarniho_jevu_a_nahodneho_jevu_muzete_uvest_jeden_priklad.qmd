@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do pravděpodobnosti
+## Úvod
 
 Když hovoříme o pravděpodobnosti a statistice, často se setkáváme s pojmy jako **elementární jev** a **náhodný jev**. Tyto pojmy jsou základními stavebními kameny porozumění pravděpodobnosti. Rozložme si je tedy na jejich základní komponenty a pojďme se podívat, jak spolu interagují.
 
@@ -59,8 +58,54 @@ Představte si kostku se šesti stranami (očíslovanými od 1 do 6). Každé č
 - Jednotlivé elementární jevy jsou: {1}, {2}, {3}, {4}, {5}, {6}.
 - Příklad náhodného jevu může být například "hodíme sudé číslo", což by zahrnovalo elementární jevy {2, 4, 6}.
 
+:::{.callout-note}
+## Metodologická poznámka: Základní pojmy pravděpodobnosti
+
+**Klíčové koncepty:**
+
+**1. Výsledný prostor (Ω, omega)**:
+
+- Množina VŠECH možných elementárních jevů
+- Příklad: Hod kostkou → Ω = {1, 2, 3, 4, 5, 6}
+
+**2. Elementární jev (ω)**:
+
+- Nejjednodušší možný výsledek, nelze dále rozdělit
+- Příklad: Padne trojka → ω = {3}
+- **Vlastnost**: Elementární jevy se navzájem vylučují
+
+**3. Náhodný jev (A, B, ...)**:
+
+- Jakákoliv podmnožina výsledného prostoru
+- Může obsahovat 0, 1 nebo více elementárních jevů
+- Příklad: Padne sudé číslo → A = {2, 4, 6}
+
+**Vztahy:**
+
+- Každý elementární jev je náhodný jev (jednoprvková množina)
+- Náhodný jev = sjednocení elementárních jevů
+- P(A) = součet pravděpodobností elementárních jevů v A
+
+**Notace (důležité!):**
+
+- **Ω**: Výsledný prostor (všechny možnosti)
+- **ω**: Elementární jev (jedna konkrétní možnost)
+- **A, B**: Náhodné jevy (množiny možností)
+- **A ∪ B**: "A nebo B" (sjednocení)
+- **A ∩ B**: "A a B současně" (průnik)
+- **A'** nebo **Ā**: "ne A" (komplement)
+
+**Příklad - dvě kostky:**
+
+- **Ω** = {(1,1), (1,2), ..., (6,6)} → 36 elementárních jevů
+- **ω** = {(3,4)} → konkrétní výsledek
+- **A** = "součet je 7" = {(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)}
+- **P(A)** = 6/36 = 1/6
+
+**Pravidlo**: Vždy začněte definováním výsledného prostoru!
+:::
+
 ## Závěr
 
 Elementární jevy a náhodné jevy jsou klíčové koncepty pro pochopení pravděpodobnosti. Elementární jevy představují nejzákladnější možné výsledky, zatímco náhodné jevy umožňují složitější kombinace a interpretace těchto výsledků v rámci daného experimentu. Bez jejich plného pochopení by bylo obtížné analyzovat pravděpodobnost a náhodné události.
-
 

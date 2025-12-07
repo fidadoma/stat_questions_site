@@ -1,5 +1,6 @@
 ---
-title: "Power Analýza v Statistikách: K čemu slouží a jak ji využít?"
+title: "Power analýza: K čemu slouží a jak ji využít?"
+order: 360
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,19 +13,14 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-## Úvod
-
-V tomto studijním materiálu se budeme zabývat konceptem **power analýzy** ve statistikách. Power analýza je důležitým nástrojem v plánování experimentů a testování hypotéz. Cílem je pochopit, proč je power analýza důležitá, jak funguje a kdy ji použít.
-
-## Co je to Power Analýza?
+## Co je to Power analýza?
 
 Power analýza je statistická technika používaná k určení velikosti vzorku potřebné pro detekci efektu určité velikosti s danou úrovní jistoty. Power analýza odpovídá na otázku: "Jak velký vzorek potřebuji pro svůj experiment, abych měl dostatečně silný důkaz pro podporu (nebo zamítnutí) hypotézy?"
 
-### Klíčové Pojmy
+### Klíčové pojmy
 
 - **Síla Testu (Power)**: Pravděpodobnost správného zamítnutí nulové hypotézy, když je alternativní hypotéza vázána pravda. Často je cílem experimentu mít sílu testu 80% nebo vyšší.
 - **Nulová Hypotéza (H0)**: Výchozí předpoklad, který se snažíme otestovat. Například, že nový lék nemá žádný efekt.
@@ -32,15 +28,15 @@ Power analýza je statistická technika používaná k určení velikosti vzorku
 - **Velikost Efektu**: Kvantitativní měřítko síly jevu (např. například rozdíl mezi dvěma skupinami).
 - **Hladina Významnosti (α)**: Pravděpodobnost chybného zamítnutí nulové hypotézy (obvykle stanovená na 0.05).
 
-## Proč je Power Analýza Důležitá?
+## Proč je Power analýza důležitá?
 
 Představte si, že organizujete experiment, abyste zjistili, zda nový vzdělávací program zlepšuje výsledky studentů. Pokud máte příliš malý vzorek studentů, možná nedetekujete skutečný efekt programu, i když existuje (tzv. **chyba typu II**). Naopak, pokud váš vzorek je příliš velký, můžete najít efekt, který je statisticky významný, ale není prakticky významný.
 
 Power analýza pomáhá vyvážit tyto aspekty:
-- **Zajistí Dostatečnou Velikost Vzorku**: Některé experimenty mohou být časově a finančně nákladné, a proto je efektivní plánování klíčové.
+- **Zajistí dostatečnou velikost vzorku**: Některé experimenty mohou být časově a finančně nákladné, a proto je efektivní plánování klíčové.
 - **Minimalizace Chyb**: Snižuje pravděpodobnost výskytu chyb typu I a II.
 
-## Jak Probíhá Power Analýza?
+## Jak probíhá Power analýza?
 
 Před provedením experimentu byste měli procvičit power analýzu. Zde je, jak to obvykle probíhá:
 
@@ -52,6 +48,107 @@ Před provedením experimentu byste měli procvičit power analýzu. Zde je, jak
 ### Příklad z Běžného Života
 
 Představte si, že pracujete v potravinářské firmě a máte na starosti testování nové chuti zmrzliny. Chcete zjistit, zda nová chuť je oblíbenější než stávající. Pokud podceníte velikost vzorku, můžete nezjistit, že nová chuť je o 10 % oblíbenější, což by mohlo vést k mylným rozhodnutím o uvedení na trh.
+
+:::{.callout-tip}
+## Metodologická poznámka: Power analýza v praxi
+
+**4 klíčové elementy power analýzy:**
+Každá power analýza pracuje se 4 parametry. Známe-li 3, můžeme vypočítat 4.:
+
+1. **n (velikost vzorku)** - Kolik pozorování potřebujeme?
+2. **α (hladina významnosti)** - Typicky 0.05
+3. **Power (1-β)** - Doporučeno ≥ 0.80 (80%)
+4. **Effect size** - Očekávaná velikost efektu
+
+**Typy power analýzy:**
+
+| Typ | Kdy použít | Co počítáme |
+|-----|-----------|-------------|
+| **A priori** | PŘED sběrem dat | **n** (kolik účastníků?) |
+| **Post-hoc** | PO sběru dat | Power (jakou jsme měli sílu?) |
+| **Sensitivity** | Před studií | Minimální detekovatelný efekt |
+| **Criterion** | Optimalizace | Optimální α |
+
+**⚠️ VAROVÁNÍ: Post-hoc power analýza je problematická!**
+
+- Pokud p < 0.05 → post-hoc power je vysoká (ale to už víme!)
+- Pokud p > 0.05 → post-hoc power je nízká (tautologie!)
+- **NEPOUŽÍVEJTE** post-hoc power pro obhajobu nesignifikantních výsledků
+- **MÍSTO TOHO**: Reportujte konfidenční intervaly
+
+**A priori power analýza (nejčastější):**
+
+**Krok 1**: Stanovte požadovanou power (obvykle 0.80 nebo 0.90)
+**Krok 2**: Určete α (obvykle 0.05)
+**Krok 3**: Odhadněte effect size:
+   - Z předchozích studií
+   - Z pilotního výzkumu
+   - Z teoretických úvah
+   - Cohen's benchmarks (poslední možnost!)
+**Krok 4**: Spočítejte požadované n v software (G*Power, R pwr package)
+
+**Kde vzít odhad effect size?**
+
+1. **Předchozí studie**: Nejlepší zdroj (meta-analýzy!)
+2. **Pilotní data**: Opatrně, nestabilní s malým n
+3. **SESOI** (Smallest Effect Size of Interest): Co je prakticky významné?
+4. **Cohen's benchmarks**: Jen pokud nemáte nic jiného (malý: 0.2, střední: 0.5, velký: 0.8)
+
+**Trade-offs:**
+
+- ↑ Power → ↑ n potřebné
+- ↑ α → ↓ n potřebné (ale ↑ false positives!)
+- ↑ Effect size → ↓ n potřebné
+- ↑ Počet skupin/faktorů → ↑ n potřebné
+
+**Praktické příklady požadovaných n:**
+
+**T-test (α=0.05, power=0.80):**
+
+- Malý efekt (d=0.2): n = 394 per group
+- Střední efekt (d=0.5): n = 64 per group
+- Velký efekt (d=0.8): n = 26 per group
+
+**Korelace (α=0.05, power=0.80):**
+
+- Malý efekt (r=0.1): n = 783
+- Střední efekt (r=0.3): n = 84
+- Velký efekt (r=0.5): n = 29
+
+**Software pro power analýzu:**
+
+- **G*Power** (zdarma, GUI) - Nejpopulárnější
+- **R**: packages `pwr`, `pwrss`, `simr` (pro mixed models)
+- **Python**: `statsmodels.stats.power`
+- Online kalkulačky (pro jednoduché případy)
+
+**Faktory zvyšující power (bez zvýšení n):**
+
+1. ↓ Variabilita měření (lepší instrumenty)
+2. ↑ Effect size (silnější intervence)
+3. Within-subject design místo between-subject
+4. Kovariáty v ANCOVA (kontrola nuisance variability)
+5. Vyvážené skupiny (stejné n ve všech skupinách)
+
+**Časté chyby:**
+
+- ❌ Nedělat power analýzu vůbec
+- ❌ Dělat jen post-hoc power analýzu po nesignifikantním výsledku
+- ❌ Používat nerealisticky velké effect size (d=0.8 "protože je to large")
+- ❌ Ignorovat attrition (dropout) - počítejte s ním! (n_recruit = n_needed / (1 - dropout_rate))
+- ❌ Zapomenout na Bonferroni při multiple testing
+
+**Best practice:**
+
+1. ✅ Proveďte a priori power analýzu PŘED sběrem dat
+2. ✅ Předregistrujte ji (OSF, AsPredicted, clinical trials)
+3. ✅ Reportujte v Methods: "Power analysis indicated n=64 per group for d=0.5, α=0.05, power=0.80"
+4. ✅ Počítejte s dropout: n_recruit = n_needed * 1.2
+5. ✅ Konzervativní odhady effect size (ne optimistické!)
+6. ✅ Pro explorační výzkum: sensitivity analýza místo fixního n
+
+**Zlaté pravidlo**: "Failure to plan is planning to fail" - Power analýza je nezbytná součást dobrého designu studie!
+:::
 
 ## Závěr
 

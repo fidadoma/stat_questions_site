@@ -1,4 +1,6 @@
 ---
+title: K čemu slouží bodový odhad a jaké bodové odhady znáte?
+order: 10
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -11,11 +13,8 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
-
-# Statistika: Bodový Odhad
 
 ## Úvod
 
@@ -31,7 +30,7 @@ V reálném světě není vždy možné znal celý populační parametr, protož
 
 Představte si, že jste učitel a chcete zjistit průměrnou známku svých studentů na konci roku. Místo toho, abyste museli zjišťovat známky každého studenta, můžete vzít vzorek z několika studentů a použít bodový odhad k odhadu průměru celé třídy.
 
-## Typy Bodových Odhadů
+## Typy bodových odhadů
 
 Existuje několik základních typů bodových odhadů, které se častou používají v statistice:
 
@@ -55,9 +54,9 @@ $$
 
 Zvažme stejnou situaci s denními tržbami v restauraci (1800 Kč, 1900 Kč, 2000 Kč, 2100 Kč, 2200 Kč, 2300 Kč, 2500 Kč). Po seřazení dat zjistíte, že medián je 2100 Kč, což je hodnota uprostřed.
 
-### 3. Mód
+### 3. Modus
 
-**Mód** je hodnota, která se v datovém souboru nejčastěji vyskytuje. Pokud máte hodnotu, která se vyskytuje vícekrát než ostatní, je to mód.
+**Modus** je hodnota, která se v datovém souboru nejčastěji vyskytuje. Pokud máte hodnotu, která se vyskytuje vícekrát než ostatní, je to mód.
 
 **Příklad:**
 
@@ -71,10 +70,47 @@ Pojďme se podívat na různé scénáře, kde se bodový odhad může použít:
 2. **Ekonomie**: Stanovení průměrného ročního příjmu domácnosti na základě náhodného vzorku domácností.
 3. **Marketing**: Odhad průměrných výdajů zákazníka na základě náhodných průzkumů.
 
+:::{.callout-note}
+## Metodologická poznámka: Point Estimates - kdy použít který
+
+**Bodový odhad** = Jedna hodnota odhadující populační parametr
+
+**Hlavní bodové odhady:**
+
+| Odhad | Kdy použít | Výhody | Nevýhody |
+|-------|-----------|--------|----------|
+| **Průměr (μ̂)** | Normální data, symetrická | ✅ Nejefektivnější <br> ✅ Matematicky tractable | ❌ Citlivý na outliers |
+| **Medián** | Zkosená data, outliers | ✅ Robustní <br> ✅ Interpretovatelný | ❌ Menší eficience |
+| **Mód** | Kategoriální data | ✅ Jednoduchý <br> ✅ Pro nominální data | ❌ Nestabilní |
+| **Proporce (p̂)** | Binární výsledky | ✅ Intuitivní | ❌ Nestabilní pro malé n |
+
+**Vlastnosti dobrého odhadu:**
+
+1. **Nestrannost (Unbiased):** E(θ̂) = θ
+   - Průměr vzorku je nestranný odhad μ ✅
+
+2. **Konzistence:** θ̂ → θ když n → ∞
+
+3. **Eficience:** Minimální variance mezi nestrannými odhady
+
+4. **Dostatečnost:** Používá všechnu informaci v datech
+
+
+**Bodový vs Intervalový odhad:**
+
+| Typ | Příklad | Kdy použít |
+|-----|---------|-----------|
+| **Bodový** | μ̂ = 50 | Rychlý odhad, reporting |
+| **Intervalový** | 95% CI [45, 55] | **Preferovaný!** - ukázuje nejistotu |
+
+**→ Vždy reportujte INTERVAL, ne jen point estimate!**
+
+**Zlaté pravidlo**: Bodový odhad je dobrý začátek, ale **vždy přidejte CI nebo SE** pro ukázání nejistoty!
+:::
+
 ## Závěr
 
 Bodový odhad je základním nástrojem statistické analýzy, umožňující nám činit informovaná rozhodnutí bez nutnosti mít všechna data populace. Ať už pracujete v jakémkoli oboru, tento koncept bude jistě pro vás užitečný. Pochopení rozdílů mezi různými typy bodových odhadů, jako průměr, medián a mód, je klíčové pro správné interpretování vašich dat.
 
 Nezapomínejme, že i když bodové odhady poskytují užitečné informace, jsou pouze odhady a mohou být náchylné k chybám. Proto je důležité při jejich použití zvážit také intervalové odhady a další statistické nástroje pro získání přesnějšího pohledu na data.
-
 

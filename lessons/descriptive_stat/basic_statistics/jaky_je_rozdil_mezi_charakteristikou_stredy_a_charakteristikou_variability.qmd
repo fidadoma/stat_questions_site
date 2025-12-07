@@ -13,13 +13,12 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
-V deskriptivní statistice používáme při popisu statistických dat **charakteristiky středu** a **charakteristiky variability**. Tyto dvě charakteristiky jsou klíčové pro popis a porozumění dat.
+V deskriptivní statistice používáme při popisu statistických dat **charakteristiky středu** a **charakteristiky variability**. 
 
 # Charakteristika středu
 
@@ -63,6 +62,158 @@ Rozpětí je nejjednodušší formou variability, představuje rozdíl mezi nejv
 
 *Příklad z běžného života:* Pokud měříte výšky ve skupině dětí, rozdíl mezi nejvyšším a nejmenším dítětem je rozpětí.
 
+## Porovnání středu a variability
+
+```{r}
+#| label: fig-center-vs-variability
+#| fig-cap: "Demonstrace rozdílu mezi středem a variabilitou"
+#| warning: false
+#| fig-height: 12
+
+library(ggplot2)
+library(gridExtra)
+
+set.seed(123)
+
+# 1. Stejný střed, různá variabilita
+data1_low <- rnorm(100, mean = 50, sd = 3)
+data1_high <- rnorm(100, mean = 50, sd = 10)
+
+data1 <- data.frame(
+  hodnota = c(data1_low, data1_high),
+  typ = rep(c("Nízká variabilita (σ=3)", "Vysoká variabilita (σ=10)"), each = 100)
+)
+
+p1 <- ggplot(data1, aes(x = hodnota, fill = typ)) +
+  geom_histogram(bins = 20, alpha = 0.7, position = "identity") +
+  geom_vline(xintercept = 50, color = "darkred", size = 1.5, linetype = "dashed") +
+  annotate("text", x = 50, y = 20, label = "Stejný průměr (μ = 50)",
+           color = "darkred", fontface = "bold", size = 4, angle = 90, vjust = -0.5) +
+  scale_fill_manual(values = c("steelblue", "#E67E22")) +
+  labs(
+    title = "Stejný střed, RŮZNÁ variabilita",
+    subtitle = "Oba soubory mají μ = 50, ale různou směrodatnou odchylku",
+    x = "Hodnota",
+    y = "Četnost",
+    fill = "Datový soubor"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# 2. Různý střed, stejná variabilita
+data2_a <- rnorm(100, mean = 40, sd = 5)
+data2_b <- rnorm(100, mean = 60, sd = 5)
+
+data2 <- data.frame(
+  hodnota = c(data2_a, data2_b),
+  typ = rep(c("Soubor A (μ=40)", "Soubor B (μ=60)"), each = 100)
+)
+
+p2 <- ggplot(data2, aes(x = hodnota, fill = typ)) +
+  geom_histogram(bins = 20, alpha = 0.7, position = "identity") +
+  geom_vline(xintercept = 40, color = "#2ECC71", size = 1.5, linetype = "dashed") +
+  geom_vline(xintercept = 60, color = "#9B59B6", size = 1.5, linetype = "dashed") +
+  scale_fill_manual(values = c("#2ECC71", "#9B59B6")) +
+  labs(
+    title = "RŮZNÝ střed, stejná variabilita",
+    subtitle = "Oba soubory mají σ = 5, ale různé průměry",
+    x = "Hodnota",
+    y = "Četnost",
+    fill = "Datový soubor"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# 3. Boxploty - názorná demonstrace
+data3 <- data.frame(
+  hodnota = c(data1_low, data1_high, data2_a, data2_b),
+  skupina = rep(c("μ=50, σ=3", "μ=50, σ=10", "μ=40, σ=5", "μ=60, σ=5"), each = 100)
+)
+data3$skupina <- factor(data3$skupina, levels = c("μ=50, σ=3", "μ=50, σ=10", "μ=40, σ=5", "μ=60, σ=5"))
+
+p3 <- ggplot(data3, aes(x = skupina, y = hodnota, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 4,
+               fill = "darkred", color = "darkred") +
+  scale_fill_manual(values = c("steelblue", "#E67E22", "#2ECC71", "#9B59B6")) +
+  labs(
+    title = "Boxploty čtyř souborů dat",
+    subtitle = "Červený kosočtverec = průměr, box = variabilita",
+    x = "",
+    y = "Hodnota"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 20, hjust = 1)
+  ) +
+  annotate("segment", x = 0.5, xend = 1.5, y = 50, yend = 50,
+           color = "darkred", size = 1, linetype = "dotted") +
+  annotate("segment", x = 1.5, xend = 2.5, y = 50, yend = 50,
+           color = "darkred", size = 1, linetype = "dotted") +
+  annotate("text", x = 1, y = 30, label = "Stejný\nstřed",
+           color = "darkred", fontface = "bold", size = 3.5) +
+  annotate("text", x = 3.5, y = 70, label = "Stejná\nvariabilita",
+           color = "darkblue", fontface = "bold", size = 3.5)
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+```{r}
+#| label: fig-center-variability-table
+#| fig-cap: "Číselné srovnání charakteristik"
+#| warning: false
+
+library(knitr)
+
+# Vytvoření přehledné tabulky
+summary_data <- data.frame(
+  "Datový soubor" = c("μ=50, σ=3", "μ=50, σ=10", "μ=40, σ=5", "μ=60, σ=5"),
+  "Průměr (střed)" = c(50, 50, 40, 60),
+  "Medián (střed)" = c(
+    round(median(data1_low), 1),
+    round(median(data1_high), 1),
+    round(median(data2_a), 1),
+    round(median(data2_b), 1)
+  ),
+  "Směrod. odchylka (variabilita)" = c(
+    round(sd(data1_low), 1),
+    round(sd(data1_high), 1),
+    round(sd(data2_a), 1),
+    round(sd(data2_b), 1)
+  ),
+  "Rozpětí (variabilita)" = c(
+    round(max(data1_low) - min(data1_low), 1),
+    round(max(data1_high) - min(data1_high), 1),
+    round(max(data2_a) - min(data2_a), 1),
+    round(max(data2_b) - min(data2_b), 1)
+  ),
+  check.names = FALSE
+)
+
+kable(summary_data, align = "c", caption = "Porovnání charakteristik středu a variability")
+```
+
+:::{.callout-important}
+## Metodologická zásada: Nikdy nereportujte jen střed bez variability!
+
+Jedna z nejzávažnějších chyb v reportování statistik je uvádět pouze charakteristiku středu bez míry variability.
+
+**Proč je to problém?** Dva datové soubory mohou mít stejný průměr, ale úplně jinou variabilitu:
+- Skupina A: 50 ± 3 (velmi konzistentní)
+- Skupina B: 50 ± 30 (extrémně variabilní)
+
+Obě mají průměr 50, ale znamenají něco úplně jiného!
+
+**Minimální standard reportování**:
+- Průměr ± směrodatná odchylka (např. "M = 50, SD = 10")
+- Nebo: Medián + IQR (např. "Mdn = 48, IQR = 15")
+- Ještě lépe: Přidejte vizualizaci (boxplot nebo histogram)
+
+**V praxi**: Když čtete "průměrná doba čekání je 5 minut", ptejte se: "Jaká je variabilita?" Může to znamenat "5±1 min" (spolehlivé) nebo "5±20 min" (nespolehlivé)!
+:::
+
 # Závěr
 
-Charakteristika středu a charakteristika variability jsou základní koncepty ve statistice, které pomáhají popsat a analyzovat data. Charakteristika středu poskytuje informaci o typické hodnotě datové sady, zatímco charakteristika variability nám říká, jak jsou data rozptýlena. 
+Charakteristika středu a charakteristika variability jsou základní koncepty ve statistice, které pomáhají popsat a analyzovat data. Charakteristika středu poskytuje informaci o typické hodnotě datové sady, zatímco charakteristika variability nám říká, jak jsou data rozptýlena.
+

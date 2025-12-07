@@ -1,5 +1,6 @@
 ---
 title: "Vztah mezi směrnicí přímky a Pearsonovým korelačním koeficientem"
+order: 70
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,56 +13,78 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 V tomto dokumentu si rozebereme vztah mezi směrnicí přímky a Pearsonovým korelačním koeficientem. Tento vztah je důležitý pro pochopení lineární regresní analýzy, která je klíčovým prostředkem ve statistice pro modelování vztahů mezi dvěma proměnnými.
 
 # Směrnice přímky
 
-Směrnice přímky je základní koncept v algebře a analytické geometrii. Pokud máme lineární rovnici ve tvaru \( y = mx + b \), tak:
+Směrnice přímky je základní koncept v algebře a analytické geometrii. Pokud máme lineární rovnici ve tvaru $y = b_1x + b_0$, tak:
 
-- \( m \) představuje směrnici přímky, což je sklon čáry.
-- \( b \) je průsečík s osou y, což je hodnota \( y \) v bodě, kde \( x = 0 \).
+- $b_1$  představuje směrnici přímky, což je sklon čáry.
+- $b_0$  je průsečík s osou y, což je hodnota $y$ v bodě, kde $x = 0$.
 
-## Příklad z reálného života
-
-Představte si, že jedete autem po rovné silnici. Směrnice přímky je jako sklon kopce, po kterém jedete. Když je směrnice pozitivní, jedete do kopce. Když je směrnice negativní, sjíždíte z kopce. Pokud je směrnice nulová, jedete po rovině.
 
 # Pearsonův korelační koeficient
 
-Pearsonův korelační koeficient, často označovaný jako \( r \), měří sílu a směr lineárního vztahu mezi dvěma proměnnými. Hodnota \( r \) se pohybuje od -1 do 1.
-
-- Pokud \( r = 1 \), existuje úplně pozitivní lineární vztah.
-- Pokud \( r = -1 \), existuje úplně negativní lineární vztah.
-- Pokud \( r = 0 \), neexistuje žádný lineární vztah.
-
-## Příklad z reálného života
-
-Představte si, že zkoumáte vztah mezi množstvím času stráveného studiem a výslednými známkami. Vysoký pozitivní korelační koeficient naznačuje, že více času stráveného studiem je spojeno s lepšími známkami.
+Pearsonův korelační koeficient, často označovaný jako $r$, měří sílu a směr lineárního vztahu mezi dvěma proměnnými. 
 
 # Vztah mezi směrnicí a korelačním koeficientem
 
 Ve statistice, zejména v jednoduché lineární regresi, se směrnice regresní přímky a Pearsonův korelační koeficient nacházejí ve spojení. Vztah mezi nimi je dán rovnicí:
 
-\[ m = r \cdot \left(\frac{\sigma_y}{\sigma_x}\right) \]
+$$ b_1 = r \cdot \left(\frac{\sigma_y}{\sigma_x}\right) $$
 
 kde:
-- \( m \) je směrnice přímky.
-- \( r \) je Pearsonův korelační koeficient.
-- \( \sigma_y \) je směrodatná odchylka závisle proměnné.
-- \( \sigma_x \) je směrodatná odchylka nezávisle proměnné.
+
+- $m$ je směrnice přímky.
+- $r$ je Pearsonův korelační koeficient.
+- $\sigma_y$ je směrodatná odchylka závisle proměnné.
+- $\sigma_x$ je směrodatná odchylka nezávisle proměnné.
+
+Pokud bychom měli standardizované proměnné, tedy kdybychom použili Z-skóry, pak by směrnice přímky byla přímo rovna korelačnímu koeficientu.
 
 ## Příklad pro pochopení
 
-Představte si, že vaše data představují znázornění teploty v závislosti na čase. Pokud je \( r = 0.8 \), což představuje silný pozitivní vztah, a směrodatné odchylky teploty a času jsou takové, že jejich poměr je větší než jedna, směrnice přímky bude také relativně strmá.
+Představte si, že vaše data představují znázornění teploty v závislosti na čase. Pokud je r = 0,8, což představuje silný pozitivní vztah, a směrodatné odchylky teploty a času jsou takové, že jejich poměr je větší než jedna, směrnice přímky bude také relativně strmá.
+
+:::{.callout-important}
+## Metodologická poznámka: Směrnice ≠ Korelace (ale souvisí!)
+
+**Klíčový vztah**: $b_1 = r \cdot \frac{\sigma_y}{\sigma_x}$
+
+**Co to znamená?**
+
+1. **Korelace je standardizovaná, slope není**:
+   - Korelace: vždy -1 až 1, bez jednotek
+   - Slope: závisí na jednotkách proměnných
+
+2. **Stejný r, různé slope**:
+   - Příjem (tisíce Kč) vs roky školy: $r = 0.6$, $b_1 = 5$ (5000 Kč na rok)
+   - IQ vs roky školy: $r = 0.6$, $b_1 = 2$ (2 IQ body na rok)
+   - Obě mají stejnou "sílu vztahu", ale různou slope!
+
+3. **Standardizované vs nestandardizované koeficienty**:
+   - Pokud standardizujete obě proměnné (Z-skóry), pak $b_1 = r$
+   - Proto se standardizované beta koeficienty ($\beta$) v regresi rovnají korelacím
+
+**Praktická implikace**:
+
+- **Používejte r** pro porovnání síly vztahů mezi různými proměnnými
+- **Používejte slope** pro interpretaci reálného efektu v původních jednotkách
+- Nikdy neporovnávejte slopes z různých modelů napřímo!
+:::
 
 # Shrnutí
 
-Chceme-li modelovat vztah mezi dvěma proměnnými pomocí lineární regrese, porozumění vztahu mezi směrnicí přímky a Pearsonovým korelačním koeficientem je klíčem. Tento vztah nám pomáhá předpovídat hodnoty a analyzovat sílu a směr lineárního vztahu. 
+Chceme-li modelovat vztah mezi dvěma proměnnými pomocí lineární regrese, porozumění vztahu mezi směrnicí přímky a Pearsonovým korelačním koeficientem je klíčem. Tento vztah nám pomáhá předpovídat hodnoty a analyzovat sílu a směr lineárního vztahu.
 
-Doufám, že tento dokument vám pomohl k lepšímu pochopení tohoto důležitého statistického konceptu. Pokud máte další otázky nebo potřebu dalšího vysvětlení, neváhejte se ptát!
+## Viz také
+
+- [Co nám popisuje Pearsonův korelační koeficient](co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - korelace
+- [Jak vypadá rovnice regrese](jak_vypada_rovnice_nejjednodussi_regrese_a_jak_nazyvame_jednotlive_cleny_rovnice.qmd) - regresní koeficienty
+- [Jaké znáte standardní skóry](jake_znate_standardni_skory_a_k_cemu_slouzi.qmd) - standardizace
 

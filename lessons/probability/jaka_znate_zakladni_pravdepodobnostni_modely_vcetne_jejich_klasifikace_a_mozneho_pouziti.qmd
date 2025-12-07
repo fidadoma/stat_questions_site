@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do pravděpodobnostních modelů
+## Úvod
 
 Pravděpodobnostní modely jsou klíčovým nástrojem statistiky. Pomáhají nám předpovídat různé události a analyzovat data v nejrůznějších oblastech - od ekonomiky až po přírodní vědy. V této kapitole si představíme základní druhy pravděpodobnostních modelů, které se běžně používají.
 
@@ -45,6 +44,93 @@ Pravděpodobnostní modely můžeme klasifikovat podle několika kritérií. Zá
    - **Formální zápis**: $X \sim \text{Poisson}(\lambda)$
    - **Příklad použití**: Počet telefonních hovorů, které přijdou na linku zákaznické podpory během jedné hodiny.
 
+```{r}
+#| label: fig-discrete-models
+#| fig-cap: "Příklady diskrétních pravděpodobnostních modelů"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+
+# Binomický model - příklad s žárovkami
+n <- 20  # počet žárovek v balení
+p <- 0.95  # pravděpodobnost funkční žárovky
+x_binom <- 0:n
+prob_binom <- dbinom(x_binom, size = n, prob = p)
+
+data_binom <- data.frame(
+  x = x_binom,
+  probability = prob_binom
+)
+
+p1 <- ggplot(data_binom, aes(x = x, y = probability)) +
+  geom_col(fill = "steelblue", alpha = 0.8, width = 0.7) +
+  geom_vline(xintercept = n * p, linetype = "dashed",
+             color = "darkred", size = 1) +
+  annotate("text", x = n * p - 3, y = max(prob_binom) * 0.9,
+           label = sprintf("E(X) = %.1f", n * p),
+           fontface = "bold", color = "darkred", hjust = -0.1) +
+  labs(
+    title = "Binomický model: Bin(20, 0.95)",
+    subtitle = "Příklad: Počet funkčních žárovek v balení",
+    x = "Počet funkčních žárovek",
+    y = "Pravděpodobnost"
+  ) +
+  scale_x_continuous(breaks = seq(0, 20, 2)) +
+  theme_minimal()
+
+# Poissonův model - příklad s hovory
+lambda <- 5  # průměrný počet hovorů za hodinu
+x_poisson <- 0:15
+prob_poisson <- dpois(x_poisson, lambda = lambda)
+
+data_poisson <- data.frame(
+  x = x_poisson,
+  probability = prob_poisson
+)
+
+p2 <- ggplot(data_poisson, aes(x = x, y = probability)) +
+  geom_col(fill = "#E67E22", alpha = 0.8, width = 0.7) +
+  geom_vline(xintercept = lambda, linetype = "dashed",
+             color = "darkred", size = 1) +
+  annotate("text", x = lambda, y = max(prob_poisson) * 0.9,
+           label = sprintf("λ = %d", lambda),
+           fontface = "bold", color = "darkred", hjust = -0.1) +
+  labs(
+    title = "Poissonův model: Poisson(5)",
+    subtitle = "Příklad: Počet hovorů za hodinu",
+    x = "Počet hovorů",
+    y = "Pravděpodobnost"
+  ) +
+  scale_x_continuous(breaks = seq(0, 15, 2)) +
+  theme_minimal()
+
+# Porovnání různých parametrů binomického rozdělení
+data_binom_comp <- data.frame(
+  x = rep(0:20, 3),
+  probability = c(dbinom(0:20, 20, 0.3),
+                  dbinom(0:20, 20, 0.5),
+                  dbinom(0:20, 20, 0.8)),
+  parameter = rep(c("p = 0.3", "p = 0.5", "p = 0.8"), each = 21)
+)
+
+p3 <- ggplot(data_binom_comp, aes(x = x, y = probability, fill = parameter)) +
+  geom_col(position = "dodge", alpha = 0.8, width = 0.7) +
+  labs(
+    title = "Vliv parametru p na binomické rozdělení (n = 20)",
+    subtitle = "Různé pravděpodobnosti úspěchu",
+    x = "Počet úspěchů",
+    y = "Pravděpodobnost",
+    fill = "Parametr"
+  ) +
+  scale_fill_manual(values = c("#E74C3C", "#3498DB", "#2ECC71")) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
 ### Spojité pravděpodobnostní modely
 
 1. **Normální (Gaussův) model**
@@ -60,6 +146,145 @@ Pravděpodobnostní modely můžeme klasifikovat podle několika kritérií. Zá
 
    - **Formální zápis**: $X \sim \text{Exp}(\lambda)$
    - **Příklad použití**: Čas do selhání zařízení, čas do příchodu dalšího zákazníka.
+
+```{r}
+#| label: fig-continuous-models
+#| fig-cap: "Příklady spojitých pravděpodobnostních modelů"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+
+# Normální rozdělení - příklad s výškou lidí
+x_norm <- seq(150, 200, length.out = 500)
+mu <- 175  # průměrná výška v cm
+sigma <- 8  # směrodatná odchylka
+
+data_norm <- data.frame(
+  x = x_norm,
+  density = dnorm(x_norm, mean = mu, sd = sigma)
+)
+
+p1 <- ggplot(data_norm, aes(x = x, y = density)) +
+  geom_line(color = "steelblue", size = 1.5) +
+  geom_area(fill = "steelblue", alpha = 0.3) +
+  geom_vline(xintercept = mu, linetype = "dashed",
+             color = "darkred", size = 1) +
+  annotate("text", x = mu, y = max(data_norm$density) * 0.9,
+           label = sprintf("μ = %d cm", mu),
+           fontface = "bold", color = "darkred", hjust = -0.1) +
+  labs(
+    title = "Normální model: N(175, 8²)",
+    subtitle = "Příklad: Výška dospělých mužů v populaci",
+    x = "Výška (cm)",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  theme_minimal()
+
+# Exponenciální rozdělení - příklad s čekací dobou
+x_exp <- seq(0, 10, length.out = 500)
+lambda_exp <- 1  # průměrná doba mezi událostmi = 1/lambda
+
+data_exp <- data.frame(
+  x = x_exp,
+  density = dexp(x_exp, rate = lambda_exp)
+)
+
+p2 <- ggplot(data_exp, aes(x = x, y = density)) +
+  geom_line(color = "#E67E22", size = 1.5) +
+  geom_area(fill = "#E67E22", alpha = 0.3) +
+  geom_vline(xintercept = 1/lambda_exp, linetype = "dashed",
+             color = "darkred", size = 1) +
+  annotate("text", x = 1/lambda_exp, y = max(data_exp$density) * 0.9,
+           label = sprintf("E(X) = %.1f", 1/lambda_exp),
+           fontface = "bold", color = "darkred", hjust = -0.1) +
+  labs(
+    title = "Exponenciální model: Exp(1)",
+    subtitle = "Příklad: Čas do selhání zařízení (hodiny)",
+    x = "Čas (hodiny)",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  theme_minimal()
+
+# Porovnání spojitých a diskrétních modelů
+# Normální vs Binomická aproximace
+n_approx <- 50
+p_approx <- 0.3
+x_disc <- 0:n_approx
+x_cont <- seq(0, n_approx, length.out = 500)
+
+data_disc <- data.frame(
+  x = x_disc,
+  prob = dbinom(x_disc, n_approx, p_approx)
+)
+
+data_cont <- data.frame(
+  x = x_cont,
+  prob = dnorm(x_cont, mean = n_approx * p_approx,
+               sd = sqrt(n_approx * p_approx * (1 - p_approx)))
+)
+
+p3 <- ggplot() +
+  geom_col(data = data_disc, aes(x = x, y = prob),
+           fill = "steelblue", alpha = 0.6, width = 0.8) +
+  geom_line(data = data_cont, aes(x = x, y = prob),
+            color = "#E74C3C", size = 1.5) +
+  labs(
+    title = "Spojité vs Diskrétní: Normální aproximace binomického",
+    subtitle = sprintf("Bin(%d, %.1f) aproximovaný N(%.1f, %.2f²)",
+                       n_approx, p_approx, n_approx * p_approx,
+                       sqrt(n_approx * p_approx * (1 - p_approx))),
+    x = "Hodnota",
+    y = "Pravděpodobnost / Hustota"
+  ) +
+  annotate("text", x = 35, y = 0.055,
+           label = "Diskrétní (sloupc  e)",
+           color = "steelblue", fontface = "bold", size = 4) +
+  annotate("text", x = 35, y = 0.03,
+           label = "Spojité (křivka)",
+           color = "#E74C3C", fontface = "bold", size = 4) +
+  theme_minimal()
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+:::{.callout-tip}
+## Metodologický průvodce: Výběr pravděpodobnostního modelu
+
+**Rozhodovací strom pro výběr rozdělení:**
+
+**1. Jaký typ proměnné?**
+
+- **Diskrétní** (počty, kategorie) → Binomické, Poissonovo, Geometrické
+- **Spojitá** (měření) → Normální, Exponenciální, Uniform
+
+**2. Pro diskrétní proměnné:**
+
+| Situace | Model | Parametry | Příklad |
+|---------|-------|-----------|---------|
+| Počet úspěchů v n pokusech | **Binomické** | n, p | Počet hlav při 10 hodech mincí |
+| Počet událostí za čas/prostor | **Poissonovo** | λ | Počet hovorů za hodinu |
+| Počet pokusů do prvního úspěchu | **Geometrické** | p | Počet hodů do první šestky |
+
+**3. Pro spojité proměnné:**
+
+| Situace | Model | Parametry | Příklad |
+|---------|-------|-----------|---------|
+| Symetrická data kolem středu | **Normální** | μ, σ | Výška lidí, IQ |
+| Čekací doba mezi událostmi | **Exponenciální** | λ | Čas do selhání stroje |
+| Všechny hodnoty stejně pravděpodobné | **Uniform** | a, b | Náhodné číslo 0-1 |
+| Pozitivní šikmá data | **Log-normální** | μ, σ | Příjmy, ceny nemovitostí |
+
+**Kdy aproximovat?**
+
+- **Binomické → Normální**: Když n×p > 5 A n×(1-p) > 5
+- **Poissonovo → Normální**: Když λ > 20
+
+**Pravidlo palce**: Začněte s jednoduchým modelem (Normální, Binomické), přidávejte složitost jen když je potřeba!
+
+**VŽDY testujte předpoklady**: Q-Q plot, goodness-of-fit test
+:::
 
 # Závěr
 

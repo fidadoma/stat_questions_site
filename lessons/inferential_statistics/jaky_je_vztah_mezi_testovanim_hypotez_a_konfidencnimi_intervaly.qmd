@@ -1,5 +1,6 @@
 ---
 title: "Vztah mezi testováním hypotéz a konfidenčními intervaly"
+order: 140
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 V oblasti statistiky existují dvě ústřední techniky pro analýzu dat a tvorbu závěrů - testování hypotéz a konfidenční intervaly. I přesto, že obě metody používáme pro rozhodování na základě dat, mají různé přístupy a cíle. V tomto dokumentu se budeme věnovat vztahu mezi testováním hypotéz a konfidenčními intervaly a ukážeme, jak spolu souvisí v praktických scénářích.
 
@@ -62,7 +62,62 @@ Konfidenční intervaly a testování hypotéz jsou úzce propojené koncepty. J
 
 Pokud provádíme test na průměrnou výšku studentů a obdržíme hypotézu, že průměrná výška je 170 cm, vypočítáme konfidenční interval 2 cm na každou stranu (168 cm až 172 cm). Pokud naše vypočítaná průměrná výška je mimo tento interval (například 165 cm), zamítneme nulovou hypotézu.
 
+:::{.callout-note}
+## Metodologická poznámka: Hypothesis Testing ↔ Confidence Intervals
+
+**KLÍČOVÝ VZTAH:**
+
+**Hypothesis test** a **Confidence interval** jsou **dva způsoby, jak říct totéž**!
+
+### Ekvivalence pro two-tailed test:
+
+**Pravidlo:**
+
+- **95% CI neobsahuje H0 hodnotu** ↔ **p < 0.05** (zamítnout H0)
+- **95% CI obsahuje H0 hodnotu** ↔ **p > 0.05** (nezamítnout H0)
+
+
+### Výhody CI oproti p-hodnotě:
+
+| P-hodnota | Confidence Interval |
+|-----------|-------------------|
+| Binární (sig/non-sig) | **Ukazuje rozsah hodnot** |
+| Neříká velikost efektu | **Velikost efektu viditelná** |
+| Závisí na α | **95% odpovídá α=0.05** |
+| Jen \"zamítnout?\" | **\"Jak velký?\" + \"Jak přesně?\"** |
+
+**→ CI je informativnější než samotná p-hodnota!**
+
+
+**Vztah k α:**
+
+| Confidence Level | Odpovídá α (two-tailed) |
+|-----------------|----------------------|
+| **90% CI** | α = 0.10 |
+| **95% CI** | α = 0.05 |
+| **99% CI** | α = 0.01 |
+
+**Kdy použít co:**
+
+| Cíl | Použijte |
+|-----|---------|
+| \"Je efekt signifikantní?\" | **P-hodnota** nebo CI |
+| \"Jak velký je efekt?\" | **CI** (preferováno!) |
+| \"Jak přesný je odhad?\" | **CI šířka** |
+| Publikace | **OBA** (best practice!) |
+
+**Best practice reportování:**
+
+❌ \"The difference was significant (p = .002)\"
+   → Chybí velikost efektu!
+
+✅ \"Treatment group scored significantly higher (M_diff = 5.0, 95% CI [3.2, 6.8], t(8) = 5.2, p = .002)\"
+   → Máme vše: point estimate, CI, test statistika, p-hodnota
+
+**Zlaté pravidlo**: **VŽDY reportujte CI**, ne jen p-hodnotu! CI je informativnější a ukáže velikost + přesnost efektu.
+:::
+
 # Závěr
 
-Testování hypotéz a konfidenční intervaly jsou základní statistické nástroje pro analýzu dat a tváření závěrů. Pochopení jejich vzájemného vztahu a přístupů k řešení problémů vám umožní lépe interpretovat výsledky vašich výzkumů a učinit podloženější rozhodnutí. Používání příkladů z běžného života může tyto statistické koncepty přiblížit každodenní realitě a usnadnit jejich pochopení. 
+Testování hypotéz a konfidenční intervaly jsou základní statistické nástroje pro analýzu dat a tváření závěrů. Pochopení jejich vzájemného vztahu a přístupů k řešení problémů vám umožní lépe interpretovat výsledky vašich výzkumů a učinit podloženější rozhodnutí. Používání příkladů z běžného života může tyto statistické koncepty přiblížit každodenní realitě a usnadnit jejich pochopení.
 

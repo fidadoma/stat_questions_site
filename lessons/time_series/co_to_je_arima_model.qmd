@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Co je ARIMA model?
+## Úvod
 
 ARIMA je zkratka pro AutoRegressive Integrated Moving Average. Jedná se o statistický model používaný pro analýzu a predikci časových řad. Časové řady jsou data, která jsou shromažďována nebo zaznamenávána v časových intervalech. Příklady časových řad z běžného života zahrnují:
 
@@ -65,6 +64,25 @@ ARIMA model se hojně využívá v oblastech jako:
 
 4. **Prognóza**: Použití modelu pro předpověď budoucích hodnot časové řady a jejich vyhodnocení na základě přesnosti a robustnosti.
 
-Pamatujte, že ARIMA model je účinný hlavně pro jednoúčelovou časovou řadu, ale může být náročný pro všechny typy dat, které nejsou lineární nebo mají složité sezónní vzory. Pro takové případy může být lepší použít SARIMA (přidání sezónní složky) nebo jiné pokročilejší metody.
+:::{.callout-note}
+## Metodologická poznámka: ARIMA(p,d,q) - Box-Jenkins přístup
 
+**ARIMA parametry:**
+
+| Parametr | Určuje | Jak vybrat |
+|----------|--------|------------|
+| **p** (AR řád) | Počet lagů $Y_t$ | PACF plot |
+| **d** (Differencing) | Počet diferencí pro stacionaritu | ADF test |
+| **q** (MA řád) | Počet lagů chyb | ACF plot |
+
+
+**Rozšíření:**
+
+- **SARIMA**: Pro sezónnost → `order=c(p,d,q), seasonal=c(P,D,Q,m)`
+- **ARIMAX**: S external regressory
+
+**Zlaté pravidlo**: Vždy ověřte, že rezidua jsou white noise (Ljung-Box test)!
+:::
+
+Pamatujte, že ARIMA model je účinný hlavně pro jednoúčelovou časovou řadu, ale může být náročný pro všechny typy dat, které nejsou lineární nebo mají složité sezónní vzory. Pro takové případy může být lepší použít SARIMA (přidání sezónní složky) nebo jiné pokročilejší metody.
 

@@ -1,0 +1,136 @@
+---
+title: "Jaký je vztah ANOVY a regrese?"
+order: 430
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+Na první pohled se ANOVA a regrese mohou zdát jako zcela odlišné statistické metody. ANOVA porovnává průměry skupin, zatímco regrese zkoumá vztah mezi proměnnými. Překvapivě však **ANOVA je speciálním případem regrese** a obě metody jsou součástí jednoho obecného rámce - **obecného lineárního modelu** (General Linear Model, GLM).
+
+## Obecný lineární model (GLM)
+
+Oba přístupy můžeme zapsat v jednotném formátu:
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \epsilon$$
+
+kde:
+
+- $Y$ je závislá proměnná
+- $X_i$ jsou prediktory (vysvětlující proměnné)
+- $\beta_i$ jsou koeficienty (parametry)
+- $\epsilon$ je chyba (reziduum)
+
+**Klíčový rozdíl:**
+- **Regrese**: $X_i$ jsou číselné (kontinuální) proměnné
+- **ANOVA**: $X_i$ jsou kategoriální proměnné (kódované dummy proměnnými)
+
+## ANOVA jako regrese s dummy proměnnými
+
+### Příklad: Tři skupiny
+
+Máme tři skupiny: A, B, C. Místo kategoriální proměnné "skupina" vytvoříme **dummy proměnné**:
+
+| Skupina | Dummy1 (B) | Dummy2 (C) |
+|---------|------------|------------|
+| A       | 0          | 0          |
+| B       | 1          | 0          |
+| C       | 0          | 1          |
+
+**Regresní model:**
+$$Y = \beta_0 + \beta_1 \cdot Dummy1 + \beta_2 \cdot Dummy2 + \epsilon$$
+
+**Interpretace:**
+
+- $\beta_0$ = průměr skupiny A (referenční kategorie)
+- $\beta_1$ = rozdíl mezi B a A
+- $\beta_2$ = rozdíl mezi C a A
+
+
+
+
+
+:::{.callout-tip}
+## Shrnutí vztahu ANOVY a regrese
+
+### Klíčové poznatky:
+
+**1. ANOVA = Regrese s dummy proměnnými**
+- Kategoriální prediktor se převede na (k-1) dummy proměnných
+- Jedna kategorie slouží jako reference
+- Koeficienty = rozdíly od reference
+
+**2. Identické výsledky**
+- F statistika je stejná
+- P-hodnota je stejná
+- R² je stejné
+- Pouze jiná interpretace koeficientů
+
+**3. Obecný lineární model (GLM)**
+```
+┌────────────────────────────────────┐
+│   Obecný lineární model (GLM)      │
+│   Y = β₀ + β₁X₁ + ... + βₚXₚ + ε  │
+└──────────┬───────────┬─────────────┘
+           │           │
+    ┌──────┴──────┐   ┌┴────────────┐
+    │   ANOVA     │   │   Regrese   │
+    │  X = dummy  │   │ X = číselné │
+    └─────────────┘   └─────────────┘
+```
+
+**4. Dummy kódování**
+
+- Pro k skupin: (k-1) dummy proměnných
+- Referenční kategorie: všechny dummy = 0
+- β₀ = průměr reference
+- βᵢ = rozdíl i-té skupiny od reference
+
+**5. Výhody sjednocení**
+
+- **Flexibilita**: Snadno kombinujeme kategoriální a číselné prediktory (ANCOVA)
+- **Konzistence**: Jeden teoretický rámec
+- **Software**: Stejné funkce (lm, aov)
+- **Interpretace**: Jasné propojení konceptů
+
+**6. Praktické důsledky**
+
+- T-test = ANOVA = regrese (pro 2 skupiny)
+- F = t² (pro 2 skupiny)
+- Post-hoc testy = kontrasty v regresi
+- R² = η² (proporce vysvětlené variance)
+
+**7. Rozšíření**
+
+- **ANCOVA**: Skupina + kovarita
+- **Faktoriální ANOVA**: Více kategoriálních prediktorů
+- **Multiple regrese**: Více číselných prediktorů
+- **Obecný model**: Kombinace všeho výše
+
+### Kdy použít jaký název?
+
+| Situace | Název | Důvod |
+|---------|-------|-------|
+| Kategoriální prediktor | ANOVA | Tradice, jasná interpretace |
+| Číselný prediktor | Regrese | Tradice |
+| Oba typy | ANCOVA/GLM | Explicitní |
+| Teoreticky | GLM | Nejobecnější |
+
+:::
+
+
+## Závěr
+
+ANOVA a regrese jsou dvě strany stejné mince - obě jsou speciálními případy obecného lineárního modelu (GLM). ANOVA je v podstatě regrese, kde kategoriální prediktory jsou kódovány pomocí dummy proměnných - pro k skupin vytvoříme (k-1) dummy proměnných, jedna skupina slouží jako reference. Obě metody dávají identické výsledky (F statistiku, p-hodnotu, R²), liší se pouze prezentací a interpretací koeficientů. V regresi vidíme explicitně rozdíly mezi skupinami (β koeficienty), zatímco ANOVA prezentuje celkový test významnosti. Tento jednotný pohled umožňuje flexibilní kombinace kategoriálních a kontinuálních prediktorů (ANCOVA) a poskytuje hlubší pochopení obou metod. 

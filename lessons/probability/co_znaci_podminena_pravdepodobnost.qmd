@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -23,17 +22,78 @@ Podmíněná pravděpodobnost je koncept ve statistice, který vyjadřuje pravd�
 
 ## Základní Představa
 
-Představte si, že máte balíček karet. Pokud z tohoto balíčku vyberete jednu kartu, pravděpodobnost, že bude srdová, je \( \frac{1}{4} \). Když ale víte, že vybranou kartou je červená karta (srdce nebo káry), vaší "podmínkou" je, že už víte, že karta je červená. Právě teď je podmíněná pravděpodobnost, že karta je srdová, \( \frac{1}{2} \), protože z červených karet je polovina srdíček.
+Představte si, že máte balíček karet. Pokud z tohoto balíčku vyberete jednu kartu, pravděpodobnost, že bude srdová, je $\frac{1}{4}$. Když ale víte, že vybranou kartou je červená karta (srdce nebo káry), vaší "podmínkou" je, že už víte, že karta je červená. Právě teď je podmíněná pravděpodobnost, že karta je srdová, $\frac{1}{2}$, protože z červených karet je polovina srdíček.
 
 ## Matematická Definice
 
-Formálně je podmíněná pravděpodobnost události A, za předpokladu, že se stala událost B, označována jako \( P(A|B) \) a je definována takto:
+Formálně je podmíněná pravděpodobnost události A, za předpokladu, že se stala událost B, označována jako $P(A|B)$ a je definována takto:
 
-\[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+$$ P(A|B) = \frac{P(A \cap B)}{P(B)} $$
 
 kde:
-- \( P(A \cap B) \) je pravděpodobnost, že se stane obě události A a B.
-- \( P(B) \) je pravděpodobnost, že se stane událost B a musí být větší než nula (protože nemůžeme podmínit něco, co se nestalo).
+
+- $P(A \cap B)$ je pravděpodobnost, že se stane obě události A a B.
+- $P(B)$ je pravděpodobnost, že se stane událost B a musí být větší než nula (protože nemůžeme podmínit něco, co se nestalo).
+
+```{r}
+#| label: fig-conditional-venn
+#| fig-cap: "Vennův diagram podmíněné pravděpodobnosti"
+#| warning: false
+
+library(ggplot2)
+library(gridExtra)
+
+# Funkce pro kreslení kruhu
+circle <- function(x, y, r, n = 100) {
+  theta <- seq(0, 2 * pi, length.out = n)
+  data.frame(
+    x = x + r * cos(theta),
+    y = y + r * sin(theta)
+  )
+}
+
+# Vytvoření dat pro dva kruhy
+circle_A <- circle(0, 0, 1)
+circle_B <- circle(0.8, 0, 1)
+
+# Graf 1: Základní Vennův diagram
+p1 <- ggplot() +
+  geom_polygon(data = circle_A, aes(x = x, y = y),
+               fill = "steelblue", alpha = 0.4, color = "steelblue", size = 1.5) +
+  geom_polygon(data = circle_B, aes(x = x, y = y),
+               fill = "coral", alpha = 0.4, color = "coral", size = 1.5) +
+  annotate("text", x = -0.5, y = 0, label = "A", size = 8, fontface = "bold", color = "steelblue") +
+  annotate("text", x = 1.3, y = 0, label = "B", size = 8, fontface = "bold", color = "coral") +
+  annotate("text", x = 0.4, y = 0, label = "A∩B", size = 5, fontface = "bold") +
+  coord_fixed() +
+  theme_void() +
+  labs(title = "P(A) a P(B)") +
+  xlim(-1.5, 2.3) +
+  ylim(-1.5, 1.5)
+
+# Graf 2: Podmíněná pravděpodobnost P(A|B)
+# Zvýrazníme průnik vzhledem k B
+p2 <- ggplot() +
+  # Nejdřív celé B
+  geom_polygon(data = circle_B, aes(x = x, y = y),
+               fill = "coral", alpha = 0.3, color = "coral", size = 1.5) +
+  # Pak průnik tmavěji
+  geom_polygon(data = circle_A, aes(x = x, y = y),
+               fill = "steelblue", alpha = 0.5, color = "steelblue", size = 1.5) +
+  annotate("text", x = 0.4, y = 0, label = "P(A|B)", size = 6,
+           fontface = "bold", color = "darkblue") +
+  annotate("text", x = 1.5, y = 0.8, label = "Daná podmínka:\nB nastalo",
+           size = 3.5, fontface = "bold", color = "darkred") +
+  annotate("segment", x = 1.4, xend = 1.1, y = 0.6, yend = 0.3,
+           arrow = arrow(length = unit(0.3, "cm")), color = "darkred", size = 1) +
+  coord_fixed() +
+  theme_void() +
+  labs(title = "P(A|B) = P(A∩B) / P(B)") +
+  xlim(-1.5, 2.3) +
+  ylim(-1.5, 1.5)
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
 
 ## Příklady z Běžného Života
 
@@ -51,15 +111,117 @@ Uvažujme příklad s kostkami. Máme dvě kostky a chceme zjistit pravděpodobn
 2. Z možností, kde první kostka je 4, máme tyto možné součty vystihující událost: (4,4), (4,3), (4,2), (4,1), (4,2).
 3. Z těchto párů pouze dvojice (4,4) dává součet 8.
 
+```{r}
+#| label: fig-dice-conditional
+#| fig-cap: "Podmíněná pravděpodobnost u kostek"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+
+# Graf 1: Všechny možné součty dvou kostek
+data_all <- expand.grid(
+  kostka1 = 1:6,
+  kostka2 = 1:6
+)
+data_all$soucet <- data_all$kostka1 + data_all$kostka2
+data_all$je_podminka <- data_all$kostka1 == 4
+data_all$je_cil <- data_all$soucet == 8
+data_all$kategorie <- ifelse(data_all$kostka1 == 4 & data_all$soucet == 8, "A∩B (4 a součet=8)",
+                       ifelse(data_all$kostka1 == 4, "B (první=4)",
+                       ifelse(data_all$soucet == 8, "A (součet=8)", "Ostatní")))
+
+p1 <- ggplot(data_all, aes(x = kostka1, y = kostka2, fill = kategorie)) +
+  geom_tile(color = "white", size = 1.5) +
+  geom_text(aes(label = soucet), size = 5, fontface = "bold") +
+  scale_fill_manual(values = c(
+    "A∩B (4 a součet=8)" = "#E74C3C",
+    "B (první=4)" = "#F39C12",
+    "A (součet=8)" = "#3498DB",
+    "Ostatní" = "gray90"
+  )) +
+  labs(
+    title = "Všechny možné výsledky dvou kostek",
+    subtitle = "Čísla ukazují součet obou kostek",
+    x = "První kostka",
+    y = "Druhá kostka",
+    fill = "Kategorie"
+  ) +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(breaks = 1:6) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    panel.grid = element_blank()
+  )
+
+# Graf 2: Vizualizace podmíněné pravděpodobnosti
+data_cond <- data_all[data_all$kostka1 == 4, ]
+data_cond$zvyrazneni <- data_cond$soucet == 8
+
+p2 <- ggplot(data_cond, aes(x = factor(kostka2), y = 1, fill = zvyrazneni)) +
+  geom_tile(color = "white", size = 2, width = 0.8, height = 0.8) +
+  geom_text(aes(label = paste0("(4,", kostka2, ")\nsoučet=", soucet)),
+            size = 4, fontface = "bold", color = "white") +
+  scale_fill_manual(values = c("FALSE" = "#F39C12", "TRUE" = "#E74C3C")) +
+  labs(
+    title = "Podmínka: První kostka = 4",
+    subtitle = "Jen 1 z 6 možností dává součet 8 → P(součet=8|první=4) = 1/6",
+    x = "Druhá kostka",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid = element_blank()
+  )
+
+gridExtra::grid.arrange(p1, p2, ncol = 1, heights = c(2, 1))
+```
+
 Takže:
-- Pravděpodobnost \( P(A \cap B) \) (první je 4 a součet je 8) je 1/36
-- Pravděpodobnost \( P(B) \) (první je 4) je 6/36.
-- Použijeme vzorec pro podmíněnou pravděpodobnost: 
 
-\[ P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{\frac{1}{36}}{\frac{6}{36}} = \frac{1}{6} \]
+- Pravděpodobnost $P(A \cap B)$ (první je 4 a součet je 8) je 1/36
+- Pravděpodobnost $P(B)$ (první je 4) je 6/36.
+- Použijeme vzorec pro podmíněnou pravděpodobnost:
 
-## Shrnutí
+$$ P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{\frac{1}{36}}{\frac{6}{36}} = \frac{1}{6} $$
+
+:::{.callout-warning}
+## Metodologická poznámka: Časté chyby s podmíněnou pravděpodobností
+
+**Klíčový vzorec**: P(A|B) = P(A ∩ B) / P(B)
+
+**Nejčastější chyby**:
+
+1. **Záměna P(A|B) a P(B|A)** - "Prosecutor's fallacy"
+   - P(pozitivní test|nemocný) ≠ P(nemocný|pozitivní test)
+   - Příklad: P(test+|HIV) = 0.99 → Neznamená, že P(HIV|test+) = 0.99!
+   - Vždy použijte Bayesovu větu!
+
+2. **Ignorování základní míry (base rate neglect)**
+   - Příklad: Test je 99% přesný, ale pokud je nemoc vzácná (prevalence 0.1%), většina pozitivních testů jsou falešně pozitivní!
+
+3. **Předpoklad nezávislosti**
+   - ❌ P(A|B) = P(A) platí jen pro nezávislé události
+   - ✅ Vždy zkontrolujte, zda B ovlivňuje A
+
+**Kdy použít podmíněnou pravděpodobnost?**
+
+- Sekvenční události (karty bez vracení)
+- Diagnostické testy (test|nemoc)
+- Bayesovská aktualizace (prior → posterior)
+- Filtrování informací (spam|obsahuje "viagra")
+
+**Praktický tip**: Nakreslete strom pravděpodobností nebo použijte tabulku 2×2 – vizualizace zabrání většině chyb!
+
+**Vztah k nezávislosti**: A a B jsou nezávislé ↔ P(A|B) = P(A)
+:::
+
+## Závěr
 
 Podmíněná pravděpodobnost je užitečný nástroj, který najde uplatnění v různých oblastech každodenního života, od her, přes lékařství až po rozhodování na základě počasí. Umožňuje nám lépe odhadnout pravděpodobnost události při znalosti dalších souvisejících skutečností.
-
 

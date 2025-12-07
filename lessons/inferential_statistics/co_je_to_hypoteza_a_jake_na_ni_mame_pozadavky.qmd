@@ -1,5 +1,6 @@
 ---
-title: "Co je to Hypotéza a Jaké na Ní Máme Požadavky?"
+title: "Co je to hypotéza a jaké na ní máme požadavky?"
+order: 80
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-## Úvod do Hypotéz
+## Úvod
 
 ### Co je Hypotéza?
 
@@ -64,10 +64,70 @@ Hypotéza by měla být specifická a neměla by být příliš široká. To zna
 
 *Příklad*: Namísto "Změny klimatu ovlivňují přírodu" je lepší specifikovat: "Zvýšené průměrné teploty vedou k migraci určitého druhu ptáků."
 
+:::{.callout-tip}
+## Metodologická poznámka: Dobře formulovaná hypotéza - checklist
+
+**5 požadavků na kvalitní hypotézu:**
+
+### 1. ✅ **Testovatelnost**
+Můžete shromáždit data k ověření?
+
+- ❌ \"Duchové existují\" - netestovatelné
+- ✅ \"Lidé vystavení strašidelným zvukům hlásí více paranormálních zážitků\"
+
+### 2. ✅ **Falsifikovatelnost** (Popper)
+Lze ji vyvrátit?
+
+- ❌ \"Bůh existuje\" - nelze vyvrátit
+- ✅ \"Všichni labutě jsou bílé\" - jedna černá labuť vyvrátí
+
+### 3. ✅ **Specifičnost a jasnost**
+Jasné proměnné a vztahy?
+
+- ❌ \"Učení zlepšuje výkon\"
+- ✅ \"Studenti studující >20h/týden mají o 15% vyšší známky\"
+
+### 4. ✅ **Relevance**
+Přispívá k výzkumné otázce?
+
+- ❌ \"Studenti s modrýma očima mají lepší známky\" - irelevantní
+- ✅ \"Studenti s pravidelným spánkem mají lepší známky\" - relevantní
+
+### 5. ✅ **Operacionalizace**
+Jak změříte proměnné?
+
+- ❌ \"Štěstí zvyšuje produktivitu\"
+- ✅ \"Zaměstnanci s životní spokojeností >7/10 mají o 12% vyšší output\"
+
+**Typy hypotéz:**
+
+| Typ | Popis | Příklad |
+|-----|-------|---------|
+| **Nulová (H0)** | Žádný efekt | μ₁ = μ₂ |
+| **Alternativní (Ha)** | Existuje efekt | μ₁ ≠ μ₂ |
+| **Směrová** | Specifikuje směr | μ₁ > μ₂ |
+| **Nesměrová** | Nespecifikuje směr | μ₁ ≠ μ₂ |
+
+**Příklady dobře formulovaných hypotéz:**
+
+- ✅ \"Zaměstnanci pracující z domu (WFH) mají o 10% nižší produktivitu (měřenou dokončenými úkoly/týden) než ti v kanceláři\"
+
+- ✅ \"Pacienti užívající lék A mají průměrně o 15 mmHg nižší systolický krevní tlak po 8 týdnech než pacienti na placebu\"
+
+- ✅ \"Studenti používající techniku Pomodoro dokončí essay průměrně o 2 hodiny rychleji než ti používající kontinuální studium\"
+
+**Časté chyby:**
+
+- ❌ Příliš vágní: \"Cvičení je zdravé\"
+- ❌ Netestovatelné: \"Myšlenky ovlivňují realitu\"
+- ❌ Nefalsifikovatelné: \"Vše má důvod\"
+- ❌ Circular reasoning: \"Lék funguje, protože zlepšuje zdraví\"
+
+**Zlaté pravidlo**: SMART hypotéza - **S**pecific, **M**easurable, **A**chievable, **R**elevant, **T**estable!
+:::
+
 ## Závěr
 
 Hypotéza je klíčovým prvkem vědeckého bádání, a proto je důležité, aby splňovala požadavky na testovatelnost, falsifikovatelnost, jednoznačnost, relevanci a specifičnost. Správně formulovaná hypotéza umožňuje vědcům efektivněji plánovat své studie a přinášet hodnotné poznatky.
-
-Doufám, že tímto textem jsme přispěli k vašemu pochopení toho, co tvoří dobrou hypotézu, a poskytnuli vám základní návod, jak ji ve své vlastní práci vytvářet.
 
 

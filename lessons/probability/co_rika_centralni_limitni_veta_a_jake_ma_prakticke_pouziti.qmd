@@ -1,5 +1,5 @@
 ---
-title: "Centrální Limitní Věta: Teorie a Praktické Aplikace"
+title: "Centrální limitní věta: Teorie a praktické aplikace"
 order: 80
 author: Filip Děchtěrenko
 date: 2025-09-20
@@ -13,13 +13,12 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Centrální Limitní Věty
+## Úvod
 
-Centrální limitní věta je jedním z nejdůležitějších konceptů v oblasti statistiky. Tato věta nám poskytuje základ pro porozumění tomu, jak se chovají součty nebo průměry velkého množství náhodných proměnných. Ve světě plném nejistot a náhodnosti nám umožňuje dělat závěry a předpovědi. Ale co to konkrétně znamená?
+Centrální limitní věta je jedním z nejdůležitějších konceptů v oblasti statistiky. Tato věta nám poskytuje základ pro porozumění tomu, jak se chovají součty nebo průměry velkého množství náhodných proměnných. Ve světě plném nejistot a náhodnosti nám umožňuje dělat závěry a předpovědi.
 
 ## Co je Centrální Limitní Věta?
 
@@ -65,9 +64,105 @@ V podnikání i vědě je centrální limitní věta využívána pro simulace a
 
 Centrální limitní věta je základem pro metody kontroly kvality v průmyslu. Pokud například sledujete vady v produkci, průměry vad v různých výrobních cyklech mohou být analyzovány pomocí nástrojů založených na normální distribuci.
 
+## Vizualizace Centrální Limitní Věty
+
+Pro demonstraci CLV si ukážeme, jak se průměry vzorků z uniformního rozdělení postupně blíží normálnímu rozdělení:
+
+```{r}
+#| label: fig-clt
+#| fig-cap: "Demonstrace Centrální limitní věty"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# Počet simulací
+n_simulations <- 10000
+
+# Funkce pro simulaci průměrů vzorků
+simulate_means <- function(sample_size, distribution = "uniform") {
+  means <- replicate(n_simulations, mean(runif(sample_size, min = 0, max = 10)))
+  return(means)
+}
+
+# Vytvoření dat pro různé velikosti vzorků
+data_n2 <- data.frame(prumer = simulate_means(2), velikost = "n = 2")
+data_n5 <- data.frame(prumer = simulate_means(5), velikost = "n = 5")
+data_n30 <- data.frame(prumer = simulate_means(30), velikost = "n = 30")
+data_n100 <- data.frame(prumer = simulate_means(100), velikost = "n = 100")
+
+# Původní uniformní rozdělení
+original <- data.frame(hodnota = runif(10000, min = 0, max = 10),
+                      velikost = "Původní rozdělení")
+
+# Graf původního rozdělení
+p0 <- ggplot(original, aes(x = hodnota)) +
+  geom_histogram(bins = 50, fill = "lightblue", alpha = 0.7) +
+  labs(title = "Původní uniformní rozdělení", x = "Hodnota", y = "Četnost") +
+  theme_minimal()
+
+# Funkce pro vytvoření histogramu průměrů
+plot_means <- function(data, title) {
+  ggplot(data, aes(x = prumer)) +
+    geom_histogram(bins = 50, fill = "steelblue", alpha = 0.7) +
+    geom_density(aes(y = after_stat(count)), color = "red", size = 1) +
+    labs(title = title, x = "Průměr vzorku", y = "Četnost") +
+    theme_minimal()
+}
+
+# Vytvoření grafů
+p1 <- plot_means(data_n2, "Rozdělení průměrů (n = 2)")
+p2 <- plot_means(data_n5, "Rozdělení průměrů (n = 5)")
+p3 <- plot_means(data_n30, "Rozdělení průměrů (n = 30)")
+p4 <- plot_means(data_n100, "Rozdělení průměrů (n = 100)")
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p0, p1, p2, p3, p4, ncol = 2)
+```
+
+Vidíme, že i když původní data pocházejí z uniformního (neNormálního) rozdělení, s rostoucím počtem pozorování ve vzorku se rozdělení průměrů stále více blíží normálnímu rozdělení.
+
+:::{.callout-important}
+## Metodologická poznámka: Podmínky a použití CLT
+
+**Co říká CLT:**
+Průměr vzorku $\bar{X}$ se blíží normálnímu rozdělení N(μ, σ²/n) bez ohledu na tvar původního rozdělení, pokud n je dostatečně velké.
+
+**Podmínky pro CLT:**
+
+1. **Nezávislost**: Pozorování musí být nezávislá
+2. **Identické rozdělení**: Všechny proměnné ze stejného rozdělení
+3. **Konečná variance**: σ² < ∞
+4. **Dostatečně velké n**: Záleží na původním rozdělení!
+
+**Jak velké musí být n?**
+
+- **n ≥ 30**: Obecné pravidlo palce (funguje pro většinu rozdělení)
+- **n ≥ 5-10**: Pro přibližně symetrická rozdělení
+- **n ≥ 100**: Pro velmi šikmá nebo těžkochvostá rozdělení
+- **Kdykoliv**: Pro normální původní rozdělení (platí přesně)
+
+**Praktické aplikace CLT:**
+
+- **Konfidenční intervaly**: Průměr ± kritická hodnota × SE
+- **Testování hypotéz**: t-testy, z-testy
+- **Kontrola kvality**: Průměrná vada v dávce
+- **Průzkumy**: Odhad průměrného názoru z vzorku
+
+**Co CLT NEUMOŽŇUJE:**
+
+- Normalizovat původní data (jen průměry!)
+- Fungovat pro malé vzorky z extrémně nenormálních dat
+- Platit pro mediány nebo jiné statistiky (jen pro průměry a součty)
+
+**Důsledek pro praxi**: I když vaše data nejsou normální, můžete použít t-test pokud n je dostatečně velké!
+
+**Vizuální kontrola**: Vytvořte histogram průměrů z bootstrap vzorků – měl by být přibližně normální.
+:::
+
 ## Závěr
 
-Centrální limitní věta je základním principem, který propojuje různé oblasti statistiky a aplikací. Poskytuje opěrný bod pro analýzu široké škály datových forem a proměnných. Díky ní máme univerzální nástroj, který nám umožňuje transformovat složitý a náhodný svět do něčeho, co je předvídatelné a analyzovatelné.
-
-Je dobré si pamatovat, že ačkoli centrální limitní věta nabízí mocné nástroje, jako u všech statistických metod je klíčové rozumět podmínkám a předpokladům, za kterých platí, abychom její použití správně interpretovali.
+Centrální limitní věta je základním principem, který propojuje různé oblasti statistiky a aplikací. Poskytuje základ pro použití mnoha statistických testů a metod, protože umožňuje aplikovat normální rozdělení na průměry vzorků i v případech, kdy původní data nejsou normálně rozdělena. Díky ní můžeme transformovat složitý a náhodný svět do formy, která je předvídatelná a analyzovatelná pomocí standardních statistických nástrojů.
 

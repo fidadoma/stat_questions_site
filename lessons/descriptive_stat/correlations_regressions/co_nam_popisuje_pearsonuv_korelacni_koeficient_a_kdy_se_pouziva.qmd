@@ -1,5 +1,6 @@
 ---
 title: "Co to je Pearsonův korelační koeficient"
+order: 30
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Pearsonova korelačního koeficientu
+## Úvod
 
 Pearsonův korelační koeficient, často označovaný jako **r**, je statistická veličina, která měří sílu a směr lineárního vztahu mezi dvěma kvantitativními proměnnými. Tento koeficient je pojmenován po Karlu Pearsonovi, který tento koncept představil.
 
@@ -47,4 +47,100 @@ Pearsonův korelační koeficient je užitečný v situacích, kdy chceme měři
 - **Zdravotnictví**: Výzkum vztahu mezi konzumací tuku a hladinou cholesterolu.
 
 Je však důležité poznamenat, že vysoká hodnota Pearsonova korelačního koeficientu neimplikuje příčinný vztah — tedy to, že jedna proměnná způsobuje změnu v druhé. Korelace neznamená kauzalitu.
+
+:::{.callout-warning}
+## Metodologické varování: Předpoklady Pearsonovy korelace
+
+Pearsonova korelace měří **pouze lineární vztahy**. Časté chyby:
+
+**1. Nelineární vztahy**
+
+- Příklad: U-shaped vztah mezi věkem a štěstím (nízké v mladosti, vysoké ve středním věku, pak klesá)
+- Pearson může ukázat r ≈ 0, přestože silný vztah existuje!
+- Řešení: Vždy vytvořte scatter plot před výpočtem korelace
+
+**2. Outliers**
+
+- Jeden extrémní bod může dramaticky změnit hodnotu r
+- Řešení: Zkontrolujte data na outliers, zvažte robustní korelaci (Spearman)
+
+**3. Předpoklady**:
+
+- Obě proměnné jsou **číselné** (ne ordinální)
+- Vztah je **lineární**
+- Data jsou p řibližně **normální** (pro testování významnosti)
+- **Homoskedasticita** - variance Y je konstantní pro různá X
+
+**Interpretace velikosti**:
+
+- |r| ~ 0.1: slabá
+- |r| ~ 0.3: střední
+- |r| ~ 0.5: silná
+- Ale pozor: i r=0.1 může být prakticky významné!
+:::
+
+
+## Vizualizace korelací
+
+Pro lepší pochopení různých hodnot Pearsonova korelačního koeficientu si ukažme příklady různých vztahů:
+
+```{r}
+#| label: fig-correlations
+#| fig-cap: "Různé hodnoty Pearsonova korelačního koeficientu"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# Funkce pro vytvoření korelovaných dat
+create_correlated_data <- function(n, r) {
+  x <- rnorm(n)
+  y <- r * x + sqrt(1 - r^2) * rnorm(n)
+  cor_actual <- cor(x, y)
+  data.frame(x = x, y = y, correlation = round(cor_actual, 2))
+}
+
+# Vytvoření různých korelací
+data_perfect_pos <- create_correlated_data(100, 1.0)
+data_high_pos <- create_correlated_data(100, 0.8)
+data_medium_pos <- create_correlated_data(100, 0.5)
+data_zero <- create_correlated_data(100, 0.0)
+data_medium_neg <- create_correlated_data(100, -0.5)
+data_perfect_neg <- create_correlated_data(100, -1.0)
+
+# Funkce pro vytvoření jednotlivých grafů
+plot_correlation <- function(data, title) {
+  ggplot(data, aes(x = x, y = y)) +
+    geom_point(alpha = 0.6, color = "steelblue") +
+    geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed") +
+    labs(title = paste0(title, " (r = ", unique(data$correlation), ")")) +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+}
+
+# Vytvoření grafů
+p1 <- plot_correlation(data_perfect_pos, "Perfektní pozitivní")
+p2 <- plot_correlation(data_high_pos, "Silná pozitivní")
+p3 <- plot_correlation(data_medium_pos, "Střední pozitivní")
+p4 <- plot_correlation(data_zero, "Žádná korelace")
+p5 <- plot_correlation(data_medium_neg, "Střední negativní")
+p6 <- plot_correlation(data_perfect_neg, "Perfektní negativní")
+
+# Uspořádání do mřížky
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, p6, ncol = 2)
+```
+
+## Závěr
+
+Pearsonův korelační koeficient je základní nástroj pro měření lineárního vztahu mezi dvěma kvantitativními proměnnými. Jeho hodnoty v rozmezí -1 až 1 nám poskytují informaci o síle a směru vztahu. Je důležité si uvědomit, že měří pouze lineární vztahy a že korelace neimplikuje kauzalitu. Při interpretaci Pearsonova korelačního koeficientu je vždy vhodné doplnit analýzu vizualizací dat.
+
+## Viz také
+
+- [Co nám popisuje Spearmanův korelační koeficient](co_nam_popisuje_spearmanuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - neparametrická alternativa
+- [Jaký je rozdíl mezi korelací a kauzalitou](jaky_je_rozdil_mezi_korelaci_a_kauzalitou.qmd) - interpretace korelace
+- [Co je to Anscombeho kvartet](co_je_to_ansombeho_kvartet.qmd) - vždy vizualizujte!
+- [Jaký je vztah mezi směrnicí přímky a Pearsonovým korelačním koeficientem](jaky_je_vztah_mezi_smernici_primky_a_pearsonovym_korelacnim_koeficientem.qmd) - vztah ke regresi
+- [Co testujeme u korelačního koeficientu](../../../inferential_statistics/co_testujeme_u_korelacniho_koeficientu_a_u_regrese.qmd) - testování významnosti
 

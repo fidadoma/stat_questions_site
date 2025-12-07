@@ -1,5 +1,6 @@
 ---
 title: "Řešení problému malého počtu pozorování v kontingenční tabulce"
+order: 310
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do kontingenčních tabulek
+## Úvod
 
 Kontingenční tabulka je způsob, jak shrnout data o dvou nebo více kategoriálních proměnných. Obvykle se používá ke zkoumání vztahů mezi kategoriálními proměnnými. Například, pokud bychom chtěli zjistit, zda existuje vztah mezi pohlavím a preferencí určitého druhu produktu, mohli bychom tyto informace zanést do kontingenční tabulky.
 
@@ -56,6 +56,92 @@ I když to může být nejvíce časově náročná metoda, dalším logickým k
 ## 5. Simulace nebo bootstrapping
 
 Pro malý počet pozorování lze zvážit použití metod jako je bootstrapping, které zahrnují simulaci velkého množství vzorků z původního datového souboru s nahrazením, čímž se získá rozložení statistiky, které může být užitečné k získání odhadů a intervalů spolehlivosti.
+
+:::{.callout-important}
+## Metodologická poznámka: Řešení malých expected counts v kontingenčních tabulkách
+
+**Problém**: χ² test vyžaduje **Expected counts ≥ 5** v každé buňce
+
+**⚠️ Když E < 5:**
+
+- χ² distribuce není dobrá aproximace
+- p-hodnoty jsou **nepřesné**
+- Hrozí falešně pozitivní nebo negativní výsledky
+
+
+### **5 strategií řešení:**
+
+### 1. ✂️ **Sloučení kategorií** (Collapsing)
+
+**⚠️ Pozor**: Sloučením ztrácíte detail!
+
+### 2. 🎲 **Fisher's Exact Test** (Preferovaný pro 2×2)
+
+**Kdy použít:** Malý n + 2×2 tabulka
+
+**Výhody:**
+
+- ✅ Přesný test (ne aproximace)
+- ✅ Funguje i pro E < 5
+- ✅ Poskytuje odds ratio
+
+**Nevýhody:**
+
+- ❌ Výpočetně náročný pro velké n
+- ❌ Pro tabulky > 2×2 problematický
+
+### 3. 🔢 **Monte Carlo simulace χ² testu**
+
+**Pro tabulky r×c s malými počty:**
+
+**Jak to funguje:**
+
+- Simuluje 10,000 tabulek za H0
+- Spočítá p-hodnotu z distribuce χ² statistik
+- Přesnější než asymptotická aproximace
+
+### 4. 🧮 **Bayesovský přístup**
+
+**Výhoda**: Funguje dobře i s malými n
+
+### 5. 📈 **Získat více dat**
+
+**Nejlepší řešení**, když možné:
+- Power analýza: kolik n potřebuji?
+- Sběr dodatečných dat
+
+
+### **Rozhodovací strom:**
+
+```
+Expected counts < 5?
+    │
+    ├─ 2×2 tabulka?
+    │   │
+    │   ├─ ANO → ✅ Fisher's Exact Test
+    │   │
+    │   └─ NE (r×c tabulka)
+    │       │
+    │       ├─ Můžu sloučit kategorie? → ✅ Sloučit + χ²
+    │       │
+    │       └─ Ne → ✅ Monte Carlo χ² nebo Bayesian
+    │
+    └─ Expected ≥ 5 všude? → ✅ Standardní χ² test
+```
+
+### **Srovnání metod:**
+
+| Metoda | Výhoda | Nevýhoda | Kdy použít |
+|--------|--------|----------|------------|
+| **χ² test** | Rychlý, standard | Vyžaduje E≥5 | Velký n, E≥5 |
+| **Fisher's Exact** | Přesný, funguje pro malé n | Jen 2×2, výpočetně náročný | 2×2 + malý n |
+| **Monte Carlo χ²** | Pro r×c, flexibilní | Potřeba hodně simulací | r×c + malý n |
+| **Sloučení** | Jednoduchý | Ztráta informace | Logické spojení kategorií |
+| **Bayesian** | Funguje pro malé n | Jiný framework (BF, ne p) | Prior znalosti, malý n |
+
+
+**Zlaté pravidlo**: **VŽDY zkontrolujte expected counts** před interpretací χ² testu! Použijte `result$expected`. Pokud E < 5, použijte Fisher (2×2) nebo Monte Carlo (r×c).
+:::
 
 # Závěr
 

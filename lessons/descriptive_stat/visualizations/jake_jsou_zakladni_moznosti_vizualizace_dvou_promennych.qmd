@@ -1,5 +1,6 @@
 ---
 title: "Možnosti vizualizace dvou proměnných"
+order: 60
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,15 +13,14 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Vizualizace dvou proměnných
+## Úvod
 
 Vizualizace statistických dat je klíčovou dovedností při analýze dat. Vizualizace umožňuje snadno pochopit vztahy mezi proměnnými, identifikovat vzorce a odhalit trendy. Když pracujeme s dvěma proměnnými, máme několik základních možností, jak data vizualizovat. V tomto materiálu se podíváme na nejběžnější techniky, vhodnost jejich použití a poskytneme příklady z běžného života.
 
-## 1. Bodový graf (Scatter plot)
+## Bodový graf (Scatter plot)
 
 ### Popis
 
@@ -35,21 +35,21 @@ Představte si, že jste majitelem fitness centra a máte data o svých klientec
 - Identifikace korelace mezi proměnnými.
 - Detekce vzorců a anomálií.
 
-## 2. Tabulka kontingence (Contingency table)
+## Mozaikový graf
 
 ### Popis
 
-Pokud pracujeme s dvěma kategorickými proměnnými, tabulka kontingence je vynikající nástroj. Ukazuje frekvence vzniku kombinací kategorií dvou proměnných.
+Pokud pracujeme s dvěma kategorickými proměnnými, můžeme použít mozaikový graf. Jednotlivé oblasti mozaiky mají proporční velikost k oběma proměnným.
 
 ### Příklad z běžného života
 
-Uvažujme o průzkumu, který se ptá lidí na jejich oblíbenou kuchyni (italská, čínská, indická) a zda dávají přednost jídlu doma nebo v restauraci. Tabulka kontingence může ukázat, jaký je vztah mezi oblíbeným typem kuchyně a preferencí, kde lidé jedí.
+Uvažujme o průzkumu, který se ptá lidí na jejich oblíbenou kuchyni (italská, čínská, indická) a zda dávají přednost jídlu doma nebo v restauraci. Mozaikový graf může ukázat, jaký je vztah mezi oblíbeným typem kuchyně a preferencí, kde lidé jedí.
 
 ### Použití
 
-- Analyzování a porovnávání četností.
+Analyzování a porovnávání četností.
 
-## 3. Histogram dvou proměnných (Bivariate histogram)
+## Histogram dvou proměnných (Bivariate histogram)
 
 ### Popis
 
@@ -61,9 +61,9 @@ Jako majitel zoo vás může zajímat rozložení váhy a délky různých druh�
 
 ### Použití
 
-- Poskytuje vizualizaci hustoty datových bodů.
+Poskytuje vizualizaci hustoty datových bodů.
 
-## 4. Teplotní mapa (Heatmap)
+## Teplotní mapa (Heatmap)
 
 ### Popis
 
@@ -75,9 +75,9 @@ Představte si, že jste manažerem hotelu a máte data o návštěvnosti hotelo
 
 ### Použití
 
-- Vizualizace hustoty, frekvencí a odhalování vzorců.
+Vizualizace hustoty, frekvencí a odhalování vzorců.
 
-## 5. Spojnicový graf (Line plot)
+## Spojnicový graf (Line plot)
 
 ### Popis
 
@@ -89,11 +89,174 @@ Pokud jste finanční analytik, můžete používat spojnicový graf k sledován
 
 ### Použití
 
-- Zobrazení trendů a změn v průběhu času.
+Zobrazení trendů a změn v průběhu času.
 
-## Shrnutí
+## Praktické příklady vizualizací
 
-Volba správné vizualizační techniky závisí na typu vašich proměnných (číslo vs. kategorická) a cíli analýzy (korelace, trend, frekvence). Správná vizualizace vám pomůže snadněji interpretovat data a učinit informovaná rozhodnutí.
+Pro lepší pochopení si ukážeme konkrétní příklady jednotlivých typů vizualizací:
 
+```{r}
+#| label: fig-two-var-examples
+#| fig-cap: "Různé typy vizualizace dvou proměnných"
+#| warning: false
+#| fig-height: 12
 
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# 1. Bodový graf (dvě číselné proměnné)
+data_scatter <- data.frame(
+  hodiny_cviceni = rnorm(100, mean = 5, sd = 2),
+  zhubnuty_kg = rnorm(100, mean = 3, sd = 1)
+)
+data_scatter$zhubnuty_kg <- data_scatter$zhubnuty_kg + 0.5 * data_scatter$hodiny_cviceni + rnorm(100, 0, 1)
+
+p1 <- ggplot(data_scatter, aes(x = hodiny_cviceni, y = zhubnuty_kg)) +
+  geom_point(color = "steelblue", alpha = 0.6, size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(
+    title = "1. Bodový graf (Scatter plot)",
+    subtitle = "Vztah mezi cvičením a úbytkem váhy",
+    x = "Hodiny cvičení týdně",
+    y = "Zhubnuté kg za měsíc"
+  ) +
+  theme_minimal()
+
+# 2. Spojnicový graf (časová řada)
+data_line <- data.frame(
+  mesic = 1:12,
+  cena_akcie = cumsum(c(100, rnorm(11, mean = 2, sd = 5)))
+)
+
+p2 <- ggplot(data_line, aes(x = mesic, y = cena_akcie)) +
+  geom_line(color = "darkgreen", size = 1.2) +
+  geom_point(color = "darkgreen", size = 3) +
+  labs(
+    title = "2. Spojnicový graf (Line plot)",
+    subtitle = "Vývoj ceny akcie v čase",
+    x = "Měsíc",
+    y = "Cena akcie (Kč)"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 1:12)
+
+# 3. Sloupcový graf pro dvě kategorie
+data_bar <- data.frame(
+  kuchyne = rep(c("Italská", "Čínská", "Indická"), each = 2),
+  preference = rep(c("Doma", "Restaurace"), 3),
+  pocet = c(45, 35, 30, 50, 25, 55)
+)
+
+p3 <- ggplot(data_bar, aes(x = kuchyne, y = pocet, fill = preference)) +
+  geom_col(position = "dodge", alpha = 0.7) +
+  labs(
+    title = "3. Sloupcový graf",
+    subtitle = "Preference kuchyně a místa konzumace",
+    x = "Typ kuchyně",
+    y = "Počet respondentů",
+    fill = "Preference"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2")
+
+# 4. Teplotní mapa (heatmap)
+data_heatmap <- expand.grid(
+  den = c("Po", "Út", "St", "Čt", "Pá", "So", "Ne"),
+  hodina = c("Snídaně", "Oběd", "Večeře")
+)
+data_heatmap$navstevnost <- c(
+  20, 15, 12, 18, 25, 35, 30,  # Snídaně
+  45, 50, 48, 52, 55, 60, 50,  # Oběd
+  40, 42, 38, 45, 60, 70, 65   # Večeře
+)
+
+p4 <- ggplot(data_heatmap, aes(x = den, y = hodina, fill = navstevnost)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = navstevnost), color = "white", fontface = "bold") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  labs(
+    title = "4. Teplotní mapa (Heatmap)",
+    subtitle = "Návštěvnost hotelové restaurace",
+    x = "Den v týdnu",
+    y = "Denní doba",
+    fill = "Počet\nhostů"
+  ) +
+  theme_minimal()
+
+# 5. Boxplot pro porovnání skupin
+data_boxplot <- data.frame(
+  skupina = rep(c("Kontrolní", "Testovací"), each = 100),
+  vysledek = c(rnorm(100, mean = 70, sd = 10),
+               rnorm(100, mean = 80, sd = 12))
+)
+
+p5 <- ggplot(data_boxplot, aes(x = skupina, y = vysledek, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.2, size = 1) +
+  labs(
+    title = "5. Krabicový graf (Boxplot)",
+    subtitle = "Porovnání výsledků mezi skupinami",
+    x = "Skupina",
+    y = "Skóre testu (%)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Set1")
+
+# 6. Violin plot
+p6 <- ggplot(data_boxplot, aes(x = skupina, y = vysledek, fill = skupina)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.2, fill = "white", alpha = 0.5) +
+  labs(
+    title = "6. Houslový graf (Violin plot)",
+    subtitle = "Distribuce výsledků s detaily rozložení",
+    x = "Skupina",
+    y = "Skóre testu (%)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Set1")
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, p6, ncol = 2)
+```
+
+:::{.callout-tip}
+## Metodologická matice: Volba vizualizace pro dvě proměnné
+
+**Rychlá referenční tabulka**:
+
+| Proměnná X | Proměnná Y | První volba | Alternativy | Kdy použít |
+|------------|------------|-------------|-------------|-----------|
+| Číselná | Číselná | **Bodový graf** | Hexbin, contour, heatmap | Hledáme korelaci, vztah |
+| Časová | Číselná | **Spojnicový graf** | Bodový s linií | Trendy v čase |
+| Kategorická | Číselná | **Boxplot** | Violin plot, sloupcový graf s CI | Porovnání skupin |
+| Kategorická | Kategorická | **Mozaikový graf** | Seskupený sloupcový graf | Asociace mezi kategoriemi |
+
+**Speciální situace**:
+
+- **Velké množství bodů** (>10,000): Hexbin plot, 2D histogram, contour plot
+- **Hierarchická data**: Facetované grafy (trellis plots)
+- **3+ proměnné**: Barva/tvar/velikost bodů, facety
+
+**Co přidávat do grafů?**
+
+- ✅ Regresní přímku k bodovým grafům
+- ✅ Průměry k boxplotům (malý bod/kosočtverec)
+- ✅ Konfidenční intervaly k trendu
+- ✅ Počty pozorování (n) pro každou skupinu
+
+**Zlaté pravidlo**: Zkuste vždy 2-3 různé vizualizace stejných dat – každá může odhalit jiný vzorec!
+:::
+
+## Závěr
+
+Volba správné vizualizační techniky závisí na typu vašich proměnných (číselná vs. kategorická) a cíli analýzy (korelace, trend, frekvence, distribuce). Správná vizualizace vám pomůže snadněji interpretovat data a učinit informovaná rozhodnutí. Bodové grafy jsou ideální pro zkoumání vztahů mezi dvěma číselnými proměnnými, spojnicové grafy pro časové řady, krabicové grafy pro porovnání distribucí mezi skupinami, a teplotní mapy pro zobrazení hustoty nebo frekvence v dvourozměrném prostoru.
+
+## Viz také
+
+- [Jaké jsou možné vztahy mezi dvěma proměnnými](../../correlations_regressions/jake_jsou_mozne_vztahy_mezi_dvema_promennymi.qmd) - typy vztahů
+- [Co je to Anscombeho kvartet](../../correlations_regressions/co_je_to_ansombeho_kvartet.qmd) - důležitost vizualizace
+- [Co nám popisuje Pearsonův korelační koeficient](../../correlations_regressions/co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - kvantifikace lineárního vztahu
 

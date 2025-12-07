@@ -1,5 +1,6 @@
 ---
-title: "Úvod do lineární regrese: Rovnice a její složky"
+title: "Rovnice lineární regrese a její složky"
+order: 50
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -36,6 +36,80 @@ Kde:
 - $b_1$ je koeficient sklonu regresní přímky (jak moc se $Y$ změní, když $X$ vzroste o jednu jednotku).
 - $\varepsilon$ je chybový člen (odchylka skutečných hodnot od odhadovaných).
 
+```{r}
+#| label: fig-regression-components
+#| fig-cap: "Vizualizace jednotlivých složek regresní rovnice"
+#| warning: false
+
+library(ggplot2)
+
+set.seed(123)
+
+# Vytvoření dat
+plocha <- seq(20, 100, length.out = 50)
+zakladni_naklady <- 500  # b0
+naklady_za_metr <- 15    # b1
+naklady <- zakladni_naklady + naklady_za_metr * plocha + rnorm(50, 0, 200)
+
+data <- data.frame(plocha = plocha, naklady = naklady)
+
+# Fitování modelu
+model <- lm(naklady ~ plocha, data = data)
+b0 <- coef(model)[1]
+b1 <- coef(model)[2]
+
+# Vytvoření grafu
+ggplot(data, aes(x = plocha, y = naklady)) +
+  geom_point(size = 3, color = "steelblue", alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", size = 1.2) +
+  
+  # Intercept line
+  geom_hline(yintercept = b0, linetype = "dashed", color = "darkgreen", size = 1) +
+  
+  # Slope - Arrows (Triangle)
+  geom_segment(aes(x = 50, y = b0 + b1*50, xend = 60, yend = b0 + b1*50),
+               arrow = arrow(length = unit(0.3, "cm")), color = "purple", size = 1) +
+  geom_segment(aes(x = 60, y = b0 + b1*50, xend = 60, yend = b0 + b1*60),
+               arrow = arrow(length = unit(0.3, "cm")), color = "purple", size = 1) +
+  
+  # Slope - Text Label (Horizontal)
+  annotate("text", x = 55, y = b0 + b1*50 - 100,
+           label = "+10 m²", color = "purple", fontface = "bold") +
+  
+  # Slope - Text Label (Vertical) 
+  # We use 'atop' for the newline effect and 'parse = TRUE'
+  annotate(
+    "text",
+    x = 62,
+    y = b0 + b1 * 55,
+    label = as.character(as.expression(
+      bquote(atop("+" ~ .(round(b1 * 10, 0)) ~ " Kč", "(" ~ b[1] ~ "× 10)"))
+    )),
+    parse = TRUE,
+    color = "purple",
+    fontface = "bold",
+    hjust = 0
+  ) +  
+  
+  # Rezidua - příklad
+  geom_segment(aes(x = plocha[10], y = naklady[10],
+                   xend = plocha[10], yend = fitted(model)[10]),
+               color = "orange", size = 1, linetype = "dotted") +
+  
+  annotate("text", x = plocha[10] + 3, y = (naklady[10] + fitted(model)[10])/2,
+           label = "ε (reziduum)", color = "orange", fontface = "bold", hjust = 0) +
+  
+  labs(
+    title = expression("Složky regresní rovnice: " ~ Y == b[0] + b[1] * X + epsilon),
+    subtitle = bquote("Odhadnutá rovnice: Náklady =" ~ .(round(b0, 0)) +
+                         ~ .(round(b1, 2)) %*% " Plocha"),
+    x = "Plocha bytu (m²)",
+    y = "Měsíční náklady na energie (Kč)"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
 ## Představa v běžném životě
 
 Abychom lépe pochopili, jak tyto složky fungují, pojďme se podívat na příklad z běžného života.
@@ -50,9 +124,44 @@ Abychom lépe pochopili, jak tyto složky fungují, pojďme se podívat na pří
 
 - **$\varepsilon$ (Chybový člen):** Odchylka skutečných měsíčních výdajů na energie od hodnot předpovězených modelem. Tato odchylka může být způsobena náhodnými výkyvy v počasí, sezónními změnami a dalšími nepředvídatelnými faktory.
 
+:::{.callout-tip}
+## Metodologická poznámka: Interpretace regresních koeficientů
+
+**Intercept ($b_0$)** - často ignorován, ale důležitý:
+
+- V praxi může být nesmyslný (plat při 0 letech zkušeností)
+- Ale matematicky nutný pro best fit
+- Někdy má smysl (fixní náklady nezávislé na X)
+
+**Slope ($b_1$)** - klíčový parametr:
+
+- **Interpretace**: "Při zvýšení X o 1 jednotku se Y změní o $b_1$ jednotek"
+- **Pozor na jednotky**: Pokud X je v tisících, $b_1$ je změna na 1000 jednotek X
+- **Extrapolace**: $b_1$ platí v rozsahu pozorovaných dat, ne mimo něj!
+
+**Rezidua ($\varepsilon$)** - diagnostika modelu:
+
+- Ideálně: náhodná, normálně rozdělená, konstant ní variance
+- Pokud mají vzor → model je špatně specifikovaný
+- Velká rezidua → outliers nebo chybějící prediktory
+
+**Časté chyby**:
+
+- Interpretovat $b_1$ jako kauzální efekt (ne! to je jen asociace)
+- Ignorovat jednotky ($b_1$ = 0.5 může znamenat "půl měsíce" nebo "půl roku"!)
+- Nezkontrolovat předpoklady regrese (linearita, normalita reziduí, homoskedasticita)
+:::
+
 ## Závěr
 
 Lineární regrese nám umožňuje pochopit a kvantifikovat vztah mezi dvěma proměnnými. Rovnice lineární regrese s jejími složkami je klíčovým nástrojem statistické analýzy a pomáhá nám dělat informovaná rozhodnutí na základě dat. V našem příkladu s energiemi nám může říct, kolik bychom měli očekávat jako dodatečné náklady s rostoucí velikostí bytu.
 
-Tímto způsobem se lineární regrese používá nejen ve statistice, ale i v ekonomii, psychologii, vědách a mnoha dalších oborech pro modelování a predikci. 
+Tímto způsobem se lineární regrese používá nejen ve statistice, ale i v ekonomii, psychologii, vědách a mnoha dalších oborech pro modelování a predikci.
+
+## Viz také
+
+- [Jak určit kvalitu modelu](jak_urcit_kvalitu_modelu_a_jak_byste_ji_interpretovali.qmd) - R² a další míry
+- [Jaký je vztah mezi směrnicí přímky a Pearsonovým korelačním koeficientem](jaky_je_vztah_mezi_smernici_primky_a_pearsonovym_korelacnim_koeficientem.qmd) - korelace vs regrese
+- [Co testujeme u regrese](../../../inferential_statistics/co_testujeme_u_korelacniho_koeficientu_a_u_regrese.qmd) - testování koeficientů
+- [Co to je normalita reziduí](../../../inferential_statistics/co_to_je_normalita_rezidui_u_regrese_jak_to_pozname.qmd) - předpoklady regrese
 

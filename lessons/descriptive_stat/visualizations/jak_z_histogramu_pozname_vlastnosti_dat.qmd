@@ -1,5 +1,6 @@
 ---
 title: "Jak z histogramu poznáme vlastnosti dat?"
+order: 20
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do histogramu
+## Úvod
 
 Histogram je grafické zobrazení rozložení kvantitativních dat. Pomáhá nám rychle vidět základní vlastnosti dat, jako je tvar rozložení, výskyt extrémních hodnot, symetrii nebo asymetrii a zaměření kolem určité hodnoty. Jedná se o velmi účinný nástroj v průzkumové analýze dat.
 
@@ -29,6 +29,40 @@ Histogram je tvořen sadou obdélníků, kde každý reprezentuje frekvenci hodn
 Představme si, že pracujeme jako manažer fitness centra a máme data o váze všech členů tělocvičny. Rádi bychom si udělali představu o tom, jaký je obecný trend váhy u našich členů. Histogram nám pomůže vytvořit přehled o tom, kolik členů spadá do specifických váhových intervalů (například 50-60 kg, 60-70 kg atd.).
 
 # Vlastnosti dat z histogramu
+
+:::{.callout-tip}
+## Metodologický checklist: Co hledat v histogramu?
+
+**1. Tvar rozložení**:
+
+- Symetrické (zvonové) → normální rozložení, parametrické testy OK
+- Šikmé doprava → logaritmická transformace, neparametrické testy
+- Šikmé doleva → zvažte transformaci nebo neparametrické metody
+- Bimodální → možná dvě podskupiny v datech!
+
+**2. Centrální tendence**:
+
+- Kde je "vrchol" histogramu? (přibližná hodnota modu/mediánu)
+- Je rozložení symetrické? Pokud ano, průměr ≈ medián
+
+**3. Variabilita**:
+
+- Široký histogram → vysoká variabilita (velká SD)
+- Úzký histogram → nízká variabilita (malá SD)
+
+**4. Odlehlé hodnoty**:
+
+- Izolované sloupce na krajích?
+- Dlouhé "chvosty" bez dat?
+
+**5. Volba bin width**:
+
+- Příliš málo binů → ztrácíte detail
+- Příliš mnoho binů → šum, ztráta celkového obrazu
+- **Doporučení**: Zkuste 3-4 různé šířky binů!
+
+**VŽDY začněte analýzu vizualizací!** Histogram vám řekne, zda jsou splněny předpoklady parametrických testů.
+:::
 
 ## Tvar rozložení
 
@@ -58,4 +92,116 @@ Díky histogramu se můžete rychle seznámit s vlastnostmi vašich dat. Při an
 
 Pamatujte, že posouzení histogramu je často subjektivní a může záviset na nastavení šířky binu. Různé nastavení šířky může vést k odlišným interpretacím, proto je důležité si být vědom toho, jak to může ovlivnit váš pohled na data.
 
+## Vizualizace různých typů histogramů
+
+Pro lepší pochopení si ukážeme příklady různých typů rozložení dat pomocí histogramů:
+
+```{r}
+#| label: fig-histogram-shapes
+#| fig-cap: "Různé tvary histogramů a jejich interpretace"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# 1. Symetrické (normální) rozložení
+data_symmetric <- data.frame(
+  hodnota = rnorm(1000, mean = 50, sd = 10),
+  typ = "Symetrické rozložení"
+)
+
+# 2. Pravostranně šikmé (kladná šikmost)
+data_right_skew <- data.frame(
+  hodnota = exp(rnorm(1000, mean = 3.5, sd = 0.5)),
+  typ = "Šikmé doprava (kladná šikmost)"
+)
+
+# 3. Levostranně šikmé (záporná šikmost)
+data_left_skew <- data.frame(
+  hodnota = 100 - exp(rnorm(1000, mean = 3.5, sd = 0.5)),
+  typ = "Šikmé doleva (záporná šikmost)"
+)
+
+# 4. Nízká variabilita
+data_low_var <- data.frame(
+  hodnota = rnorm(1000, mean = 50, sd = 3),
+  typ = "Nízká variabilita (úzké rozložení)"
+)
+
+# 5. Vysoká variabilita
+data_high_var <- data.frame(
+  hodnota = rnorm(1000, mean = 50, sd = 20),
+  typ = "Vysoká variabilita (široké rozložení)"
+)
+
+# 6. Data s odlehlými hodnotami
+data_outliers <- data.frame(
+  hodnota = c(rnorm(950, mean = 50, sd = 8),
+              rnorm(50, mean = 100, sd = 5)),
+  typ = "Přítomnost odlehlých hodnot"
+)
+
+# Funkce pro vytvoření histogramu
+create_histogram <- function(data, title) {
+  ggplot(data, aes(x = hodnota)) +
+    geom_histogram(bins = 30, fill = "steelblue", color = "white", alpha = 0.7) +
+    labs(title = title, x = "Hodnota", y = "Četnost") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10, face = "bold"))
+}
+
+# Vytvoření jednotlivých grafů
+p1 <- create_histogram(data_symmetric, "Symetrické rozložení")
+p2 <- create_histogram(data_right_skew, "Šikmé doprava (kladná šikmost)")
+p3 <- create_histogram(data_left_skew, "Šikmé doleva (záporná šikmost)")
+p4 <- create_histogram(data_low_var, "Nízká variabilita")
+p5 <- create_histogram(data_high_var, "Vysoká variabilita")
+p6 <- create_histogram(data_outliers, "S odlehlými hodnotami")
+
+# Uspořádání do mřížky
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, p6, ncol = 2)
+```
+
+## Vliv šířky binu na interpretaci
+
+Ukážeme si, jak různá šířka binů ovlivňuje vzhled histogramu:
+
+```{r}
+#| label: fig-bin-width
+#| fig-cap: "Vliv šířky binu na vzhled histogramu"
+#| warning: false
+
+set.seed(123)
+data <- data.frame(hodnota = rnorm(500, mean = 50, sd = 10))
+
+p1 <- ggplot(data, aes(x = hodnota)) +
+  geom_histogram(bins = 10, fill = "steelblue", color = "white", alpha = 0.7) +
+  labs(title = "Málo binů (10)", x = "Hodnota", y = "Četnost") +
+  theme_minimal()
+
+p2 <- ggplot(data, aes(x = hodnota)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white", alpha = 0.7) +
+  labs(title = "Střední počet binů (30)", x = "Hodnota", y = "Četnost") +
+  theme_minimal()
+
+p3 <- ggplot(data, aes(x = hodnota)) +
+  geom_histogram(bins = 100, fill = "steelblue", color = "white", alpha = 0.7) +
+  labs(title = "Mnoho binů (100)", x = "Hodnota", y = "Četnost") +
+  theme_minimal()
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+## Závěr
+
+Histogram je klíčovým nástrojem pro pochopení rozložení dat. Z histogramu můžeme rychle identifikovat tvar rozložení (symetrické vs. šikmé), variabilitu dat (úzké vs. široké rozložení), přítomnost odlehlých hodnot a koncentraci dat kolem střední hodnoty. Je důležité si uvědomit, že volba šířky binu může významně ovlivnit vizuální interpretaci dat, proto je vhodné vyzkoušet několik různých nastavení.
+
+## Viz také
+
+- [Co to je šikmost dat](co_to_je_sikmost_dat.qmd) - identifikace z histogramu
+- [Jaké jsou možnosti vizualizací](jake_jsou_moznosti_vizualizaci_pro_kvalitativni_a_kvantitativni_promennou.qmd) - volba správného grafu
+- [Jak testujeme normalitu](../../../inferential_statistics/jak_muzeme_otestovat_normalitu.qmd) - ověření vizuálního dojmu
+- [Co je to Anscombeho kvartet](../../correlations_regressions/co_je_to_ansombeho_kvartet.qmd) - důležitost vizualizace
 

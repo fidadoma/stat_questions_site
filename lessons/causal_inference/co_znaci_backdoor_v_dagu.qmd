@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -60,8 +59,144 @@ Předpokládejme, že zkoumáme, zda kouření (léčba: $X$) ovlivňuje vznik r
 
 Při hodnocení, zda vyšší vzdělání (léčba: $X$) ovlivňuje příjem (výstup: $Y$), může zadní cestu tvořit majetek rodičů, který ovlivňuje jak úroveň vzdělání, tak příjem. Kontrolou rodičovského majetku lze lépe odhadnout skutečný vliv vzdělání na příjem.  
 
+:::{.callout-note}
+## Metodologická poznámka: Backdoor Criterion - identifikace konfounderů
+
+**Backdoor path (Zadní cesta)** = Ne-kauzální cesta z X do Y
+
+### **Co je backdoor path:**
+
+**Definice**: Cesta z X do Y, která **začíná šipkou SMĚŘUJÍCÍ DO X**
+
+```
+Backdoor:  X ← ... → Y  (začíná ←)
+Frontdoor: X → ... → Y  (začíná →, kauzální)
+```
+
+**Příklady:**
+
+```
+1. X ← C → Y
+   ↑ Backdoor path přes C
+
+2. X → M → Y
+   ↑ NENÍ backdoor (kauzální path)
+
+3. X ← C1 → C2 → Y
+   ↑ Backdoor path přes C1, C2
+
+4. X ← C1 → M ← C2 → Y
+   ↑ NENÍ aktivní backdoor (M je collider)
+```
+
+### **Backdoor Criterion:**
+
+**Množina Z splňuje backdoor criterion pro (X, Y) pokud:**
+
+1. ✅ Z **neobsahuje** potomky X
+2. ✅ Z **blokuje** všechny backdoor paths z X do Y
+
+**→ Pokud splněno: E[Y | do(X=x)] = E[Y | X=x, Z=z]**
+
+### **Jak najít adjustment set:**
+
+
+### **Typy cest:**
+
+| Cesta | Typ | Blokuje se? |
+|-------|-----|-------------|
+| X → M → Y | Kauzální (frontdoor) | NE (chceme!) |
+| X ← C → Y | Backdoor (fork) | **ANO** (kontrolovat C) |
+| X ← C → M → Y | Backdoor | **ANO** (kontrolovat C) |
+| X → M ← C → Y | Ne-backdoor | NE (M collider) |
+
+### **Blokování cest - d-separation:**
+
+**Cesta je blokovaná pokud obsahuje:**
+
+1. **Chain nebo Fork + kontrolujeme střední proměnnou:**
+```
+A → B → C, kontrolujeme B → BLOKOVÁNO
+A ← B → C, kontrolujeme B → BLOKOVÁNO
+```
+
+2. **Collider + NEkontrolujeme:**
+```
+A → B ← C, NEkontrolujeme B → BLOKOVÁNO
+```
+
+**Cesta je OTEVŘENÁ pokud:**
+
+- Chain/Fork BEZ kontroly střední proměnné
+- Collider S kontrolou
+
+### **Kdy backdoor criterion NELZE použít:**
+
+**Problém**: Unmeasured confounder (neměřený konfounder)
+
+```
+X ← U → Y  (U je neměřený!)
+
+→ Backdoor criterion nesplněn
+→ Nemůžeme odhadnout kauzální efekt přímou adjustací
+```
+
+**Alternativy:**
+
+1. **Instrumental Variables (IV)**:
+2. **Front-door criterion**:
+3. **Difference-in-Differences**
+4. **Regression Discontinuity**
+
+### **Časté chyby:**
+
+❌ **Kontrolovat potomka X**
+```
+X → M → Y
+   ↓
+   C
+
+# Kontrola M nebo C = BAD CONTROL
+# Blokuje kauzální path nebo otevírá collider
+```
+
+❌ **Nekontrolovat všechny backdoor paths**
+```r
+# Backdoor: X ← C1 → Y
+#           X ← C2 → Y
+
+# Špatně: kontrolovat jen C1
+lm(Y ~ X + C1)  # C2 stále confounduje!
+
+# Správně: kontrolovat OBA
+lm(Y ~ X + C1 + C2)
+```
+
+❌ **Přidat "všechno co máme"**
+→ Může kontrolovat collider nebo mediátor!
+
+### **Best practice workflow:**
+
+```
+Krok 1: Nakreslete DAG
+   ↓
+Krok 2: Identifikujte všechny cesty X → Y
+   ↓
+Krok 3: Označte backdoor cesty
+   ↓
+Krok 4: adjustmentSets(dag, "X", "Y")
+   ↓
+Krok 5: lm(Y ~ X + [adjustment set])
+```
+
+
+
+**Zlaté pravidlo**: **Backdoor criterion** je systematický způsob, jak identifikovat, které proměnné kontrolovat. Vždy použijte DAG k nalezení backdoor paths a blokujte je kontrolou správných proměnných!
+:::
+
 ## Závěr
 
-Porozumění a využívání kritéria zadních cest v orientovaných acyklických grafech umožňuje výzkumníkům přesněji určovat kauzální vztahy tím, že identifikují a kontrolují potenciální konfoundery. Blokováním zadních cest získáváme jasnější pohled na to, jak se proměnné přímo ovlivňují, a tím docházíme k spolehlivějším závěrům ve výzkumech a studiích.  
+Porozumění a využívání kritéria zadních cest v orientovaných acyklických grafech umožňuje výzkumníkům přesněji určovat kauzální vztahy tím, že identifikují a kontrolují potenciální konfoundery. Blokováním zadních cest získáváme jasnější pohled na to, jak se proměnné přímo ovlivňují, a tím docházíme k spolehlivějším závěrům ve výzkumech a studiích.
 
-Toto poznání nejen posiluje statistické a analytické dovednosti, ale také rozvíjí kritické myšlení a schopnost rozhodování v oblastech, jako je zdravotnictví, ekonomie či sociální vědy.  
+Toto poznání nejen posiluje statistické a analytické dovednosti, ale také rozvíjí kritické myšlení a schopnost rozhodování v oblastech, jako je zdravotnictví, ekonomie či sociální vědy.
+

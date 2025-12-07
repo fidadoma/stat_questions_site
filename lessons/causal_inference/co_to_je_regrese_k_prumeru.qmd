@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do regrese k průměru
+## Úvod
 
 ## Co to znamená?
 
@@ -50,6 +49,8 @@ Pokud provádíte výzkum nebo analýzu dat, měli byste být ostražití vůči
 3. **Analýza před a po**: Při hodnocení účinnosti intervence zvažujte srovnání výsledků před a po intervenci u různých úrovní původních měření.
 
 Vědomost o regresi k průměru vám pomůže lépe interpretovat výsledky a činit informovanější rozhodnutí při práci s daty.
+
+
 
 # Závěr
 

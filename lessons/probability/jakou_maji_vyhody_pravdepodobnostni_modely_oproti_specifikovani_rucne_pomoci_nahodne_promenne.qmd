@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -48,6 +47,55 @@ Pravděpodobnostní modely umožňují měřit nejistotu a poskytují intervaly 
 2. **Finanční trhy**: Pro řízení rizik na finančních trzích se používají pravděpodobnostní modely, jež dokáží lépe predikovat změny cen a přizpůsobit se rychlým změnám v datech.
 
 3. **Zdravotní péče**: V epidemiologii se pravděpodobnostní modely využívají k modelování šíření nemocí a efektivity opatření, což je zvlášť důležité pro rozhodování v krizových situacích, jakou byla COVID-19 pandemie.
+
+:::{.callout-tip}
+## Metodologická poznámka: Parametrické vs Neparametrické modely
+
+**Pravděpodobnostní (parametrické) modely:**
+
+- Předpokládají konkrétní rozdělení (Normální, Binomické, ...)
+- Popisují se několika parametry (μ, σ, λ, p, ...)
+- **Výhody**: Efektivní, interpretovatelné, umožňují predikci
+- **Nevýhody**: Předpoklady mohou být porušeny
+
+**Ruční specifikace (neparametrické přístupy):**
+
+- Nevyžadují předpoklad o rozdělení
+- Přímo z dat (histogram, empirické rozdělení)
+- **Výhody**: Žádné předpoklady, flexibilní
+- **Nevýhody**: Méně efektivní, potřeba více dat
+
+**Kdy použít parametrické modely?**
+
+- **Známé rozdělení**: Výška lidí → Normální
+- **Velká data**: Můžete testovat předpoklady
+- **Predikce mimo rozsah dat**: Extrapolace
+- **Interpretace parametrů**: μ má smysl (průměrná výška)
+- **Efektivita**: Menší vzorek stačí
+
+**Kdy použít neparametrické přístupy?**
+
+- **Neznámé rozdělení**: Netušíte, jak data vypadají
+- **Porušené předpoklady**: Data nejsou normální a transformace nepomohla
+- **Explorace**: První pohled na data
+- **Robustnost**: Outliers, těžké chvosty
+- **Malé vzorky z divného rozdělení**: Bezpečnější volba
+
+**Trade-off:**
+
+- **Parametrický**: Méně dat potřeba, ale riziko špatného modelu
+- **Neparametrický**: Více dat potřeba, ale bezpečnější
+
+**Doporučení:**
+
+1. Začněte vizualizací (histogram, Q-Q plot)
+2. Zkuste parametrický model (jednodušší interpretace)
+3. Testujte předpoklady (goodness-of-fit)
+4. Pokud předpoklady porušeny → neparametrický
+5. Reportujte oba výsledky pro robustnost!
+
+**Zlaté pravidlo**: "All models are wrong, but some are useful" - George Box
+:::
 
 ## Závěr
 

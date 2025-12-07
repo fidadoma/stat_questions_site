@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -49,10 +48,229 @@ Kvantitativní proměnné obsahují číselné hodnoty a lze s nimi provádět a
 
 Dělení proměnných na kvalitativní a kvantitativní nám pomáhá vybrat vhodné statistické metody pro analýzu dat. Například:
 
-- Pro **nominální** proměnné můžeme použít metody jako jsou frekvenční tabulky nebo diagramy.
-- Pro **ordinální** proměnné můžeme kromě frekvenčních tabulek také použít metody pro hodnocení pořadí.
+- Pro **nominální** proměnné můžeme použít metody jako jsou [frekvenční tabulky](../basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.qmd) nebo [diagramy](../visualizations/jake_jsou_moznosti_vizualizaci_pro_kvalitativni_a_kvantitativni_promennou.qmd).
+- Pro **ordinální** proměnné můžeme kromě frekvenčních tabulek také použít [neparametrické metody](../../inferential_statistics/jake_znate_zakladni_neparametricke_testy.qmd) pro hodnocení pořadí.
 - U **diskrétních** kvantitativních proměnných často využíváme různé testy pro určení pravděpodobností a distribucí.
-- Pro **spojité** kvantitativní proměnné jsou vhodné metody zahrnující regresní analýzu či analýzu rozptylu (ANOVA).
+- Pro **spojité** kvantitativní proměnné jsou vhodné metody zahrnující [regresní analýzu](../correlations_regressions/jak_vypada_rovnice_nejjednodussi_regrese_a_jak_nazyvame_jednotlive_cleny_rovnice.qmd) či [analýzu rozptylu (ANOVA)](../../inferential_statistics/k_cemu_slouzi_anova.qmd).
+
+:::{.callout-tip}
+## Metodologická poznámka: Správná klasifikace je klíčová
+
+Správná identifikace typu proměnné je základem pro volbu vhodných statistických metod. Časté chyby:
+
+- **Ordinální proměnné jako nominální**: Pokud s hodnocením 1-5 zacházíme jako s nominální proměnnou, ztrácíme informaci o pořadí.
+- **Diskrétní proměnné jako kategorické**: Počet dětí je diskrétní číselná proměnná, ne kategorie – můžeme s ní počítat průměry.
+- **Dichotomické proměnné**: Ano/Ne proměnné můžeme kódovat jako 0/1 a analyzovat jako číselné i kategorické.
+
+V praxi se vždy ptejte: *Dává smysl vypočítat průměr této proměnné?* Pokud ano, je pravděpodobně kvantitativní.
+:::
+
+## Vizualizace klasifikace proměnných
+
+```{r}
+#| label: fig-variable-classification
+#| fig-cap: "Klasifikace statistických proměnných"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+
+# Vytvoření hierarchického diagramu
+ggplot() +
+  # Úroveň 1: Statistické proměnné
+  annotate("rect", xmin = 3, xmax = 7, ymin = 9, ymax = 10,
+           fill = "#3498DB", alpha = 0.8) +
+  annotate("text", x = 5, y = 9.5, label = "STATISTICKÉ\nPROMĚNNÉ",
+           color = "white", fontface = "bold", size = 5) +
+
+  # Úroveň 2: Kvalitativní a Kvantitativní
+  annotate("rect", xmin = 1, xmax = 4, ymin = 6.5, ymax = 7.5,
+           fill = "#E74C3C", alpha = 0.8) +
+  annotate("text", x = 2.5, y = 7, label = "Kvalitativní\n(kategoriální)",
+           color = "white", fontface = "bold", size = 4) +
+
+  annotate("rect", xmin = 6, xmax = 9, ymin = 6.5, ymax = 7.5,
+           fill = "#2ECC71", alpha = 0.8) +
+  annotate("text", x = 7.5, y = 7, label = "Kvantitativní\n(číselné)",
+           color = "white", fontface = "bold", size = 4) +
+
+  # Šipky z úrovně 1 do 2
+  annotate("segment", x = 4.5, xend = 2.5, y = 9, yend = 7.5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+  annotate("segment", x = 5.5, xend = 7.5, y = 9, yend = 7.5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+
+  # Úroveň 3: Nominální a Ordinální
+  annotate("rect", xmin = 0.5, xmax = 2, ymin = 4, ymax = 5,
+           fill = "#E67E22", alpha = 0.8) +
+  annotate("text", x = 1.25, y = 4.5, label = "Nominální",
+           color = "white", fontface = "bold", size = 3.5) +
+
+  annotate("rect", xmin = 3, xmax = 4.5, ymin = 4, ymax = 5,
+           fill = "#E67E22", alpha = 0.8) +
+  annotate("text", x = 3.75, y = 4.5, label = "Ordinální",
+           color = "white", fontface = "bold", size = 3.5) +
+
+  # Úroveň 3: Diskrétní a Spojité
+  annotate("rect", xmin = 5.5, xmax = 7, ymin = 4, ymax = 5,
+           fill = "#27AE60", alpha = 0.8) +
+  annotate("text", x = 6.25, y = 4.5, label = "Diskrétní",
+           color = "white", fontface = "bold", size = 3.5) +
+
+  annotate("rect", xmin = 8, xmax = 9.5, ymin = 4, ymax = 5,
+           fill = "#27AE60", alpha = 0.8) +
+  annotate("text", x = 8.75, y = 4.5, label = "Spojité",
+           color = "white", fontface = "bold", size = 3.5) +
+
+  # Šipky z úrovně 2 do 3
+  annotate("segment", x = 2, xend = 1.25, y = 6.5, yend = 5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+  annotate("segment", x = 3, xend = 3.75, y = 6.5, yend = 5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+  annotate("segment", x = 7, xend = 6.25, y = 6.5, yend = 5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+  annotate("segment", x = 8, xend = 8.75, y = 6.5, yend = 5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1) +
+
+  # Příklady pro každý typ
+  annotate("text", x = 1.25, y = 3.3, label = "Příklady:",
+           fontface = "bold", size = 3) +
+  annotate("text", x = 1.25, y = 2.9, label = "Barva očí\nPohlaví\nNárodnost",
+           size = 2.8, lineheight = 0.9) +
+
+  annotate("text", x = 3.75, y = 3.3, label = "Příklady:",
+           fontface = "bold", size = 3) +
+  annotate("text", x = 3.75, y = 2.9, label = "Vzdělání\nHodnocení\nStupnice bolesti",
+           size = 2.8, lineheight = 0.9) +
+
+  annotate("text", x = 6.25, y = 3.3, label = "Příklady:",
+           fontface = "bold", size = 3) +
+  annotate("text", x = 6.25, y = 2.9, label = "Počet dětí\nPočet aut\nPočet studentů",
+           size = 2.8, lineheight = 0.9) +
+
+  annotate("text", x = 8.75, y = 3.3, label = "Příklady:",
+           fontface = "bold", size = 3) +
+  annotate("text", x = 8.75, y = 2.9, label = "Výška\nVáha\nTeplota",
+           size = 2.8, lineheight = 0.9) +
+
+  # Vlastnosti
+  annotate("text", x = 1.25, y = 2.2, label = "Vlastnosti:",
+           fontface = "bold", size = 2.8, color = "#E67E22") +
+  annotate("text", x = 1.25, y = 1.9, label = "Bez pořadí",
+           size = 2.6, color = "#E67E22") +
+
+  annotate("text", x = 3.75, y = 2.2, label = "Vlastnosti:",
+           fontface = "bold", size = 2.8, color = "#E67E22") +
+  annotate("text", x = 3.75, y = 1.9, label = "S pořadím",
+           size = 2.6, color = "#E67E22") +
+
+  annotate("text", x = 6.25, y = 2.2, label = "Vlastnosti:",
+           fontface = "bold", size = 2.8, color = "#27AE60") +
+  annotate("text", x = 6.25, y = 1.9, label = "Celá čísla",
+           size = 2.6, color = "#27AE60") +
+
+  annotate("text", x = 8.75, y = 2.2, label = "Vlastnosti:",
+           fontface = "bold", size = 2.8, color = "#27AE60") +
+  annotate("text", x = 8.75, y = 1.9, label = "Reálná čísla",
+           size = 2.6, color = "#27AE60") +
+
+  xlim(0, 10) +
+  ylim(1.5, 10.5) +
+  labs(
+    title = "Hierarchie statistických proměnných",
+    subtitle = "Kompletní klasifikace s příklady a vlastnostmi"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, size = 12)
+  )
+```
+
+```{r}
+#| label: fig-variable-examples
+#| fig-cap: "Praktické příklady různých typů proměnných"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+
+# Příklad 1: Nominální - Oblíbená barva
+data_nominal <- data.frame(
+  barva = c("Červená", "Modrá", "Zelená", "Žlutá"),
+  pocet = c(25, 35, 20, 20)
+)
+
+p1 <- ggplot(data_nominal, aes(x = reorder(barva, -pocet), y = pocet, fill = barva)) +
+  geom_col(alpha = 0.8) +
+  scale_fill_manual(values = c("Červená" = "#E74C3C", "Modrá" = "#3498DB",
+                                "Zelená" = "#2ECC71", "Žlutá" = "#F1C40F")) +
+  labs(
+    title = "Nominální proměnná",
+    subtitle = "Oblíbená barva (bez pořadí)",
+    x = "Barva",
+    y = "Počet lidí"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Příklad 2: Ordinální - Hodnocení spokojenosti
+data_ordinal <- data.frame(
+  hodnoceni = factor(c("Velmi nespokojen", "Nespokojen", "Neutrální",
+                       "Spokojen", "Velmi spokojen"),
+                     levels = c("Velmi nespokojen", "Nespokojen", "Neutrální",
+                               "Spokojen", "Velmi spokojen")),
+  pocet = c(5, 10, 20, 40, 25)
+)
+
+p2 <- ggplot(data_ordinal, aes(x = hodnoceni, y = pocet)) +
+  geom_col(fill = "#E67E22", alpha = 0.8) +
+  labs(
+    title = "Ordinální proměnná",
+    subtitle = "Spokojenost zákazníků (s pořadím)",
+    x = "Hodnocení",
+    y = "Počet respondentů"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+# Příklad 3: Diskrétní - Počet dětí
+data_discrete <- data.frame(
+  deti = 0:5,
+  pocet = c(15, 30, 35, 15, 4, 1)
+)
+
+p3 <- ggplot(data_discrete, aes(x = factor(deti), y = pocet)) +
+  geom_col(fill = "#27AE60", alpha = 0.8) +
+  geom_text(aes(label = pocet), vjust = -0.5, fontface = "bold") +
+  labs(
+    title = "Diskrétní proměnná",
+    subtitle = "Počet dětí v rodině (celá čísla)",
+    x = "Počet dětí",
+    y = "Počet rodin"
+  ) +
+  theme_minimal()
+
+# Příklad 4: Spojitá - Výška
+set.seed(123)
+data_continuous <- data.frame(
+  vyska = rnorm(100, mean = 175, sd = 10)
+)
+
+p4 <- ggplot(data_continuous, aes(x = vyska)) +
+  geom_histogram(bins = 20, fill = "#9B59B6", alpha = 0.8, color = "white") +
+  geom_density(aes(y = after_stat(count)), color = "#8E44AD", size = 1.5) +
+  labs(
+    title = "Spojitá proměnná",
+    subtitle = "Výška lidí v cm (reálná čísla)",
+    x = "Výška (cm)",
+    y = "Četnost"
+  ) +
+  theme_minimal()
+
+gridExtra::grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
 
 ## Aplikace v reálném světě
 
@@ -64,4 +282,10 @@ Dělení proměnných na kvalitativní a kvantitativní nám pomáhá vybrat vho
 
 Díky tomuto rozdělení a pochopení odlišných typů proměnných se stává analýza dat nejen efektivnější, ale také přesnější. Porozumění tomu, jaké typy proměnných máme k dispozici, nám pomáhá lépe strukturovat naši analýzu a přijímat informovaná rozhodnutí.
 
+## Viz také
+
+- [Rozdíl mezi diskrétní a spojitou proměnnou](5_jaky_je_rozdil_mezi_diskretni_a_spojitou_promennou.qmd) - detaily o kvantitativních proměnných
+- [Rozdíl mezi nominální a ordinální proměnnou](6_jaky_je_rozdil_mezi_nominalni_a_ordinalni_promennou.qmd) - detaily o kategoriálních proměnných
+- [Rozdíl mezi ordinální a číselnou proměnnou](7_jaky_je_rozdil_mezi_ordinalni_a_ciselnou_promennou.qmd) - kdy použít která metoda
+- [Jaké jsou možnosti vizualizací pro kvalitativní a kvantitativní proměnnou](../visualizations/jake_jsou_moznosti_vizualizaci_pro_kvalitativni_a_kvantitativni_promennou.qmd) - jak zobrazovat různé typy proměnných
 

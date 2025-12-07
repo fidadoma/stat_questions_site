@@ -38,9 +38,9 @@ website:
               - lessons/probability/co_znaci_podminena_pravdepodobnost.qmd
           - section: "Pravděpodobnostní rozdělení"
             contents:
-              - lessons/probability/jake_parametry_ma_normalni_rozdeleni_a_co_znamenaji.qmd
-              - lessons/probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.qmd
               - lessons/probability/jakou_maji_vyhody_pravdepodobnostni_modely_oproti_specifikovani_rucne_pomoci_nahodne_promenne.qmd
+              - lessons/probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.qmd
+              - lessons/probability/jake_parametry_ma_normalni_rozdeleni_a_co_znamenaji.qmd
           - section: "Pokročilé koncepty"
             contents:
               - lessons/probability/co_rika_centralni_limitni_veta_a_jake_ma_prakticke_pouziti.qmd
@@ -50,18 +50,18 @@ website:
           - section: "Základy časových řad"
             contents:
               - lessons/time_series/co_to_je_casova_rada_a_jak_je_delime.qmd
+              - lessons/time_series/jake_znate_koeficienty_miry_dynamiky_a_jaky_je_mezi_nimi_vztah.qmd
               - lessons/time_series/jak_dekomponujeme_casovou_radu.qmd
               - lessons/time_series/co_vite_o_reziduich_casove_rady.qmd
               - lessons/time_series/jake_mame_zavislosti_casovych_rad.qmd
           - section: "Vyhlazování a predikce"
             contents:
               - lessons/time_series/co_to_je_klouzavy_prumer.qmd
-              - lessons/time_series/co_je_to_exponencialni_vyhlazovani.qmd
               - lessons/time_series/jaky_je_rozdil_mezi_extrapolaci_a_interpolaci.qmd
           - section: "Modelování časových řad"
             contents:
               - lessons/time_series/co_to_je_arima_model.qmd
-              - lessons/time_series/jake_znate_koeficienty_miry_dynamiky_a_jaky_je_mezi_nimi_vztah.qmd
+              - lessons/time_series/co_je_to_exponencialni_vyhlazovani.qmd
       - section: "Inferenční statistika"
         contents:
           - section: "Základy testování hypotéz"

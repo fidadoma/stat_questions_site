@@ -1,5 +1,6 @@
 ---
 title: "Jak funguje jednovýběrový t-test?"
+order: 160
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
   
@@ -25,6 +25,7 @@ Uvádím příklad z běžného života: Představte si, že pracujete jako mana
 ## Kdy použít jednovýběrový t-test?
 
 Jednovýběrový t-test je použitelný, když máme:
+
 1. Kontinuální data (tj. data, kde má smysl počítat průměr, např. váha, výška, čas atd.).
 2. Jednu vzorkovou skupinu, která je měřena (např. skupina lidí nebo objektů).
 3. Známe průměr populace, se kterým chceme srovnávat naši vzorkovou skupinu.
@@ -35,6 +36,7 @@ Jednovýběrový t-test je použitelný, když máme:
 **Krok 1: Hypotézy**
 
 Prvním krokem v jednovýběrovém t-testu je formulace hypotéz:
+
 - **Nulová hypotéza ($H_0$):** Průměr vzorku ($\bar{x}$) se neliší od známého nebo předpokládaného průměru ($\mu$). Matematicky: $H_0: \bar{x} = \mu$.
 - **Alternativní hypotéza ($H_A$):** Průměr vzorku ($\bar{x}$) se liší od známého nebo předpokládaného průměru ($\mu$). Matematicky: $H_A: \bar{x} \neq \mu$.
 
@@ -44,11 +46,12 @@ Příklad: Naše nulová hypotéza by byla, že průměrný prodej kávy je 50 �
 
 Statistika t se vypočítá následovně:
 
-\[
+$$
 t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}
-\]
+$$
 
 kde:
+
 - $\bar{x}$ je průměr vzorku,
 - $\mu$ je známý průměr populace,
 - $s$ je směrodatná odchylka vzorku,
@@ -65,6 +68,63 @@ Příklad: Pokud je hodnota t větší než kritická hodnota z tabulky pro ná�
 1. **Farmacie:** Výzkumníci mohou použít jednovýběrový t-test k porovnání průměrného účinku nového léku proti známé hodnotě průměrného účinku stávajícího léku.
 2. **Ekonomika:** Analytici mohou srovnávat průměrný plat v konkrétní firmě proti průměrné hodnotě platů ve stejném odvětví.
 3. **Školství:** Školní správci mohou použít jednovýběrový t-test pro porovnání průměrných známek studentů v určité třídě s celonárodním průměrem.
+
+:::{.callout-tip}
+## Metodologická poznámka: Jednovýběrový t-test v praxi
+
+**Kdy použít jednovýběrový t-test:**
+
+✅ Porovnání průměru vzorku s **známou hodnotou** (populace, standard, cíl)
+✅ Jedna skupina, jedna číselná proměnná
+✅ Příklad: "Liší se průměrná výška našich studentů od národního průměru 175 cm?"
+
+**Vzorec:**
+$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
+
+Kde:
+- $\bar{x}$ = průměr vzorku
+- $\mu_0$ = testovaná hodnota (známá/hypotetická)
+- $s$ = směrodatná odchylka vzorku
+- $n$ = velikost vzorku
+
+**Předpoklady (VŽDY kontrolujte!):**
+
+1. **Normalita**: Data přibližně normální (Q-Q plot, Shapiro-Wilk)
+   - Pro n > 30: CLT pomáhá, méně kritické
+   - Pro n < 30: Normalita důležitá!
+2. **Nezávislost**: Pozorování nezávislá
+3. **Kontinuální data**: Má smysl počítat průměr
+
+**Typy alternativní hypotézy:**
+
+| Ha | Kdy použít | Test |
+|----|-----------|------|
+| μ ≠ μ0 | Chceme zjistit jakýkoliv rozdíl | **Dvoustranný** (běžný) |
+| μ > μ0 | Předpokládáme vyšší hodnotu | Jednostranný (pravý) |
+| μ < μ0 | Předpokládáme nižší hodnotu | Jednostranný (levý) |
+
+**Interpretace výsledků:**
+
+- **p < 0.05**: Zamítáme H0, průměr se **statisticky liší** od μ0
+- **p ≥ 0.05**: Nezamítáme H0, **nedostatek důkazů** o rozdílu
+- **VŽDY reportujte**: p-hodnotu, CI, effect size (Cohen's d)
+
+**Cohen's d pro jednovýběrový t-test:**
+
+$$d = \frac{\bar{x} - \mu_0}{s}$$
+- |d| < 0.2: malý efekt
+- |d| ≈ 0.5: střední efekt
+- |d| > 0.8: velký efekt
+
+**Kdy NEPOUŽÍT:**
+
+- ❌ Porušená normalita A malý vzorek → Wilcoxonův test
+- ❌ Porovnání dvou skupin → Dvouvýběrový t-test
+- ❌ Porovnání 3+ skupin → ANOVA
+- ❌ Závislá měření (před-po) → Párový t-test
+
+**Praktický tip**: V softwaru vždy zkontrolujte, zda je výstup pro jedno- nebo oboustranný test!
+:::
 
 Na základě těchto informací teď můžete sami vyzkoušet pochopit, jak se jednovýběrový t-test vztahuje ke skutečným situacím a použít ho ve svých analýzách! Pokud máte další otázky, neváhejte se zeptat svého lektora nebo nahlédnout do kvalitních statistických učebnic a zdrojů.
 

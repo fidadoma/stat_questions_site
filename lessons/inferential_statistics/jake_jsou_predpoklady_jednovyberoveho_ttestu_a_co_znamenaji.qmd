@@ -1,5 +1,6 @@
 ---
 title: "Předpoklady jednovýběrového t-testu"
+order: 170
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do jednovýběrového t-testu
+## Úvod
 
 Jednovýběrový t-test je statistická metoda používaná k porovnání průměru jednoho vzorku s průměrem předpokládaným nebo známým z populace. Tento test je velmi populární v mnoha oblastech, protože poskytuje jednoduchou a účinnou metodu, jak zjistit, zda se průměrná hodnota vzorku významně liší od nějaké konkrétní hodnoty.
 
@@ -42,7 +42,117 @@ Pokud sledujete dobu, kterou lidé tráví cvičením každý týden, očekává
 
 Tento předpoklad zejména platí více pro dvouvýběrové t-testy, ale je dobré jej mít na paměti i v kontextu jednovýběrového t-testu. Znamená to, že rozptyl v populačním vzorku by měl být konstantní. I když tento předpoklad není přísně klíčový pro jednovýběrový t-test, stále může ovlivnit přesnost testu.
 
-## Shrnutí
+:::{.callout-warning}
+## Metodologická poznámka: Kontrola a řešení porušení předpokladů
+
+**3 klíčové předpoklady t-testu:**
+
+### 1. Nezávislost pozorování
+**Co to znamená?**
+
+- Každé pozorování je nezávislé na ostatních
+- Hodnota jednoho měření neovlivňuje jiné měření
+
+**Jak kontrolovat?**
+
+- ✅ Znáte design studie (náhodný výběr, ne repeated measures)
+- ✅ Jeden subjekt = jedno měření
+- ❌ Není statistický test!
+
+**Co když je porušeno?**
+
+- **NELZE** standardní t-test!
+- Řešení:
+  - Párový t-test (pokud jsou data párová)
+  - Mixed models (pokud jsou clustery/hierarchie)
+  - Time series metody (pokud jsou časové řady)
+
+**Příklad porušení:**
+
+- ❌ Měření stejných studentů před a po intervenci (použijte párový t-test!)
+- ❌ Studenti ve třídách (clustered data - použijte multilevel model!)
+- ❌ Opakovaná měření (použijte repeated measures ANOVA!)
+
+### 2. Normalita dat
+**Co to znamená?**
+
+- Data pocházejí z normálního rozdělení
+- Symetrické, zvonovité rozložení
+
+**Jak kontrolovat?**
+
+1. **Vizuálně**:
+   - Q-Q plot (nejlepší!) - body sledují přímku?
+   - Histogram - symetrický, zvonovitý?
+2. **Statisticky**:
+   - Shapiro-Wilk test (n < 50)
+   - Kolmogorov-Smirnov (n > 50)
+
+**DŮLEŽITÉ: Závislost na n!**
+
+| Velikost vzorku | Důležitost normality | Důvod |
+|----------------|---------------------|-------|
+| **n < 15** | 🔴 KRITICKÁ | Bez normality je test nespolehlivý |
+| **n = 15-30** | 🟡 DŮLEŽITÁ | Mírné odchylky OK, extrémní ne |
+| **n > 30** | 🟢 MÉNĚ KRITICKÁ | CLT pomáhá, test je robustní |
+
+**Co když je porušeno?**
+
+- **n < 30 A ne-normální**: → **Wilcoxonův test** (neparametrická alternativa)
+- **n > 30 A mírně ne-normální**: → T-test je OK (díky CLT)
+- **n > 30 A silně zkosené/outliers**: → Zvažte transformaci nebo Wilcoxon
+
+**Transformace dat (pokud pomáhají):**
+
+- Pozitivně zkosené → log(x), √x
+- Negativně zkosené → x²
+- **POZOR**: Interpretace se mění!
+
+### 3. Homogenita rozptylu (hlavně pro 2-sample t-test)
+**Co to znamená?**
+
+- Variance v obou skupinách je podobná
+- Pro jednovýběrový t-test MÉNĚ důležité
+
+**Jak kontrolovat? (pro dvouvýběrový)**
+
+- Levene test
+- Pravidlo palce: větší SD / menší SD < 2
+
+**Co když je porušeno? (pro dvouvýběrový)**
+
+- Welchův t-test (nerovné variance OK!)
+
+
+**Workflow: Co dělat v praxi?**
+
+```
+1. Design studie → Zajistit nezávislost!
+              ↓
+2. Explorační analýza → Vizualizace (boxplot, Q-Q plot)
+              ↓
+3. Normalita?
+   • n > 30? → T-test pravděpodobně OK
+   • n < 30? → Kontrola (Shapiro-Wilk + Q-Q plot)
+              ↓
+4. Normalita OK?
+   • ✅ Ano → T-test
+   • ❌ Ne + malý n → Wilcoxon test
+   • ❌ Ne + outliers → Zvažte odstranění nebo robustní metody
+              ↓
+5. Reportování → Uveďte, které předpoklady jste kontrolovali!
+```
+
+**Best practice reportování:**
+
+- ✅ "Normalita byla ověřena pomocí Shapiro-Wilk testu (W = 0.98, p = .45) a Q-Q plotu"
+- ✅ "Vzhledem k velikosti vzorku (n = 120) je t-test robustní vůči mírné nenormalitě"
+- ✅ "Data nebyla normální (W = 0.89, p = .003), proto byl použit Wilcoxonův test"
+
+**Zlaté pravidlo**: Vždy kontrolujte předpoklady PŘED testem, ne po něm!
+:::
+
+## Závěr
 
 Zajištění, že vaše data splňují výše uvedené předpoklady je klíčem k získání spolehlivých výsledků z jednovýběrového t-testu. Pokud vaše data tyto předpoklady nesplňují, můžete uvažovat o alternativních metodách, jako jsou neparametrické testy, které jsou méně citlivé na porušení těchto předpokladů.
 

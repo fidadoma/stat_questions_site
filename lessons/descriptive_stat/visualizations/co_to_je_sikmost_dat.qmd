@@ -1,5 +1,6 @@
 ---
 title: "Co je to šikmost dat?"
+order: 50
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do šikmosti dat
+## Úvod
 
 Šikmost dat je důležitý koncept ve statistice a analýze dat, který nám říká, jak je rozložení dat asymetrické. Jinými slovy, šikmost nám ukazuje, zda jsou v našich datech převážně vysoké nebo nízké hodnoty a jak moc se data odchylují od normálního rozložení. Šikmost je měřena na základě tvaru rozložení pravděpodobnosti našich dat.
 
@@ -36,15 +36,83 @@ Pokud si představíte histogram vašich dat (graf ukazující frekvenci nebo č
 
 3. **Prodej vstupenek na koncerty**: Většina koncertů může mít poměrně stabilní počet prodaných vstupenek (pokud nejde o vyprodané koncerty), ale několik vybraných koncertů může mít příliv zájemců, což posune šikmost doprava.
 
-## Proč je šikmost důležitá 
+## Proč je šikmost důležitá
 
 Porozumění šikmosti dat je klíčové při statistické analýze, protože:
 - Pomáhá identifikovat přítomnost outlierů nebo extrémních hodnot.
 - Může ovlivnit výběr vhodných statistických testů. Některé testy předpokládají normální (symetrické) rozložení, a pokud tento předpoklad není splněn, výsledky mohou být zkreslené.
 - Může mít vliv na interpretaci statistických ukazatelů, jako je průměr a medián. Například v šikmých distribučních grafech může být medián lepším reprezentantem centrální tendence než průměr, který bývá často tažen extrémními hodnotami.
 
+:::{.callout-warning}
+## Metodologická poznámka: Šikmost a volba statistik
+
+**Při pozitivní/negativní šikmosti**:
+
+- **Medián > Průměr** (robustnější míra středu)
+- **IQR > SD** (robustnější míra variability)
+- **Neparametrické testy** místo t-testů (Mann-Whitney, Wilcoxon)
+- **Logaritmická transformace** může normaliz ovat pozitivně šikmá data
+
+**Pravidlo pravé ruky**: |Skewness| > 1 → data jsou výrazně šikmá, zvažte transformaci nebo neparametrické metody.
+:::
+
+## Vizualizace šikmosti
+
+Pro lepší pochopení konceptu šikmosti si ukažme tři různá rozložení dat:
+
+```{r}
+#| label: fig-skewness
+#| fig-cap: "Porovnání normálního rozložení a šikmých rozložení"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+set.seed(123)
+
+# Vytvoření dat s různou šikmostí
+normal_data <- data.frame(
+  hodnota = rnorm(1000, mean = 50, sd = 10),
+  typ = "Symetrické (normální)"
+)
+
+# Pozitivně šikmé (log-normální)
+positive_skew <- data.frame(
+  hodnota = exp(rnorm(1000, mean = 3.5, sd = 0.5)),
+  typ = "Pozitivně šikmé"
+)
+
+# Negativně šikmé (zrcadlené log-normální)
+negative_skew <- data.frame(
+  hodnota = 100 - exp(rnorm(1000, mean = 3.5, sd = 0.5)),
+  typ = "Negativně šikmé"
+)
+
+# Spojení dat
+all_data <- rbind(normal_data, positive_skew, negative_skew)
+all_data$typ <- factor(all_data$typ,
+                       levels = c("Pozitivně šikmé", "Symetrické (normální)", "Negativně šikmé"))
+
+# Vizualizace
+ggplot(all_data, aes(x = hodnota, fill = typ)) +
+  geom_histogram(bins = 40, alpha = 0.7) +
+  facet_wrap(~typ, scales = "free", ncol = 1) +
+  labs(
+    title = "Typy šikmosti dat",
+    x = "Hodnota",
+    y = "Četnost"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
 ## Závěr
 
-Pochopení šikmosti dat nám pomáhá lépe interpretovat a analyzovat data. Při analýze dat bychom měli být vždy vědomi šikmosti našeho datového setu, abychom zajistili přesnost a důvěryhodnost našich závěrů.
+Šikmost dat je klíčový koncept pro pochopení asymetrie v rozložení dat. Pozitivní šikmost indikuje dlouhý pravý ocas s koncentrací dat v nižších hodnotách, zatímco negativní šikmost ukazuje dlouhý levý ocas s koncentrací dat ve vyšších hodnotách. Pochopení šikmosti je důležité pro výběr vhodných statistických metod a správnou interpretaci charakteristik dat, jako je průměr a medián.
 
+## Viz také
+
+- [Jak z histogramu poznáme vlastnosti dat](jak_z_histogramu_pozname_vlastnosti_dat.qmd) - vizualizace šikmosti
+- [Jaké znáte charakteristiky středu](../../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - vliv šikmosti na průměr vs medián
+- [Jak se projeví odlehlé pozorování](jak_se_projevi_odlehle_pozorovani_na_prumeru_a_medianu.qmd) - příčiny šikmosti
+- [Jak testujeme normalitu](../../../inferential_statistics/jak_muzeme_otestovat_normalitu.qmd) - testování symetrie
 

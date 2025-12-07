@@ -1,5 +1,6 @@
 ---
 title: "Co to je Q-Q graf? Jak z něj poznáme porušení normality?"
+order: 200
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Co je Q-Q graf?
+## Úvod
 
 Q-Q graf neboli kvantil-kvantil graf je nástroj v statistice, který se používá k vizuálnímu porovnávání dvou pravděpodobnostních rozdělení tím, že porovnává jejich kvantily. Nejčastěji se Q-Q graf používá ke kontrole, zda datový soubor následuje určité teoretické rozložení, např. normální rozložení.
 
@@ -48,5 +48,4 @@ Při zjišťování, zda jsou data normálně rozložena, budou se data v Q-Q gr
 - **Zdravotnictví**: V oblasti klinického výzkumu může být použit Q-Q graf pro ověření, zda biologická data, jako jsou hladiny cholesterolu, odpovídají normálnímu rozložení, což je důležité pro provedení odpovídající statistické analýzy.
 
 Pamatujte, že Q-Q graf je vizuální nástroj a pro dokonalé potvrzení normality by měly být použity i další statistické testy jako Shapiro-Wilkův test nebo Kolmogorov-Smirnovův test.
-
 

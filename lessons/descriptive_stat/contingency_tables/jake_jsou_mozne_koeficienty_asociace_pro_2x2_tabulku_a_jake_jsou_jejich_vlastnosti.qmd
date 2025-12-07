@@ -13,15 +13,14 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do koeficientů asociace
+## Úvod
 
 Když pracujeme s kategoriálním datem, často se setkáme se situacemi, kdy potřebujeme měřit sílu a směr vztahu mezi dvěma kategoriálními proměnnými. To se často dělá pomocí kontingenčních tabulek, zejména 2x2 tabulek. V těchto tabulkách hledáme koeficienty asociace, které nám pomohou kvantifikovat tento vztah. Existuje několik koeficientů, z nichž každý má své specifické vlastnosti a aplikační oblasti.
 
-# 2x2 Tabulka a její struktura
+## 2x2 Tabulka a její struktura
 
 Než prozkoumáme jednotlivé koeficienty asociace, pojďme si nejprve ukázat, jak vypadá 2x2 tabulka:
 
@@ -33,55 +32,274 @@ Než prozkoumáme jednotlivé koeficienty asociace, pojďme si nejprve ukázat, 
 
 Tato tabulka nám pomáhá zjistit, jak často se jednotlivé kombinace kategorií u dvou proměnných vyskytují.
 
-# Možné koeficienty asociace
+:::{.callout-tip}
+## Metodologický přehled: Koeficienty asociace pro 2×2 tabulky
 
-## 1. Pearsonův chí-kvadrát test
+**Hlavní koeficienty a kdy je použít**:
+
+**1. Phi koeficient (φ)**
+
+- Rozsah: -1 až 1 (jako korelace)
+- Použití: Obě proměnné dichotomické (ano/ne)
+- Výhoda: Symetrický, interpretace jako korelace
+- Nevýhoda: Citlivý na velikost marginálů
+
+**2. Cramer's V**
+
+- Rozsah: 0 až 1
+- Použití: Zobecnění phi pro R×C tabulky
+- Výhoda: Funguje pro tabulky jakékoliv velikosti
+- Pro 2×2: V = |φ|
+
+**3. Odds Ratio (OR)**
+
+- Rozsah: 0 až ∞ (1 = nezávislost)
+- Vzorec: OR = (a×d) / (b×c)
+- Použití: Epidemiologie, medicína, kauzální inference
+- Interpretace: "Kolikrát vyšší šance"
+- **Velmi důležité v praxi!**
+
+**4. Relative Risk (RR)**
+
+- Rozsah: 0 až ∞ (1 = žádný efekt)
+- Vzorec: RR = [a/(a+b)] / [c/(c+d)]
+- Použití: Prospektivní studie, klinické výzkumy
+- Interpretace: "Kolikrát vyšší riziko"
+
+**Kdy použít co?**
+
+- **Phi/Cramer's V**: Pro popis síly asociace
+- **Odds Ratio**: Retrospektivní studie, logistická regrese
+- **Relative Risk**: Prospektivní studie, RCT
+- Vždy reportujte konfidenční intervaly!
+:::
+
+### Praktický příklad: Kouření a rakovina plic
+
+```{r}
+#| label: fig-2x2-example
+#| fig-cap: "Příklad 2x2 tabulky: Kouření a rakovina plic"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+
+# Vytvoření ukázkových dat (a=40, b=20, c=10, d=130)
+data_2x2 <- data.frame(
+  Koureni = c("Kouří", "Kouří", "Nekouří", "Nekouří"),
+  Rakovina = c("Ano", "Ne", "Ano", "Ne"),
+  Pocet = c(40, 20, 10, 130)
+)
+
+# 2x2 tabulka
+tab_2x2 <- xtabs(Pocet ~ Koureni + Rakovina, data = data_2x2)
+
+knitr::kable(tab_2x2,
+             caption = "Kontingenční tabulka: Kouření × Rakovina plic",
+             align = "c")
+```
+
+```{r}
+#| label: fig-2x2-viz
+#| fig-cap: "Vizualizace 2x2 tabulky"
+#| warning: false
+#| fig-height: 6
+
+library(gridExtra)
+
+# Sloupcový graf
+p1 <- ggplot(data_2x2, aes(x = Rakovina, y = Pocet, fill = Koureni)) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_text(aes(label = Pocet),
+            position = position_dodge(width = 0.9),
+            vjust = -0.5, fontface = "bold") +
+  labs(
+    title = "Počty pacientů podle kouření a rakoviny",
+    x = "Rakovina plic",
+    y = "Počet pacientů",
+    fill = "Kouření"
+  ) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Kouří" = "#E74C3C", "Nekouří" = "#3498DB")) +
+  theme(legend.position = "top")
+
+# Mozaikový graf
+data_mosaic <- data_2x2 %>%
+  group_by(Koureni) %>%
+  mutate(koureni_total = sum(Pocet),
+         rakovina_prop = Pocet / koureni_total) %>%
+  arrange(Koureni, Rakovina) %>%
+  group_by(Koureni) %>%
+  mutate(
+    ymax = cumsum(rakovina_prop),
+    ymin = ymax - rakovina_prop
+  ) %>%
+  ungroup() %>%
+  mutate(
+    total = sum(Pocet),
+    xwidth = koureni_total / total,
+    xmax = cumsum(ifelse(!duplicated(Koureni), xwidth, 0)),
+    xmin = xmax - xwidth
+  )
+
+p2 <- ggplot(data_mosaic, aes(xmin = xmin, xmax = xmax,
+                                ymin = ymin, ymax = ymax, fill = Rakovina)) +
+  geom_rect(color = "white", size = 1.5) +
+  geom_text(aes(x = (xmin + xmax) / 2, y = (ymin + ymax) / 2,
+                label = Pocet),
+            color = "white", fontface = "bold", size = 5) +
+  scale_x_continuous(breaks = c(0.15, 0.80),
+                     labels = c("Kouří", "Nekouří")) +
+  labs(
+    title = "Mozaikový graf",
+    subtitle = "Šířka = podíl kuřáků/nekuřáků, výška = podíl s/bez rakoviny",
+    x = "Kouření",
+    y = "Proporce",
+    fill = "Rakovina"
+  ) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Ano" = "#E74C3C", "Ne" = "#2ECC71")) +
+  theme(panel.grid = element_blank())
+
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+```
+
+## Možné koeficienty asociace
+
+### 1. Pearsonův chí-kvadrát test
 
 **Popis:** Pearsonův chí-kvadrát test (χ²) je statistický test, který určuje, zda existuje významná asociace mezi dvěma kategoriálními proměnnými. Čím vyšší je hodnota χ², tím silnější je signál asociace.
 
 **Výpočet:** $\chi² = \frac{(ad - bc)² \cdot n}{(a+b)(a+c)(b+d)(c+d)}$
 
 **Vlastnosti:**
+
 - Nezávisí na měřítku, ale záleží na velikosti vzorku.
 - Výsledky spadají do χ² rozdělení.
 
 **Příklad:** Pokud bychom chtěli zjistit, zda existuje asociace mezi lidmi, kteří nosí brýle (ano/ne) a tím, zda preferují pravou ruku (jasně pravou/jasně levou).
 
-## 2. Phi koeficient (φ)
+### 2. Phi koeficient (φ)
 
 **Popis:** Phi koeficient je specializovaný případ Pearsonova korelačního koeficientu pro 2x2 tabulky. Je to míra síly a směru asociace mezi dvěma dichotomickými proměnnými.
 
 **Výpočet:** $\phi = \sqrt{\frac{\chi²}{n}}$
 
 **Vlastnosti:**
+
 - Rozsah hodnot je od -1 (dokonalá negativní asociace) přes 0 (žádná asociace) až po 1 (dokonalá pozitivní asociace).
 - Lze jej interpretovat podobně jako Pearsonův korelační koeficient pro intervalová data.
 
 **Příklad:** Pokud bychom chtěli analyzovat vztah mezi tím, zda někdo rád poslouchá rockovou hudbu (ano/ne) a zda rád cestuje (ano/ne).
 
-## 3. Cramerovo V
+### 3. Cramerovo V
 
 **Popis:** Cramerovo V je rozšíření φ koeficientu, které je vhodné pro tabulky větší než 2x2, ale může být aplikováno i na 2x2 tabulky.
 
 **Výpočet:** $V = \sqrt{\frac{\chi²}{n \times \min (r-1, c-1)}}$, kde r a c jsou počty řádků a sloupců.
 
 **Vlastnosti:**
+
 - Rozsah od 0 (žádná asociace) až po 1 (silná asociace).
 - Snazší interpretace pro tabulky větších rozměrů, ale méně intuitivní pro 2x2 tabulky.
 
-## 4. Odds ratio (OR)
+### 4. Odds ratio (OR)
 
 **Popis:** Odds ratio vyjadřuje poměr šancí výskytu události ve dvou skupinách. Je to jeden z nejčastěji používaných ukazatelů v epidemiologii.
 
 **Výpočet:** $OR = \frac{a/c}{b/d} = \frac{ad}{bc}$
 
 **Vlastnosti:**
+
 - OR = 1 značí žádnou asociaci, OR > 1 značí větší šanci pro první skupinu a OR < 1 značí menší šanci pro první skupinu ve srovnání s druhou.
 - Významný v kontextu analýzy rizika.
 
 **Příklad:** Zvažme vztah mezi kouřením (kouří/nekouří) a výskytem rakoviny plic (rakovina/ne).
 
-# Závěr
+## Výpočet koeficientů pro příklad
+
+Pro naši tabulku s kouřením a rakovinou (a=40, b=20, c=10, d=130, n=200) vypočítáme všechny koeficienty:
+
+```{r}
+#| label: fig-coefficients
+#| fig-cap: "Výpočet koeficientů asociace"
+#| warning: false
+
+# Hodnoty z tabulky
+a <- 40
+b <- 20
+c <- 10
+d <- 130
+n <- a + b + c + d
+
+# 1. Chi-kvadrát
+chi_sq <- (n * (a*d - b*c)^2) / ((a+b) * (c+d) * (a+c) * (b+d))
+
+# 2. Phi koeficient
+phi <- sqrt(chi_sq / n)
+
+# 3. Cramerovo V (pro 2x2 je stejné jako phi)
+cramer_v <- sqrt(chi_sq / (n * min(2-1, 2-1)))
+
+# 4. Odds ratio
+odds_ratio <- (a * d) / (b * c)
+
+# Vytvoření tabulky výsledků
+results <- data.frame(
+  Koeficient = c("Chi-kvadrát (χ²)", "Phi (φ)", "Cramerovo V", "Odds Ratio (OR)"),
+  Hodnota = c(chi_sq, phi, cramer_v, odds_ratio),
+  Interpretace = c(
+    "Test asociace",
+    sprintf("Střední asociace (0 až 1)"),
+    sprintf("Střední asociace (0 až 1)"),
+    sprintf("Kuřáci mají %.1fx vyšší šanci", odds_ratio)
+  )
+)
+
+knitr::kable(results,
+             caption = "Koeficienty asociace pro příklad s kouřením a rakovinou",
+             digits = 3,
+             align = c("l", "r", "l"))
+```
+
+```{r}
+#| label: fig-coef-viz
+#| fig-cap: "Vizualizace odds ratio"
+#| warning: false
+
+# Výpočet pravděpodobností
+prob_rakovina_kouri <- a / (a + b)
+prob_rakovina_nekouri <- c / (c + d)
+
+data_prob <- data.frame(
+  Skupina = c("Kouří", "Nekouří"),
+  Pravdepodobnost = c(prob_rakovina_kouri, prob_rakovina_nekouri) * 100
+)
+
+ggplot(data_prob, aes(x = Skupina, y = Pravdepodobnost, fill = Skupina)) +
+  geom_col(alpha = 0.8, width = 0.6) +
+  geom_text(aes(label = sprintf("%.1f%%", Pravdepodobnost)),
+            vjust = -0.5, fontface = "bold", size = 5) +
+  labs(
+    title = sprintf("Pravděpodobnost rakoviny plic (OR = %.2f)", odds_ratio),
+    subtitle = sprintf("Kuřáci: %.1f%% vs Nekuřáci: %.1f%%",
+                       prob_rakovina_kouri * 100, prob_rakovina_nekouri * 100),
+    x = "",
+    y = "Pravděpodobnost rakoviny (%)"
+  ) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Kouří" = "#E74C3C", "Nekouří" = "#3498DB")) +
+  theme(legend.position = "none") +
+  ylim(0, max(data_prob$Pravdepodobnost) * 1.2)
+```
+
+## Závěr
 
 Různé koeficienty asociace poskytují různé pohledy na data a jejich vztahy. Při práci s 2x2 tabulkami je důležité si vybrat správný koeficient podle kontextu a výzkumné otázky, kterou zkoumáte. Studium vztahů mezi kategoriálními proměnnými nám pomáhá lépe porozumět světu kolem nás, ať už se jedná o preferenci určitého typu zábavy či analýzu zdravotních rizik.
+
+## Viz také
+
+- [Co nám popisuje kontingenční tabulka](co_nam_popisuje_kontingencni_tabulka.qmd) - kontext asociačních koeficientů
+- [Jaké znáte koeficienty asociace pro tabulky R×C](../../../inferential_statistics/jake_znate_koeficienty_asociace_pro_tabulky_r_c.qmd) - rozšíření na větší tabulky
+- [Co nám popisuje Pearsonův korelační koeficient](../../correlations_regressions/co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - korelace pro číselné proměnné
 

@@ -1,5 +1,6 @@
 ---
 title: "Jak se projeví odlehlé pozorování na průměru a medianu?"
+order: 40
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -28,11 +28,11 @@ Tento studijní materiál vám pomůže pochopit vliv odlehlých pozorování na
 
 **Průměr**, neboli aritmetický průměr, je jedním z nejpoužívanějších statistických ukazatelů k určení střední hodnoty sad dat. Vypočítá se jako součet všech hodnot v datové sadě, vydělený počtem těchto hodnot.
 
-\[
+$$
 \text{Průměr} = \frac{\sum_{i=1}^{n} x_i}{n}
-\]
+$$
 
-kde \( x_i \) je \( i \)–tá hodnota v datové sadě a \( n \) je počet hodnot.
+kde $x_i$ je $i$–tá hodnota v datové sadě a $n$ je počet hodnot.
 
 ### Vliv odlehlých pozorování na průměr
 
@@ -50,9 +50,9 @@ Představme si společnost s pěti zaměstnanci a jejich měsíčními mzdami:
 
 Průměrná mzda by se vypočítala následovně:
 
-\[
+$$
 \text{Průměr} = \frac{30\,000 + 32\,000 + 31\,000 + 29\,000 + 100\,000}{5} = \frac{222\,000}{5} = 44\,400 \, \text{Kč}
-\]
+$$
 
 Průměr je výrazně zvýšen vysokou mzdou jednoho zaměstnance a neodráží typickou mzdu většiny zaměstnanců.
 
@@ -85,5 +85,192 @@ Medián je hodnota třetího zaměstnance v seřazené sadě, což je 31 000 Kč
 
 Odlehlá pozorování mají tendenci zkreslovat průměr datové sady, zatímco medián obvykle zůstává mnohem stabilnější. To je důvodem, proč se medián často používá k vyjádření "typické" nebo "střední" hodnoty, zvláště když je datová sada náchylná k odlehlým hodnotám.
 
-Při analýze dat vždy zvažte přítomnost odlehlých pozorování a jejich potenciální vliv na výsledky. Výběr mezi průměrem a mediánem jako reprezentativní hodnotou datové sady by měl záviset na povaze vašich dat a na tom, jaký aspekt rozdělení chcete nejvíce zdůraznit."
+Při analýze dat vždy zvažte přítomnost odlehlých pozorování a jejich potenciální vliv na výsledky. Výběr mezi průměrem a mediánem jako reprezentativní hodnotou datové sady by měl záviset na povaze vašich dat a na tom, jaký aspekt rozdělení chcete nejvíce zdůraznit.
+
+## Vizuální demonstrace vlivu odlehlých hodnot
+
+Pro lepší pochopení si ukážeme, jak odlehlé hodnoty ovlivňují průměr a medián:
+
+```{r}
+#| label: fig-outlier-effect
+#| fig-cap: "Vliv odlehlých hodnot na průměr a medián"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+
+# Data bez outlierů
+data_no_outliers <- c(29000, 30000, 31000, 32000, 33000)
+mean_no <- mean(data_no_outliers)
+median_no <- median(data_no_outliers)
+
+# Data s outliery
+data_with_outliers <- c(29000, 30000, 31000, 32000, 100000)
+mean_with <- mean(data_with_outliers)
+median_with <- median(data_with_outliers)
+
+# Vytvoření data framů pro grafy
+df_no <- data.frame(
+  mzda = data_no_outliers,
+  zamestnanec = paste("Zaměstnanec", 1:5)
+)
+
+df_with <- data.frame(
+  mzda = data_with_outliers,
+  zamestnanec = paste("Zaměstnanec", 1:5)
+)
+
+# Graf 1: Bez outlierů
+p1 <- ggplot(df_no, aes(x = zamestnanec, y = mzda)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_hline(yintercept = mean_no, color = "red", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = median_no, color = "green", linetype = "dashed", size = 1) +
+  annotate("text", x = 4.5, y = mean_no + 1500,
+           label = paste0("Průměr = ", format(mean_no, big.mark = " "), " Kč"),
+           color = "red", fontface = "bold") +
+  annotate("text", x = 4.5, y = median_no - 1500,
+           label = paste0("Medián = ", format(median_no, big.mark = " "), " Kč"),
+           color = "green", fontface = "bold") +
+  labs(
+    title = "Bez odlehlých hodnot",
+    subtitle = "Průměr a medián jsou velmi podobné",
+    y = "Mzda (Kč)",
+    x = ""
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = function(x) format(x, big.mark = " ", scientific = FALSE))
+
+# Graf 2: S outliery
+p2 <- ggplot(df_with, aes(x = zamestnanec, y = mzda)) +
+  geom_col(aes(fill = mzda > 50000), alpha = 0.7) +
+  scale_fill_manual(values = c("steelblue", "red")) +
+  geom_hline(yintercept = mean_with, color = "red", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = median_with, color = "green", linetype = "dashed", size = 1) +
+  annotate("text", x = 4.5, y = mean_with + 5000,
+           label = paste0("Průměr = ", format(mean_with, big.mark = " "), " Kč"),
+           color = "red", fontface = "bold") +
+  annotate("text", x = 4.5, y = median_with - 5000,
+           label = paste0("Medián = ", format(median_with, big.mark = " "), " Kč"),
+           color = "green", fontface = "bold") +
+  annotate("text", x = 5, y = 95000,
+           label = "Odlehlá\nhodnota",
+           color = "darkred", fontface = "bold", size = 3) +
+  labs(
+    title = "S odlehlou hodnotou",
+    subtitle = "Průměr je výrazně ovlivněn, medián zůstává stabilní",
+    y = "Mzda (Kč)",
+    x = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  ) +
+  scale_y_continuous(labels = function(x) format(x, big.mark = " ", scientific = FALSE))
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+```
+
+## Porovnání robustnosti
+
+Ukážeme si, jak se průměr a medián chovají při postupném přidávání extrémních hodnot:
+
+```{r}
+#| label: fig-outlier-robustness
+#| fig-cap: "Robustnost průměru a mediánu vůči odlehlým hodnotám"
+#| warning: false
+
+set.seed(123)
+
+# Vytvoření dat s postupně přidávanými outliery
+base_data <- rnorm(100, mean = 50, sd = 10)
+outlier_proportions <- seq(0, 0.3, by = 0.05)
+
+results <- data.frame()
+for (prop in outlier_proportions) {
+  n_outliers <- round(prop * 100)
+  if (n_outliers > 0) {
+    data <- c(base_data[1:(100-n_outliers)], rnorm(n_outliers, mean = 150, sd = 20))
+  } else {
+    data <- base_data
+  }
+
+  results <- rbind(results, data.frame(
+    procento_outlieru = prop * 100,
+    prumer = mean(data),
+    median = median(data),
+    metrika = "Průměr"
+  ))
+
+  results <- rbind(results, data.frame(
+    procento_outlieru = prop * 100,
+    prumer = mean(data),
+    median = median(data),
+    metrika = "Medián"
+  ))
+}
+
+# Přeformátování pro vizualizaci
+results_long <- data.frame(
+  procento_outlieru = rep(results$procento_outlieru[results$metrika == "Průměr"], 2),
+  hodnota = c(results$prumer[results$metrika == "Průměr"],
+              results$median[results$metrika == "Medián"]),
+  metrika = rep(c("Průměr", "Medián"), each = length(outlier_proportions))
+)
+
+ggplot(results_long, aes(x = procento_outlieru, y = hodnota, color = metrika, group = metrika)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  labs(
+    title = "Vliv podílu odlehlých hodnot na průměr a medián",
+    subtitle = "Medián zůstává stabilní, průměr se zvyšuje s podílem outlierů",
+    x = "Procento odlehlých hodnot (%)",
+    y = "Hodnota statistiky",
+    color = "Statistika"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("Průměr" = "red", "Medián" = "green")) +
+  theme(legend.position = "top")
+```
+
+:::{.callout-important}
+## Metodologická poznámka: Robustnost statistik vůči outlierům
+
+**Které míry středu kdy použít?**
+
+**Medián (robustní)**:
+
+- Data obsahují odlehlé hodnoty
+- Šikmá rozložení (příjmy, ceny nemovitostí)
+- Ordinální proměnné
+- Malé vzorky s extrémními hodnotami
+
+**Průměr (citlivý)**:
+
+- Symetrická rozložení bez outlierů
+- Teoretické výpočty (např. průměrná chyba)
+- Když chceme, aby extrémní hodnoty měly vliv
+
+**Pravidlo pravé ruky**: Pokud průměr ≠ medián o více než 10-20%, máte pravděpodobně šikmé rozložení nebo outliers → preferujte medián!
+
+**VŽDY zkoumejte outliers**:
+
+1. Jsou to chyby v datech? → Opravte nebo odstraňte
+2. Jsou to legitimní extrémní hodnoty? → Reportujte s/bez nich
+3. Pochází z jiné populace? → Analyzujte samostatně
+:::
+
+## Závěr
+
+Odlehlá pozorování mají výrazný vliv na průměr, ale minimální dopad na medián. Průměr je **citlivý** na extrémní hodnoty, protože zahrnuje všechny hodnoty do výpočtu, zatímco medián je **robustní** vůči outlierům, protože závisí pouze na pořadí hodnot. Proto je medián často vhodnějším ukazatelem centrální tendence v datech s odlehlými hodnotami, jako jsou příjmy, ceny nemovitostí nebo jiné ekonomické údaje.
+
+## Viz také
+
+- [Jaké znáte charakteristiky středu](../../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - průměr vs medián
+- [Které deskriptivní statistiky obsahuje krabicový graf](ktere_deskriptivni_statistiky_obsahuje_krabicovy_graf.qmd) - detekce outlierů
+- [Co to je šikmost dat](co_to_je_sikmost_dat.qmd) - souvislost s outliery
+- [Co nám popisuje Spearmanův korelační koeficient](../../correlations_regressions/co_nam_popisuje_spearmanuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - robustní míra korelace
 

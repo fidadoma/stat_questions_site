@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -50,7 +49,18 @@ knitr::include_graphics("img/population_sample.png")
 
 ## Proč jsou tyto pojmy důležité?
 
-Rozlišování mezi populací a vzorkem je klíčové, protože určuje, jaké statistické metody použijeme k analýze dat. Když pracujeme se vzorkem, musíme si uvědomit, že výsledky nebudou absolutně přesné pro celou populaci, ale můžeme je použít k vytvoření odhadů a předpovědí.
+Rozlišování mezi populací a vzorkem je klíčové, protože určuje, jaké statistické metody použijeme k analýze dat. Když pracujeme se vzorkem, musíme si uvědomit, že výsledky nebudou absolutně přesné pro celou populaci, ale můžeme je použít k vytvoření [odhadů](../../inferential_statistics/k_cemu_slouzi_bodovy_odhad_a_jake_bodove_odhady_znate.qmd) a předpovědí. To je základem [inferenční statistiky](2_jaky_je_rozdil_mezi_inferencni_a_popisnou_statistikou.qmd).
+
+:::{.callout-warning}
+## Běžná chyba: Záměna parametru a statistiky
+
+Je důležité rozlišovat mezi:
+
+- **Parametr** - charakteristika celé populace (označujeme řeckými písmeny: μ, σ, π)
+- **Statistika** - charakteristika vzorku (označujeme latinskými písmeny: x̄, s, p)
+
+Např. průměr populace (μ) je parametr, který většinou neznáme. Průměr vzorku (x̄) je statistika, kterou počítáme a používáme k odhadu μ. Nikdy neříkejte "vypočítal jsem μ ze vzorku" - z vzorku vypočítáte x̄!
+:::
 
 
 ::: {.callout-tip}
@@ -62,9 +72,14 @@ Vybrat správný vzorek znamená zajistit, aby byl reprezentativní pro populaci
 - **Shlukový výběr**: Populace je rozdělena do přirozených shluků a ty jsou náhodně vybrány pro studium.
 :::
 
-## Shrnutí
+## Závěr
 
 Je důležité si uvědomit rozdíl mezi populací a vzorkem, protože ovlivňuje interpretaci výsledků výzkumu. Populace představuje celý soubor, zatímco vzorek je jeho část, kterou studujeme. Rozumný výběr vzorku je klíčový pro získání spolehlivých a validních výsledků, které mohou být aplikovány na populaci.
 
+## Viz také
 
+- [Rozdíl mezi inferenční a popisnou statistikou](2_jaky_je_rozdil_mezi_inferencni_a_popisnou_statistikou.qmd) - jak používáme vzorky k závěrům o populaci
+- [K čemu slouží bodový odhad a jaké bodové odhady znáte](../../inferential_statistics/k_cemu_slouzi_bodovy_odhad_a_jake_bodove_odhady_znate.qmd) - odhady parametrů populace ze vzorku
+- [K čemu slouží intervalový odhad](../../inferential_statistics/k_cemu_slouzi_intervalovy_odhad.qmd) - odhad parametrů s intervalem nejistoty
+- [Co to je standardní chyba průměru a k čemu slouží](../../inferential_statistics/co_to_je_standardni_chyba_prumeru_a_k_cemu_slouzi.qmd) - variabilita odhadů mezi vzorky
 

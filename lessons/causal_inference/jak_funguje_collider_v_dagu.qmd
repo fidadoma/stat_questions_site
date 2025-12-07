@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -52,6 +51,8 @@ To znamená, že jen pozorování na úrovni collidru může na první pohled uk
 1. **V oblasti zdravotnictví:** Collidery mohou pomoci zjistit, jak určité faktory jako geny a životní styl ovlivňují zdravotní výsledky jako BMI. Hospitalizace může být považována za collidra spojeného s příčinami nemocí, jako jsou kouření a vysoký krevní tlak.
    
 2. **Ekonomika:** Představte si faktor nezaměstnanosti a ceny nemovitostí jako nezávislé proměnné, které ovlivňují stěhování do měst. Zde může být populace v městech collidrem.
+
+
 
 ## Závěr
 

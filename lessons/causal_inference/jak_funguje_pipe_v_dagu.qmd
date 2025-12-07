@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 V dnešním studijním materiálu se podíváme na koncept **Pipe v DAGu**. Je důležité porozumět tomu, jak tato konstrukce funguje, protože je široce používána v moderních datových aplikacích a nástrojích pro zpracování dat. **Directed Acyclic Graph (DAG)** je struktura, která se skládá z uzlů a hran, přičemž hranové spoje plynou pouze v jednom směru a graf nemá žádné cykly.
 
@@ -44,7 +43,7 @@ Představme si, že máme úlohy A, B a C, kde:
 - Úloha B aplikuje transformaci na data z úlohy A a předává výstup úloze C.
 - Úloha C potom agreguje data a vytvoří finální výstup.
 
-
+```
 A -> B -> C
 ```
 
@@ -65,7 +64,8 @@ Každý krok v procesu (každý "Pipe") zajišťuje, že produkt je transformov�
 - **Přehlednost:** Umožňuje snadné vizuální porozumění toku dat a závislostí mezi úlohami.
 - **Správa chyb:** Chyby mohou být snadno lokalizovány a opraveny pouze v jednom modulu či kroku procesu.
 
+
 ## Závěr
 
 Chápání toho, jak fungují Pipes v DAGu, je klíčové pro efektivní návrh a správu datových zpracovacích systémů. S každým krokem v procesu, kde jsou definovány vstupy a výstupy, je možné nejenom optimalizovat tok dat, ale také zvýšit škálovatelnost a spolehlivost vašich systémů. Doufáme, že tento materiál vám pomohl lépe porozumět této problematice a že jste si dokázali představit praktické aplikace, které DAGs a Pipes nabízejí.
-```
+

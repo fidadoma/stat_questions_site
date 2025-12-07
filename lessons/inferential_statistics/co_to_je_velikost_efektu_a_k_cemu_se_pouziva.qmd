@@ -1,5 +1,6 @@
 ---
-title: Velikost efektu ve statistice
+title: "Velikost efektu ve statistice"
+order: 350
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -64,6 +64,78 @@ Velikost d lze interpretovat následovně:
 - d ≈ 0.2 je malé,
 - d ≈ 0.5 je střední,
 - d ≈ 0.8 je velké.
+
+:::{.callout-important}
+## Metodologická poznámka: Effect size - pravý klíč k interpretaci
+
+**Proč reportovat effect size?**
+
+1. **p-hodnota není dost**: p < 0.05 říká jen "je efekt", ne "jak velký"
+2. **Závislost na n**: S velkým vzorkem je i tiny efekt signifikantní
+3. **Praktický význam**: Effect size ukazuje, zda má výsledek reálný dopad
+4. **Srovnatelnost**: Umožňuje porovnat studie s různými měřítky
+
+**Hlavní typy effect size:**
+
+| Typ | Kdy použít | Vzorec | Interpretace |
+|-----|-----------|--------|--------------|
+| **Cohen's d** | Rozdíl průměrů (t-test) | $d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}$ | 0.2 malý, 0.5 střední, 0.8 velký |
+| **η² (eta squared)** | ANOVA | $\eta^2 = \frac{SS_{between}}{SS_{total}}$ | 0.01 malý, 0.06 střední, 0.14 velký |
+| **r (korelace)** | Vztah proměnných | Pearson/Spearman r | 0.1 malý, 0.3 střední, 0.5 velký |
+| **OR (odds ratio)** | Logistická regrese | $OR = \frac{odds_1}{odds_2}$ | OR=1.5 malý, 2.5 střední, 4 velký |
+
+**Cohen's d pro různé designy:**
+
+- **Nezávislé skupiny**: $d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$
+- **Párový t-test**: $d = \frac{\bar{x}_{diff}}{s_{diff}}$
+- **Jednovýběrový**: $d = \frac{\bar{x} - \mu_0}{s}$
+
+**Partial η² vs η²:**
+
+- **η²**: Procento celkové variability vysvětlené faktorem
+- **Partial η²**: Procento vysvětlené variability PO kontrole jiných faktorů
+- V multi-way ANOVA použijte **partial η²**!
+
+**R² (koeficient determinace):**
+
+- V regresi: Procento variability Y vysvětlené modelem
+- R² = 0.02 malý, 0.13 střední, 0.26 velký
+- **Adjusted R²**: Korigované pro počet prediktorů (preferujte!)
+
+**DŮLEŽITÉ: Cohen's benchmarks jsou jen orientační!**
+
+- d = 0.2 může být OBROVSKÝ efekt (např. prodloužení života o 2 roky)
+- d = 0.8 může být MALÝ efekt (např. zlepšení IQ o 12 bodů)
+- **Vždy interpretujte v kontextu!**
+
+**Konfidenční intervaly pro effect size:**
+
+- ✅ **VŽDY reportujte CI pro effect size!**
+- Příklad: Cohen's d = 0.65, 95% CI [0.42, 0.88]
+- Ukazuje nejistotu v odhadu velikosti efektu
+
+**Vztah mezi effect size, n, a power:**
+
+- **Malý efekt** → Potřebujete **VELKÉ n** pro detekci
+- **Velký efekt** → Stačí **MALÉ n**
+- Power = f(n, α, effect size)
+
+**Časté chyby:**
+
+- ❌ Reportovat jen p-hodnotu bez effect size
+- ❌ Interpretovat "nesignifikantní" jako "žádný efekt" (může být velký efekt s malým n!)
+- ❌ Použít Cohen's benchmarks bezmyšlenkovitě
+- ❌ Zapomenout na CI pro effect size
+- ❌ Nerozlišovat mezi η² a partial η²
+
+**Best practice reportování:**
+
+- ✅ **T-test**: "t(98) = 2.45, p = .016, Cohen's d = 0.49, 95% CI [0.09, 0.89]"
+- ✅ **ANOVA**: "F(2, 147) = 12.3, p < .001, η²p = .14, 95% CI [.05, .24]"
+- ✅ **Korelace**: "r(200) = .34, p < .001, 95% CI [.21, .46]"
+
+**Praktický tip**: Publikace bez effect size má omezenou hodnotu. Vždy reportujte effect size + CI!
+:::
 
 ## Závěr
 

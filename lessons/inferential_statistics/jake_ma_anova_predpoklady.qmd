@@ -1,0 +1,395 @@
+---
+title: "Jaké má ANOVA předpoklady?"
+order: 420
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+ANOVA, jako většina parametrických statistických testů, má určité **předpoklady**, které by měly být splněny, aby výsledky byly validní a spolehlivé. Porušení těchto předpokladů může vést k nesprávným závěrům.
+
+## Tři hlavní předpoklady ANOVY
+
+### 1. Nezávislost pozorování (Independence)
+
+**Co to znamená:**
+
+- Každé pozorování musí být **nezávislé** na ostatních
+- Hodnota jednoho pozorování nesmí ovlivňovat hodnotu jiného pozorování
+- Platí **mezi** i **uvnitř** skupin
+
+**Jak zajistit:**
+
+- Náhodný výběr účastníků
+- Náhodné přiřazení do skupin
+- Každý účastník poskytuje pouze jedno pozorování
+- Žádné opakované měření (pro jednofaktorovou ANOVA)
+
+**Příklady porušení:**
+
+- ❌ Měření stejných lidí vícekrát (použijte repeated measures ANOVA)
+- ❌ Měření párů/rodin (použijte mixed models)
+- ❌ Klastrovaná data (studenti ve třídách)
+- ❌ Časová řada s autokorelací
+
+**Jak testovat:**
+
+- Nelze statisticky testovat - závisí na designu studie!
+- Musí být zajištěno při plánování výzkumu
+
+**Co dělat při porušení:**
+
+- Nejzávažnější porušení - výsledky ANOVY jsou **neplatné**
+- Použijte vhodný model: mixed models, repeated measures ANOVA, GEE
+
+### 2. Normalita (Normality)
+
+**Co to znamená:**
+
+- **Rezidua** (nikoli původní data!) by měla mít normální rozdělení v každé skupině
+- Přesněji: chyby kolem skupinových průměrů
+
+**Důležité:**
+
+- Netestujeme normalitu původních dat, ale **reziduí**!
+- ANOVA je relativně **robustní** vůči mírnému porušení normality
+- Při velkých vzorcích (n > 30 per skupina) díky centrální limitní větě méně kritické
+
+**Jak testovat:**
+
+#### A) Vizuální metody (doporučené)
+
+```{r}
+#| label: fig-normality-check
+#| fig-cap: "Kontrola normality reziduí"
+#| warning: false
+
+library(ggplot2)
+library(car)
+# Simulace dat
+set.seed(123)
+n <- 30
+data <- data.frame(
+  skupina = rep(c("A", "B", "C", "D"), each = n),
+  hodnota = c(
+    rnorm(n, mean = 10, sd = 2),
+    rnorm(n, mean = 12, sd = 2),
+    rnorm(n, mean = 11, sd = 2),
+    rnorm(n, mean = 13, sd = 2)
+  )
+)
+
+# ANOVA model
+model <- aov(hodnota ~ skupina, data = data)
+
+# Extrakce reziduí
+rezidua <- residuals(model)
+
+# Q-Q plot
+par(mfrow = c(1, 2))
+qqnorm(rezidua, main = "Q-Q Plot reziduí")
+qqline(rezidua, col = "red", lwd = 2)
+
+# Histogram reziduí
+hist(rezidua, breaks = 20, col = "lightblue", border = "white",
+     main = "Histogram reziduí", xlab = "Rezidua", ylab = "Četnost")
+curve(dnorm(x, mean = mean(rezidua), sd = sd(rezidua)) * length(rezidua) *
+      diff(range(rezidua)) / 20,
+      add = TRUE, col = "red", lwd = 2)
+par(mfrow = c(1, 1))
+```
+
+**Interpretace Q-Q plotu:**
+
+- ✅ Body leží na/blízko čáry → normalita OK
+- ❌ Systematické odchylky → porušení normality
+- ❌ S-křivka → šikmost (skewness)
+- ❌ Těžší/lehčí konce → kurtóza
+
+#### B) Statistické testy
+např. shapiro-Wilkův test (ale je citlivý při velkých datech)
+
+**Co dělat při porušení:**
+
+- Mírné porušení: ANOVA je robustní, pokračujte
+- Výrazné porušení:
+  - **Transformace dat**: log, odmocnina, Box-Cox
+  - **Neparametrické testy**: Kruskal-Wallis test
+  - **Robustní ANOVA**: Welch ANOVA, trimmed means
+
+### 3. Homogenita rozptylů (Homoscedasticity)
+
+**Co to znamená:**
+
+- Rozptyl (variabilita) by měl být **přibližně stejný** ve všech skupinách
+- Také se nazývá **homoskedasticita**
+- Formálně: $\sigma_1^2 = \sigma_2^2 = ... = \sigma_k^2$
+
+**Proč je důležité:**
+
+- F test předpokládá společný odhad rozptylu
+- Porušení vede k nesprávným p-hodnotám
+- Závažnější při nerovných velikostech skupin
+
+**Pravidlo palce:**
+
+- Pokud je poměr největšího a nejmenšího rozptylu < 3, je to obvykle OK
+- ANOVA je relativně robustní při balancovaném designu
+
+**Jak testovat:**
+
+#### A) Vizuální metody
+
+```{r}
+#| label: fig-homogeneity-visual
+#| fig-cap: "Vizuální kontrola homogenity rozptylů"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+
+# Deskriptivní statistiky
+desc_stats <- data %>%
+  group_by(skupina) %>%
+  summarise(
+    n = n(),
+    prumer = mean(hodnota),
+    sd = sd(hodnota),
+    rozptyl = var(hodnota)
+  )
+
+print(desc_stats)
+
+# Poměr největšího a nejmenšího rozptylu
+max_var <- max(desc_stats$rozptyl)
+min_var <- min(desc_stats$rozptyl)
+variance_ratio <- max_var / min_var
+
+
+# Boxplot
+p1 <- ggplot(data, aes(x = skupina, y = hodnota, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "Porovnání rozptýlení mezi skupinami",
+    subtitle = "Šířka boxů by měla být přibližně podobná"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Fitted vs Residuals plot
+fitted_values <- fitted(model)
+plot_data <- data.frame(
+  fitted = fitted_values,
+  rezidua = rezidua,
+  skupina = data$skupina
+)
+
+p2 <- ggplot(plot_data, aes(x = fitted, y = rezidua, color = skupina)) +
+  geom_point(alpha = 0.6, size = 3) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, method = "loess", color = "blue") +
+  labs(
+    title = "Fitted vs Residuals",
+    subtitle = "Rozptýlení by mělo být konstantní",
+    x = "Fitted hodnoty",
+    y = "Rezidua"
+  ) +
+  theme_minimal()
+
+print(p1)
+print(p2)
+```
+
+#### B) Levenův test
+Levenův test homogenity rozptylů. Pokud je p < 0.05, zamítáme homogenitu rozptylů.
+
+**Co dělat při porušení:**
+
+- **Welch ANOVA**: Nevyžaduje homogenitu rozptylů
+- **Games-Howell**: Post-hoc test pro nerovné rozptyly
+- **Transformace dat**: Může stabilizovat rozptyl
+- **Bootstrap metody**: Robustní přístup
+
+## Demonstrace porušení předpokladů
+
+### Příklad: Nerovné rozptyly
+
+```{r}
+#| label: fig-unequal-variances
+#| fig-cap: "Příklad s nerovnými rozptyly"
+#| warning: false
+
+set.seed(456)
+n <- 30
+
+data_unequal <- data.frame(
+  skupina = rep(c("A", "B", "C"), each = n),
+  hodnota = c(
+    rnorm(n, mean = 10, sd = 2),   # Malý rozptyl
+    rnorm(n, mean = 12, sd = 5),   # Střední rozptyl
+    rnorm(n, mean = 11, sd = 10)   # Velký rozptyl
+  )
+)
+
+# Vizualizace
+ggplot(data_unequal, aes(x = skupina, y = hodnota, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.4) +
+  labs(
+    title = "Data s nerovnými rozptyly",
+    subtitle = "Výrazné rozdíly v šířce boxů"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Statistiky
+data_unequal %>%
+  group_by(skupina) %>%
+  summarise(
+    prumer = round(mean(hodnota), 2),
+    sd = round(sd(hodnota), 2),
+    rozptyl = round(var(hodnota), 2)
+  ) %>%
+  knitr::kable(caption = "Výrazně nerovné rozptyly mezi skupinami")
+
+# Levenův test
+levene_unequal <- leveneTest(hodnota ~ skupina, data = data_unequal)
+cat("\n=== Levenův test ===\n")
+print(levene_unequal)
+
+# Porovnání standardní a Welch ANOVA
+cat("\n=== Standardní ANOVA ===\n")
+model_standard <- aov(hodnota ~ skupina, data = data_unequal)
+print(summary(model_standard))
+
+cat("\n=== Welch ANOVA (robustní k nerovným rozptylům) ===\n")
+welch_result <- oneway.test(hodnota ~ skupina, data = data_unequal, var.equal = FALSE)
+print(welch_result)
+```
+
+### Příklad: Nenormální data
+
+```{r}
+#| label: fig-nonnormal
+#| fig-cap: "Příklad s nenormálními daty (zešikmené rozdělení)"
+#| warning: false
+
+set.seed(789)
+n <- 30
+
+# Silně zešikmená data (log-normální rozdělení)
+data_skewed <- data.frame(
+  skupina = rep(c("A", "B", "C"), each = n),
+  hodnota = c(
+    exp(rnorm(n, mean = 2, sd = 0.5)),
+    exp(rnorm(n, mean = 2.3, sd = 0.5)),
+    exp(rnorm(n, mean = 2.6, sd = 0.5))
+  )
+)
+
+# Vizualizace
+p_skewed <- ggplot(data_skewed, aes(x = skupina, y = hodnota, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.4) +
+  labs(
+    title = "Zešikmená data (log-normální rozdělení)",
+    subtitle = "Výrazně asymetrické boxploty s odlehlými hodnotami"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+print(p_skewed)
+
+# Test normality reziduí
+model_skewed <- aov(hodnota ~ skupina, data = data_skewed)
+shapiro_skewed <- shapiro.test(residuals(model_skewed))
+
+# Q-Q plot
+par(mfrow = c(1, 2))
+qqnorm(residuals(model_skewed), main = "Q-Q plot: Původní data")
+qqline(residuals(model_skewed), col = "red", lwd = 2)
+
+# Log-transformace
+data_skewed$log_hodnota <- log(data_skewed$hodnota)
+model_log <- aov(log_hodnota ~ skupina, data = data_skewed)
+
+qqnorm(residuals(model_log), main = "Q-Q plot: Log-transformovaná data")
+qqline(residuals(model_log), col = "red", lwd = 2)
+par(mfrow = c(1, 1))
+
+
+```
+
+
+:::{.callout-warning}
+## Shrnutí předpokladů ANOVA
+
+### Tři klíčové předpoklady:
+
+**1. NEZÁVISLOST POZOROVÁNÍ** ⭐ (nejdůležitější!)
+
+- Zajišťuje se designem studie
+- Nelze testovat statisticky
+- Porušení = neplatné výsledky
+- **Řešení při porušení:** Mixed models, repeated measures ANOVA
+
+**2. NORMALITA REZIDUÍ**
+
+- Testujeme rezidua, ne původní data!
+- ANOVA je robustní (CLT při n > 30)
+- **Testování:** Q-Q plot (preferováno), Shapiro-Wilk
+- **Řešení při porušení:** Transformace, Kruskal-Wallis test
+
+**3. HOMOGENITA ROZPTYLŮ**
+
+- Rozptyly podobné napříč skupinami
+- Méně kritické při balancovaném designu
+- **Testování:** Levenův test, vizuální kontrola, poměr rozptylů
+- **Řešení při porušení:** Welch ANOVA, Games-Howell, transformace
+
+### Pravidlo palce:
+
+- **Nezávislost:** MUSÍ být splněna!
+- **Normalita:** Robustní při n > 30 per skupina
+- **Homogenita:** OK pokud max/min rozptyl < 3
+
+### Doporučený postup:
+
+1. **Před analýzou:**
+   - Zajistěte nezávislost designem
+   - Prohlédněte si data (boxploty)
+
+2. **Po ANOVA:**
+   - Diagnostické grafy: `plot(model)`
+   - Q-Q plot pro normalitu
+   - Levenův test pro homogenitu
+
+3. **Při porušení:**
+   - Mírné → ANOVA je robustní, pokračujte
+   - Výrazné → alternativní metody
+
+### Alternativy při porušení:
+
+- **Nerov rozptyly:** Welch ANOVA
+- **Nenormalita:** Kruskal-Wallis, transformace
+- **Závislost:** Mixed models, RM-ANOVA
+- **Obecně robustní:** Bootstraping, permutační testy
+:::
+
+
+
+## Závěr
+
+ANOVA má tři hlavní předpoklady: (1) **nezávislost pozorování**, která musí být zajištěna designem studie a je nejdůležitější - její porušení zneplatňuje výsledky, (2) **normalita reziduí** (ne původních dat), která je testována Q-Q plotem a Shapiro-Wilk testem, ale ANOVA je k mírnému porušení robustní zejména při větších vzorcích díky centrální limitní větě, a (3) **homogenita rozptylů** (homoskedasticita), testovaná Levenovým testem a vizuálně, přičemž pravidlo palce říká, že poměr největšího a nejmenšího rozptylu by měl být < 3. Při porušení těchto předpokladů máme alternativy: Welch ANOVA pro nerovné rozptyly, Kruskal-Wallis test pro nenormální data, transformace dat, nebo robustní metody jako bootstrap. Diagnostické grafy (`plot(model)`) jsou klíčové pro kontrolu všech předpokladů najednou.

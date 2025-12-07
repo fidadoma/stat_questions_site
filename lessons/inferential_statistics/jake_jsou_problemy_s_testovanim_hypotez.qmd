@@ -1,5 +1,6 @@
 ---
 title: "Problémy s testováním hypotéz"
+order: 150
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -20,41 +20,21 @@ editor: source
 
 Testování hypotéz je jedním z nejpoužívanějších nástrojů ve statistické analýze dat. Umožňuje nám rozhodovat o pravdivosti či nepravdivosti určitých tvrzení na základě dat. I když je tento proces velmi užitečný, existuje několik problémů a úskalí, které mohou ovlivnit jeho správnost a platnost. Pojďme si tyto problémy podrobněji představit.
 
-## Co je to testování hypotéz?
-
-### Základní pojmy
-
-1. **Hypotéza**: Předpoklad nebo tvrzení, které chceme otestovat.
-2. **Nulová hypotéza (\(H_0\))**: Tvrzení, které testujeme. Obvykle reprezentuje stav bez efektu nebo změny.
-3. **Alternativní hypotéza (\(H_a\))**: Tvrzení, které chceme potvrdit, pokud je nulová hypotéza zavrhnuta.
-4. **P-hodnota**: Měří pravděpodobnost, že bychom získali takový nebo více extrémní výsledek, pokud je nulová hypotéza pravdivá.
-5. **Alfa (\(\alpha\))**: Předem stanovená hladina významnosti, často 0,05, která určuje hranici pro zamítnutí \(H_0\).
-
 ### Problémy s testováním hypotéz
 
-#### 1. Chyby I. a II. druhu
+#### 1. Výběr hladiny významnosti ($\alpha$)
 
-- **Chyba I. druhu** (\(\alpha\)): Falešné zamítnutí nulové hypotézy, když je pravdivá.
-- **Chyba II. druhu** (\(\beta\)): Nezamítnutí nulové hypotézy, když je nepravdivá.
+Výběr příliš vysokého nebo příliš nízkého $\alpha$ může vést k častějšímu výskytu chyb I. nebo II. druhu. Je důležité volit $\alpha$ v závislosti na kontextu a důsledcích rozhodnutí.
 
-Příklady:
+#### 2. P-hodnota jako absolutní ukazatel
 
-- *Chyba I. druhu*: Představme si, že lékař testuje nový lék a na základě statistické analýzy se rozhodne, že lék funguje, i když ve skutečnosti nefunguje.
-- *Chyba II. druhu*: Naopak, pokud lékař prohlásí, že lék nefunguje, i když ve skutečnosti má terapeutické výsledky.
+P-hodnota je často nesprávně interpretována jako míra důkazu. Nízká p-hodnota neznamená definitivně, že hypotéza je pravdivá, jen naznačuje, že data nejsou v souladu s $H_0$.
 
-#### 2. Výběr hladiny významnosti (\(\alpha\))
-
-Výběr příliš vysokého nebo příliš nízkého \(\alpha\) může vést k častějšímu výskytu chyb I. nebo II. druhu. Je důležité volit \(\alpha\) v závislosti na kontextu a důsledcích rozhodnutí.
-
-#### 3. P-hodnota jako absolutní ukazatel
-
-P-hodnota je často nesprávně interpretována jako míra důkazu. Nízká p-hodnota neznamená definitivně, že hypotéza je pravdivá, jen naznačuje, že data nejsou v souladu s \(H_0\).
-
-#### 4. Problematika vícenásobného testování
+#### 3. Problematika vícenásobného testování
 
 Pokud provádíme mnoho testů, pravděpodobnost chyby I. druhu narůstá. Např. v genetice, kde se testují tisíce genů najednou, je nutné upravit testy (např. Bonferroniho korekcí), aby se snížilo riziko falešně pozitivních výsledků.
 
-#### 5. Předpojatost a selektivní publikace
+#### 4. Předpojatost a selektivní publikace
 
 Vědci mohou mít tendenci publikovat jen pozitivní výsledky, což může ovlivnit celkové chápání problému v dané oblasti. Tento jev je znám jako publikační bias. Příklad: Pokud se publikují jen studie, které ukáží účinnost léku, může to vést k předčasným a chybným závěrům o jeho účinnosti.
 
@@ -64,7 +44,138 @@ Vědci mohou mít tendenci publikovat jen pozitivní výsledky, což může ovli
 2. **Intervaly spolehlivosti**: Poskytují rozsah hodnot, ve kterém lze očekávat skutečnou hodnotu odhadovaného parametru.
 3. **Efekt velikost**: Místo zaměření se výhradně na významnost by se vědci měli soustředit na velikost efektu, která ukazuje praktickou významnost nalezených rozdílů.
 
+:::{.callout-warning}
+## Metodologická poznámka: 7 hlavních problémů s NHST (Null Hypothesis Significance Testing)
+
+**Proč je NHST kritizován:**
+
+### 1. 🎲 **Problém p-hodnoty jako dichotomie**
+
+- ❌ **Špatně**: "p=0.049 → signifikantní!, p=0.051 → nesignifikantní!"
+- ✅ **Správně**: p-hodnota je **kontinuum**, ne binární rozhodnutí
+
+**Problém:**
+
+- Arbitrární hranice (α=0.05)
+- "Significant" ≠ "Important"
+- p=0.049 vs p=0.051 → prakticky stejné důkazy!
+
+**Řešení:**
+Reportujte PŘESNOU p-hodnotu + CI
+```
+"p = .037" místo "p < .05"
+"95% CI [0.12, 0.45]" + "p = .004"
+```
+
+### 2. 🔢 **Multiple testing problem**
+
+**Scénář**: Testuji 20 hypotéz → očekávám 1 falešně pozitivní (α=0.05)
+
+**Řešení - korekce:**
+
+| Metoda | Kdy použít | Jak v R |
+|--------|-----------|---------|
+| **Bonferroni** | Konzervativní, malý počet testů | `p.adjust(p, "bonferroni")` |
+| **Holm** | Méně konzervativní | `p.adjust(p, "holm")` |
+| **FDR (Benjamini-Hochberg)** | Velký počet testů (genomics) | `p.adjust(p, "BH")` |
+
+**Zlaté pravidlo**: Pokud testujete > 1 hypotézu, **VŽDY** použijte korekci!
+
+### 3. 📊 **p-hodnota ≠ velikost efektu**
+
+**Problém**: p < 0.001 může znamenat:
+
+- Obrovský efekt (d=2.0) → **Důležité!**
+- Miniaturní efekt (d=0.05), ale n=10,000 → **Triviální!**
+
+**Porovnání:**
+```
+Studie A: d=0.8, p=0.06, n=30  → Velký efekt, ale nesignifikantní
+Studie B: d=0.1, p=0.001, n=1000 → Malý efekt, ale signifikantní
+
+Která je důležitější? → Studie A!
+```
+
+### 4. 🚫 **Misinterpretace "nezamítnutí H0"**
+
+- ❌ **ŠPATNĚ**: "p > 0.05 → prokázali jsme, že efekt neexistuje"
+- ✅ **SPRÁVNĚ**: "p > 0.05 → nedostatek důkazů pro efekt"
+
+**Absence důkazu ≠ Důkaz absence!**
+
+**Příklad:**
+```
+Test: t=1.2, p=0.24, n=20
+❌ "Lék nefunguje"
+✅ "Nedostatečné důkazy, že lék funguje (možná malá power)"
+```
+
+### 5. 📉 **Publikační bias (File drawer problem)**
+
+**Problém**: Publikují se jen signifikantní výsledky (p<0.05)
+
+**Důsledek:**
+```
+20 studií dělá stejný experiment
+  → 19 najde p>0.05 (nepublikováno)
+  → 1 najde p<0.05 (publikováno!)
+  → Literatura ukazuje falešný efekt
+```
+
+**Řešení:**
+- Preregistrace studií
+- Publikace non-significant výsledků
+- Meta-analýzy s "funnel plot" pro detekci biasu
+
+### 6. 🎯 **p-hacking a HARKing**
+
+**p-hacking**: Manipulace s daty/analýzou dokud p<0.05
+```
+❌ Zkusit různé outlier removal
+❌ Zkusit různé transformace
+❌ Přidat covariates dokud p<0.05
+❌ Testovat subgroups dokud něco vyjde
+```
+
+**HARKing** (Hypothesizing After Results are Known):
+❌ Explorative analýza → najdu efekt → tvrdím, že jsem to plánoval
+
+**Řešení:**
+
+- Předregistrace hypotéz
+- Jasně označit exploratorní vs konfirmatorní
+- Reprotujeme všechny analýzy (i nesiginifkantní)
+
+### 7. ⚡ **Ignorování power a Type II error**
+
+**Problém**: Lidé se bojí Type I (α), ale ignorují Type II (β)
+
+| Scénář | Riziko |
+|--------|--------|
+| Malý n, β=0.80 | **20% šance detekovat pravý efekt!** |
+| p>0.05 | Možná nedostatečná power, ne absence efektu |
+
+**Moderní alternativy k tradičnímu NHST:**
+
+| Přístup | Výhoda | Použití |
+|---------|--------|---------|
+| **Confidence Intervals** | Ukáže rozsah + přesnost | ✅ VŽDY reportujte! |
+| **Effect sizes** | Praktická významnost | ✅ VŽDY reportujte! |
+| **Bayesian statistics** | P(H0\|data), ne P(data\|H0) | Alternativní framework |
+| **Equivalence testing** | Test "není rozdíl" | Non-inferiority studie |
+| **Estimation approach** | Místo testování → odhad | Preferované v psychologii |
+
+**Best practices reportování:**
+
+- ❌ **Minimální**: "Signifikantní efekt (p<.05)"
+- ✅ **Standard**: "t(98)=3.45, p=.001"
+- ✅✅ **Nejlepší**: "M_diff=5.2, 95% CI [2.1, 8.3], d=0.68, t(98)=3.45, p=.001"
+   → Máme: point estimate, CI, effect size, test statistic, p-hodnota
+
+**Zlaté pravidlo**: NHST je **jeden nástroj**, ne jediné řešení. **Vždy kombinujte**: p-hodnotu + CI + effect size + power analýzu + zdravý rozum!
+:::
+
 ## Závěr
 
-Testování hypotéz je silným nástrojem ve statistické analýze, ale jako každý nástroj má své limity a úskalí. Vědci a studenti by měli být obeznámeni s těmito problémy a zvážit, jak mohou ovlivnit jejich výsledky a interpretace. Uvědomění si těchto úskalí je prvním krokem k jejich překonání a k přijetí informovanějších a opatrnějších rozhodnutí založených na datech. 
+Testování hypotéz je silným nástrojem ve statistické analýze, ale jako každý nástroj má své limity a úskalí. Vědci a studenti by měli být obeznámeni s těmito problémy a zvážit, jak mohou ovlivnit jejich výsledky a interpretace. Uvědomění si těchto úskalí je prvním krokem k jejich překonání a k přijetí informovanějších a opatrnějších rozhodnutí založených na datech.
 

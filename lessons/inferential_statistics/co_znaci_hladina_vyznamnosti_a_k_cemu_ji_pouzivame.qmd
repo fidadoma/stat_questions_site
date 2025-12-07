@@ -1,5 +1,6 @@
 ---
 title: "Hladina významnosti ve statistice"
+order: 120
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,17 +13,16 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do hladiny významnosti
+## Úvod
 
 Ve statistikách často čelíme potřebě rozhodnout, zda pozorování z dat podporuje určitou hypotézu nebo nikoli. To je obvykle dosaženo pomocí *statistických testů*. Klíčovým pojmem, který se zde objevuje, je **hladina významnosti**. Tento pojem hraje zásadní roli při rozhodování o platnosti hypotéz.
 
 ## Co je hladina významnosti?
 
-**Hladina významnosti** (obvykle označovaná symbolem \(\alpha\)) je pravděpodobnost, že zamítneme nulovou hypotézu, když je ve skutečnosti pravdivá. V podstatě nám dává míru, do jaké jsme ochotni riskovat chybu při zamítnutí pravdivé hypotézy.
+**Hladina významnosti** (obvykle označovaná symbolem $\alpha$) je pravděpodobnost, že zamítneme nulovou hypotézu, když je ve skutečnosti pravdivá. V podstatě nám dává míru, do jaké jsme ochotni riskovat chybu při zamítnutí pravdivé hypotézy.
 
 Typické hodnoty hladiny významnosti jsou 0.05 (5%), 0.01 (1%) nebo 0.10 (10%). Je to jakási prahová hodnota, na základě které rozhodujeme, zda rozdíl, který pozorujeme, je významný nebo jen důsledek náhody.
 
@@ -43,9 +43,66 @@ Hladina významnosti se přímo vztahuje k chybě I. druhu. Stanovuje maximáln�
 
 3. **Průmyslové testy**: Výrobní společnost může testovat, zda nový výrobní proces snižuje počet defektních produktů. Při hladině významnosti 0.10 je 10% šance, že dojde k chybnému rozhodnutí zamítnout hypotézu, že proces neovlivňuje kvalitu, když ve skutečnosti neexistuje žádný skutečný účinek.
 
-## Shrnutí
+:::{.callout-tip}
+## Metodologická poznámka: Volba a interpretace α
+
+**Co je α (hladina významnosti)?**
+
+- Maximální přijatelná pravděpodobnost Chyby I. druhu
+- Prahová hodnota pro zamítnutí H0
+- Nastavuje se PŘED sběrem dat!
+
+**Běžné hodnoty α:**
+
+| α | Použití | Interpretace |
+|---|---------|--------------|
+| **0.05** | Standard ve většině oborů | 5% riziko false positive |
+| **0.01** | Přísnější (medicína, fyzika) | 1% riziko false positive |
+| **0.10** | Explorační výzkum | 10% riziko false positive |
+| **0.001** | Velmi přísné (částicová fyzika) | Minimální false positives |
+
+**Jak volit α?**
+
+1. **Důsledky Chyby I. druhu**: Pokud je false positive katastrofální → malé α (0.01 nebo 0.001)
+2. **Důsledky Chyby II. druhu**: Pokud je false negative horší → větší α (0.10)
+3. **Tradice oboru**: Respektujte standardy vašeho oboru
+4. **Explorační vs Konfirmační**: Explorační může mít vyšší α
+
+**Vztah α a p-hodnoty:**
+
+- Pokud **p < α**: Zamítneme H0 (statisticky významný výsledek)
+- Pokud **p ≥ α**: Nezamítneme H0 (statisticky nevýznamný)
+
+**POZOR na chyby:**
+
+- ❌ "α = 0.05 je vždy správné" → Ne, záleží na kontextu!
+- ❌ "p = 0.06 znamená, že H0 je pravdivá" → Ne, jen říká, že důkazy nejsou dost silné
+- ❌ "Můžu změnit α po tom, co vidím p-hodnotu" → p-hacking!
+- ❌ "Statistická významnost = praktický význam" → Ne!
+
+**Bonferroniho korekce (multiple testing):**
+Pokud děláte k testů, použijte α_adjusted = α/k
+
+- Příklad: 10 testů, α = 0.05 → α_adjusted = 0.005
+- Důvod: Jinak máte 40% šanci false positive při 10 testech!
+
+**FDR (False Discovery Rate):**
+Alternativa k Bonferroniho - méně konzervativní, vhodná pro velký počet testů
+
+**Doporučení:**
+
+1. Stanovte α PŘED analýzou (předregistrace studie)
+2. Použijte α = 0.05 jako default, upravte podle kontextu
+3. Reportujte přesnou p-hodnotu (ne jen "p < 0.05")
+4. Zvažte korekce pro multiple testing
+5. Doplňte o konfidenční intervaly a effect size
+
+**Zlaté pravidlo**: α je konvence, ne zákon přírody. Rozhodnutí by měla být založena na celkovém důkazu, ne jen na p < α!
+:::
+
+## Závěr
 
 Hladina významnosti je klíčovým konceptem ve statistickém testování hypotéz, neboť nám poskytuje návod, jak činit rozhodnutí na základě datových důkazů. Výběr hladiny významnosti by měl být uvážlivý, a to s ohledem na důsledky možných chyb ve specifickém kontextu aplikace.
 
 Pro efektivní využití hladiny významnosti je důležité nejen rozumět její definici, ale také tomu, jak ovlivňuje interpretaci výsledků testování a rozhodovací proces. Ujistěte se, že pokaždé, když aplikujete statistický test, zvažujete jak hladinu významnosti, tak možné důsledky vašeho rozhodnutí.
-```
+

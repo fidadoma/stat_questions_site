@@ -1,5 +1,6 @@
 ---
 title: "Normalita a testování normality"
+order: 190
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -52,25 +52,71 @@ Existuje několik metod pro testování normality dat. Níže uvedeme několik z
 
 - **Anderson-Darling test**: Je obvykle citlivější na rozdíly ve "chvostech" rozdělení (extrémní hodnoty) než Shapiro-Wilk nebo Kolmogorov-Smirnovův test.
 
-### Příklad použití v R
 
-r
-# Simulace náhodných dat
-set.seed(123)
-data <- rnorm(100, mean = 5, sd = 2)
+:::{.callout-tip}
+## Metodologická poznámka: Testování normality v praxi
 
-# Histogram
-hist(data, main = "Histogram dat", xlab = "Hodnoty", ylab = "Frekvence")
+**Proč testovat normalitu?**
+- Mnoho parametrických testů (t-test, ANOVA, regrese) předpokládá normalitu
+- Porušení může vést k nesprávným závěrům
 
-# Q-Q graf
-qqnorm(data)
-qqline(data, col = "red")
+**DŮLEŽITÉ UPOZORNĚNÍ o velikosti vzorku:**
 
-# Shapiro-Wilkův test
-shapiro.test(data)
-```
+| Velikost vzorku | Problém s testy | Doporučení |
+|----------------|-----------------|------------|
+| **n < 20** | Testy mají **malou power** - neodhalí nenormalitu | Vizuální metody + **buďte konzervativní** |
+| **n = 20-50** | Optimální pro testy | Kombinace vizuálních + testů |
+| **n > 50** | Testy **příliš citlivé** - zamítnou i mírné odchylky | **Vizuální metody důležitější!** |
+| **n > 200** | Testy zamítnou skoro vždy | CLT chrání parametrické testy, **ignorujte p-hodnotu** |
+
+**→ Paradox**: Testy normality jsou nejvíce užitečné při n=20-50, ale tam jsou parametrické testy nejcitlivější na normalitu!
+
+
+**Co dělat, když normalita je porušena?**
+
+1. **Transformace** (pokud pomáhá):
+   - Pravostranné zkosení → log(x), √x
+   - Levostranné zkosení → x²
+   - **POZOR**: Interpretace se mění!
+
+2. **Neparametrické testy**:
+   - Wilcoxonův test (místo t-testu)
+   - Kruskal-Wallis (místo ANOVA)
+   - Spearman (místo Pearson)
+
+3. **Robustní metody**:
+   - Bootstrap
+   - Trimmed means
+   - Permutation tests
+
+4. **Přijmout normalitu** (pokud):
+   - n > 30 + mírné porušení
+   - CLT chrání parametrické testy
+
+**Časté chyby:**
+
+- ❌ Testovat normalitu JEN pomocí p-hodnoty
+- ❌ S velkým vzorkem zamítnout normalitu kvůli tiny odchylce
+- ❌ S malým vzorkem důvěřovat testu, že je vše OK
+- ❌ Testovat normalitu POTÉ, co už jste udělali analýzu
+- ❌ Zapomenout, že u párového t-testu testujeme normalitu **rozdílů**!
+
+**Best practice reportování:**
+
+- ✅ "Normalita byla ověřena pomocí Q-Q plotů a Shapiro-Wilk testu (W = 0.97, p = .23)"
+- ✅ "Q-Q plot ukázal mírnou pravostrannou skewness, ale vzhledem k velikosti vzorku (n = 85) je t-test robustní díky CLT"
+- ✅ "Data silně porušovala normalitu (Shapiro-Wilk: W = 0.85, p < .001), proto byl použit Wilcoxonův test"
+
+**Speciální případy:**
+
+**Pro REGRESI**: Testujte normalitu **REZIDUÍ**, ne prediktorů!
+**Pro ANOVA**: Normalita reziduí v každé skupině
+**Pro PÁROVÝ t-test**: Normalita **ROZDÍLŮ**
+
+**Zlaté pravidlo**: "Visualize first, test second, interpret wisely!"
+:::
 
 ## Závěr
 
 Testování normality je důležitou součástí statistického zpracování dat. Ačkoliv existuje několik metod pro testování normality, je dobré použít kombinaci vizuálních i statistických metod, aby byla hodnocení co nejpřesnější. Vždy berte v úvahu velikost vzorku, protože velmi malé nebo velmi velké vzorky mohou ovlivnit výsledky testů normality. Pamatujte, že zralý a uvážený přístup ke statistické analýze je klíčem k získání platných a spolehlivých výsledků.
-```
+

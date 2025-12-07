@@ -1,0 +1,277 @@
+---
+title: "Jaké máme sumy čtverců u ANOVY?"
+order: 400
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+ANOVA rozklad rozptylu na různé komponenty pomocí tzv. **sum čtverců** (sum of squares, SS). Pochopení těchto komponent je klíčové pro interpretaci ANOVY a pro  pochopení, jak ANOVA vlastně funguje.
+
+## Tři základní sumy čtverců
+
+ANOVA pracuje se třemi sumami čtverců:
+
+### 1. Celková suma čtverců (Total Sum of Squares - SS~total~)
+
+Měří **celkovou variabilitu** všech pozorování kolem celkového průměru.
+
+$$SS_{total} = \sum_{i=1}^{k}\sum_{j=1}^{n_i}(y_{ij} - \bar{y})^2$$
+
+kde:
+- $y_{ij}$ je j-té pozorování v i-té skupině
+- $\bar{y}$ je celkový průměr (grand mean)
+- $k$ je počet skupin
+- $n_i$ je počet pozorování v i-té skupině
+
+**Interpretace**: Jak moc se všechna pozorování liší od celkového průměru? (bez ohledu na skupiny)
+
+### 2. Suma čtverců mezi skupinami (Between-group Sum of Squares - SS~between~)
+
+Měří variabilitu **způsobenou rozdíly mezi skupinami**.
+
+$$SS_{between} = \sum_{i=1}^{k}n_i(\bar{y}_i - \bar{y})^2$$
+
+kde:
+- $\bar{y}_i$ je průměr i-té skupiny
+- $\bar{y}$ je celkový průměr
+- $n_i$ je počet pozorování v i-té skupině
+
+**Interpretace**: Jak moc se průměry jednotlivých skupin liší od celkového průměru? (efekt skupiny)
+
+### 3. Suma čtverců uvnitř skupin (Within-group Sum of Squares - SS~within~)
+
+Měří **reziduální variabilitu** uvnitř každé skupiny (nelze vysvětlit skupinovou příslušností).
+
+$$SS_{within} = \sum_{i=1}^{k}\sum_{j=1}^{n_i}(y_{ij} - \bar{y}_i)^2$$
+
+kde:
+- $y_{ij}$ je j-té pozorování v i-té skupině
+- $\bar{y}_i$ je průměr i-té skupiny
+
+**Interpretace**: Jak moc se pozorování v každé skupině liší od průměru své skupiny? (náhodná variabilita/chyba)
+
+## Základní vztah
+
+Platí fundamentální rovnice ANOVY:
+
+$$SS_{total} = SS_{between} + SS_{within}$$
+
+Celková variabilita = Variabilita mezi skupinami + Variabilita uvnitř skupin
+
+## Vizualizace konceptu
+
+```{r}
+#| label: fig-ss-concept
+#| fig-cap: "Vizualizace různých sum čtverců v ANOVA"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+
+# Simulace jednoduchých dat
+set.seed(123)
+data <- data.frame(
+  skupina = rep(c("A", "B", "C"), each = 5),
+  hodnota = c(
+    c(8, 9, 10, 11, 12),   # Skupina A
+    c(12, 13, 14, 15, 16), # Skupina B
+    c(10, 11, 12, 13, 14)  # Skupina C
+  )
+)
+
+# Výpočty
+grand_mean <- mean(data$hodnota)
+group_means <- data %>%
+  group_by(skupina) %>%
+  summarise(mean = mean(hodnota))
+
+# Hlavní graf
+p1 <- ggplot(data, aes(x = skupina, y = hodnota, color = skupina)) +
+  geom_point(size = 4, alpha = 0.7) +
+  geom_hline(yintercept = grand_mean, linetype = "dashed",
+             color = "black", size = 1.2) +
+  stat_summary(fun = mean, geom = "point", shape = 23,
+               size = 5, fill = "red", color = "black") +
+  annotate("text", x = 0.5, y = grand_mean + 0.5,
+           label = paste0("Celkový průměr = ", round(grand_mean, 2)),
+           hjust = 0, size = 4) +
+  labs(
+    title = "Dekompozice variability v ANOVA",
+    subtitle = "Červený diamant = průměr skupiny, černá čára = celkový průměr",
+    x = "Skupina",
+    y = "Měřená hodnota"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "none"
+  ) +
+  scale_color_brewer(palette = "Set1")
+
+print(p1)
+
+# Přidání hodnot průměrů
+data_with_means <- data %>%
+  left_join(group_means, by = "skupina")
+
+# Výpočet sum čtverců ručně
+ss_total <- sum((data$hodnota - grand_mean)^2)
+ss_between <- sum(group_means$mean^2 * 5) - 15 * grand_mean^2
+ss_within <- ss_total - ss_between
+
+```
+
+## Vizualizace jednotlivých komponent
+
+```{r}
+#| label: fig-ss-components
+#| fig-cap: "Grafická reprezentace jednotlivých sum čtverců"
+#| warning: false
+#| fig-height: 10
+
+library(patchwork)
+
+# SS_total: Vzdálenost každého bodu od celkového průměru
+p_total <- ggplot(data, aes(x = skupina, y = hodnota)) +
+  geom_hline(yintercept = grand_mean, color = "black", size = 1.2) +
+  geom_segment(aes(xend = skupina, yend = grand_mean),
+               color = "purple", size = 1, alpha = 0.6) +
+  geom_point(size = 4, color = "purple", alpha = 0.7) +
+  annotate("text", x = 2, y = max(data$hodnota) + 0.5,
+           label = paste0("SS_total = ", round(ss_total, 2)),
+           size = 5, fontface = "bold", color = "purple") +
+  labs(
+    title = "A) SS_total",
+    subtitle = "Vzdálenost každého bodu od celkového průměru",
+    x = "Skupina",
+    y = "Hodnota"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# SS_between: Vzdálenost průměrů skupin od celkového průměru
+p_between <- ggplot(group_means, aes(x = skupina, y = mean)) +
+  geom_hline(yintercept = grand_mean, color = "black", size = 1.2) +
+  geom_segment(aes(xend = skupina, yend = grand_mean),
+               color = "darkred", size = 2, alpha = 0.7,
+               arrow = arrow(length = unit(0.3, "cm"))) +
+  geom_point(size = 6, shape = 23, fill = "red", color = "black") +
+  annotate("text", x = 2, y = max(group_means$mean) + 0.5,
+           label = paste0("SS_between = ", round(ss_between, 2)),
+           size = 5, fontface = "bold", color = "darkred") +
+  labs(
+    title = "B) SS_between",
+    subtitle = "Vzdálenost průměrů skupin od celkového průměru (× počet pozorování)",
+    x = "Skupina",
+    y = "Hodnota"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# SS_within: Vzdálenost bodů od průměru své skupiny
+p_within <- ggplot(data_with_means, aes(x = skupina, y = hodnota)) +
+  geom_point(aes(y = mean), size = 6, shape = 23,
+             fill = "red", color = "black") +
+  geom_segment(aes(xend = skupina, yend = mean),
+               color = "darkblue", size = 1, alpha = 0.6) +
+  geom_point(size = 4, color = "darkblue", alpha = 0.7) +
+  annotate("text", x = 2, y = max(data$hodnota) + 0.5,
+           label = paste0("SS_within = ", round(ss_within, 2)),
+           size = 5, fontface = "bold", color = "darkblue") +
+  labs(
+    title = "C) SS_within",
+    subtitle = "Vzdálenost každého bodu od průměru své skupiny",
+    x = "Skupina",
+    y = "Hodnota"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# Kombinace grafů
+p_total / p_between / p_within
+```
+
+## Od sum čtverců k F statistice
+
+Sumy čtverců samy o sobě nejsou ještě testovací statistikou. Musíme je převést na **průměrné čtverce** (Mean Squares, MS):
+
+$$MS_{between} = \frac{SS_{between}}{df_{between}} = \frac{SS_{between}}{k-1}$$
+
+$$MS_{within} = \frac{SS_{within}}{df_{within}} = \frac{SS_{within}}{N-k}$$
+
+kde:
+- $k$ je počet skupin
+- $N$ je celkový počet pozorování
+- $df$ jsou stupně volnosti
+
+**F statistika** je pak poměr těchto průměrných čtverců:
+
+$$F = \frac{MS_{between}}{MS_{within}}$$
+
+
+## Interpretace sum čtverců
+
+### Proporce vysvětlené variability
+
+Můžeme vypočítat, jaký podíl celkové variability je vysvětlen skupinovou příslušností:
+
+$$\eta^2 = \frac{SS_{between}}{SS_{total}}$$
+
+Toto je tzv. **eta squared** - míra velikosti efektu 
+
+
+:::{.callout-tip}
+## Shrnutí sum čtverců v ANOVA
+
+**Tři klíčové komponenty:**
+
+1. **SS~total~**: Celková variabilita dat
+   - Měří, jak moc se všechna pozorování liší od celkového průměru
+   - Baseline pro porovnání
+
+2. **SS~between~**: Variabilita MEZI skupinami
+   - Měří efekt skupinové příslušnosti
+   - Čím větší, tím silnější efekt skupiny
+
+3. **SS~within~**: Variabilita UVNITŘ skupin
+   - Reziduální/náhodná variabilita
+   - "Šum", který nelze vysvětlit skupinovou příslušností
+
+**Základní vztah:**
+$$SS_{total} = SS_{between} + SS_{within}$$
+
+**Od sum čtverců k F statistice:**
+
+1. SS → MS (vydělíme stupni volnosti)
+2. $F = MS_{between} / MS_{within}$
+3. Vysoké F → silný efekt skupiny
+
+**Velikost efektu:**
+$$\eta^2 = \frac{SS_{between}}{SS_{total}}$$
+
+- 0.01 ~ malý efekt
+- 0.06 ~ střední efekt
+- 0.14 ~ velký efekt
+
+**Interpretace:**
+
+- Velké $SS_{between}$ relativně k $SS_{within}$ → skupiny se liší
+- Malé $SS_{between}$ relativně k $SS_{within}$ → skupiny podobné
+:::
+
+## Závěr
+
+ANOVA rozk celkovou variabilitu dat (SS~total~) na dvě komponenty: variabilitu mezi skupinami (SS~between~), která odráží efekt skupinové příslušnosti, a variabilitu uvnitř skupin (SS~within~), která představuje reziduální náhodnou variabilitu. Platí fundamentální vztah SS~total~ = SS~between~ + SS~within~. Z těchto sum čtverců se vypočítají průměrné čtverce (Mean Squares) vydělením příslušnými stupni volnosti, a jejich poměr dává F statistiku. Podíl SS~between~/SS~total~ udává, jakou část celkové variability vysvětluje skupinová příslušnost (eta squared). Pochopení tohoto rozkladu variability je klíčové pro interpretaci výsledků ANOVY a pro posouzení praktické významnosti nalezených rozdílů.

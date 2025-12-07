@@ -1,5 +1,6 @@
 ---
 title: "Co to je p-hodnota?"
+order: 130
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,13 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Co to je p-hodnota?
-
-## Úvod do p-hodnoty
+## Úvod
 
 P-hodnota je klíčový koncept ve statistice, zejména při provádění hypotézních testů. Poskytuje nám způsob, jak můžeme rozhodnout, zda pozorovaný jev je důsledkem náhody nebo zda je statisticky významný. Pojďme si p-hodnotu detailněji vysvětlit a ukázat si, jak funguje na příkladu z běžného života.
 
@@ -51,8 +49,122 @@ Při práci s p-hodnotami je klíčové nestanovovat hranice podle již získan�
 2. **Průzkum spokojenosti zákazníků:**
    - Pokud obchodní řetězec testuje, zda nová marketingová strategie zlepšila spokojenost zákazníků, p-hodnota jim pomůže rozhodnout, zda změny vedly k statisticky významnému zlepšení.
 
+## Vizualizace p-hodnoty
+
+Pro lepší pochopení konceptu p-hodnoty si ukážeme, co p-hodnota vlastně měří:
+
+```{r}
+#| label: fig-pvalue
+#| fig-cap: "Vizualizace p-hodnoty v kontextu testování hypotéz"
+#| warning: false
+
+library(ggplot2)
+set.seed(123)
+
+# Parametry nulové hypotézy
+mu_null <- 0
+sigma <- 1
+
+# Pozorovaná testová statistika
+observed_stat <- 2.5
+
+# Vytvoření dat pro normální rozdělení
+x <- seq(-4, 4, length.out = 1000)
+y <- dnorm(x, mean = mu_null, sd = sigma)
+data_dist <- data.frame(x = x, y = y)
+
+# Oblast pro p-hodnotu (dvoustranný test)
+x_right <- seq(observed_stat, 4, length.out = 100)
+y_right <- dnorm(x_right, mean = mu_null, sd = sigma)
+x_left <- seq(-4, -observed_stat, length.out = 100)
+y_left <- dnorm(x_left, mean = mu_null, sd = sigma)
+
+# Výpočet p-hodnoty
+p_value <- 2 * (1 - pnorm(observed_stat, mean = mu_null, sd = sigma))
+
+# Vizualizace
+ggplot(data_dist, aes(x = x, y = y)) +
+  geom_line(size = 1, color = "darkblue") +
+  # Oblast p-hodnoty vpravo
+  geom_area(data = data.frame(x = x_right, y = y_right),
+            aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  # Oblast p-hodnoty vlevo
+  geom_area(data = data.frame(x = x_left, y = y_left),
+            aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  # Pozorovaná statistika
+  geom_vline(xintercept = c(-observed_stat, observed_stat),
+             linetype = "dashed", color = "red", size = 1) +
+  # Popisky
+  annotate("text", x = observed_stat+1, y = max(y) * 0.5,
+           label = paste0("Pozorovaná\nstatistika\n(", observed_stat, ")"),
+           color = "red", size = 3.5) +
+  annotate("text", x = 0, y = max(y) * 1.1,
+           label = paste0("p-hodnota = ", round(p_value, 4)),
+           color = "red", size = 5, fontface = "bold") +
+  annotate("text", x = 3.2, y = 0.05,
+           label = "Oblast extrémnějších\nhodnot (p-hodnota)",
+           color = "red", size = 3) +
+  labs(
+    title = "P-hodnota jako pravděpodobnost extrémnějších hodnot",
+    subtitle = "Za předpokladu platnosti nulové hypotézy",
+    x = "Testová statistika",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+Graf ukazuje, že p-hodnota odpovídá ploše pod křivkou v oblastech, které jsou stejně nebo více extrémní než naše pozorovaná hodnota (při dvoustranném testu).
+
+:::{.callout-warning}
+## Metodologická poznámka: Správná interpretace p-hodnoty
+
+**CO P-HODNOTA JE:**
+
+- P(data nebo extrémnější | H0 je pravda)
+- Míra kompatibility dat s nulovou hypotézou
+- Pravděpodobnost falešného poplachu, pokud H0 platí
+
+**CO P-HODNOTA NENÍ (časté mylné interpretace!):**
+
+- ❌ **NENÍ** P(H0 je pravda | data)
+- ❌ **NENÍ** pravděpodobnost, že výsledek vznikl náhodou
+- ❌ **NENÍ** velikost efektu
+- ❌ **NENÍ** důležitost výsledku
+- ❌ **NENÍ** síla důkazu PRO alternativní hypotézu
+
+**Správné interpretace:**
+- ✅ p = 0.03: "Pokud H0 platí, pravděpodobnost pozorovat tato data (nebo extrémnější) je 3%"
+- ❌ p = 0.03: "H0 má 3% šanci být pravdivá" ← ŠPATNĚ!
+- ❌ p = 0.03: "Výsledek má 97% šanci být pravdivý" ← ŠPATNĚ!
+
+**Problematické praktiky:**
+
+1. **P-hacking**: Hledání p < 0.05 zkoušením různých testů/proměnných
+2. **HARKing**: Hypothesizing After Results are Known
+3. **Cherry-picking**: Reportování jen signifikantních výsledků
+4. **Dichotomizace**: p = 0.049 "signifikantní" vs p = 0.051 "nesignifikantní"
+
+**Doporučení ASA (American Statistical Association):**
+
+1. P-hodnoty NEINDIKUJÍ, zda je H0 pravdivá
+2. Statistická významnost ≠ praktický význam
+3. P-hodnoty samy o sobě neposkytují dobrou míru důkazů
+4. Validní vědecké závěry nevyžadují p < 0.05
+5. P-hodnota neměří velikost efektu nebo důležitost výsledku
+6. P-hodnota sama nestačí - reportujte CI, effect size!
+
+**Co reportovat místo/kromě p-hodnoty:**
+
+- **Konfidenční intervaly** (95% CI)
+- **Velikost efektu** (Cohen's d, r, OR)
+- **Bayesův faktor** (alternativa k p-hodnotě)
+- **Grafickou vizualizaci** dat a nejistoty
+
+**Pravidlo pravé ruky**: p-hodnota < 0.05 je ARBITRÁRNÍ konvence, ne magická hranice!
+:::
+
 ## Závěr
 
-P-hodnota je nezbytným nástrojem ve statistice, který nám umožňuje rozhodnout o platnosti našich hypotéz. Přestože p-hodnota sama o sobě neposkytuje úplný závěr, je důležitou součástí statistické analýzy. Je klíčové ji správně interpretovat a používat v kontextu celého výzkumu.
-
+P-hodnota je klíčový nástroj v inferenční statistice, který quantifikuje sílu důkazů proti nulové hypotéze. Představuje pravděpodobnost, že bychom pozorovali stejně nebo více extrémní výsledek za předpokladu platnosti nulové hypotézy. Je důležité ji správně interpretovat - malá p-hodnota (typicky < 0.05) naznačuje, že pozorovaný efekt je statisticky významný, ale neznamená automaticky příčinný vztah či praktický význam. P-hodnota je pouze jedním z nástrojů pro hodnocení výzkumných výsledků a měla by být vždy interpretována v kontextu celého výzkumu.
 

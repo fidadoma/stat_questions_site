@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -51,9 +50,176 @@ Normální rozdělení je charakterizováno dvěma hlavními parametry:
 
 Normální rozdělení v grafické podobě tvoří charakteristickou křivku, známou jako "zvonková křivka." Tato křivka je symetrická vůči střední hodnotě (μ) a její tvar je určen směrodatnou odchylkou (σ). Čím menší je směrodatná odchylka, tím užší a vyšší je křivka, což značíme jako menší rozptyl dat. Čím větší je směrodatná odchylka, tím širší a plošší je křivka, což znamená větší rozptyl dat.
 
-## Shrnutí
+```{r}
+#| label: fig-normal-params
+#| fig-cap: "Vliv parametrů μ a σ na normální rozdělení"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+
+# Vytvoření dat pro vizualizaci
+x <- seq(-10, 20, length.out = 500)
+
+# Graf 1: Vliv střední hodnoty μ (při konstantní σ = 2)
+data_mu <- data.frame(
+  x = rep(x, 3),
+  y = c(dnorm(x, mean = 0, sd = 2),
+        dnorm(x, mean = 5, sd = 2),
+        dnorm(x, mean = 10, sd = 2)),
+  parameter = rep(c("μ = 0, σ = 2", "μ = 5, σ = 2", "μ = 10, σ = 2"), each = length(x))
+)
+
+p1 <- ggplot(data_mu, aes(x = x, y = y, color = parameter, linetype = parameter)) +
+  geom_line(size = 1.2) +
+  geom_vline(xintercept = c(0, 5, 10), linetype = "dashed",
+             color = c("#E74C3C", "#3498DB", "#2ECC71"), alpha = 0.6) +
+  labs(
+    title = "Vliv střední hodnoty μ",
+    subtitle = "μ určuje polohu rozdělení (směrodatná odchylka σ je konstantní)",
+    x = "Hodnota",
+    y = "Hustota pravděpodobnosti",
+    color = "Parametry",
+    linetype = "Parametry"
+  ) +
+  scale_color_manual(values = c("#E74C3C", "#3498DB", "#2ECC71")) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Graf 2: Vliv směrodatné odchylky σ (při konstantní μ = 5)
+data_sigma <- data.frame(
+  x = rep(x, 3),
+  y = c(dnorm(x, mean = 5, sd = 1),
+        dnorm(x, mean = 5, sd = 2),
+        dnorm(x, mean = 5, sd = 4)),
+  parameter = rep(c("μ = 5, σ = 1", "μ = 5, σ = 2", "μ = 5, σ = 4"), each = length(x))
+)
+
+p2 <- ggplot(data_sigma, aes(x = x, y = y, color = parameter, linetype = parameter)) +
+  geom_line(size = 1.2) +
+  geom_vline(xintercept = 5, linetype = "dashed", color = "darkred", alpha = 0.6) +
+  annotate("text", x = 5, y = 0.42, label = "μ = 5",
+           fontface = "bold", color = "darkred", vjust = -0.5) +
+  labs(
+    title = "Vliv směrodatné odchylky σ",
+    subtitle = "σ určuje šířku/rozptyl rozdělení (střední hodnota μ je konstantní)",
+    x = "Hodnota",
+    y = "Hustota pravděpodobnosti",
+    color = "Parametry",
+    linetype = "Parametry"
+  ) +
+  scale_color_manual(values = c("#9B59B6", "#3498DB", "#E67E22")) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+```
+
+### Empirické pravidlo (pravidlo 68-95-99.7)
+
+Pro normální rozdělení platí důležité pravidlo:
+
+- **68%** všech hodnot leží v intervalu μ ± σ (jedna směrodatná odchylka od průměru)
+- **95%** všech hodnot leží v intervalu μ ± 2σ (dvě směrodatné odchylky od průměru)
+- **99.7%** všech hodnot leží v intervalu μ ± 3σ (tři směrodatné odchylky od průměru)
+
+```{r}
+#| label: fig-empirical-rule
+#| fig-cap: "Empirické pravidlo (68-95-99.7) pro normální rozdělení"
+#| warning: false
+
+library(ggplot2)
+
+# Data pro normální rozdělení s μ = 100, σ = 15 (např. IQ)
+x <- seq(40, 160, length.out = 500)
+y <- dnorm(x, mean = 100, sd = 15)
+data_norm <- data.frame(x = x, y = y)
+
+# Barevné oblasti
+p_emp <- ggplot(data_norm, aes(x = x, y = y)) +
+  # 99.7% (3 sigma)
+  geom_ribbon(data = subset(data_norm, x >= 55 & x <= 145),
+              aes(ymax = y), ymin = 0, fill = "#E8F8F5", alpha = 0.7) +
+  # 95% (2 sigma)
+  geom_ribbon(data = subset(data_norm, x >= 70 & x <= 130),
+              aes(ymax = y), ymin = 0, fill = "#D5F4E6", alpha = 0.7) +
+  # 68% (1 sigma)
+  geom_ribbon(data = subset(data_norm, x >= 85 & x <= 115),
+              aes(ymax = y), ymin = 0, fill = "#A9DFBF", alpha = 0.7) +
+  # Křivka
+  geom_line(size = 1.2, color = "darkblue") +
+  # Vertikální čáry
+  geom_vline(xintercept = c(85, 100, 115), linetype = "dashed",
+             color = c("#27AE60", "darkred", "#27AE60"), size = 0.8) +
+  geom_vline(xintercept = c(70, 130), linetype = "dashed",
+             color = "#229954", size = 0.6) +
+  geom_vline(xintercept = c(55, 145), linetype = "dashed",
+             color = "#1E8449", size = 0.4) +
+  # Popisky
+  annotate("text", x = 100, y = 0.028, label = "μ = 100",
+           fontface = "bold", color = "darkred", size = 4) +
+  annotate("text", x = 100, y = 0.015, label = "68%",
+           fontface = "bold", color = "#27AE60", size = 5) +
+  annotate("text", x = 100, y = 0.008, label = "95%",
+           fontface = "bold", color = "#229954", size = 5) +
+  annotate("text", x = 100, y = 0.003, label = "99.7%",
+           fontface = "bold", color = "#1E8449", size = 5) +
+  # Popisky pro sigma
+  annotate("segment", x = 100, xend = 115, y = 0.025, yend = 0.025,
+           arrow = arrow(length = unit(0.2, "cm"), ends = "last"),
+           color = "#27AE60", size = 1) +
+  annotate("text", x = 107.5, y = 0.0255, label = "σ = 15",
+           fontface = "bold", color = "#27AE60", size = 3.5, vjust = -0.5) +
+  labs(
+    title = "Empirické pravidlo pro normální rozdělení",
+    subtitle = "Příklad: IQ skóre s μ = 100 a σ = 15",
+    x = "IQ skóre",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  scale_x_continuous(breaks = c(55, 70, 85, 100, 115, 130, 145),
+                     labels = c("μ-3σ\n(55)", "μ-2σ\n(70)", "μ-σ\n(85)",
+                               "μ\n(100)", "μ+σ\n(115)", "μ+2σ\n(130)", "μ+3σ\n(145)")) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())
+
+p_emp
+```
+
+:::{.callout-important}
+## Metodologická poznámka: Kdy (ne)použít normální rozdělení?
+
+**Kdy POUŽÍT normální rozdělení:**
+
+- Data jsou přibližně symetrická
+- Většina hodnot kolem středu, málo extrémů
+- Součty/průměry mnoha nezávislých veličin (CLT!)
+- Chyby měření
+- Biologické vlastnosti (výška, IQ)
+
+**Kdy NEPOUŽÍT normální rozdělení:**
+
+- Data mají těžké chvosty (extrémní hodnoty časté)
+- Data jsou šikmá (příjmy, ceny nemovitostí)
+- Data jsou omezená (nemůžou být záporná)
+- Diskrétní data s malým rozsahem
+- Bimodální nebo multimodální data
+
+**Alternativy k normálnímu rozdělení:**
+
+- **Log-normální**: Pro pozitivní šikmá data (př. příjmy)
+- **t-rozdělení**: Pro data s těžšími chvosty
+- **Uniform**: Pro rovnoměrně rozdělená data
+- **Exponenciální**: Pro čekací doby
+- **Binomické/Poissonovo**: Pro počty
+
+
+**Jak testovat normalitu?**
+1. Vizuálně: histogram, Q-Q plot
+2. Statisticky: Shapiro-Wilk test (n < 50), Kolmogorov-Smirnov (n > 50)
+:::
+
+## Závěr
 
 Normální rozdělení je základním konceptem v oblasti statistiky. Porozumění jeho parametrům, střední hodnotě a směrodatné odchylce, je klíčové pro správnou interpretaci a analýzu dat v mnoha oblastech, včetně přírodních věd, ekonomie, psychologie a dalších. Pamatujte, že většina statistických dat je považována za normálně rozdělená, což umožňuje použití široké škály analytických metod pro trenování a validaci hypotéz.
-
-
 

@@ -1,5 +1,6 @@
 ---
 title: "Krabicový graf a deskriptivní statistiky"
+order: 30
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do krabicového grafu
+## Úvod
 
 Krabicový graf, také často nazývaný jako *boxplot*, je výborným nástrojem pro vizualizaci rozdělení dat. Poskytuje přehled o několika klíčových deskriptivních statistikách najednou. V této lekci si vysvětlíme, které deskriptivní statistiky obsahuje, jak je interpretovat a na čem nám mohou pomoci.
 
@@ -49,6 +49,39 @@ Krabicový graf se skládá z několika důležitých částí:
    
    - *Příklad: Pokud definujete největší a nejmenší přípustnou tmavost žetonů, které nejsou příliš odlišné od středních (dle pravidla 1.5 IQR), tak tyto žetony reprezentují minimální a maximální hodnoty v krabicovém grafu.*
 
+:::{.callout-tip}
+## Metodologická poznámka: Kdy a jak používat krabicový graf?
+
+**Výhody boxplotu**:
+
+- ✅ Zobrazuje **5 klíčových statistik** najednou (min, Q1, medián, Q3, max)
+- ✅ Jednoduchá **identifikace outlierů** (body mimo fousky)
+- ✅ Skvělý pro **porovnání skupin** (více boxplotů vedle sebe)
+- ✅ **Robustní vůči outlierům** (medián a IQR)
+- ✅ Funguje i pro **malé vzorky** (n ≥ 5-10)
+
+**Nevýhody/Omezení**:
+
+- ❌ **Skrývá multimodalitu** (dvě vrcholy v datech)
+- ❌ **Nezobrazuje tvar rozložení** přesně
+- ❌ **Nezobrazuje velikost vzorku** (n) – vždy ji uveďte!
+
+**Kdy použít boxplot?**
+
+- Porovnání **více skupin** (3+ skupin vedle sebe)
+- Data s potenciálními **outliers**
+- Rychlý **EDA** (exploratory data analysis)
+- **Ordinální proměnné** (kde histogram nedává smysl)
+
+**Alternativy pro specifické situace**:
+
+- **Violin plot**: Když chcete vidět tvar rozložení + boxplot
+- **Beeswarm/strip plot**: Pro malé vzorky (n < 50) – vidíte každý bod
+- **Histogram**: Pro detailní tvar rozložení jedné proměnné
+
+**Best practice**: Vždy přidejte průměr (např. jako bílý kosočtverec) k mediánu – pokud se výrazně liší, máte šikmé rozložení!
+:::
+
 ## Význam a praktické použití
 
 Krabicový graf je užitečný pro:
@@ -66,4 +99,133 @@ Krabicový graf je užitečný pro:
 
 Krabicové grafy jsou snadno srozumitelné a umožňují rychlou interpretaci dat, což je velmi výhodné v mnoha oblastech každodenního života i odborného výzkumu.
 
+## Vizualizace krabicového grafu s popisky
+
+Pro lepší pochopení si ukážeme krabicový graf s vyznačenými všemi klíčovými částmi:
+
+```{r}
+#| label: fig-boxplot-annotated
+#| fig-cap: "Krabicový graf s vyznačenými deskriptivními statistikami"
+#| warning: false
+
+library(ggplot2)
+set.seed(123)
+
+# Vytvoření ukázkových dat
+data <- data.frame(
+  skupina = "Ukázková data",
+  hodnota = c(rnorm(90, mean = 50, sd = 10), 75, 78, 20, 22)  # Většina dat + outliers
+)
+
+# Výpočet statistik pro anotace
+q1 <- quantile(data$hodnota, 0.25)
+q2 <- quantile(data$hodnota, 0.50)  # medián
+q3 <- quantile(data$hodnota, 0.75)
+iqr <- q3 - q1
+lower_whisker <- max(min(data$hodnota), q1 - 1.5 * iqr)
+upper_whisker <- min(max(data$hodnota), q3 + 1.5 * iqr)
+
+# Krabicový graf
+ggplot(data, aes(x = skupina, y = hodnota)) +
+  geom_boxplot(fill = "lightblue", alpha = 0.7, outlier.color = "red", outlier.size = 3) +
+  # Anotace pro medián
+  annotate("text", x = 1.45, y = q2, label = paste0("Medián (Q2) = ", round(q2, 1)),
+           hjust = 0, color = "darkblue", size = 4, fontface = "bold") +
+  annotate("segment", x = 1.35, y = q2, xend = 1.43, yend = q2,
+           arrow = arrow(length = unit(0.2, "cm")), color = "darkblue") +
+
+  # Anotace pro Q1
+  annotate("text", x = 1.45, y = q1, label = paste0("Q1 (25%) = ", round(q1, 1)),
+           hjust = 0, color = "darkgreen", size = 3.5) +
+  annotate("segment", x = 1.35, y = q1, xend = 1.43, yend = q1,
+           arrow = arrow(length = unit(0.2, "cm")), color = "darkgreen") +
+
+  # Anotace pro Q3
+  annotate("text", x = 1.45, y = q3, label = paste0("Q3 (75%) = ", round(q3, 1)),
+           hjust = 0, color = "darkgreen", size = 3.5) +
+  annotate("segment", x = 1.35, y = q3, xend = 1.43, yend = q3,
+           arrow = arrow(length = unit(0.2, "cm")), color = "darkgreen") +
+
+  # Anotace pro IQR
+  annotate("text", x = 0.55, y = (q1 + q3) / 2,
+           label = paste0("IQR = ", round(iqr, 1), "\n(50% dat)"),
+           hjust = 1, color = "purple", size = 3.5, fontface = "bold") +
+
+  # Anotace pro fousky
+  annotate("text", x = 0.55, y = upper_whisker,
+           label = "Horní fousek",
+           hjust = 1, color = "brown", size = 3) +
+  annotate("text", x = 0.55, y = lower_whisker,
+           label = "Dolní fousek",
+           hjust = 1, color = "brown", size = 3) +
+
+  # Anotace pro outliers
+  annotate("text", x = 1.45, y = 77, label = "Odlehlé hodnoty",
+           hjust = 0, color = "red", size = 3.5, fontface = "bold") +
+
+  labs(
+    title = "Anatomie krabicového grafu",
+    subtitle = "Jednotlivé části a jejich význam",
+    y = "Hodnota",
+    x = ""
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.text.x = element_blank()
+  ) +
+  coord_cartesian(xlim = c(0.5, 2.5))
+```
+
+## Porovnání více skupin
+
+Krabicové grafy jsou velmi užitečné pro porovnání rozložení dat mezi různými skupinami:
+
+```{r}
+#| label: fig-boxplot-comparison
+#| fig-cap: "Porovnání rozložení dat mezi skupinami pomocí krabicových grafů"
+#| warning: false
+
+set.seed(123)
+
+# Vytvoření dat pro tři různé skupiny
+data_groups <- data.frame(
+  skupina = rep(c("Třída A", "Třída B", "Třída C"), each = 100),
+  znamka = c(
+    rnorm(100, mean = 75, sd = 8),   # Třída A: vyšší průměr, nízká variabilita
+    rnorm(100, mean = 65, sd = 15),  # Třída B: nižší průměr, vysoká variabilita
+    rnorm(100, mean = 80, sd = 5)    # Třída C: nejvyšší průměr, velmi nízká variabilita
+  )
+)
+
+ggplot(data_groups, aes(x = skupina, y = znamka, fill = skupina)) +
+  geom_boxplot(alpha = 0.7, outlier.color = "red") +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3, fill = "white") +
+  labs(
+    title = "Porovnání známek mezi třídami",
+    subtitle = "Bílý kosočtverec označuje průměr",
+    y = "Známka (%)",
+    x = "Třída"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Set2")
+```
+
+Všimněte si:
+
+- **Třída A**: Střední průměr s nízkou variabilitou (úzká krabice)
+- **Třída B**: Nejnižší průměr s vysokou variabilitou (široká krabice)
+- **Třída C**: Nejvyšší průměr s velmi nízkou variabilitou (nejužší krabice)
+
+## Závěr
+
+Krabicový graf je výborným nástrojem pro vizualizaci distribuce dat a poskytuje přehled o pěti klíčových statistikách najednou: minimální hodnota, první kvartil (Q1), medián (Q2), třetí kvartil (Q3) a maximální hodnota. Mezikvartilové rozpětí (IQR) nám ukazuje variabilitu středních 50% dat. Krabicové grafy jsou obzvláště užitečné pro identifikaci odlehlých hodnot a pro porovnání rozložení dat mezi různými skupinami.
+
+## Viz také
+
+- [Jaké znáte charakteristiky středu](../../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - medián v krabicovém grafu
+- [Jaké jsou charakteristiky variability](../../basic_statistics/jake_jsou_charakteristiky_variability.qmd) - IQR v krabicovém grafu
+- [Jak se projeví odlehlé pozorování](jak_se_projevi_odlehle_pozorovani_na_prumeru_a_medianu.qmd) - detekce outlierů
+- [Co to je šikmost dat](co_to_je_sikmost_dat.qmd) - rozpoznání z boxplotu
 

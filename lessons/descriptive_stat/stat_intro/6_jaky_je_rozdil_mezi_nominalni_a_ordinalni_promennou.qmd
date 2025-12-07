@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Ve světě statistiky se často setkáváme s potřebou kategorizovat data do různých typů proměnných. Mezi základní typy kategorií patří *nominální* a *ordinální* proměnné. Tyto dvě kategorie jsou používány ke klasifikaci kvalitativních dat a jsou klíčové pro výběr správné statistické metody analýzy. V tomto dokumentu se podíváme na hlavní rozdíly mezi nominálními a ordinálními proměnnými, a na to, jaké příklady z reálného života si můžete představit.
 
@@ -49,9 +48,33 @@ Podobně jako u nominálních proměnných, i zde kategorie představují různ�
 
 Ordinální proměnné se hojně používají ve výzkumech, kde je důležité nejen kategorizování dat, ale i určení hierarchie nebo pořadí. Například v hodnocení služeb zákazníků, kde chcete znát míru jejich spokojenosti.
 
+:::{.callout-warning}
+## Častá chyba: Zacházení s ordinálními proměnnými jako s číselnými
+
+Typická chyba vzniká při **kódování ordinálních proměnných jako čísel**:
+
+- Spokojenost: 1=velmi nespokojen, 2=nespokojen, 3=neutrální, 4=spokojen, 5=velmi spokojen
+- Výsledek: průměr 3.8
+
+**Problém**: Předpokládáme stejné vzdálenosti mezi úrovněmi (1→2 = 2→3 = 3→4 atd.), což nemusí platit. Rozdíl mezi "velmi nespokojen" a "nespokojen" nemusí být stejný jako mezi "spokojen" a "velmi spokojen".
+
+**Správný postup pro ordinální proměnné**:
+- Používejte medián, nikoli průměr
+- Reportujte četnosti jednotlivých kategorií
+- Pro testy používejte neparametrické metody (Mann-Whitney, Kruskal-Wallis)
+
+**Výjimka**: Likert škály (1-5, 1-7) se v praxi často analyzují jako číselné, ale musíme být opatrní při interpretaci a ideálně ověřit výsledky neparametrickými testy.
+:::
+
 # Závěr
 
 Základní rozdíl mezi nominálními a ordinálními proměnnými spočívá v možnosti jejich uspořádání. Nominální proměnné nám umožňují kategorizovat data bez jakéhokoli pořadí, zatímco ordinální proměnné nám umožňují uspořádání dle určitých atributů nebo preferencí. Je důležité tento rozdíl chápat, aby bylo možné správně interpretovat a analyzovat data. V praxi přináší využití těchto typů proměnných hlubší porozumění statistikám a poskytuje užitečný náhled na kvalitativní data.
 
+## Viz také
 
+- [Jak dělíme statistické proměnné](4_jak_delime_statisticke_promenne.qmd) - obecný přehled typů proměnných
+- [Rozdíl mezi ordinální a číselnou proměnnou](7_jaky_je_rozdil_mezi_ordinalni_a_ciselnou_promennou.qmd) - další důležité rozlišení
+- [Jaké znáte druhy četností](../basic_statistics/jake_znate_druhy_cetnosti_a_kdy_se_da_ktera_pouzit.qmd) - analýza kategoriálních proměnných
+- [Jaké znáte základní neparametrické testy](../../inferential_statistics/jake_znate_zakladni_neparametricke_testy.qmd) - testy pro ordinální data
+- [Co nám popisuje kontingenční tabulka](../contingency_tables/co_nam_popisuje_kontingencni_tabulka.qmd) - vztahy mezi kategoriálními proměnnými
 

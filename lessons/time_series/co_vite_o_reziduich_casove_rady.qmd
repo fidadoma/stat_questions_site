@@ -13,12 +13,11 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
 
-# Úvod do reziduí v časové řadě
+## Úvod
 
 Rezidua v časové řadě hrají klíčovou roli při analýze tohoto typu dat. Když mluvíme o časové řadě, mluvíme o řadě datových bodů měřených v pravidelných intervalech. Časové řady můžeme nalézt v mnoha oblastech, jako je ekonomie, meteorologie a dokonce i v sociálních vědách. Představte si například měsíční záznamy prodejů nějaké společnosti nebo denní teploty naměřené ve městě.
 
@@ -38,9 +37,10 @@ Rezidua jsou důležitá z několika důvodů:
 
 Matematicky řečeno, reziduum $e_t$ pro čas $t$ je rozdíl mezi skutečnou hodnotou $y_t$ a hodnotou predikovanou modelem $\hat{y}_t$. Je to tedy vyjádřeno vztahem:
 
-\[ e_t = y_t - \hat{y}_t \]
+$$ e_t = y_t - \hat{y}_t $$
 
 Kde:
+
 - $e_t$ je reziduum v čase $t$,
 - $y_t$ je skutečná hodnota v čase $t$,
 - $\hat{y}_t$ je předpokládaná hodnota v čase $t$ založená na našem modelu.
@@ -61,8 +61,33 @@ Správná interpretace reziduí zahrnuje několik základních kroků:
 
 3. **Konstantní variabilita:** Rezidua by měla mít konstantní variabilitu. Tento předpoklad můžete vizualizovat pomocí scatter plotu reziduí oproti předpokládaným hodnotám.
 
+:::{.callout-warning}
+## Metodologická poznámka: Diagnostika reziduí - checklist
+
+**Dobré rezidua = "White noise":**
+
+| Předpoklad | Test | Co chceme vidět |
+|------------|------|-----------------|
+| **Normalita** | Shapiro-Wilk | p > 0.05 |
+| **Žádná autokorelace** | Ljung-Box | p > 0.05 |
+| **Konstantní rozptyl** | Breusch-Pagan | p > 0.05 |
+| **Střední hodnota = 0** | t-test | p > 0.05 |
+
+
+
+**Co dělat při porušení předpokladů:**
+
+| Problém | Řešení |
+|---------|--------|
+| ❌ Autokorelace | Zvýšit AR/MA řád, nebo použít robustní SE |
+| ❌ Nenormalita | Transformace (log, Box-Cox), nebo robustní metody |
+| ❌ Heteroskedasticita | GARCH model, nebo WLS |
+| ❌ Trend v reziduích | Model je misspecifikovaný, přidat prediktory |
+
+**Zlaté pravidlo**: Pokud checkresiduals() ukazuje problémy, model není správně specifikovaný!
+:::
+
 # Závěr
 
 Rezidua jsou nezbytným dílem skládačky při analýze časových řad. Správné porozumění a analýza těchto „chybových“ komponent nám pomáhají vytvářet přesnější modely a lépe porozumět dynamice našich dat, což může být klíčové v mnoha oblastích.
 
-```

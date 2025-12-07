@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do klouzavého průměru
+## Úvod
 
 Klouzavý průměr je statistický nástroj používaný k analýze časových řad dat s cílem vyhladit krátkodobé výkyvy a odhalit dlouhodobé trendy nebo cykly. Nejčastěji se využívá ve finančním sektoru pro analýzu cen akcií, ale najít ho lze i v dalších oblastech, jako je meteorologie, ekologie, ekonomika a další.
 
@@ -47,15 +46,15 @@ Máte tyto denní teploty ve stupních Celsia:
 
 Chcete vypočítat 3denní klouzavý průměr. Postup je následující:
 
-1. Pro den 3 (protože předchozí dva dny již potřebujete k výpočtu):
-   \[
-   \text{Průměr} = \frac{(21 + 23 + 22)}{3} = 22°C
-   \]
+1. Pro den 2 (protože počítám průměr ze tří dnů):
+   $$
+   \text{Průměr} = \frac{(22 + 21 + 23)}{3} = 22°C
+   $$
 
-2. Pro den 4:
-   \[
-   \text{Průměr} = \frac{(23 + 22 + 25)}{3} = 23.33°C
-   \]
+2. Pro den 3:
+   $$
+   \text{Průměr} = \frac{(21 + 23 + 22)}{3} = 22°C
+   $$
 
 3. A tak dále, až do konce vašich dat.
 
@@ -70,17 +69,39 @@ Klouzavé průměry se často používají tam, kde potřebujeme vyhladit krátk
 
 Na rozdíl od SMA, EMA dává větší váhu nejaktuálnějším datům, což může být užitečné pro sledování aktuálnějších trendů. Výpočet EMA je složitější a vyžaduje použití určité konstanty (k), která určuje rychlost poklesu váhy minulých dat:
 
-\[
+$$
 k = \frac{2}{n + 1}
-\]
+$$
 
 kde n je počet period. EMA pak počítáme rekurzivně pomocí vzorce:
 
-\[
+$$
 \text{EMA}_t = (X_t \cdot k) + (\text{EMA}_{t-1} \cdot (1-k))
-\]
+$$
 
-kde \( X_t \) je aktuální hodnota a \( \text{EMA}_{t-1} \) je EMA z předchozího období.
+kde $X_t$ je aktuální hodnota a $\text{EMA}_{t-1}$ je EMA z předchozího období.
+
+:::{.callout-tip}
+## Metodologická poznámka: Moving Averages - SMA vs EMA
+
+**Simple Moving Average (SMA):**
+$$\text{SMA}_t = \frac{1}{n}\sum_{i=0}^{n-1} Y_{t-i}$$
+
+**Exponential Moving Average (EMA):**
+$$\text{EMA}_t = \alpha Y_t + (1-\alpha) \text{EMA}_{t-1}$$
+kde $\alpha = \frac{2}{n+1}$
+
+**Srovnání:**
+
+| Vlastnost | SMA | EMA |
+|-----------|-----|-----|
+| **Váhy** | Stejné | Exponenciálně klesající |
+| **Reaktivita** | Pomalejší | Rychlejší |
+| **Lag** | Větší | Menší |
+| **Použití** | Trend identifikace | Trading signals |
+
+**Zlaté pravidlo**: SMA pro vyhlazování, EMA pro rychlejší reakci na změny!
+:::
 
 ## Závěr
 

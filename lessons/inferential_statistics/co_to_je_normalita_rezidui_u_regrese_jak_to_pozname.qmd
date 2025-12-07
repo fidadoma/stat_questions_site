@@ -1,5 +1,6 @@
 ---
-title: "Normalita Reziduí u Regrese"
+title: "Normalita reziduí u regrese"
+order: 240
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,13 +13,9 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-## Úvod
-
-V této lekci se budeme zabývat pojmem 'normalita reziduí' v kontextu lineární regrese. Je to klíčový aspekt, který je často zkoumán při aplikaci regresního modelu na data. Pojďme se ponořit hlouběji do toho, co tento termín znamená, proč je důležitý, a jak můžete identifikovat normalitu reziduí ve svých datech.
 
 ## Co je to Normalita Reziduí?
 
@@ -42,7 +39,7 @@ Existují různé způsoby a testy, jak zjistit, zda jsou rezidua z určitého m
 
 1. **Histogram Reziduí**: Na první pohled se může zdát, že histogram je jednoduchý nástroj, ale může být velmi užitečný. Nakreslením histogramu vašich reziduí si můžete rychle ověřit, zda data navozují zvonový tvar.
 
-2. **QQ-Plot (Quantile-Quantile Plot)**: Pomocí QQ-Plotu můžete porovnat kvantily reziduí vašich dat s kvantily normálního rozdělení. Pokud jsou rezidua normálně rozložena, body by měly blízko ležet na přímce.
+2. **Q-Q Plot (Quantile-Quantile Plot)**: Pomocí Q-Q Plotu můžete porovnat kvantily reziduí vašich dat s kvantily normálního rozdělení. Pokud jsou rezidua normálně rozložena, body by měly blízko ležet na přímce.
 
 ### Statistické Testy
 
@@ -60,10 +57,100 @@ Představte si, že analyzujete data o příjmech domácností a počtu členů 
 
 Zoologové mohou zkoumat závislost mezi hmotností a délkou života určitých živočišných druhů. Pokud zavádějí regresní analýzu, normalita reziduí pomáhá zajistit, že jejich závěry o prodlevách v životě jsou správně kalibrovány.
 
+:::{.callout-important}
+## Metodologická poznámka: Normalita reziduí - mýty a realita
+
+**⚠️ KRITICKÉ NEPOROZUMĚNÍ!**
+
+- **MÝTUS**: \"Data musí být normální pro regresi\"
+- **REALITA**: **REZIDUA** musí být normální, ne data!
+
+- **MÝTÜS**: \"Bez normality reziduí jsou koeficienty zkreslen é\"
+- **REALITA**: OLS koeficienty jsou **nestranné** i při nenormalitě! (Za předpokladu správné specifikace)
+
+**Co je normalita reziduí?**
+
+**Reziduum** (chyba predikce):
+$$e_i = y_i - \hat{y}_i$$
+
+**Předpoklad normality:**
+$$e_i \sim N(0, \sigma^2)$$
+
+- Střední hodnota = 0 (automaticky splněno u OLS)
+- Konstantní rozptyl (homoskedasticita - jiný předpoklad!)
+- Nezávislost (žádná autokorelace)
+- **Normální rozdělení**
+
+**Proč je normalita reziduí důležitá?**
+
+| Aspekt | Při normalitě | Při nenormalitě |
+|--------|--------------|----------------|
+| **Odhady koeficientů (β)** | ✅ Nestranné | ✅ **Stále nestranné!** |
+| **SE a p-hodnoty** | ✅ Správné | ❌ **Mohou být nesprávné** |
+| **Konfidenční intervaly** | ✅ Správné | ❌ Nemusí držet pokrytí 95% |
+| **Predikční intervaly** | ✅ Správné | ❌ Nesprávné |
+| **F-test, t-testy** | ✅ Platné | ❌ **Neplatné** (hlavně u malých n) |
+
+**→ Normalita je důležitá pro INFERENCE, ne pro odhady!**
+
+**Kdy normalita NENÍ kritická:**
+
+- ✅ **Velké vzorky** (n > 100): CLT zajišťuje, že distribuce β → normální
+- ✅ **Cíl je predikce**, ne testování hypotéz
+- ✅ **Bootstrapping** pro CI místo t-distribuce
+
+**Kdy normalita JE kritická:**
+
+- ❌ **Malé vzorky** (n < 30)
+- ❌ **Testování hypotéz** o koeficientech
+- ❌ **Konfidenční/predikční intervaly**
+
+**Co dělat když normalita porušena:**
+
+**Option 1: Transformace závislé proměnné**
+
+| Transformace | Kdy použít | Příklad |
+|-------------|-----------|---------|
+| **log(y)** | Right skew, multiplikativní vztahy | Příjmy, ceny |
+| **√y** | Poisson-like, count data | Counts |
+| **1/y** | Extrémní right skew | |
+| **Box-Cox** | Automatická volba λ | `MASS::boxcox(model)` |
+
+**POZOR**: Transformace mění interpretaci!
+- log(y): koeficienty = % změny
+- √y: jiný vztah k y
+
+**Option 2: Robustní inference**
+
+**Option 3: Generalized Linear Model (GLM)**
+
+**Option 4: Identifikovat a řešit outliers**
+
+
+
+**Běžné příčiny nenormality reziduí:**
+
+1. **Outliers** → Influential points analýza
+2. **Chybná specifikace modelu** → Přidejte interakce, polynomy, jiné prediktory
+3. **Heteroskedasticita** → Může vypadat jako nenormalita
+4. **Y je inherentně nenormální** → GLM nebo transformace
+5. **Chybějící důležité prediktory** → Model mis-specification
+
+**Časté chyby:**
+
+- ❌ Testovat normalitu **PREDIKTORU** (x) místo reziduí
+- ❌ Transformovat prediktory (x) kvůli normalitě reziduí
+- ❌ Panikařit při p < 0.05 u velkého n
+- ❌ Ignorovat Q-Q plot a spoléhat jen na testy
+- ❌ Myslet si, že nenormalita znamená neplatný model
+- ❌ Odstranit příliš mnoho \"outliers\"
+
+**Zlaté pravidlo**: Normalita reziduí je **desirable, not essential** (zvláště pro velké n). Důležitější je správná specifikace modelu a absence heteroskedasticity!
+:::
+
 ## Závěr
 
 Normalita reziduí je kritickým předpokladem v lineární regresi, který ovlivňuje platnost testů hypotéz, přesnost predikčních modelů a efektivnost odhadů parametrů. Používání grafických a statistických testů pro zajištění tohoto předpokladu může výrazně zlepšit kvalitu vaší analýzy.
 
 Rozvinout porozumění normalitě reziduí není jen akademickým cvičením—je to základ, který vám umožní provádět přesné a důvěryhodné analýzy.
-
 

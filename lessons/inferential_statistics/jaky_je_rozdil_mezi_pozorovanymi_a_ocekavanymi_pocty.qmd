@@ -1,5 +1,6 @@
 ---
 title: "Rozdíl mezi pozorovanými a očekávanými počty"
+order: 300
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do pojmů
+## Úvod
 
 Ve statistice se často setkáváme s pojmy **pozorované počty** (někdy označované jako skutečné počty) a **očekávané počty**. Tyto pojmy mají klíčový význam při analýzách, jako je například **chi-kvadrát test**, který se používá k určení, zda existuje statisticky významný rozdíl mezi očekávanými a pozorovanými hodnotami.
 
@@ -44,7 +44,9 @@ Vrátíme se k našemu příkladu s ptáky: Pokud hypoteticky víte, že na cel�
 
 Rozdíl mezi očekávanými a pozorovanými počty se často používá pro testování hypotéz. Například **chi-kvadrát test** se používá k tomu, aby zjistil, zda je rozdíl mezi pozorovanými a očekávanými počty dostatečně velký, aby byl statisticky významný. 
 
-Pokud bychom se vrátili k našemu příkladu s kuličkami, mohli bychom chtít zjistit, zda rozdělení barev v našem koši odpovídá rovnoměrnému rozdělení, které jsme očekávali. Použitím chi-kvadrát testu bychom mohli dojít k závěru, zda se naše pozorované počty významně liší od očekávaných počtů, což by mohla být nápověda o nějakém "nezvyklém" faktoru ovlivňujícím rozdělení barev. 
+Pokud bychom se vrátili k našemu příkladu s kuličkami, mohli bychom chtít zjistit, zda rozdělení barev v našem koši odpovídá rovnoměrnému rozdělení, které jsme očekávali. Použitím chi-kvadrát testu bychom mohli dojít k závěru, zda se naše pozorované počty významně liší od očekávaných počtů, což by mohla být nápověda o nějakém "nezvyklém" faktoru ovlivňujícím rozdělení barev.
+
+
 
 ## Závěr
 

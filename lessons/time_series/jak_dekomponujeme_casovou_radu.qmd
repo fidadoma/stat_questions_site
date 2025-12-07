@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do dekompozice časových řad
+## Úvod
 
 Dekompozice časových řad je zásadní statistická metoda, která rozkládá časovou řadu na její dílčí komponenty. Tento proces nám umožňuje rozpoznat základní vzorce a trendy v datech tím, že je rozdělíme na smysluplné složky.
 
@@ -47,17 +46,17 @@ Používají se zejména dva typy modelů dekompozice:
 
 - **Additivní model**: Používá se, pokud se amplituda sezónních výkyvů nebo velikost nepravidelné složky v čase nemění. Zapisuje se jako:  
 
-  \[
+  $$
   Y(t) = T(t) + S(t) + C(t) + I(t)
-  \]
+  $$
 
   *Příklad*: Pokud firma každou zimu prodá zhruba stejný počet produktů bez ohledu na celkový objem prodeje, je vhodný additivní model.  
 
 - **Multiplikativní model**: Používá se, pokud se velikost sezónních nebo nepravidelných složek mění v závislosti na úrovni celé řady (tedy roste nebo klesá úměrně hodnotám). Zapisuje se jako:  
 
-  \[
+  $$
   Y(t) = T(t) \times S(t) \times C(t) \times I(t)
-  \]
+  $$
 
   *Příklad*: Pokud se prodeje firmy každý rok zdvojnásobí včetně sezónních špiček, lépe je popíše multiplikativní model.  
 
@@ -75,6 +74,8 @@ Představte si, že vedete maloobchodní prodejnu a vidíte, že se prodeje běh
 
 Tato znalost vám umožní lépe plánovat zásoby, marketingové strategie i personální obsazení – tedy provoz efektivněji přizpůsobit skutečným vzorcům v datech.  
 
+
 ## Závěr
 
-Porozumění dekompozici časových řad umožňuje proniknout skrze komplexní směsici vzorců v datech a činit rozhodnutí založená na jasných vhledech z historických údajů. Je to klíčová dovednost pro statistiky, ekonomy, manažery i všechny, kdo pracují s datově podloženým rozhodováním.  
+Porozumění dekompozici časových řad umožňuje proniknout skrze komplexní směsici vzorců v datech a činit rozhodnutí založená na jasných vhledech z historických údajů. Je to klíčová dovednost pro statistiky, ekonomy, manažery i všechny, kdo pracují s datově podloženým rozhodováním.
+

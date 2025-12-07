@@ -1,5 +1,6 @@
 ---
-title: "Rozdíl mezi Nulovou a Alternativní Hypotézou"
+title: "Rozdíl mezi nulovou a alternativní hypotézou"
+order: 90
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Hypotéz
+## Úvod
 
 V oblasti statistiky a vědeckého výzkumu je důležité porozumět konceptu hypotézy, která nám pomáhá otestovat platnost nějakého tvrzení nebo předpokladu. Nejčastěji se setkáváme s testováním dvou typů hypotéz: nulové a alternativní hypotézy. Tyto dva typy hypotéz představují protikladná tvrzení, která se snažíme ověřit pomocí statistických metod.
 
@@ -49,9 +49,72 @@ K testování hypotéz se používají statistické testy. Tyto testy nám pomá
 - **P-hodnota**: Představuje pravděpodobnost pozorování stejného nebo extrémnějšího výsledku za předpokladu, že nulová hypotéza je pravdivá. Nižší p-hodnota znamená silnější důkaz proti nulové hypotéze.
 - **Alfa úroveň (α)**: Předem stanovená úroveň významnosti testu, často 0,05. Pokud je p-hodnota menší než α, zamítáme nulovou hypotézu ve prospěch alternativní hypotézy.
 
-## Shrnutí
+:::{.callout-important}
+## Metodologická poznámka: H0 vs Ha - kritický rozdíl
 
-Porozumění rozdílu mezi nulovou a alternativní hypotézou je klíčové pro úspěšné provádění a vyhodnocování statistických testů. Je podstatné při rozhodování o tom, zda pozorované efekty v našich datech jsou výsledkem skutečných příčin nebo pouhých náhodných odchylek. 
+**Nulová hypotéza (H0):** \"Žádný efekt / žádný rozdíl\"
+**Alternativní hypotéza (Ha nebo H1):** \"Efekt existuje / rozdíl existuje\"
 
-Praxe v rozpoznávání a aplikaci těchto konceptů vám umožní důkladnější pochopení a interpretaci mnoha statistických analýz, ať už v akademickém výzkumu, nebo v průmyslové praxi. Naučte se klást správné otázky a vybírat vhodné testy, abyste dosáhli spolehlivých a smysluplných závěrů z vašich dat!
+**Klíčové vlastnosti:**
+
+| Aspekt | H0 | Ha |
+|--------|----|----|
+| **Co tvrdí** | Status quo, žádný efekt | Změna, efekt |
+| **Co testujeme** | **Snažíme se ZAMÍTNOUT H0** | Podporujeme Ha (indirectly) |
+| **Burden of proof** | Na Ha! | Musíme ukázat dost důkazů |
+| **Default** | ✅ Předpokládáme H0 | ❌ Nepřijímáme bez důkazů |
+
+**→ Nikdy nepřijímáme H0, jen "nezamítáme"!**
+
+**Příklady formulací:**
+
+**Scénář 1: Nový lék**
+- **H0:** μ_lék = μ_placebo (lék nemá efekt)
+- **Ha:** μ_lék ≠ μ_placebo (lék má efekt)
+
+**Scénář 2: Marketingová kampaň**
+- **H0:** Kamppaň nezvýší prodeje (μ_after ≤ μ_before)
+- **Ha:** Kampaň zvýší prodeje (μ_after > μ_before)
+
+**Scénář 3: Korelace**
+- **H0:** ρ = 0 (žádná korelace)
+- **Ha:** ρ ≠ 0 (existuje korelace)
+
+
+
+**Správná interpretace:**
+
+- ✅ **Zamítáme H0:** \"Data poskytují dost důkazů, že efekt existuje\"
+- ✅ **Nezamítáme H0:** \"Data neposkytují dost důkazů pro efekt\"
+- ❌ **ŠPATNĚ:** \"Přijímáme H0\" nebo \"Prokázali jsme, že efekt neexistuje\"
+
+**Typy chyb:**
+
+|  | **H0 je pravda** | **Ha je pravda** |
+|--|------------------|------------------|
+| **Zamítneme H0** | ❌ **Type I Error (α)** | ✅ Správné rozhodnutí |
+| **Nezamítáme H0** | ✅ Správné rozhodnutí | ❌ **Type II Error (β)** |
+
+**Type I Error (False Positive):**
+- Zamítneme H0, když je pravda
+- \"Myslíme si, že lék funguje, ale nefunguje\"
+- Kontrolováno α (obvykle 0.05)
+
+**Type II Error (False Negative):**
+- Nezamítneme H0, když Ha je pravda
+- \"Myslíme si, že lék nefunguje, ale funguje\"
+- Ovlivněno power (1-β)
+
+**Zlaté pravidlo**:
+
+- **Vždy formulujte H0 a Ha PŘED** sběrem dat
+- **H0 je to, co chceme vyvrátit**, Ha je to, co chceme podpořit
+- **Nikdy neříkejte \"přijímáme H0\"** - správně \"nezamítáme H0\"!
+:::
+
+## Závěr
+
+Porozumění rozdílu mezi nulovou a alternativní hypotézou je klíčové pro úspěšné provádění a vyhodnocování statistických testů. Je podstatné při rozhodování o tom, zda pozorované efekty v našich datech jsou výsledkem skutečných příčin nebo pouhých náhodných odchylek.
+
+Praxe v rozpoznávání a aplikaci těchto konceptů vám umožní důkladnější pochopení a interpretaci mnoha statistických analýz, ať už v akademickém výzkumu, nebo v průmyslové praxi. 
 

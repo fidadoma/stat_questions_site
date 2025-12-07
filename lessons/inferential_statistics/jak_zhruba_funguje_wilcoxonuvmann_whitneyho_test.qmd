@@ -1,5 +1,6 @@
 ---
 title: "Jak zhruba funguje Wilcoxonův/Mann-Whitneyho test?"
+order: 100
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Wilcoxonův/Mann-Whitneyho test je metoda neparametrické statistiky určená k testování hypotéz o rozdílu mezi dvěma nezávislými skupinami. Obvykle se používá v situacích, kdy nelze předpokládat normální rozdělení ve vzorku dat, což je častý předpoklad v mnoha jiných statistických testech, jako jsou například t-testy.
 
@@ -52,6 +52,157 @@ Wilcoxonův/Mann-Whitneyho test porovnává pořadí hodnot v obou skupinách. V
 - **Studie vlivu výživových doplňků na výkon**: Skupina sportovců může být rozdělena do dvou skupin, kde jedna má doplňky stravy a druhá ne. Cílem je zjistit, zda existuje statisticky významný rozdíl v jejich sportovním výkonu.
 
 - **Srovnání účinnosti dvou léčebných postupů**: Ve zdravotnictví může být potřeba zjistit rozdíly ve výsledcích dvou různých typů léčby u pacientů se stejným onemocněním.
+
+:::{.callout-tip}
+## Metodologická poznámka: Mann-Whitney U test (Wilcoxon rank-sum) v detailu
+
+**Terminologie:**
+
+- **Mann-Whitney U test** = **Wilcoxon rank-sum test** (STEJNÝ TEST!)
+- Wilcoxon **signed-rank** = JINÝ TEST (pro párová data!)
+
+**Co test vlastně testuje?**
+
+**POZOR na častou chybu!**
+
+❌ "Test porovnává mediány" → NE NUTNĚ!
+
+✅ **Správně**: Test testuje, zda jedna skupina má systematicky **vyšší hodnoty** než druhá
+
+- H0: P(X > Y) = 0.5 (stejná šance, že X > Y jako Y > X)
+- Ha: P(X > Y) ≠ 0.5 (jedna skupina systematicky vyšší)
+
+**Kdy platí interpretace jako "test mediánů":**
+→ Pouze pokud mají obě skupiny **STEJNÝ TVAR** distribuce (jen posunuté)
+
+**Jak test funguje (krok za krokem):**
+
+**1. Spojte data z obou skupin a seřaďte:**
+```
+Skupina A: 3, 7, 5
+Skupina B: 2, 9, 4
+
+Spojené: 2, 3, 4, 5, 7, 9
+```
+
+**2. Přiřaďte ranky:**
+```
+Hodnota: 2  3  4  5  7  9
+Rank:    1  2  3  4  5  6
+Skupina: B  A  B  A  A  B
+```
+
+**3. Sečtěte ranky pro každou skupinu:**
+```
+Skupina A ranky: 2 + 4 + 5 = 11
+Skupina B ranky: 1 + 3 + 6 = 10
+```
+
+**4. Vypočítejte U statistiku:**
+$$U_A = n_A \times n_B + \frac{n_A(n_A+1)}{2} - R_A$$
+
+Kde:
+
+- $n_A$, $n_B$ = počty v každé skupině
+- $R_A$ = součet ranků ve skupině A
+
+**5. Porovnejte s kritickou hodnotou nebo spočítejte p-hodnotu**
+
+**Předpoklady Mann-Whitney testu:**
+
+| Předpoklad | Co to znamená | Jak kontrolovat |
+|-----------|---------------|-----------------|
+| **Nezávislost** | Dva vzorky jsou nezávislé | Design studie |
+| **Ordinální/číselné** | Data lze seřadit | Typ proměnné |
+| **Stejný tvar** (pro test mediánů) | Distribuce mají stejný tvar | Vizuálně (histogramy) |
+
+**DŮLEŽITÉ o "stejném tvaru":**
+
+```
+✅ OK pro test mediánů:
+Skupina A: ▁▂▃▅▇▅▃▂▁        ← Stejný tvar, jen posunuté
+Skupina B:     ▁▂▃▅▇▅▃▂▁
+
+❌ NE test mediánů:
+Skupina A: ▁▃▇▃▁              ← Různé tvary
+Skupina B: ▁▂▃▄▅▆▇▇▇▇
+```
+
+**Pokud tvary jsou různé:**
+→ Test stále funguje, ale testuje **stochastic dominance** (P(X > Y)), ne rozdíl mediánů!
+
+
+**Effect size:**
+
+**Rank-biserial correlation:**
+$$r_{rb} = \frac{U_1 - U_2}{n_1 \times n_2}$$
+
+- Rozsah: -1 až +1
+- |r| ~ 0.1: malý
+- |r| ~ 0.3: střední
+- |r| ~ 0.5: velký
+
+**Alternativně: Common Language Effect Size**
+$$CL = \frac{U}{n_1 \times n_2}$$
+
+Interpretace: "Jaká je pravděpodobnost, že náhodně vybraná hodnota ze skupiny 1 je větší než ze skupiny 2?"
+
+**Příklad:** CL = 0.70 → V 70% případů bude hodnota ze skupiny 1 vyšší
+
+**Ties (shodné hodnoty):**
+
+Pokud máte mnoho shodných hodnot:
+
+**Velké vzorky:**
+- Pro n > 20: test používá **normální aproximaci**
+- Z statistika: $Z = \frac{U - E(U)}{\sqrt{Var(U)}}$
+
+**Mann-Whitney vs t-test:**
+
+| Aspekt | Mann-Whitney | T-test |
+|--------|-------------|--------|
+| **Předpoklad normality** | ❌ NE | ✅ ANO |
+| **Robustní vůči outlierům** | ✅ ANO | ❌ NE |
+| **Power (při normalitě)** | ~95% t-testu | 100% |
+| **Power (při nenormalitě)** | **Vyšší!** | Může být nízká |
+| **Funguje s ordinálními daty** | ✅ ANO | ❌ NE |
+| **Interpretace** | Komplikovanější | Jednodušší |
+
+**Kdy použít který test:**
+
+```
+Data normální (Q-Q plot OK)?
+    │
+    ├─ ANO + n > 30 → T-test (větší power)
+    │
+    └─ NE
+        │
+        ├─ Outliers?
+        │   ├─ ANO → Mann-Whitney
+        │   └─ NE → Pokračuj
+        │
+        ├─ Silně zkosené?
+        │   ├─ ANO + malé n → Mann-Whitney
+        │   └─ ANO + velké n → T-test často OK (CLT)
+        │
+        └─ Ordinální data? → Mann-Whitney
+```
+
+**Časté chyby:**
+
+- ❌ Interpretovat jako test mediánů bez kontroly předpokladu stejného tvaru
+- ❌ Použít Mann-Whitney na párová data (použijte Wilcoxon signed-rank!)
+- ❌ Reportovat jen p-hodnotu bez effect size
+- ❌ Použít bar charts s error bars (použijte boxploty!)
+- ❌ Rank-transform data a použít t-test (NIKDY!)
+
+**Best practice reportování:**
+
+✅ **Kompletní reportování:**
+"A Mann-Whitney U test revealed that Group A (Mdn = 7.5, IQR = 5-9) had significantly higher scores than Group B (Mdn = 5.0, IQR = 3-7), U = 450, p = .023, r = 0.32 (medium effect)."
+
+**Zlaté pravidlo**: Mann-Whitney je robustní a flexibilní, ale nezapomeňte kontrolovat tvar distribucí pro správnou interpretaci!
+:::
 
 # Závěr
 

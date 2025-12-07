@@ -13,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -52,7 +51,25 @@ Spojitá proměnná, na druhé straně, může nabývat jakékoli hodnoty v urč
 - **Lze jednotlivé hodnoty spočítat či pojmenovat konkrétními celými čísly?** Pokud ano, jedná se o diskrétní proměnnou.
 - **Lze hodnoty měřit a jsou v rozmezí, kde každá další hodnota může být blíže k jinému číslu, než jaké jste zaznamenali?** Pokud ano, jedná se o spojitou proměnnou.
 
+:::{.callout-tip}
+## Metodologická poznámka: Praktická x teoretická spojitost
+
+V praxi záleží na **rozlišení vašeho měření**:
+
+- **Věk** - teoreticky spojitý (37.25416... let), ale často měříme pouze v celých letech → data vypadají diskrétně
+- **Reakční čas** - spojitý, ale měřen např. v milisekundách → data v celých ms vypadají diskrétně
+- **Peníze** - 125.50 Kč vypadá spojitě, ale existují pouze haléře jako nejmenší jednotka → technicky diskrétní
+
+**Pravidlo**: Pokud má proměnná *mnoho* možných hodnot (>20-30) a rozestupy jsou malé, chováme se k ní v analýze jako ke spojité (histogramy, průměry). Pokud má málo odlišných hodnot (např. 0,1,2,3,4 dětí), používáme metody pro diskrétní data (sloupcové grafy s mezerami).
+:::
+
 ## Závěr
 
 Rozlišení mezi diskrétními a spojitými proměnnými je klíčové pro správné pochopení dat, se kterými pracujete, a pro výběr vhodných metod analýzy. Diskrétní proměnné nabývají jasně definovaných hodnot, které mohou být spočítány, zatímco spojité proměnné lze měřit na škále s potenciálně nekonečnými hodnotami. Ujistěte se, že pečlivě zvážíte povahu proměnné, když analyzujete data ve statistické studii.
+
+## Viz také
+
+- [Jak dělíme statistické proměnné](4_jak_delime_statisticke_promenne.qmd) - obecný přehled typů proměnných
+- [Jaké jsou možnosti vizualizací pro kvalitativní a kvantitativní proměnnou](../visualizations/jake_jsou_moznosti_vizualizaci_pro_kvalitativni_a_kvantitativni_promennou.qmd) - různé grafy pro diskrétní vs spojité
+- [Jaká znáte základní pravděpodobnostní modely](../../probability/jaka_znate_zakladni_pravdepodobnostni_modely_vcetne_jejich_klasifikace_a_mozneho_pouziti.qmd) - diskrétní vs spojitá rozdělení
 

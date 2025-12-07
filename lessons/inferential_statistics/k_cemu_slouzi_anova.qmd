@@ -1,0 +1,276 @@
+---
+title: "K čemu slouží ANOVA?"
+order: 380
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+ANOVA (Analysis of Variance - Analýza rozptylu) je statistická metoda, která se používá k porovnání průměrů tří nebo více skupin. Je to rozšíření t-testu pro situace, kdy potřebujeme porovnat více než dvě skupiny najednou.
+
+## K čemu ANOVA slouží?
+
+ANOVA testuje **nulovou hypotézu**, že průměry všech skupin jsou si rovny:
+
+$$H_0: \mu_1 = \mu_2 = \mu_3 = ... = \mu_k$$
+$$H_A: \text{alespoň jeden průměr se liší}$$
+
+kde $k$ je počet skupin.
+
+## Základní princip ANOVA
+
+ANOVA porovnává dva typy variability:
+
+1. **Variabilita MEZI skupinami** (Between-group variance)
+   - Jak moc se průměry jednotlivých skupin liší od celkového průměru
+   - Pokud je efekt skupiny, tato variabilita bude velká
+
+2. **Variabilita UVNITŘ skupin** (Within-group variance)
+   - Přirozená variabilita pozorování v každé skupině
+   - Představuje "šum" nebo náhodnou variabilitu
+
+ANOVA poměřuje tyto dva zdroje variability:
+
+$$F = \frac{\text{Variabilita mezi skupinami}}{\text{Variabilita uvnitř skupin}} = \frac{MS_{between}}{MS_{within}}$$
+
+## Kdy použít ANOVA?
+
+ANOVA se používá v následujících situacích:
+
+### 1. Více než dvě skupiny
+- Porovnání účinnosti čtyř různých léků
+- Testování vlivu pěti různých hnojiv na růst rostlin
+- Porovnání tří různých výukových metod
+
+### 2. Jedna nezávislá kategoriální proměnná
+- Skupiny jsou definovány jednou kategoriální proměnnou
+- Závislá proměnná je číselná (kontinuální)
+
+### 3. Experimenty a observační studie
+- Randomizované experimenty s více než dvěma podmínkami
+- Srovnání přirozeně se vyskytujících skupin
+
+## Praktický příklad
+
+Představme si, že chceme testovat, zda různé diety ovlivňují úbytek hmotnosti:
+
+```{r}
+#| label: fig-anova-example
+#| fig-cap: "Příklad dat pro ANOVA - úbytek hmotnosti při různých dietách"
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+
+# Simulace dat
+set.seed(123)
+n_per_group <- 15
+
+data <- data.frame(
+  dieta = rep(c("Nízko-tuková", "Nízko-sacharidová", "Středomořská", "Kontrola"),
+              each = n_per_group),
+  ubytek_kg = c(
+    rnorm(n_per_group, mean = 5, sd = 2),   # Nízko-tuková
+    rnorm(n_per_group, mean = 7, sd = 2),   # Nízko-sacharidová
+    rnorm(n_per_group, mean = 6, sd = 2),   # Středomořská
+    rnorm(n_per_group, mean = 2, sd = 2)    # Kontrola
+  )
+)
+
+# Boxplot
+ggplot(data, aes(x = dieta, y = ubytek_kg, fill = dieta)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3,
+               fill = "red", color = "black") +
+  labs(
+    title = "Úbytek hmotnosti při různých dietách",
+    subtitle = "Červený diamant = průměr",
+    x = "Typ diety",
+    y = "Úbytek hmotnosti (kg)",
+    fill = "Dieta"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  ) +
+  scale_fill_brewer(palette = "Set2")
+
+# Deskriptivní statistiky
+data %>%
+  group_by(dieta) %>%
+  summarise(
+    n = n(),
+    prumer = round(mean(ubytek_kg), 2),
+    sd = round(sd(ubytek_kg), 2),
+    min = round(min(ubytek_kg), 2),
+    max = round(max(ubytek_kg), 2)
+  ) %>%
+  knitr::kable(caption = "Deskriptivní statistiky úbytku hmotnosti podle diet")
+```
+
+### Provedení ANOVA
+
+```{r}
+# Jednofaktorová ANOVA
+anova_model <- aov(ubytek_kg ~ dieta, data = data)
+summary(anova_model)
+```
+
+## Interpretace výsledků ANOVA
+
+### F statistika
+- Vysoká F hodnota naznačuje, že variabilita mezi skupinami je větší než variabilita uvnitř skupin
+- F > 1 je typické, pokud existuje efekt skupiny
+
+### P-hodnota
+- Malá p-hodnota (typicky < 0.05) znamená, že zamítáme $H_0$
+- Můžeme říct, že **alespoň jeden** průměr se statisticky významně liší od ostatních
+- ANOVA **neříká, které skupiny** se liší - k tomu potřebujeme post-hoc testy
+
+## Vizualizace principu ANOVA
+
+```{r}
+#| label: fig-anova-concept
+#| fig-cap: "Vizualizace konceptu ANOVA - porovnání variability"
+#| warning: false
+
+# Vytvoření dvou scénářů
+set.seed(456)
+n <- 20
+
+# Scénář 1: Velký efekt (skupiny se liší)
+scenario1 <- data.frame(
+  skupina = rep(c("A", "B", "C"), each = n),
+  hodnota = c(
+    rnorm(n, mean = 10, sd = 2),
+    rnorm(n, mean = 15, sd = 2),
+    rnorm(n, mean = 20, sd = 2)
+  ),
+  scenar = "Velký efekt skupiny\n(F vysoké, p malé)"
+)
+
+# Scénář 2: Malý/žádný efekt
+scenario2 <- data.frame(
+  skupina = rep(c("A", "B", "C"), each = n),
+  hodnota = c(
+    rnorm(n, mean = 15, sd = 5),
+    rnorm(n, mean = 16, sd = 5),
+    rnorm(n, mean = 15.5, sd = 5)
+  ),
+  scenar = "Malý/žádný efekt\n(F nízké, p vysoké)"
+)
+
+combined <- rbind(scenario1, scenario2)
+
+# Graf
+ggplot(combined, aes(x = skupina, y = hodnota, fill = skupina)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3,
+               fill = "red", color = "black") +
+  facet_wrap(~ scenar, scales = "free_y") +
+  labs(
+    title = "Porovnání situací s velkým a malým efektem skupiny",
+    subtitle = "ANOVA detekuje první případ (velké rozdíly mezi průměry relativně k variabilitě uvnitř skupin)",
+    x = "Skupina",
+    y = "Měřená hodnota"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "none"
+  ) +
+  scale_fill_brewer(palette = "Set1")
+
+# Výpočet F statistiky pro oba scénáře
+f1 <- summary(aov(hodnota ~ skupina, data = scenario1))[[1]]$`F value`[1]
+p1 <- summary(aov(hodnota ~ skupina, data = scenario1))[[1]]$`Pr(>F)`[1]
+
+f2 <- summary(aov(hodnota ~ skupina, data = scenario2))[[1]]$`F value`[1]
+p2 <- summary(aov(hodnota ~ skupina, data = scenario2))[[1]]$`Pr(>F)`[1]
+
+cat(paste0("Velký efekt: F = ", round(f1, 2), ", p < 0.001\n"))
+cat(paste0("Malý efekt: F = ", round(f2, 2), ", p = ", round(p2, 3)))
+```
+
+:::{.callout-tip}
+## Praktické využití ANOVA
+
+**Oblasti použití:**
+
+1. **Medicína a farmacie**
+   - Porovnání účinnosti různých léčebných postupů
+   - Testování dávek léků
+
+2. **Zemědělství**
+   - Porovnání výnosů při různých hnojivech
+   - Testování odrůd rostlin
+
+3. **Psychologie a pedagogika**
+   - Srovnání výukových metod
+   - Testování terapeutických přístupů
+
+4. **Marketing**
+   - A/B/C testování více verzí reklamy
+   - Porovnání reakcí na různé produkty
+
+5. **Výroba a kvalita**
+   - Porovnání kvality od různých dodavatelů
+   - Testování výrobních procesů
+
+**Co ANOVA dělá:**
+
+- ✅ Testuje, zda se **alespoň jeden** průměr liší
+- ✅ Kontroluje celkovou chybu I. druhu při více srovnáních
+- ✅ Poskytuje F statistiku a p-hodnotu
+
+**Co ANOVA nedělá:**
+
+- ❌ Neříká, **které konkrétní** skupiny se liší (potřeba post-hoc testů)
+- ❌ Neříká, **jak velký** je rozdíl (potřeba effect size)
+- ❌ Nedokazuje kauzalitu (závislé na designu studie)
+:::
+
+## Typy ANOVA
+
+### 1. Jednofaktorová ANOVA (One-way ANOVA)
+- Jeden nezávislý faktor s 3+ úrovněmi
+- Příklad: Porovnání 4 diet
+
+### 2. Dvoufaktorová ANOVA (Two-way ANOVA)
+- Dva nezávislé faktory
+- Umožňuje testovat interakci
+- Příklad: Dieta × Cvičení
+
+### 3. Opakovaná měření ANOVA (Repeated measures ANOVA)
+- Stejní účastníci měřeni vícekrát
+- Příklad: Měření hmotnosti v čase (před, během, po dietě)
+
+### 4. MANOVA (Multivariate ANOVA)
+- Více závislých proměnných
+- Příklad: Vliv diety na hmotnost, cholesterol a krevní tlak současně
+
+## Vztah k t-testu
+
+Pro **dvě skupiny** jsou t-test a ANOVA ekvivalentní:
+
+$$F = t^2$$
+
+## Závěr
+
+ANOVA je základní statistická metoda pro porovnání průměrů tří nebo více skupin. Testuje, zda se alespoň jeden průměr statisticky významně liší od ostatních, a to poměřením variability mezi skupinami k variabilitě uvnitř skupin pomocí F statistiky. Je výhodná oproti opakovaným t-testům, protože kontroluje celkovou chybu prvního druhu. ANOVA je široce používána v experimentálním výzkumu napříč disciplínami - od medicíny přes zemědělství až po psychologii a marketing. Důležité je si uvědomit, že statisticky významná ANOVA pouze říká, že existuje nějaký rozdíl, ale nespecifikuje, které konkrétní skupiny se liší - k tomu jsou potřeba následné post-hoc testy.

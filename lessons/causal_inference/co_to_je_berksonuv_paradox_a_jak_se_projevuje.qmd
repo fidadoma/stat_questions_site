@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Berksonova Paradoxu
+## Úvod
 
 Berksonův paradox je jev ve statistice, který ukazuje, jak může být spojení mezi dvěma proměnnými zkreslené kvůli omezení výběrového souboru. To může vést k chybným závěrům o vztahu mezi proměnnými, pokud není tento efekt náležitě zvážen. 
 
@@ -66,6 +65,8 @@ Je důležité být si vědom toho, že omezení výběrového souboru může vy
 - Při interpretaci výsledků zvažujte, jestli byl výběr nějakým způsobem omezen či zkreslen.
 - Zkoumejte širší populaci za použití různých metod a nástrojů, jakými jsou např. statistické kontrolní proměnné.
 - Zkuste přistupovat k analýze dat s otevřenou myslí a kritickou péčí.
+
+
 
 Berksonův paradox je užitečným připomenutím toho, že ve statistice je třeba vždy mít na paměti podmínky, za nichž byla data shromážděna. Pouze tímto způsobem dosáhneme správných a užitečných závěrů.
 

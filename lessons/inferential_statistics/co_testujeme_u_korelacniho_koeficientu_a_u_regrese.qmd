@@ -1,5 +1,6 @@
 ---
 title: "Korelační koeficient a regrese: Co testujeme?"
+order: 230
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod
+## Úvod
 
 Ve statistice často narazíme na pojmy jako **korelační koeficient** a **regrese**. Tyto pojmy se používají k analýze vztahů mezi proměnnými. V této studijní příručce si podrobně vysvětlíme, co testujeme u korelačního koeficientu a u regrese, a ukážeme si to na příkladech z reálného života.
 
@@ -53,6 +53,115 @@ U lineární regrese testujeme, do jaké míry může nezávislá proměnná př
 
 - **Vzdělání a příjmy**: Výzkumy často ukazují, že vyšší úroveň vzdělaní koreluje s vyššími příjmy. Model lineární regrese by mohl kvantifikovat tento vztah.
 - **Reklamní výdaje a prodej**: Firmy můžou použít regresní analýzu pro odhad vlivu reklamních výdajů na prodej produktů.
+
+:::{.callout-tip}
+## Metodologická poznámka: Testování korelace a regrese - praktický průvodce
+
+**Co vlastně testujeme?**
+
+### 1. Testování korelačního koeficientu
+
+**Test:**
+
+- **H0**: ρ = 0 (žádná **lineární** korelace v populaci)
+- **Ha**: ρ ≠ 0 (existuje lineární korelace)
+
+**Testová statistika:**
+$$t = r \sqrt{\frac{n-2}{1-r^2}}$$
+
+s **df = n - 2**
+
+**Interpretace:**
+- **r = 0.42**: Střední pozitivní korelace
+- **p = .002**: Signifikantní (zamítáme H0)
+- **95% CI [0.15, 0.64]**: Populační ρ je pravděpodobně mezi 0.15-0.64
+
+**Co p-hodnota ZNAMENÁ:**
+
+- ✅ \"Jaká je pravděpodobnost pozorovat r = 0.42 (nebo extrémnější), pokud skutečné ρ = 0?\"
+
+**Co p-hodnota NEZNAMENÁ:**
+
+- ❌ \"Pravděpodobnost, že H0 je pravdivá\"
+- ❌ \"Síla vztahu\" (to je r!)
+- ❌ \"Praktický význam\"
+
+### 2. Testování regresního koeficientu
+
+**Model:**
+$$y = \beta_0 + \beta_1 x + \varepsilon$$
+
+**Test:**
+
+- **H0**: β₁ = 0 (x nemá vliv na y)
+- **Ha**: β₁ ≠ 0 (x má vliv na y)
+
+**Test statistika:**
+$$t = \frac{\hat{\beta}_1}{SE(\hat{\beta}_1)}$$
+
+s **df = n - p - 1** (p = počet prediktorů)
+
+
+**Interpretace β₁:**
+- **β̂₁ = 0.45**: S každou jednotkou růstu x roste y o 0.45
+- **SE = 0.12**: Standardní chyba odhadu
+- **t = 3.75, p = .001**: Signifikantní vliv!
+- **95% CI**: β̂₁ ± t_crit × SE = 0.45 ± 2.01 × 0.12 = [0.21, 0.69]
+
+**Předpoklady testů:**
+
+**Pearson korelace:**
+1. ✅ **Lineární** vztah (scatter plot!)
+2. ✅ **Bivariate normality** (Q-Q plot obou proměnných)
+3. ✅ **Žádné outliers** (Cook's distance)
+
+**Pokud porušeno → Spearman korelace**
+
+**Lineární regrese:**
+1. ✅ **Linearita** (Residuals vs Fitted plot)
+2. ✅ **Normalita reziduí** (Q-Q plot reziduí)
+3. ✅ **Homoskedasticita** (Scale-Location plot)
+4. ✅ **Nezávislost** (Durbin-Watson test)
+
+**Časté chyby:**
+
+- ❌ Zaměňovat **signifikanci** (p < 0.05) a **practical importance** (velikost r nebo β)
+- ❌ Interpretovat korelaci jako **kauzalitu**
+- ❌ Ignorovat **outliers** (jeden outlier může změnit r i β!)
+- ❌ Nehlásit **confidence intervals**
+- ❌ Testovat normalitu **dat** místo **reziduí** (u regrese)
+- ❌ Myslet si, že r = 0.3 je \"slabá\" korelace (závisí na kontextu!)
+
+**Effect sizes:**
+
+**Pro korelaci:**
+
+| |r| | Interpretace (Cohen) |
+|------|---------------------|
+| 0.10 | Malá |
+| 0.30 | Střední |
+| 0.50 | Velká |
+
+**POZOR**: V některých oborech je r = 0.2 velká! Záleží na kontextu.
+
+**Pro regresi:**
+
+- **Standardizovaný β** (beta coefficients) pro srovnání prediktorů
+
+**Best practice reportování:**
+
+✅ **Korelace:**
+\"Height and weight were significantly positively correlated, r(48) = .48, p = .001, 95% CI [.21, .66]\"
+
+✅ **Regrese:**
+\"Linear regression revealed that study time significantly predicted exam score (β = 0.45, SE = 0.12, t(48) = 3.75, p = .001, 95% CI [0.21, 0.69]). The model explained 22.7% of variance in exam scores, R² = .227, F(1,48) = 14.08, p = .001\"
+
+**Zlaté pravidlo**:
+
+- **Korelace** pro exploraci a popis vztahů
+- **Regrese** pro predikci a kauzální inference
+- Vždy reportujte effect size (r nebo β) + CI, ne jen p!
+:::
 
 # Závěr
 

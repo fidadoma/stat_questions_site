@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do DAGu
+## Úvod
 
 **DAG** je zkratka pro Directed Acyclic Graph (orientovaný acyklický graf). Je to struktura používaná v mnoha oblastech informatiky a statistiky, například při plánování úloh, zpracování dat nebo reprezentaci projektů a jejich závislostí. 
 
@@ -52,10 +51,11 @@ Pokud bychom pokračovali v našem příkladu s večeří, nemohli bychom nejprv
 
 To je přesně důvod, proč jsou Forky v DAGu tak důležité: umožňují zpracovat složité procesy efektivněji a rychleji pomocí paralelního zpracování úkolů. Nejenže ušetříte čas, ale také efektivněji využíváte dostupné zdroje.
 
+
+
 # Závěr
 
 Fork v DAGu je tedy jakousi křižovatkou v procesu, která umožňuje rozdělit práci mezi paralelní úkoly. V reálném světě, jako v příkladu s večeří, tento koncept umožňuje provádět více věcí naráz, což vede k větší efektivitě. V moderních systémech jde o základní princip, který stojí za většinou optimalizací výkonu.
 
-Pochopení tohoto konceptu může výrazně pomoci studentům i profesionálům, kteří se zabývají oblastmi, jako je správa projektů, zpracování dat nebo programování paralelních systémů. Umožňuje jim lépe plánovat, organizovat a provádět komplexní úkoly. 
-
+Pochopení tohoto konceptu může výrazně pomoci studentům i profesionálům, kteří se zabývají oblastmi, jako je správa projektů, zpracování dat nebo programování paralelních systémů. Umožňuje jim lépe plánovat, organizovat a provádět komplexní úkoly.
 

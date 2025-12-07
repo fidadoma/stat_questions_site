@@ -1,5 +1,6 @@
 ---
-title: "Intervalový Odhad: Co to Je a K Čemu Slouží?"
+title: "Intervalový odhad: Co to je a k čemu slouží?"
+order: 20
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,17 +13,16 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do Interválu Odhadu
+## Úvod
 
 Intervalový odhad je metoda ve statistice, která nám poskytuje rozsah hodnot, ve kterém se nachází skutečná hodnota neznámého parametru populace s určitou mírou jistoty. Je protikladem k bodovému odhadu, který nabízí jedinou "nejlepší" hodnotu odhadu. Umožňuje zahrnout do našich tvrzení určitý stupeň nejistoty a variace.
 
 Tento přístup je široce využíván v mnoha oblastech včetně průzkumu trhu, medicíny, politiky a mnoha dalších disciplínách, kde potřebujeme učinit rozhodnutí na základě výběru z nějaké populace.
 
-## Proč Potřebujeme Intervalové Odhady?
+## Proč potřebujeme intervalové odhady?
 
 Při práci s daty často nemáme přístup ke všem hodnotám v populaci. Místo toho se spoléháme na výběry - menší skupiny, které nám mají poskytnout vhled do celé populace. Intervalový odhad nám pomáhá pochopit, jak přesné naše odhady jsou, když pracujeme s omezenými informacemi. Například:
 
@@ -30,7 +30,7 @@ Při práci s daty často nemáme přístup ke všem hodnotám v populaci. Míst
 
 - **Lékařský výzkum**: Pokud testujete nový lék na vzorku pacientů, intervalový odhad vám může poskytnout rozsah účinnosti léku u celé populace pacientů.
 
-## Jak se Intervalové Odhady Vypočítávají?
+## Jak se intervalové odhady vypočítávají?
 
 Pro výpočet intervalového odhadu potřebujete:
 
@@ -40,21 +40,84 @@ Pro výpočet intervalového odhadu potřebujete:
 
 Formule pro výpočet intervalového odhadu průměru je následující:
 
-\[ \text{Interval spolehlivosti} = \text{bodový odhad} \pm (\text{spolehlivostní koeficient} \times \text{standardní chyba}) \]
+$$ \text{Interval spolehlivosti} = \text{bodový odhad} \pm (\text{spolehlivostní koeficient} \times \text{standardní chyba}) $$
 
-## Příklad z Reálného Světa
+## Příklad z reálného světa
 
 Představte si, že jste manažerem společnosti a chcete odhadnout průměrný plat vašich zaměstnanců. Provedete náhodný výběr 50 zaměstnanců a zjistíte, že jejich průměrný plat je 50 000 Kč s odchylkou 5 000 Kč.
 
 Pokud zvolíme 95 % interval spolehlivosti a použijeme spolehlivostní koeficient 1,96, může vypadat vaše výpočty následovně:
 
 Výpočet standardní chyby:
-\[ \text{Standardní chyba} = \frac{5 000}{\sqrt{50}} \approx 707 \]
+$$ \text{Standardní chyba} = \frac{5 000}{\sqrt{50}} \approx 707 $$
 
 Výpočet intervalového odhadu:
-\[ 50 000 \pm (1,96 \times 707) = 50 000 \pm 1 385 \]
+$$ 50 000 \pm (1,96 \times 707) = 50 000 \pm 1 385 $$
 
 Tedy interval spolehlivosti bude od 48 615 Kč do 51 385 Kč. S 95% jistotou můžete říci, že skutečný průměrný plat všech zaměstnanců spadá do tohoto rozsahu.
+
+:::{.callout-important}
+## Metodologická poznámka: Konfidenční intervaly správně
+
+**Co je 95% CI?**
+
+- Interval hodnot konzistentních s daty
+- **SPRÁVNÁ interpretace**: "Pokud bychom opakovali experiment 100×, 95 intervalů by obsahovalo skutečnou hodnotu μ"
+- **CHYBNÁ interpretace**: "95% šance, že μ je v tomto intervalu" ← To je Bayesovský credible interval!
+
+**Vzorec pro CI průměru:**
+$$\bar{x} \pm t_{\alpha/2, df} \times \frac{s}{\sqrt{n}}$$
+
+Kde:
+
+- $\bar{x}$ = průměr vzorku
+- $t_{\alpha/2, df}$ = kritická hodnota t-rozdělení
+- $s$ = směrodatná odchylka
+- $n$ = velikost vzorku
+
+**Běžné úrovně spolehlivosti:**
+
+| Úroveň | Interpretace | Použití |
+|--------|--------------|---------|
+| **90%** | Méně konzervativní | Explorační analýzy |
+| **95%** | Standard | Většina výzkumů |
+| **99%** | Velmi konzervativní | Kritická rozhodnutí |
+
+**Co ovlivňuje šířku CI:**
+
+1. **n ↑** → CI užší (více dat = větší jistota)
+2. **s ↑** → CI širší (větší variabilita = menší jistota)
+3. **Spolehlivost ↑** → CI širší (víc jistoty = širší rozsah)
+
+**Vztah k testování hypotéz:**
+
+- Pokud CI **neobsahuje** μ0 → p < α (zamítneme H0)
+- Pokud CI **obsahuje** μ0 → p > α (nezamítáme H0)
+- Příklad: CI = [52, 58], testujeme μ0 = 50 → 50 není v CI → zamítneme H0
+
+**CI vs p-hodnota:**
+
+| | p-hodnota | Konfidenční interval |
+|---|---|---|
+| **Informace** | Je efekt? | Jak velký je efekt? |
+| **Interpretace** | Dichotomická (ano/ne) | Spojitá (rozsah hodnot) |
+| **Praktický význam** | Neříká | **Ukazuje!** |
+| **Doporučení** | Reportujte obojí | **CI je důležitější!** |
+
+**Časté chyby:**
+
+- ❌ "CI znamená, že 95% dat je v tomto intervalu" → NE! To je percentil!
+- ❌ "Užší CI = lepší výsledek" → Ne nutně, záleží na kontextu
+- ❌ "CI překrývající se = žádný rozdíl" → NE! To je špatné heuristika
+
+**Best practice reportování:**
+- ✅ "Průměr = 55 kg (95% CI: [52, 58])"
+- ✅ Vždy uveďte úroveň spolehlivosti
+- ✅ Vizualizujte CI (error bars, violin plots s CI)
+- ✅ Interpretujte praktický význam šířky CI
+
+**Praktický tip**: Úzký CI → precizní odhad (dobré!), Široký CI → velká nejistota (potřebujeme více dat)
+:::
 
 ## Závěr
 

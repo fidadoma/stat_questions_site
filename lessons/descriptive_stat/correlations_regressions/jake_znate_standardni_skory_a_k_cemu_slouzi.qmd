@@ -1,5 +1,6 @@
 ---
 title: "Standardní skóry ve statistice"
+order: 60
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do standardních skóre
+## Úvod
 
 Standardní skóry jsou nástroje ve statistice, které nám pomáhají interpretovat individuální hodnoty v kontextu celkového datasetu. Jsou užitečné zejména pro porovnání hodnot, které jsou měřeny na různých škálách nebo v různých jednotkách.
 
@@ -29,18 +29,71 @@ Z-skóre (také nazývané standardní skóre) je ukazatel, který nám říká,
 ### Výpočet Z-skóre
 
 Z-skóre se vypočte podle vzorce:
-\[ Z = \frac{x - \mu}{\sigma} \]
+
+$$ Z = \frac{x - \mu}{\sigma} $$
+
 kde:
-- \( x \) je hodnota, kterou hodnotíme,
-- \( \mu \) je průměr datasetu,
-- \( \sigma \) je směrodatná odchylka datasetu.
+
+- $x$ je hodnota, kterou hodnotíme,
+- $\mu$ je průměr datasetu,
+- $\sigma$ je směrodatná odchylka datasetu.
 
 ### Příklad z běžného života
 
 Představte si, že jste na školním testu z matematiky. Pokud váš výsledek je 85 bodů, průměrná třída má 70 bodů, a směrodatná odchylka je 10 bodů, vaše Z-skóre je:
-\[ Z = \frac{85 - 70}{10} = 1.5 \]
+$$
+ Z = \frac{85 - 70}{10} = 1,5 
+$$
 
-To znamená, že váš výsledek je 1.5 směrodatné odchylky nad průměrem třídy.
+To znamená, že váš výsledek je 1,5 směrodatné odchylky nad průměrem třídy.
+
+```{r}
+#| label: fig-z-score
+#| fig-cap: "Z-skóre na normálním rozdělení"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření normálního rozdělení
+x <- seq(-4, 4, length.out = 500)
+y <- dnorm(x)
+data_normal <- data.frame(x = x, y = y)
+
+# Příklad: student se skóre Z = 1.5
+z_score_example <- 1.5
+
+ggplot(data_normal, aes(x = x, y = y)) +
+  geom_line(size = 1.2, color = "steelblue") +
+  geom_area(fill = "steelblue", alpha = 0.3) +
+  # Zvýraznit oblast pro Z = 1.5
+  geom_area(data = subset(data_normal, x <= z_score_example),
+            fill = "#2ECC71", alpha = 0.5) +
+  # Vertikální čáry pro standardní odchylky
+  geom_vline(xintercept = c(-3, -2, -1, 0, 1, 2, 3),
+             linetype = "dashed", color = "gray50", alpha = 0.6) +
+  # Zvýraznit Z = 1.5
+  geom_vline(xintercept = z_score_example,
+             color = "#E74C3C", size = 1.5) +
+  # Popisky
+  annotate("text", x = 0, y = 0.45, label = "μ = 0",
+           fontface = "bold", color = "darkblue", size = 4) +
+  annotate("text", x = z_score_example, y = 0.45,
+           label = sprintf("Z = %.1f", z_score_example),
+           fontface = "bold", color = "#E74C3C", size = 4.5,
+           hjust = -0.1) +
+  annotate("text", x = 0.7, y = 0.15,
+           label = sprintf("%.1f%% studentů\nhorší", pnorm(z_score_example) * 100),
+           fontface = "bold", color = "#27AE60", size = 4) +
+  labs(
+    title = "Z-skóre: Standardizované normální rozdělení",
+    subtitle = "Příklad: Výsledek testu se Z = 1.5 (1.5 σ nad průměrem)",
+    x = "Z-skóre (počet směrodatných odchylek od průměru)",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  scale_x_continuous(breaks = -3:3) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 13))
+```
 
 ## T-skóre
 
@@ -51,14 +104,104 @@ T-skóre je upravená verze Z-skóre, která se používá hlavně v psychologii
 ### Výpočet T-skóre
 
 T-skóre se vypočítá podle vzorce:
-\[ T = 50 + 10 \times Z \]
+
+$$
+T = 50 + 10 \times Z 
+$$
 
 ### Příklad z běžného života
 
 Použijeme předchozí příklad z matematiky. Pokud jste získali Z-skóre 1.5, vaše T-skóre by bylo:
-\[ T = 50 + 10 \times 1.5 = 65 \]
+$$
+T = 50 + 10 \times 1,5 = 65
+$$
 
 To znamená, že jste stále nad průměrem, a to o 15 bodů na škále T-skóre.
+
+```{r}
+#| label: fig-z-t-comparison
+#| fig-cap: "Porovnání Z-skóre a T-skóre"
+#| warning: false
+#| fig-height: 10
+
+library(ggplot2)
+library(gridExtra)
+
+# Z-skóre distribuce
+x_z <- seq(-4, 4, length.out = 500)
+y_z <- dnorm(x_z)
+data_z <- data.frame(x = x_z, y = y_z)
+
+z_example <- 1.5
+
+p1 <- ggplot(data_z, aes(x = x, y = y)) +
+  geom_line(size = 1.2, color = "steelblue") +
+  geom_area(fill = "steelblue", alpha = 0.3) +
+  geom_vline(xintercept = z_example, color = "#E74C3C",
+             size = 1.5, linetype = "dashed") +
+  annotate("text", x = z_example, y = 0.4,
+           label = sprintf("Z = %.1f", z_example),
+           fontface = "bold", color = "#E74C3C", size = 5, hjust = -0.1) +
+  labs(
+    title = "Z-skóre",
+    subtitle = "μ = 0, σ = 1",
+    x = "Z-skóre",
+    y = "Hustota"
+  ) +
+  scale_x_continuous(breaks = -4:4) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14))
+
+# T-skóre distribuce
+x_t <- seq(20, 80, length.out = 500)
+y_t <- dnorm((x_t - 50) / 10) / 10  # Transformace na T-skóre
+data_t <- data.frame(x = x_t, y = y_t)
+
+t_example <- 50 + 10 * z_example
+
+p2 <- ggplot(data_t, aes(x = x, y = y)) +
+  geom_line(size = 1.2, color = "#9B59B6") +
+  geom_area(fill = "#9B59B6", alpha = 0.3) +
+  geom_vline(xintercept = t_example, color = "#E74C3C",
+             size = 1.5, linetype = "dashed") +
+  annotate("text", x = t_example, y = 0.04,
+           label = sprintf("T = %.0f", t_example),
+           fontface = "bold", color = "#E74C3C", size = 5, hjust = -0.1) +
+  labs(
+    title = "T-skóre",
+    subtitle = "μ = 50, σ = 10",
+    x = "T-skóre",
+    y = "Hustota"
+  ) +
+  scale_x_continuous(breaks = seq(20, 80, 10)) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14))
+
+# Převodní tabulka
+conversion_data <- data.frame(
+  z_score = c(-3, -2, -1, 0, 1, 2, 3),
+  t_score = c(20, 30, 40, 50, 60, 70, 80),
+  percentile = c(0.1, 2.3, 15.9, 50, 84.1, 97.7, 99.9)
+)
+
+p3 <- ggplot(conversion_data, aes(x = z_score, y = t_score)) +
+  geom_line(color = "steelblue", size = 1.5) +
+  geom_point(size = 4, color = "#E74C3C") +
+  geom_text(aes(label = sprintf("Z=%.0f\nT=%.0f", z_score, t_score)),
+            vjust = -1, fontface = "bold", size = 3.5) +
+  labs(
+    title = "Převod Z-skóre ↔ T-skóre",
+    subtitle = "T = 50 + 10 × Z",
+    x = "Z-skóre",
+    y = "T-skóre"
+  ) +
+  scale_x_continuous(breaks = -3:3) +
+  scale_y_continuous(breaks = seq(20, 80, 10)) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14))
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
 
 ## Percentilové skóre
 
@@ -70,10 +213,96 @@ Percentilové skóre ukazuje, jaké procento hodnot v datasetu je menší než d
 
 Pokud jste v testu matematiky dosáhli 85. percentilu, znamená to, že 85 % studentů mělo horší výsledek než vy.
 
+```{r}
+#| label: fig-all-scores
+#| fig-cap: "Porovnání Z-skóre, T-skóre a percentilů"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+
+# Normální rozdělení
+x <- seq(-4, 4, length.out = 500)
+y <- dnorm(x)
+data_normal <- data.frame(x = x, y = y)
+
+# Vytvoření grafu se všemi škálami
+ggplot(data_normal, aes(x = x, y = y)) +
+  geom_line(size = 1.2, color = "steelblue") +
+  geom_area(fill = "steelblue", alpha = 0.2) +
+  # Vertikální čáry pro klíčové hodnoty
+  geom_vline(xintercept = c(-3, -2, -1, 0, 1, 2, 3),
+             linetype = "dotted", color = "gray40", alpha = 0.5) +
+  # Z-skóre osa (hlavní)
+  scale_x_continuous(
+    "Z-skóre",
+    breaks = -3:3,
+    sec.axis = sec_axis(~ . * 10 + 50, name = "T-skóre",
+                        breaks = seq(20, 80, 10))
+  ) +
+  labs(
+    title = "Standardní skóry a jejich vztah",
+    subtitle = "Normální rozdělení se třemi typy skórování",
+    y = "Hustota pravděpodobnosti"
+  ) +
+  # Přidat percentily jako text
+  annotate("text", x = c(-2, -1, 0, 1, 2),
+           y = 0.45,
+           label = c("2. percentil", "16. percentil", "50. percentil",
+                    "84. percentil", "98. percentil"),
+           color = "#E67E22", fontface = "bold", size = 3.2, angle = 0) +
+  # Šipky ukazující na percentily
+  annotate("segment",
+           x = c(-2, -1, 0, 1, 2),
+           xend = c(-2, -1, 0, 1, 2),
+           y = 0.42, yend = 0.35,
+           arrow = arrow(length = unit(0.2, "cm")),
+           color = "#E67E22", size = 0.8) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.title.y.right = element_text(color = "#9B59B6", face = "bold"),
+    axis.text.y.right = element_text(color = "#9B59B6"),
+    axis.title.x = element_text(color = "steelblue", face = "bold"),
+    axis.text.x = element_text(color = "steelblue")
+  )
+```
+
 ---
+
+:::{.callout-tip}
+## Metodologická poznámka: Kdy použít standardizaci?
+
+**Použijte standardizaci (Z-skóre), když**:
+
+1. **Porovnáváte proměnné s různými jednotkami**
+   - Příklad: Nelze porovnat "175 cm" s "70 kg", ale můžete porovnat Z=1.5 (výška) s Z=0.8 (váha)
+   - Užitečné v machine learningu (normalizace vstupů)
+
+2. **Chcete identifikovat outliers**
+   - Pravidlo: |Z| > 3 jsou obvykle outliers
+   - |Z| > 2 je už neobvyklé (mimo 95 % dat)
+
+3. **Potřebujete kombinovat více proměnných**
+   - Kompozitní skóre = (Z1 + Z2 + Z3) / 3
+   - Všechny proměnné mají stejnou váhu
+
+**Nepoužívejte standardizaci, když**:
+
+- Původní jednotky jsou smysluplné a srozumitelné
+- Publikum nepochopí Z-skóry
+- Data nejsou přibližně normální (Z-skóry pak nejsou dobře interpretovatelné)
+
+**T-skóre vs Z-skóre**: T-skóre se používá hlavně v psychologii a vzdělávání, protože eliminuje záporné hodnoty a desetinná místa → snadněj ší komunikace s širokou veřejností.
+:::
 
 # Závěr
 
 Standardní skóry, jako jsou Z-skóre, T-skóre a percentilové skóre, jsou užitečné nástroje pro porovnávání individuálních výkonů a hodnot v kontextu skupiny nebo populace. Pomáhají nám pochopit, kde se v rámci celkové skupiny nacházíme, a dávají smysl jednotlivým výsledkům na odlišných měřítcích.
 
+## Viz také
+
+- [Jaké jsou charakteristiky variability](../../basic_statistics/jake_jsou_charakteristiky_variability.qmd) - směrodatná odchylka
+- [Co nám popisuje Pearsonův korelační koeficient](co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - standardizované skóry v korelaci
+- [Jaký je vztah mezi směrnicí přímky a Pearsonovým korelačním koeficientem](jaky_je_vztah_mezi_smernici_primky_a_pearsonovym_korelacnim_koeficientem.qmd) - standardizace v regresi
 

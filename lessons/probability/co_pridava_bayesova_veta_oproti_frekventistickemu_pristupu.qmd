@@ -1,5 +1,6 @@
 ---
 title: "Bayesova věta vs. Frekventistický přístup ve statistice"
+order: 100
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -42,9 +42,58 @@ Bayesova věta vyjadřuje vztah mezi pravděpodobnostmi různých událostí:
 
 $$ P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} $$
 
-- $P(A|B)$ je pravděpodobnost události A za předpokladu, že B nastalo.
-- $P(B|A)$ je pravděpodobnost události B za předpokladu, že A nastalo.
-- $P(A)$ a $P(B)$ jsou (apriorní) pravděpodobnosti událostí A a B.
+- $P(A|B)$ je pravděpodobnost události A za předpokladu, že B nastalo (posterior)
+- $P(B|A)$ je pravděpodobnost události B za předpokladu, že A nastalo (likelihood)
+- $P(A)$ je apriorní pravděpodobnost události A (prior)
+- $P(B)$ je pravděpodobnost události B (evidence)
+
+```{r}
+#| label: fig-bayes-components
+#| fig-cap: "Komponenty Bayesovy věty"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření diagramu komponent Bayesovy věty
+components <- data.frame(
+  x = c(1, 3, 5, 3),
+  y = c(3, 3, 3, 1),
+  label = c("Prior\nP(A)", "Likelihood\nP(B|A)", "Posterior\nP(A|B)", "Evidence\nP(B)"),
+  description = c("Předchozí znalost", "Pravděpodobnost dat", "Aktualizované znalosti", "Normalizace"),
+  color = c("steelblue", "#E67E22", "#2ECC71", "#9B59B6")
+)
+
+ggplot(components, aes(x = x, y = y)) +
+  geom_point(aes(color = label), size = 30, alpha = 0.7) +
+  geom_text(aes(label = label), fontface = "bold", size = 4, color = "white") +
+  geom_text(aes(label = description, y = y - 0.6), size = 3.5, fontface = "italic") +
+  # Šipky ukazující vztahy
+  annotate("segment", x = 1.5, xend = 2.5, y = 3, yend = 3,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1.5, color = "darkgray") +
+  annotate("segment", x = 3.5, xend = 4.5, y = 3, yend = 3,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1.5, color = "darkgray") +
+  annotate("segment", x = 3, xend = 3, y = 2.5, yend = 1.5,
+           arrow = arrow(length = unit(0.3, "cm")), size = 1.5, color = "darkgray") +
+  annotate("text", x = 2, y = 3.3, label = "×", size = 8, fontface = "bold") +
+  annotate("text", x = 4, y = 3.3, label = "→", size = 8, fontface = "bold") +
+  annotate("text", x = 3.3, y = 2, label = "÷", size = 8, fontface = "bold") +
+  scale_color_manual(values = c("Prior\nP(A)" = "steelblue",
+                                 "Likelihood\nP(B|A)" = "#E67E22",
+                                 "Posterior\nP(A|B)" = "#2ECC71",
+                                 "Evidence\nP(B)" = "#9B59B6")) +
+  labs(
+    title = "Bayesova věta: P(A|B) = P(B|A) × P(A) / P(B)",
+    subtitle = "Aktualizace znalostí na základě nových dat"
+  ) +
+  xlim(0, 6) +
+  ylim(0, 4) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    plot.subtitle = element_text(hjust = 0.5, size = 11)
+  )
+```
 
 ### Příklad: Diagnostika onemocnění
 
@@ -58,7 +107,194 @@ V tomto případě bychom vypočítali:
 
 Na základě těchto pravděpodobností bayesovec aktualizuje své přesvědčení o konkrétních výstupech.
 
+```{r}
+#| label: fig-medical-bayes
+#| fig-cap: "Bayesovská aktualizace při diagnostice onemocnění"
+#| warning: false
+#| fig-height: 20
+
+library(ggplot2)
+library(gridExtra)
+
+# Parametry problému
+prevalence <- 0.01  # P(A) - pravděpodobnost nemoci
+senzitivita <- 0.99  # P(B|A) - test pozitivní když nemocný
+specificita <- 0.95  # P(Ne B|Ne A) - test negativní když zdravý
+false_positive <- 1 - specificita  # 0.05
+
+# Výpočet P(B) - pravděpodobnost pozitivního testu
+p_B <- senzitivita * prevalence + false_positive * (1 - prevalence)
+
+# Bayesův výpočet P(A|B) - pravděpodobnost nemoci když test pozitivní
+posterior <- (senzitivita * prevalence) / p_B
+
+# Graf 1: Prior vs Posterior
+data_comparison <- data.frame(
+  faze = c("Prior (před testem)", "Posterior (po pozit. testu)"),
+  pravdepodobnost = c(prevalence, posterior) * 100
+)
+
+p1 <- ggplot(data_comparison, aes(x = faze, y = pravdepodobnost, fill = faze)) +
+  geom_col(alpha = 0.8, width = 0.6) +
+  geom_text(aes(label = sprintf("%.2f%%", pravdepodobnost)),
+            vjust = -0.5, fontface = "bold", size = 5) +
+  labs(
+    title = "Bayesovská aktualizace pravděpodobnosti nemoci",
+    subtitle = sprintf("Prior: %.1f%% → Posterior: %.1f%%", prevalence * 100, posterior * 100),
+    x = "",
+    y = "Pravděpodobnost nemoci (%)"
+  ) +
+  scale_fill_manual(values = c("Prior (před testem)" = "steelblue",
+                                "Posterior (po pozit. testu)" = "#E74C3C")) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Graf 2: Strom pravděpodobností
+# Vytvoření dat pro strom
+tree_data <- data.frame(
+  x_start = c(0, 0, 1, 1, 1, 1),
+  y_start = c(2, 2, 2.5, 2.5, 1.5, 1.5),
+  x_end = c(1, 1, 2, 2, 2, 2),
+  y_end = c(2.5, 1.5, 3, 2.5, 2, 1),
+  label_path = c("Nemocný", "Zdravý", "Test +", "Test -", "Test +", "Test -"),
+  prob = c(prevalence, 1-prevalence, senzitivita, 1-senzitivita,
+           false_positive, specificita)
+)
+
+# Koncové pravděpodobnosti
+outcomes <- data.frame(
+  x = 2,
+  y = c(3, 2.5, 2, 1),
+  label = c(
+    sprintf("Nemocný + Test +\n%.4f", prevalence * senzitivita),
+    sprintf("Nemocný + Test -\n%.4f", prevalence * (1-senzitivita)),
+    sprintf("Zdravý + Test +\n%.4f", (1-prevalence) * false_positive),
+    sprintf("Zdravý + Test -\n%.4f", (1-prevalence) * specificita)
+  ),
+  highlight = c(TRUE, FALSE, TRUE, FALSE)  # Zvýrazníme pozitivní testy
+)
+
+p2 <- ggplot() +
+  geom_segment(data = tree_data, aes(x = x_start, y = y_start,
+                                      xend = x_end, yend = y_end),
+               size = 1.5, color = "darkgray") +
+  geom_point(data = data.frame(x = c(0, 1, 1, 2, 2, 2, 2),
+                                y = c(2, 2.5, 1.5, 3, 2.5, 2, 1)),
+             aes(x = x, y = y), size = 8, color = "steelblue") +
+  geom_text(data = tree_data, aes(x = (x_start + x_end)/2,
+                                   y = y_end + 0.15,
+                                   label = sprintf("%s\n(%.3f)", label_path, prob)),
+            size = 3, fontface = "bold") +
+  geom_label(data = outcomes, aes(x = x + 0.3, y = y, label = label,
+                                   fill = highlight),
+             size = 3, fontface = "bold", hjust = 0) +
+  annotate("text", x = 0, y = 2.2, label = "Start", fontface = "bold", size = 4) +
+  scale_fill_manual(values = c("FALSE" = "lightgray", "TRUE" = "#FFE5E5")) +
+  labs(
+    title = "Strom pravděpodobností",
+    subtitle = sprintf("Pozitivní test → P(nemocný|+) = %.4f / %.4f = %.2f%%",
+                       prevalence * senzitivita, p_B, posterior * 100)
+  ) +
+  xlim(-0.5, 4) +
+  ylim(0.5, 3.5) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 12),
+    plot.subtitle = element_text(hjust = 0.5, size = 10)
+  )
+
+# Graf 3: Vizualizace z 10 000 lidí
+n_total <- 10000
+n_sick <- round(n_total * prevalence)
+n_healthy <- n_total - n_sick
+n_sick_positive <- round(n_sick * senzitivita)
+n_sick_negative <- n_sick - n_sick_positive
+n_healthy_positive <- round(n_healthy * false_positive)
+n_healthy_negative <- n_healthy - n_healthy_positive
+
+population_data <- data.frame(
+  kategorie = c("Nemocní\n(test +)", "Nemocní\n(test -)",
+                "Zdraví\n(test +)", "Zdraví\n(test -)"),
+  pocet = c(n_sick_positive, n_sick_negative, n_healthy_positive, n_healthy_negative),
+  barva = c("Správně pozitivní", "Falešně negativní",
+            "Falešně pozitivní", "Správně negativní")
+)
+
+p3 <- ggplot(population_data, aes(x = kategorie, y = pocet, fill = barva)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = pocet), vjust = -0.5, fontface = "bold", size = 4) +
+  labs(
+    title = sprintf("Vizualizace na populaci %d lidí", n_total),
+    subtitle = sprintf("Z %d pozitivních testů je jen %d skutečně nemocných (%.1f%%)",
+                       n_sick_positive + n_healthy_positive, n_sick_positive, posterior * 100),
+    x = "",
+    y = "Počet lidí",
+    fill = "Kategorie"
+  ) +
+  scale_fill_manual(values = c("Správně pozitivní" = "#2ECC71",
+                                "Falešně negativní" = "#E67E22",
+                                "Falešně pozitivní" = "#E74C3C",
+                                "Správně negativní" = "#3498DB")) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1, heights = c(1, 1.2, 1))
+```
+
 ---
+
+:::{.callout-tip}
+## Metodologické srovnání: Bayesian vs Frequentist
+
+**Fundamentální rozdíl:**
+
+- **Frekventista**: Parametr je fixní, data jsou náhodná
+- **Bayesovec**: Data jsou fixní, parametr je náhodný (má rozdělení)
+
+**Kdy použít Bayesovský přístup?**
+
+- ✅ **Máte předchozí znalosti** (prior) o parametru
+- ✅ **Malé vzorky** - prior pomáhá stabilizovat odhady
+- ✅ **Sekvenční analýza** - aktualizujte odhady s příchodem nových dat
+- ✅ **Interpretace jako pravděpodobnost** - P(H|Data) je intuitivnější
+- ✅ **Hierarchické modely** - komplexní struktury dat
+
+**Kdy použít Frekventistický přístup?**
+
+- ✅ **Žádné předchozí informace** - nezaujaté odhady
+- ✅ **Velké vzorky** - výpočetně jednodušší
+- ✅ **Standardní reportování** - p-hodnoty jsou norma
+- ✅ **Objektivita** - žádné subjektivní priory
+- ✅ **Jednoduchá analýza** - t-test, ANOVA
+
+**Porovnání výstupů:**
+
+| | Frekventista | Bayesovec |
+|---|---|---|
+| **Výstup** | p-hodnota, CI | Posterior distribuce |
+| **Interpretace** | "Pokud H0 platí, jak překvapivá jsou data?" | "Jaká je pravděpodobnost H1 daná data?" |
+| **Prior** | Žádný | Explicitní |
+| **Flexibilita** | Menší | Větší |
+| **Výpočetní náročnost** | Nižší | Vyšší (MCMC) |
+
+**Praktický příklad:**
+
+- **Frekventista**: "p < 0.05, zamítáme H0"
+- **Bayesovec**: "P(μ > 0 | data) = 0.95, tedy 95% víme, že efekt je pozitivní"
+
+**Doporučení pro praxi:**
+
+- **Publikace**: Začněte frekventisticky (širší přijetí)
+- **Rozhodování**: Použijte Bayesian (lepší pro risk management)
+- **Best practice**: Reportujte obojí!
+
+**Časté mýty:**
+
+- ❌ "Bayesian je vždy lepší" - Ne, záleží na kontextu
+- ❌ "Prior je subjektivní → špatné" - Prior lze objektivně zvolit
+- ❌ "p-hodnota je P(H0|data)" - NE! Je to P(data|H0)
+:::
 
 ## Závěr
 
@@ -66,5 +302,5 @@ Bayesova věta přidává do statistiky flexibilnější a pragmatičtější p�
 
 Frekventistický přístup je však stále cenný pro svoji jednoduchost a objektivnost v případě nesmlouvavých statistických analýz s velkými množinami dat.
 
---- 
+---
 

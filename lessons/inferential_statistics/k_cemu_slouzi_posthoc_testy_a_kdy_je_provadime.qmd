@@ -1,0 +1,201 @@
+---
+title: "K čemu slouží post-hoc testy a kdy je provádíme?"
+order: 410
+author: Filip Děchtěrenko
+date: 2025-09-20
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Zobrazit kód"
+editor: source
+---
+
+## Úvod
+
+ANOVA nám říká, zda existuje **nějaký** statisticky významný rozdíl mezi skupinami, ale neříká nám, **které konkrétní** skupiny se od sebe liší. K zodpovězení této otázky používáme **post-hoc testy** (z latiny "post hoc" = "po tomto").
+
+## K čemu slouží post-hoc testy?
+
+Post-hoc testy slouží k:
+
+1. **Identifikaci specifických rozdílů** mezi páry skupin
+2. **Kontrole chyby I. druhu** při mnohonásobném testování
+3. **Zjištění, které skupiny** způsobují signifikantní výsledek ANOVY
+
+## Kdy provádíme post-hoc testy?
+
+Post-hoc testy provádíme **POUZE** pokud:
+
+1. ✅ ANOVA je **statisticky významná** (p < 0.05)
+2. ✅ Máme **3 nebo více skupin**
+3. ✅ Chceme zjistit **konkrétní páry** skupin, které se liší
+
+**NEPROVÁDÍME post-hoc testy pokud:**
+
+- ❌ ANOVA není signifikantní (p ≥ 0.05)
+- ❌ Máme pouze 2 skupiny (stačí t-test nebo samotná ANOVA)
+- ❌ Máme předem definované kontrasty (použijeme plánované kontrasty)
+
+## Problém mnohonásobného testování
+
+Při 4 skupinách potřebujeme 6 párových srovnání:
+- A vs B, A vs C, A vs D
+- B vs C, B vs D
+- C vs D
+
+Bez korekce by riziko chyby I. druhu vzrostlo z 5% na ~26%!
+
+Post-hoc testy tento problém řeší pomocí **korekcí pro mnohonásobné testování**.
+
+## Nejpoužívanější post-hoc testy
+
+### 1. Tukey HSD (Honestly Significant Difference)
+
+**Kdy použít:**
+
+- Nejčastější volba pro všechna párová srovnání
+- Balancovaný design (stejný počet pozorování ve všech skupinách)
+- Chceme porovnat všechny možné páry
+
+**Výhody:**
+
+- Kontroluje family-wise error rate (FWER)
+- Relativně vysoká statistická síla
+- Široko používaný a akceptovaný
+
+**Nevýhody:**
+
+- Méně vhodný pro nebalancované designy
+
+### 2. Bonferroni korekce
+
+**Kdy použít:**
+
+- Malý počet plánovaných srovnání
+- Když chceme být velmi konzervativní
+
+**Princip:**
+$$\alpha_{nová} = \frac{\alpha}{m}$$
+kde m je počet srovnání.
+
+**Výhody:**
+
+- Velmi jednoduchá
+- Silná kontrola FWER
+
+**Nevýhody:**
+
+- Velmi konzervativní (malá síla)
+- Nevhodná pro mnoho srovnání
+
+### 3. Holm-Bonferroni (sekvenční)
+
+**Kdy použít:**
+
+- Alternativa k Bonferroni s vyšší silou
+- Malý až střední počet srovnání
+
+**Výhody:**
+
+- Méně konzervativní než Bonferroni
+- Stále kontroluje FWER
+
+### 4. Scheffé test
+
+**Kdy použít:**
+
+- Komplexní kontrasty (ne jen párová srovnání)
+- Explorativní analýza všech možných srovnání
+
+**Výhody:**
+
+- Nejflexibilnější
+- Umožňuje testovat jakékoliv kontrasty
+
+**Nevýhody:**
+- Nejkonzervativnější (nejnižší síla)
+
+### 5. Games-Howell
+
+**Kdy použít:**
+
+- **Nerovné rozptyly** mezi skupinami
+- Nebalancovaný design
+
+**Výhody:**
+
+- Nevyžaduje homogenitu rozptylů
+- Robustní
+
+
+:::{.callout-tip}
+## Praktický návod pro post-hoc testy
+
+**Rozhodovací algoritmus:**
+
+```
+┌─────────────────────────┐
+│ Provedení ANOVA         │
+└───────────┬─────────────┘
+            │
+            ▼
+    ┌───────────────┐
+    │ p < 0.05?     │
+    └───┬───────┬───┘
+        │       │
+      ANO      NE
+        │       │
+        │       └──► STOP (žádné post-hoc testy)
+        │
+        ▼
+┌──────────────────────────┐
+│ Který post-hoc test?     │
+└───────────┬──────────────┘
+            │
+            ├──► Všechna párová srovnání + balancovaný design
+            │    → Tukey HSD
+            │
+            ├──► Nerovné rozptyly
+            │    → Games-Howell
+            │
+            ├──► Malý počet plánovaných srovnání
+            │    → Bonferroni nebo Holm
+            │
+            └──► Komplexní kontrasty
+                 → Scheffé
+```
+
+**Interpretace výsledků:**
+
+1. **Adjustované p-hodnoty**: Vždy používejte korigované p-hodnoty!
+2. **Konfidenční intervaly**: Pokud CI neobsahuje 0, rozdíl je signifikantní
+3. **Velikost efektu**: Reportujte i praktický význam rozdílu
+4. **Vizualizace**: Graf s CI pomáhá interpretaci
+
+**Co reportovat:**
+
+- ✅ Výsledek ANOVA (F, df, p)
+- ✅ Který post-hoc test byl použit a proč
+- ✅ Adjustované p-hodnoty
+- ✅ Rozdíly průměrů s 95% CI
+- ✅ Velikost efektu (Cohen's d pro páry)
+
+**Časté chyby:**
+
+- ❌ Provádět post-hoc, když ANOVA není signifikantní
+- ❌ Nepoužívat korekci pro mnohonásobné testování
+- ❌ Reportovat nekorigované p-hodnoty
+- ❌ Ignorovat předpoklady testů
+:::
+
+
+
+## Závěr
+
+Post-hoc testy slouží k identifikaci konkrétních párů skupin, které se statisticky významně liší, **poté, co ANOVA ukázala celkový signifikantní rozdíl**. Provádíme je pouze při signifikantní ANOVA a používáme korekce pro mnohonásobné testování (Tukey HSD, Bonferroni, Holm, atd.) k kontrole chyby prvního druhu. Tukey HSD je nejčastější volbou pro všechna párová srovnání při balancovaném designu a homogenních rozptylech. Games-Howell test je vhodný při porušení předpokladu homogenity rozptylů. Výsledky by měly být prezentovány s adjustovanými p-hodnotami, rozdíly průměrů, konfidel intervaly a interpretovány v kontextu praktického významu, ne pouze statistické signifikance.

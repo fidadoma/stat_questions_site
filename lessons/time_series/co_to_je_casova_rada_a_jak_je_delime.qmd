@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-## Úvod do Časových Řad
+## Úvod
 
 ### Co je to časová řada?
 
@@ -32,7 +31,7 @@ editor: source
 
 Studium časových řad nám umožňuje porozumět tomu, jak se veličiny mění v čase, předpovídat budoucí hodnoty a identifikovat vlivy sezónnosti, trendů nebo cyklických změn.
 
-## Dělení Časových Řad
+## Dělení časových řad
 
 Časové řady můžeme dělit podle několika kritérií:
 
@@ -60,9 +59,108 @@ Studium časových řad nám umožňuje porozumět tomu, jak se veličiny mění
 - **Cykly:** Ekonomika prochází recesemi a růsty.
 - **Náhodné události:** Nárůst nemocnosti při vypuknutí epidemie.
 
+## Vizualizace složek časové řady
+
+Pro lepší pochopení si ukážeme simulovanou časovou řadu s různými složkami:
+
+```{r}
+#| label: fig-timeseries
+#| fig-cap: "Dekompozice časové řady na jednotlivé složky"
+#| warning: false
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# Vytvoření časové řady
+n <- 200
+time <- 1:n
+
+# Trend (dlouhodobý růst)
+trend <- 0.5 * time + 20
+
+# Sezónní složka (roční cyklus)
+seasonal <- 10 * sin(2 * pi * time / 12)
+
+# Cyklická složka (delší hospodářský cyklus)
+cyclical <- 5 * sin(2 * pi * time / 50)
+
+# Náhodná složka
+random <- rnorm(n, mean = 0, sd = 2)
+
+# Celková časová řada
+timeseries <- trend + seasonal + cyclical + random
+
+# Vytvoření data frame
+data <- data.frame(
+  cas = time,
+  trend = trend,
+  sezonni = seasonal,
+  cyklicka = cyclical,
+  nahodna = random,
+  celkova = timeseries
+)
+
+# Grafy jednotlivých složek
+p1 <- ggplot(data, aes(x = cas, y = celkova)) +
+  geom_line(color = "darkblue", size = 0.7) +
+  labs(title = "Celková časová řada", x = "Čas", y = "Hodnota") +
+  theme_minimal()
+
+p2 <- ggplot(data, aes(x = cas, y = trend)) +
+  geom_line(color = "red", size = 0.7) +
+  labs(title = "Trendová složka", x = "Čas", y = "Hodnota") +
+  theme_minimal()
+
+p3 <- ggplot(data, aes(x = cas, y = sezonni)) +
+  geom_line(color = "green", size = 0.7) +
+  labs(title = "Sezónní složka", x = "Čas", y = "Hodnota") +
+  theme_minimal()
+
+p4 <- ggplot(data, aes(x = cas, y = cyklicka)) +
+  geom_line(color = "purple", size = 0.7) +
+  labs(title = "Cyklická složka", x = "Čas", y = "Hodnota") +
+  theme_minimal()
+
+p5 <- ggplot(data, aes(x = cas, y = nahodna)) +
+  geom_line(color = "gray", size = 0.5, alpha = 0.7) +
+  labs(title = "Náhodná složka", x = "Čas", y = "Hodnota") +
+  theme_minimal()
+
+# Uspořádání grafů
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
+```
+
+:::{.callout-note}
+## Metodologická poznámka: Časové řady - základy a dekompozice
+
+**Časová řada** = Posloupnost pozorování $Y_t$ měřených v čase $t$
+
+### **Základní model dekompozice:**
+
+**Aditivní model:**
+$$Y_t = T_t + S_t + C_t + I_t$$
+
+**Multiplikativní model:**
+$$Y_t = T_t \times S_t \times C_t \times I_t$$
+
+kde:
+- $T_t$ = Trend (dlouhodobý směr)
+- $S_t$ = Sezónnost (pravidelné vzorce)
+- $C_t$ = Cyklus (nepravidelné oscilace)
+- $I_t$ = Náhodná složka (šum)
+
+### **Kdy použít který model:**
+
+| Scénář | Model | Proč? |
+|--------|-------|-------|
+| Velikost sezónnosti **konstantní** | Aditivní | $S_t$ se nemění s úrovní $T_t$ |
+| Velikost sezónnosti **roste** s trendem | Multiplikativní | $S_t \propto T_t$ |
+
+**Zlaté pravidlo**: Vždy začněte vizualizací časové řady a identifikací jejích komponent před výběrem modelu!
+:::
+
 ## Závěr
 
-Časové řady jsou mocným nástrojem v analýze dat, který nám pomáhá lépe porozumět, modelovat a předpovídat dynamiku změn v čase. Správné pochopení dělení časových řad je klíčové pro jakoukoliv hlubší analýzu a aplikaci těchto znalostí v praxi. 
-
-Pokud máte jakékoliv otázky nebo si přejete další příklady, neváhejte se na mě obrátit!
+Časové řady jsou klíčovým nástrojem pro analýzu dat měnících se v čase. Pochopení jejich struktury a dělení podle typu pozorování, frekvence vzorkování a jednotlivých složek (trend, sezónnost, cykly, náhodnost) je zásadní pro správnou analýzu a předpovídání budoucích hodnot. Každá složka časové řady nese důležitou informaci o povaze sledovaného jevu a její identifikace umožňuje výběr vhodných analytických metod.
 

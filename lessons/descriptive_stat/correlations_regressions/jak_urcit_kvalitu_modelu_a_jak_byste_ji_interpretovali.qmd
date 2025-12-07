@@ -1,5 +1,6 @@
 ---
 title: "Jak určit kvalitu regresního modelu a jak jí interpretovat"
+order: 55
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Jak určit kvalitu modelu a jak byste ji interpretovali?
+## Úvod
 
 Kvalita statistického modelu je klíčová pro pochopení a předpovídání chování dat, což je důležité v mnoha oblastech života, od ekonomie po biologii. V této chvíli se zaměříme na to, jak můžeme určit, zda náš model dobře popisuje data, a jak můžeme kvalitu modelu interpretovat. Použijeme různé metriky a metody k určení kvality modelu a poskytneme příklady, které pomohou tomu porozumět lépe.
 
@@ -24,17 +24,159 @@ Kvalita statistického modelu je klíčová pro pochopení a předpovídání ch
 
 Existuje několik klíčových metrik, které se často používají k hodnocení kvality modelu. Mezi ty nejdůležitější patří:
 
-1. **R-squared (R^2):**
-   
+1. **R-squared ($R^2$):**
+
    R-squared je metrika, která říká, jak dobře údaje odpovídají modelu. Hodnoty se pohybují od 0 do 1, kde hodnoty blížící se 1 naznačují dobré přizpůsobení modelu k datům. R-squared nám poskytuje procento variability, které může být vysvětleno modelovými prediktory.
 
+```{r}
+#| label: fig-r-squared
+#| fig-cap: "Vizualizace R-squared: modely s různou kvalitou přizpůsobení"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+set.seed(123)
+
+# Model 1: Vysoký R-squared (dobrý model)
+x1 <- seq(1, 100, length.out = 100)
+y1 <- 2 * x1 + 50 + rnorm(100, 0, 15)
+model1 <- lm(y1 ~ x1)
+r2_1 <- summary(model1)$r.squared
+rmse_1 <- sqrt(mean(residuals(model1)^2))
+
+data1 <- data.frame(x = x1, y = y1, pred = fitted(model1))
+
+p1 <- ggplot(data1, aes(x = x, y = y)) +
+  geom_point(color = "steelblue", alpha = 0.6) +
+  geom_line(aes(y = pred), color = "red", size = 1) +
+  labs(
+    title = sprintf("Vysoký R² = %.3f (dobrý model)", r2_1),
+    subtitle = sprintf("RMSE = %.2f", rmse_1),
+    x = "Predik tor X",
+    y = "Odezva Y"
+  ) +
+  theme_minimal()
+
+# Model 2: Střední R-squared
+x2 <- seq(1, 100, length.out = 100)
+y2 <- 1.5 * x2 + 30 + rnorm(100, 0, 40)
+model2 <- lm(y2 ~ x2)
+r2_2 <- summary(model2)$r.squared
+rmse_2 <- sqrt(mean(residuals(model2)^2))
+
+data2 <- data.frame(x = x2, y = y2, pred = fitted(model2))
+
+p2 <- ggplot(data2, aes(x = x, y = y)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +
+  geom_line(aes(y = pred), color = "red", size = 1) +
+  labs(
+    title = sprintf("Střední R² = %.3f", r2_2),
+    subtitle = sprintf("RMSE = %.2f", rmse_2),
+    x = "Prediktor X",
+    y = "Odezva Y"
+  ) +
+  theme_minimal()
+
+# Model 3: Nízký R-squared (špatný model)
+x3 <- seq(1, 100, length.out = 100)
+y3 <- 0.5 * x3 + 100 + rnorm(100, 0, 70)
+model3 <- lm(y3 ~ x3)
+r2_3 <- summary(model3)$r.squared
+rmse_3 <- sqrt(mean(residuals(model3)^2))
+
+data3 <- data.frame(x = x3, y = y3, pred = fitted(model3))
+
+p3 <- ggplot(data3, aes(x = x, y = y)) +
+  geom_point(color = "darkred", alpha = 0.6) +
+  geom_line(aes(y = pred), color = "red", size = 1) +
+  labs(
+    title = sprintf("Nízký R² = %.3f (špatný model)", r2_3),
+    subtitle = sprintf("RMSE = %.2f", rmse_3),
+    x = "Prediktor X",
+    y = "Odezva Y"
+  ) +
+  theme_minimal()
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+```
+
 2. **Root Mean Squared Error (RMSE):**
-   
+
    RMSE je standardní odchylka reziduí (chyb předpovědi). Čím nižší je hodnota RMSE, tím lepší je model. RMSE nám říká, jak daleko naše modelové predikce průměrně leží od skutečných hodnot.
 
+```{r}
+#| label: fig-residuals
+#| fig-cap: "Vizualizace reziduí a chyb predikce"
+#| warning: false
+
+# Použití dat z prvního modelu (dobrý model)
+data1$residuals <- residuals(model1)
+
+p_res1 <- ggplot(data1, aes(x = pred, y = residuals)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_point(color = "steelblue", alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "darkblue") +
+  labs(
+    title = "Rezidua dobrého modelu",
+    subtitle = "Rezidua náhodně rozptýlená kolem nuly",
+    x = "Predikované hodnoty",
+    y = "Rezidua"
+  ) +
+  theme_minimal()
+
+# Použití dat ze třetího modelu (špatný model)
+data3$residuals <- residuals(model3)
+
+p_res2 <- ggplot(data3, aes(x = pred, y = residuals)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_point(color = "darkred", alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "darkblue") +
+  labs(
+    title = "Rezidua špatného modelu",
+    subtitle = "Větší rozptyl reziduí",
+    x = "Predikované hodnoty",
+    y = "Rezidua"
+  ) +
+  theme_minimal()
+
+gridExtra::grid.arrange(p_res1, p_res2, ncol = 2)
+```
+
 3. **Mean Absolute Error (MAE):**
-   
-   MAE je průměr absolutních chyb. Je to průměrná velikost chyb v našem modelu, bez ohledu na směr.
+
+MAE je průměr absolutních chyb. Je to průměrná velikost chyb v našem modelu, bez ohledu na směr.
+
+:::{.callout-important}
+## Metodologické doporučení: R² není všechno!
+
+$R^2$ je nejoblíbenější metrika, ale má závažná omezení:
+
+**1. R² může být zavádějící**:
+
+- Vysoký $R^2$ neznamená nutně dobrý model (může být overfitting)
+- Nízký $R^2$ nemusí znamenat špatný model (v některých oborech je normální)
+- $R^2$ automaticky roste s přidáním prediktorů → použijte adjusted $R^2$
+
+**2. Jaký $R^2$ je "dobrý"?** Závisí na oboru:
+
+- Fyzika/chemie: očekáváme $R^2$ > 0.9
+- Sociální vědy: $R^2$ = 0.3-0.5 je běžné
+- Psychologie: $R^2$ = 0.1-0.3 může být uspokojivé
+- Nikdy nepoužívejte univerzální "cut-off"!
+
+**3. Vždy kontrolujte rezidua**:
+
+- Rezidua by měla být náhodně rozptýlená (žádný vzor)
+- Q-Q plot pro normalitu reziduí
+- Plot reziduí vs fitted values pro homoskedasticitu
+
+**4. RMSE vs MAE**:
+- **RMSE**: penalizuje velké chyby více (čtverce), citlivější na outliers
+- **MAE**: robustnější, lepší interpretace ("průměrná chyba v původních jednotkách")
+
+**Doporučení**: Reportujte alespoň $R^2$ + RMSE + kontrolu reziduí. Nikdy nespoléhejte jen na jedno číslo!
+:::
 
 4. **Adjusted R-squared:**
    
@@ -61,4 +203,10 @@ V oblasti dopravy můžete mít model, který odhaduje dobu doručení zásilky 
 ## Závěr
 
 Hodnocení kvality modelu je zásadním krokem pro pochopení toho, jak dobře váš model funguje a jaké jsou jeho slabosti. Použití různých metrik vám pomůže získat komplexní pohled na model a umožní vám jej dále zdokonalovat. Pochopení těchto konceptů vám umožní aplikovat je na reálné problémy v různých oborech. Každá metrika má své výhody a omezení, proto je důležité používat je v kombinaci a v kontextu problému, který řešíte.
+
+## Viz také
+
+- [Jak vypadá rovnice regrese](jak_vypada_rovnice_nejjednodussi_regrese_a_jak_nazyvame_jednotlive_cleny_rovnice.qmd) - regresní model
+- [Jak porovnáváme několik regresních modelů](../../../inferential_statistics/jak_porovnavame_nekolik_regresnich_modelu_s_vice_prediktory.qmd) - srovnání modelů
+- [Co to je normalita reziduí](../../../inferential_statistics/co_to_je_normalita_rezidui_u_regrese_jak_to_pozname.qmd) - diagnostika modelu
 

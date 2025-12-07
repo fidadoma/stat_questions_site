@@ -13,13 +13,12 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Co je to DAG?
+## Úvod
 
-DAG je zkratka pro Directed Acyclic Graph, což v překladu znamená orientovaný acyklický graf. Tento koncept je klíčový v různých oblastech informatiky a matematiky, zejména ve statistice, počítačové vědě a teorií grafů.
+DAG je zkratka pro Directed Acyclic Graph, což v překladu znamená orientovaný acyklický graf. Tento koncept je klíčový v různých oblastech informatiky a matematiky, zejména ve statistice, kauzální inferenci a teorii grafů.
 
 ## Základní pojmy
 
@@ -52,7 +51,69 @@ V počítačové vědě se DAG často používá ke znázornění a řešení pr
 
 V teorii grafů DAGy pomáhají při hledání topologického uspořádání - to je seznam nebo pořadí, ve kterém se uzly mohou navštívit, takovým způsobem, že pro každou orientovanou hranu (uv, uw) uzel u přichází před uveve. Tím se zajišťuje, že všechny závislosti jsou splněny, ještě než se daný prvek zpracovává.
 
-## Shrnutí
+## Vizualizace DAG
 
-DAG je vynikajícím nástrojem pro zobrazení a analýzu závislostí mezi daty v mnoha oblastech - od projektového managementu po počítačovou vědu. Jeho vlastnosti orientovanosti a acykličnosti ho činí ideálním pro modelování procesů, daných situací a strukturálních vztahů v mnoha reálných scénářích.
+Pro lepší pochopení si ukážeme příklad jednoduchého DAGu reprezentujícího kauzální vztahy:
+
+```{r}
+#| label: fig-dag
+#| fig-cap: "Příklad jednoduchého DAGu s kauzálními vztahy"
+#| warning: false
+
+library(ggplot2)
+
+# Vytvoření jednoduchého DAGu pomocí uzlů a šipek
+nodes <- data.frame(
+  name = c("Socio-ekonomické\nzázemí", "Vzdělání", "Příjem", "Zdraví"),
+  x = c(0, 1, 3, 2),
+  y = c(2, 1, 1, 2.5)
+)
+
+edges <- data.frame(
+  from_x = c(0, 0, 1, 1, 3),
+  from_y = c(2, 2, 1, 1, 1),
+  to_x = c(1, 2, 3, 2, 2),
+  to_y = c(1, 2.5, 1, 2.5, 2.5)
+)
+
+# Vizualizace
+ggplot() +
+  # Šipky (hrany)
+  geom_segment(data = edges,
+               aes(x = from_x, y = from_y, xend = to_x, yend = to_y),
+               arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+               color = "darkblue", size = 1) +
+  # Uzly
+  geom_point(data = nodes, aes(x = x, y = y),
+             size = 18, color = "steelblue", alpha = 0.7) +
+  # Popisky uzlů
+  geom_text(data = nodes, aes(x = x, y = y, label = name),
+            color = "white", size = 3.5, fontface = "bold") +
+  labs(title = "Příklad DAGu: Kauzální vztahy mezi proměnnými",
+       subtitle = "Šipky indikují směr kauzálního vlivu") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5)) +
+  coord_fixed()
+```
+
+V tomto příkladu vidíme:
+
+- **Orientované hrany**: Šipky ukazují směr kauzálního vlivu (např. Vzdělání → Příjem)
+- **Acykličnost**: Neexistuje cesta, která by vedla z uzlu zpět do sebe sama
+- **Kauzální vztahy**: DAG jasně znázorňuje, jak různé faktory ovlivňují jiné
+- **Společný předek**: Socio-ekonomické zázemí ovlivňuje jak vzdělání, tak zdraví
+
+## Význam DAG v kauzální inferenci
+
+V kauzální inferenci jsou DAGy klíčovým nástrojem pro:
+- Identifikaci možných zdrojů zkreslení (confounding)
+- Určení, které proměnné je nutné kontrolovat
+- Vizualizaci předpokladů o kauzálních vztazích
+- Analýzu cest, kterými může působit kauzální vliv
+
+
+## Závěr
+
+DAG je mocným nástrojem pro zobrazení a analýzu závislostí mezi proměnnými. Jeho vlastnosti orientovanosti a acykličnosti ho činí ideálním pro modelování kauzálních vztahů, projektových závislostí a strukturálních vztahů v mnoha reálných scénářích. V kontextu kauzální inference umožňuje DAG systematický přístup k identifikaci a řešení problémů spojených s odvozováním kauzálních závěrů z pozorovaných dat.
 

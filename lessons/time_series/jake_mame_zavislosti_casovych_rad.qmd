@@ -13,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Úvod do časových řad
+## Úvod
 
 Časová řada je posloupnost datových bodů uspořádaných v časovém pořadí. Často se používá ke sledování vývoje nějakého jevu v průběhu času. Mezi běžné příklady časových řad patří:
 
@@ -74,10 +73,26 @@ Vysledování závislostí v časových řadách je klíčové pro:
 - **Ekonomickou analýzu**: Predikce hospodářských cyklů a jejich příležitostí.
 - **Optimalizaci zásobování a výroby**: Lepší plánování na základě sezónních poptávek.
 
+:::{.callout-tip}
+## Metodologická poznámka: ACF a PACF - identifikace závislostí
+
+**Autokorelace (ACF):**
+$$\rho_k = \frac{\text{Cov}(Y_t, Y_{t-k})}{\text{Var}(Y_t)}$$
+
+**Interpretace:**
+
+| Pattern | ACF | PACF | Model |
+|---------|-----|------|-------|
+| **AR(p)** | Postupný pokles | Cut-off po lagu p | ARIMA(p,0,0) |
+| **MA(q)** | Cut-off po lagu q | Postupný pokles | ARIMA(0,0,q) |
+| **ARMA(p,q)** | Postupný pokles | Postupný pokles | ARIMA(p,0,q) |
+
+**Zlaté pravidlo**: Pokud ACF neklesá → data nejsou stacionární, použijte differencing!
+:::
+
 # Shrnutí
 
 Pochopení závislostí v časových řadách je klíčové pro správnou interpretaci dat a jejich následnou analýzu. Rozpoznání trendů, sezónnosti a autokorelace umožňuje lépe předpovídat budoucí hodnoty a rozhodovat se na základě těchto informací.
 
 Pokud si tyto koncepty dokážete představit ve skutečném životě, usnadní vám to analýzu a interpretaci časových řad ve vaší budoucí kariéře.
-
 

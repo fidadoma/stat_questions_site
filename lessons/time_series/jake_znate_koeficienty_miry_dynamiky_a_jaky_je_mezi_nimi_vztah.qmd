@@ -1,5 +1,6 @@
 ---
 title: "Koeficienty míry dynamiky a jejich vztahy"
+order: 20
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,7 +13,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -25,7 +25,7 @@ Statistika je disciplína, která se zabývá sběrem, analýzou, interpretací 
 Existují tři hlavní koeficienty, které se běžně používají k vyjádření dynamiky jevu:
 
 1. **Absolutní přírůstek (nikdy neříkáme přírůstek)**
-2. **Procentní přírůstek**
+2. **Procentní přírůstek (relativní přírůstek)**
 3. **Koeficient růstu**
 
 Pojďme si je vysvětlit jeden po druhém a přidat si k nim příklady, které si lze snadno představit.
@@ -95,9 +95,32 @@ Tyto koeficienty nám poskytují různé způsoby, jak nahlížet na změny a dy
 ### Užitečnost v každodenním životě
 
 Aplikace těchto koeficientů mohou být vidět v mnoha oblastech našeho života. Například:
+
 - **Ekonomika:** Zkoumání inflace, růstu HDP nebo změn cen.
 - **Demografie:** Analýza porodnosti, úmrtnosti nebo migračních trendů.
 - **Obchod:** Určení růstu prodejů, zisku nebo změn na trhu.
+
+:::{.callout-note}
+## Metodologická poznámka: Míry dynamiky - vzorce a vztahy
+
+**3 základní míry:**
+
+| Míra | Vzorec | Význam |
+|------|--------|--------|
+| **Absolutní přírůstek** | $\Delta_t = Y_t - Y_{t-1}$ | O kolik se změnilo |
+| **Tempo růstu** | $K_t = \frac{Y_t}{Y_{t-1}}$ | Kolikrát více |
+| **Tempo přírůstku** | $T_t = K_t - 1 = \frac{\Delta_t}{Y_{t-1}}$ | Relativní změna |
+
+**Vztahy:**
+
+$$T_t = K_t - 1$$
+$$K_t = 1 + T_t$$
+
+**Procenta:**
+$$T_t\% = (K_t - 1) \times 100\%$$
+
+**Zlaté pravidlo**: Tempo růstu pro multiplikativní změny, přírůstek pro aditivní změny!
+:::
 
 Studium těchto měr dynamiky může poskytnout důležité poznatky pro obchodní a politická rozhodnutí, stejně jako pro osobní plánování. Nejde tedy jen o teoretické koncepty, ale o praktické nástroje pro analýzu vývoje ve všech oblastech lidského konání.
 

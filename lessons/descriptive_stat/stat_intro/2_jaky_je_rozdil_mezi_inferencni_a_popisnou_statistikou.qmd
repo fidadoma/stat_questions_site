@@ -14,7 +14,6 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
@@ -36,9 +35,9 @@ Popisná statistika se zabývá souhrnem a popisem základních vlastností dat.
 
 ### Používané techniky
 
-- **Měřítka centrální tendence:** průměr, medián, modus
-- **Měřítka rozptylu:** rozptyl, směrodatná odchylka, interkvartilové rozpětí
-- **Vizualizace dat:** histogramy, sloupcové grafy, krabicové grafy
+- **Měřítka centrální tendence:** [průměr, medián, modus](../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd)
+- **Měřítka rozptylu:** [rozptyl, směrodatná odchylka, interkvartilové rozpětí](../basic_statistics/jake_jsou_charakteristiky_variability.qmd)
+- **Vizualizace dat:** [histogramy](../visualizations/jak_z_histogramu_pozname_vlastnosti_dat.qmd), sloupcové grafy, [krabicové grafy](../visualizations/ktere_deskriptivni_statistiky_obsahuje_krabicovy_graf.qmd)
 
 ## Inferenční statistika
 
@@ -54,9 +53,9 @@ Inferenční statistika jde nad rámec jednoduchého popisu dat tím, že vytvá
 
 ### Používané techniky
 
-- **Odhad intervalů:** konfidenční intervaly, intervaly spolehlivosti
-- **Testování hypotéz:** testy významnosti (např. t-test, ANOVA)
-- **Regresní analýza:** lineární regresní modely pro predikci
+- **Odhad intervalů:** [konfidenční intervaly](../../inferential_statistics/k_cemu_slouzi_intervalovy_odhad.qmd), intervaly spolehlivosti
+- **Testování hypotéz:** [testy významnosti](../../inferential_statistics/k_cemu_slouzi_testovani_hypotez.qmd) (např. [t-test](../../inferential_statistics/jak_funguje_jednovyberovy_ttest.qmd), ANOVA)
+- **Regresní analýza:** [lineární regresní modely](../correlations_regressions/jak_vypada_rovnice_nejjednodussi_regrese_a_jak_nazyvame_jednotlive_cleny_rovnice.qmd) pro predikci
 
 ## Hlavní rozdíly
 
@@ -64,7 +63,26 @@ Inferenční statistika jde nad rámec jednoduchého popisu dat tím, že vytvá
 - **Rozsah:** Popisná statistika pracuje s celou sadou dat, inferenční statistika pracuje s jejich vzorkem.
 - **Techniky:** Popisná statistika používá techniky jako průměr a rozptyl, zatímco inferenční statistika využívá testování hypotéz a odhadování intervalů.
 
+:::{.callout-tip}
+## Metodologické doporučení: Vždy začněte popisnou statistikou
+
+V praxi analytické práce vždy dodržujte tento postup:
+
+1. **Nejdříve popisná statistika**: Spočítejte základní charakteristiky (průměr, medián, rozptyl), vytvořte grafy, podívejte se na rozdělení dat.
+2. **Kontrola předpokladů**: Zkontrolujte, zda data splňují předpoklady pro inferenční testy (normalita, homogenita rozptylů, outliers).
+3. **Teprve pak inferenční statistika**: Po pochopení dat aplikujte testy hypotéz nebo intervalové odhady.
+
+Mnoho chyb v analýze pramení z toho, že lidé přeskočí krok 1 a rovnou aplikují složité testy na data, která neznají. Např. t-test na silně zešikmených datech s outliery může vést k nesprávným závěrům.
+:::
+
 ## Závěr
 
 Popisná a inferenční statistika jsou oba klíčové aspekty statistické analýzy, přičemž každý má své specifické využití a techniky. Popisná statistika je skvělá pro shrnutí a popis vašich dat, zatímco inferenční statistika vám umožňuje dělat predikce a závěry pro větší populaci. Pochopení obou typů statistiky je zásadní pro analýzu dat a rozhodování založené na datech.
+
+## Viz také
+
+- [Rozdíl mezi populací a vzorkem](1_jaky_je_rozdil_mezi_populaci_a_vzorkem.qmd) - základní koncepty pro inferenci
+- [Vztah mezi pravděpodobností a inferenční statistikou](3_jaky_je_vztah_mezi_pravdepodobnosti_a_inferencni_statistikou.qmd) - teoretický základ inferenční statistiky
+- [Jaké znáte charakteristiky středu](../basic_statistics/jake_znate_charakteristiky_stredu_a_jake_jsou_mezi_nimi_rozdily.qmd) - základní nástroje popisné statistiky
+- [K čemu slouží testování hypotéz](../../inferential_statistics/k_cemu_slouzi_testovani_hypotez.qmd) - hlavní nástroj inferenční statistiky
 

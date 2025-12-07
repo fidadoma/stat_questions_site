@@ -13,14 +13,12 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Studijní materiál: Druhy četnosti ve statistice
+# Úvod
 
-V tomto materiálu se podíváme na různé druhy četnosti, které se používají ve statistice, a prozkoumáme jejich aplikace v reálných situacích. Pochopení těchto konceptů je klíčové pro analýzu dat a interpretaci statistických výsledků.
-
+V tomto materiálu se podíváme na různé druhy četnosti, které se používají ve statistice.
 ## Základní pojmy
 
 ### Co je četnost?
@@ -39,12 +37,19 @@ V tomto materiálu se podíváme na různé druhy četnosti, které se používa
 Absolutní četnost vyjadřuje počet výskytů konkrétní hodnoty nebo kategorie v datovém souboru. 
 
 #### Příklad:
-Pokud ve třídě máme záznamy o tom, kolik studentů preferuje různé sporty, absolutní četnost nám ukáže, kolik studentů volilo každý daný sport. Například, pokud:
-- 10 studentů preferuje fotbal,
-- 8 studentů preferuje basketbal,
-- 5 studentů preferuje tenis.
 
-Pak absolutní četnost pro fotbal je 10, pro basketbal 8 a pro tenis 5.
+Uvažujme dotazník, ve kterém studenti hodnotí svou spokojenost s kurzem na škále 1–5:
+
+- 4 studenti zvolili úroveň **1** (velmi nespokojen),
+- 6 studentů zvolilo úroveň **2** (spíše nespokojen),
+- 8 studentů zvolilo úroveň **3** (ani spokojen, ani nespokojen),
+- 3 studenti zvolili úroveň **4** (spíše spokojen),
+- 2 studenti zvolili úroveň **5** (velmi spokojen).
+
+Pak například absolutní četnost pro úroveň spokojenosti 3 je:
+
+
+$$ f_3 = 8 $$
 
 ### 2. Relativní četnost (r)
 
@@ -60,46 +65,183 @@ Kde:
 - N je celkový počet pozorování.
 
 #### Příklad:
-Pokud máme ve třídě 23 studentů a známe absolutní četnosti pro sporty, relativní četnost pro fotbal je:
+Pokud máme celkem *N = 23* studentů a známe absolutní četnosti pro jednotlivé úrovně spokojenosti, relativní četnost pro úroveň 3 je:
 
 $$
-r_{\text{fotbal}} = \frac{10}{23} \approx 0.435
+r_3 = \frac{8}{23} \approx 0{,}348
 $$
 
-To znamená, že přibližně 43,5 % studentů preferuje fotbal.
+To znamená, že přibližně 34,8 % studentů zvolilo úroveň spokojenosti 3.
 
 ### 3. Kumulativní četnost (cf)
 
 Kumulativní četnost do dané hodnoty je součet absolutních četností pro tuto hodnotu a všechny menší hodnoty. Pomáhá zjistit, kolik pozorování má hodnotu nižší nebo rovnu dané hodnotě.
 
 #### Příklad:
-Pokračujme s preferencemi sportů. Kumulativní četnost pro basketbal (předpokládejme pořadí preferencí: fotbal, basketbal, tenis) by byla:
+
+Použijme opět spokojenost na škále 1–5. Kumulativní četnost pro úroveň **3** je:
 
 $$
-cf_{\text{basketbal}} = f_{\text{fotbal}} + f_{\text{basketbal}} = 10 + 8 = 18
+cf_3 = f_1 + f_2 + f_3 = 4 + 6 + 8 = 18
 $$
 
-To znamená, že 18 studentů preferuje buď fotbal, nebo basketbal.
+To znamená, že 18 studentů uvedlo spokojenost na úrovni 3 nebo nižší.
 
 ### 4. Kumulativní relativní četnost (cr)
 
 Podobně jako kumulativní četnost, kumulativní relativní četnost je součtem relativních četností do dané hodnoty. Udává poměr pozorování s hodnotami menšími nebo rovnými dané hodnotě k celkovému počtu pozorování.
 
 #### Příklad:
-Kumulativní relativní četnost pro basketbal bude:
+
+Kumulativní relativní četnost pro úroveň spokojenosti 3 je:
 
 $$
-cr_{\text{basketbal}} = r_{\text{fotbal}} + r_{\text{basketbal}} \approx 0.435 + 0.348 = 0.783
+cr_3 = r_1 + r_2 + r_3 \approx 0{,}174 + 0{,}261 + 0{,}348 = 0{,}783
 $$
 
-To znamená, že přibližně 78,3 % studentů preferuje buď fotbal, nebo basketbal.
+To znamená, že přibližně 78,3 % studentů uvedlo spokojenost na úrovni 3 nebo nižší.
 
-## Kdy použít jednotlivé druhy četnosti?
+## Vizualizace četností
 
-- **Absolutní četnost** je vhodná, když chceme znát prostý počet výskytů určité hodnoty.
-- **Relativní četnost** je užitečná pro vyjádření četnosti jako podílu na celku, což je zvláště vhodné, když chceme srovnávat různé datové soubory různé velikosti.
-- **Kumulativní četnost** je vhodná pro analýzu hranic, např. při určování mediánu nebo percentilů.
-- **Kumulativní relativní četnost** je dobrá pro pochopení, jaká část dat spadá pod určitou hodnotu.
+```{r}
+#| label: fig-frequency-types
+#| fig-cap: "Čtyři typy četností"
+#| warning: false
+#| fig-height: 12
+
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+
+# Data ze příkladu - spokojenost studentů
+data <- data.frame(
+  uroven = 1:5,
+  abs_cetnost = c(4, 6, 8, 3, 2)
+)
+
+# Vypočítat další typy četností
+n_total <- sum(data$abs_cetnost)
+data <- data %>%
+  mutate(
+    rel_cetnost = abs_cetnost / n_total,
+    kum_cetnost = cumsum(abs_cetnost),
+    kum_rel_cetnost = cumsum(rel_cetnost)
+  )
+
+# Graf 1: Absolutní četnost
+p1 <- ggplot(data, aes(x = factor(uroven), y = abs_cetnost)) +
+  geom_col(fill = "steelblue", alpha = 0.8) +
+  geom_text(aes(label = abs_cetnost), vjust = -0.5,
+            fontface = "bold", size = 5) +
+  labs(
+    title = "1. Absolutní četnost (f)",
+    subtitle = "Počet studentů pro každou úroveň spokojenosti",
+    x = "Úroveň spokojenosti",
+    y = "Počet studentů"
+  ) +
+  ylim(0, 10) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# Graf 2: Relativní četnost
+p2 <- ggplot(data, aes(x = factor(uroven), y = rel_cetnost)) +
+  geom_col(fill = "#E67E22", alpha = 0.8) +
+  geom_text(aes(label = sprintf("%.1f%%", rel_cetnost * 100)),
+            vjust = -0.5, fontface = "bold", size = 5) +
+  labs(
+    title = "2. Relativní četnost (r)",
+    subtitle = sprintf("Podíl z celkového počtu (N = %d)", n_total),
+    x = "Úroveň spokojenosti",
+    y = "Relativní četnost"
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  ylim(0, 0.4) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# Graf 3: Kumulativní četnost
+p3 <- ggplot(data, aes(x = factor(uroven), y = kum_cetnost)) +
+  geom_col(fill = "#2ECC71", alpha = 0.8) +
+  geom_text(aes(label = kum_cetnost), vjust = -0.5,
+            fontface = "bold", size = 5) +
+  geom_step(aes(x = as.numeric(uroven), y = kum_cetnost),
+            color = "#27AE60", size = 1.5, direction = "hv") +
+  labs(
+    title = "3. Kumulativní četnost (cf)",
+    subtitle = "Kolik studentů má spokojenost ≤ dané úrovni",
+    x = "Úroveň spokojenosti",
+    y = "Kumulativní počet"
+  ) +
+  ylim(0, 25) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+# Graf 4: Kumulativní relativní četnost
+p4 <- ggplot(data, aes(x = factor(uroven), y = kum_rel_cetnost)) +
+  geom_col(fill = "#9B59B6", alpha = 0.8) +
+  geom_text(aes(label = sprintf("%.1f%%", kum_rel_cetnost * 100)),
+            vjust = -0.5, fontface = "bold", size = 5) +
+  geom_step(aes(x = as.numeric(uroven), y = kum_rel_cetnost),
+            color = "#8E44AD", size = 1.5, direction = "hv") +
+  labs(
+    title = "4. Kumulativní relativní četnost (cr)",
+    subtitle = "Jaká % studentů má spokojenost ≤ dané úrovni",
+    x = "Úroveň spokojenosti",
+    y = "Kumulativní podíl"
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  ylim(0, 1.1) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+gridExtra::grid.arrange(p1, p2, p3, p4, ncol = 1)
+```
+
+```{r}
+#| label: tbl-frequency-summary
+#| tbl-cap: "Přehled všech typů četností"
+#| warning: false
+
+library(knitr)
+
+# Vytvoření tabulky se všemi četnostmi
+table_data <- data.frame(
+  "Úroveň" = data$uroven,
+  "Abs. četnost (f)" = data$abs_cetnost,
+  "Rel. četnost (r)" = sprintf("%.3f (%.1f%%)", data$rel_cetnost, data$rel_cetnost * 100),
+  "Kum. četnost (cf)" = data$kum_cetnost,
+  "Kum. rel. četnost (cr)" = sprintf("%.3f (%.1f%%)",
+                                      data$kum_rel_cetnost, data$kum_rel_cetnost * 100),
+  check.names = FALSE
+)
+
+kable(table_data, align = "c")
+```
+
+:::{.callout-tip}
+## Metodologická poznámka: Kdy použít jakou četnost v praxi
+
+**Absolutní četnost** - pro komunikaci s širokou veřejností:
+- "50 studentů složilo zkoušku" je srozumitelnější než "50 %"
+- Vždy reportujte i celkový počet pozorování (N=100)
+
+**Relativní četnost** - pro porovnání skupin různých velikostí:
+- Nelze porovnat "30 studentů úspěšných v třídě A" s "25 úspěšných v třídě B", pokud neznáme velikosti tříd
+- Ale můžeme porovnat "75 % úspěšných v A" vs "83 % úspěšných v B"
+
+**Kumulativní četnost** - pro určení pozice v rozdělení:
+- "85 % studentů má horší výsledek než ty" (85. percentil)
+- Užitečné pro identifikaci mediánu (50% kumulativní četnost)
+- Důležité pro konstrukci Q-Q grafů
+
+**Doporučení**: V tabulkách reportujte alespoň absolutní + relativní četnost současně, např. "35 (70%)" - poskytuje kontext i možnost porovnání.
+:::
 
 
+## Viz také
+
+- [Jak dělíme statistické proměnné](../../stat_intro/4_jak_delime_statisticke_promenne.qmd) - typy proměnných pro četnosti
+- [Co nám popisuje kontingenční tabulka](../../contingency_tables/co_nam_popisuje_kontingencni_tabulka.qmd) - četnosti pro dvě proměnné
+- [Jaké jsou možnosti vizualizací](../../visualizations/jake_jsou_moznosti_vizualizaci_pro_kvalitativni_a_kvantitativni_promennou.qmd) - grafy četností
+- [Co to je χ² rozdělení](../../../inferential_statistics/co_to_je_2_rozdeleni_a_k_cemu_ho_pouzivame.qmd) - testování četností
 

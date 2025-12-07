@@ -1,5 +1,6 @@
 ---
-title: "Studijní materiál: Anscombeho kvartet"
+title: "Co to je Anscombeho kvartet"
+order: 90
 author: Filip Děchtěrenko
 date: 2025-09-20
 date-modified: last-modified
@@ -12,11 +13,10 @@ format:
     toc: true
     code-fold: true
     code-summary: "Zobrazit kód"
-    embed-resources: true
 editor: source
 ---
 
-# Anscombeho kvartet
+## Úvod
 
 Anscombeho kvartet je skupina čtyř různých dvourozměrných datových sad, které mají téměř identické základní statistické vlastnosti, přestože se jejich grafy výrazně liší. Tento kvartet demonstruje důležitost vizuální prohlídky dat před tím, než se spolehneme pouze na statistické ukazatele. Anscombeho kvartet byl poprvé představen britským statistikem Francisem Anscombem v roce 1973.
 
@@ -27,8 +27,8 @@ Kvartet nám připomíná, že statistické analýzy by neměly být vykonáván
 - Průměr x hodnot (9)
 - Průměr y hodnot (7.5)
 - Rozptyl x hodnot (11)
-- Rozptyl y hodnot (4.125)
-- Korelační koeficient mezi x a y (0.816)
+- Rozptyl y hodnot (4,125)
+- Korelační koeficient mezi x a y (0,816)
 
 Nicméně, pokud se podíváme na grafy těchto datových sad, zjistíme, že jsou značně odlišné.
 
@@ -41,6 +41,95 @@ Pro lepší pochopení, jak tyto datové sady mohou vypadat odlišně na grafu, 
 - **Datová sada 3:** Data mají lineární vztah, ale jeden z bodů je výrazný outlier (hodně vyčnívá).
 - **Datová sada 4:** Data, kde většina bodů má stejnou x hodnotu a výrazně se liší jeden extrémní bod.
 
+```{r}
+#| label: fig-anscombe
+#| fig-cap: "Anscombeho kvartet: Čtyři datové sady s identickými statistikami, ale rozdílnými rozloženími"
+#| warning: false
+#| fig-height: 8
+
+library(ggplot2)
+library(gridExtra)
+
+# Anscombeho data jsou součástí R
+data(anscombe)
+
+# Příprava dat pro vizualizaci
+anscombe_long <- data.frame(
+  dataset = rep(1:4, each = 11),
+  x = c(anscombe$x1, anscombe$x2, anscombe$x3, anscombe$x4),
+  y = c(anscombe$y1, anscombe$y2, anscombe$y3, anscombe$y4)
+)
+
+# Výpočet statistik pro každou datovou sadu
+stats_text <- data.frame(
+  dataset = 1:4,
+  label = sapply(1:4, function(i) {
+    data_subset <- anscombe_long[anscombe_long$dataset == i, ]
+    cor_val <- cor(data_subset$x, data_subset$y)
+    mean_x <- mean(data_subset$x)
+    mean_y <- mean(data_subset$y)
+    paste0(
+      "r = ", round(cor_val, 3), "\n",
+      "x̄ = ", round(mean_x, 2), "\n",
+      "ȳ = ", round(mean_y, 2)
+    )
+  })
+)
+
+# Vytvoření grafů pro každou datovou sadu
+plots <- lapply(1:4, function(i) {
+  data_subset <- anscombe_long[anscombe_long$dataset == i, ]
+
+  ggplot(data_subset, aes(x = x, y = y)) +
+    geom_point(size = 3, color = "steelblue") +
+    geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed") +
+    labs(
+      title = paste0("Datová sada ", i),
+      x = "X",
+      y = "Y"
+    ) +
+    theme_minimal() +
+    theme(plot.title = element_text(face = "bold")) +
+    annotate("text", x = 5, y = 12,
+             label = stats_text$label[i],
+             hjust = 0, vjust = 1, size = 3.5, color = "darkblue",
+             fontface = "bold") +
+    coord_cartesian(xlim = c(4, 19), ylim = c(3, 13))
+})
+
+# Uspořádání grafů
+gridExtra::grid.arrange(
+  plots[[1]], plots[[2]], plots[[3]], plots[[4]],
+  ncol = 2,
+  top = "Všechny čtyři datové sady mají téměř identické statistiky!"
+)
+```
+
+### Shrnutí statistik
+
+Všimněte si, že všechny čtyři datové sady sdílejí následující vlastnosti:
+
+```{r}
+#| label: tbl-anscombe-stats
+#| tbl-cap: "Statistické vlastnosti všech čtyř datových sad"
+
+# Výpočet statistik
+stats_summary <- data.frame(
+  Charakteristika = c("Průměr X", "Průměr Y", "Rozptyl X", "Rozptyl Y",
+                     "Korelace", "Regresní přímka"),
+  Hodnota = c(
+    "9.0",
+    "7.5",
+    "11.0",
+    "4.1",
+    "0.816",
+    "y = 3.0 + 0.5x"
+  )
+)
+
+knitr::kable(stats_summary, align = c("l", "r"))
+```
+
 ## Příklady z běžného života
 
 1. **Finanční trhy:**
@@ -52,10 +141,49 @@ Pro lepší pochopení, jak tyto datové sady mohou vypadat odlišně na grafu, 
 3. **Výkon strojů:**
    - Při analýze produktivity výrobních linek, dvě linky mohou vykazovat podobnou průměrnou produktivitu a variabilitu, přestože jeden stroj může často selhávat, což by bylo patrné pouze z časové série.
 
+:::{.callout-tip}
+## Metodologická zásada: "Vždy vizualizujte před analýzou!"
+
+Anscombeho kvartet je klasickou ukázkou, proč **nikdy nedělejte statistickou analýzu bez vizualizace dat**:
+
+**Lekce z Anscombeho kvartetu**:
+
+1. **Datová sada 1** - Ideální případ: lineární vztah se šumem
+   - Zde je použití lineární regrese správné
+
+2. **Datová sada 2** - Nelineární vztah (parabola)
+   - Lineární korelace/regrese je nesprávná
+   - Potřebujeme polynomiální regresi nebo transformaci
+
+3. **Datová sada 3** - Outlier zkresluje výsledky
+   - Jeden bod dramaticky ovlivňuje regresní přímku
+   - Potřebujeme robustní metody nebo odstranit outlier
+
+4. **Datová sada 4** - Nevhodná dat struktura
+   - Většina bodů má stejnou X hodnotu
+   - Korelace je definována jen jedním bodem!
+
+**Moderní varianty**: "Datasaurus Dozen" (2017) - 13 datových sad s identickými statistikami, ale velmi různými tvary (dinosaurus, hvězda, kruhy...)
+
+**Praktický postup před každou analýzou**:
+1. Vytvořte scatter plot (nebo jiný relevantní graf)
+2. Zkontrolujte outliers, nelinearity, shluky
+3. Teprve pak spočítejte korelaci/regresi
+4. Znovu vizualizujte rezidua
+
+**Zapamatujte si**: Čísla lžou (nebo alespoň nedávají celý příběh). Grafy odhalují pravdu!
+:::
+
 ## Závěr
 
 Anscombeho kvartet je silný argument pro to, proč nikdy nespoléhat pouze na statistické souhrny dat. Vždy bychom měli doplňovat naše analýzy vizualizacemi. To nám umožňuje vidět nuance a struktury dat, které statistické čísla samy o sobě nemusí odhalit.
 
 Pokud máte někdy pochybnosti, zda jsou statistiky, které analyzujete, opravdu důvěryhodné, vzpomeňte si na Anscombeho kvartet a připomeňte si důležitost zobrazení vašich dat.
 
+## Viz také
+
+- [Jaké jsou základní možnosti vizualizace dvou proměnných](../../visualizations/jake_jsou_zakladni_moznosti_vizualizace_dvou_promennych.qmd) - scatter plots
+- [Co nám popisuje Pearsonův korelační koeficient](co_nam_popisuje_pearsonuv_korelacni_koeficient_a_kdy_se_pouziva.qmd) - kdy korelace klame
+- [Jak vypadá rovnice regrese](jak_vypada_rovnice_nejjednodussi_regrese_a_jak_nazyvame_jednotlive_cleny_rovnice.qmd) - lineární modely
+- [Jaké jsou možné vztahy mezi dvěma proměnnými](jake_jsou_mozne_vztahy_mezi_dvema_promennymi.qmd) - nelineární vztahy
 
