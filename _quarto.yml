@@ -11,6 +11,7 @@ project:
 
 website:
   title: "Otázky a odpovědi ze Statistiky"
+  bread-crumbs: true
   sidebar:
     style: floating
     search: true
@@ -138,8 +139,14 @@ website:
             contents:
               - lessons/causal_inference/co_to_je_berksonuv_paradox_a_jak_se_projevuje.qmd
               - lessons/causal_inference/co_to_je_regrese_k_prumeru.qmd
-
+  page-footer:
+    left: "© Filip Děchtěrenko"
+    right: "Zdroje na GitHubu"
+    
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: flatly
+      dark: darkly
     toc: true
+    toggle-theme: true
